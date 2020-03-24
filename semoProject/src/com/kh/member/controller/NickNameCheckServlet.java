@@ -10,19 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.member.model.service.MemberService;
-import com.kh.member.model.vo.Member;
 
 /**
- * Servlet implementation class IdfindServlet
+ * Servlet implementation class NickNameCheckServlet
  */
-@WebServlet("/idfind.me")
-public class IdfindServlet extends HttpServlet {
+@WebServlet("/nickNameCheck.me")
+public class NickNameCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public IdfindServlet() {
+    public NickNameCheckServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,24 +30,12 @@ public class IdfindServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String nickName = request.getParameter("nickName");
 		
-		request.setCharacterEncoding("utf-8");
+		int result = new MemberService().nickNameChk(nickName);
 		
-		String userName = request.getParameter("userName");
-		String email = request.getParameter("email");
-		
-		Member findUserName = new MemberService().idFind(userName, email);
-		
-		if(findUserName != null) {
-			request.setAttribute("findUserName", findUserName);
-			request.getRequestDispatcher("views/member/idFind.jsp").forward(request, response);			
-		}else {
-			response.setContentType("text/html; charset=utf-8");
-
-			PrintWriter out = response.getWriter();
-			out.println("<script>alert('아이디 조회에 실패했습니다'); location.href='idpwdFind.me';</script>");
-		}
-		//System.out.println(findUserName);
+		PrintWriter out = response.getWriter();
+		out.print(result);
 	}
 
 	/**

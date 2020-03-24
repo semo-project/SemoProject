@@ -266,6 +266,33 @@ public class MemberDao {
 		return result;
 	}
 	
+	public int nickNameChk(Connection conn, String nickName) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("nickNameChk");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, nickName);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
 	// LSH
 	public int getListCount(Connection conn) {
 		int listCount = 0;

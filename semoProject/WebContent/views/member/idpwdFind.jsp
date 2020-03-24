@@ -32,19 +32,19 @@
   		</form>
   		
   		<!-- 비밀번호 찾기폼 -->
-  		<form id="pwdfindForm" method="post" action="<%= request.getContextPath()%>/pwdfind.me">
+  		<form id="pwdfindForm" method="post" action="<%= request.getContextPath()%>/idcheck.me">
 		    <div class="pwdFind">
 		        비밀번호 찾기<hr align= "left" style="border: solid 0.6px darkgray; margin-top: -0.05px; width: 45%;">
 		    </div>
 		    <div class="pwdFind-userId">
-		        아이디 <input type="text" id="userFid" name="useFid" placeholder="아이디를 입력하세요.">
+		        아이디 <input type="text" id="userFid" name="userFid" placeholder="아이디를 입력하세요.">
 		    </div>
 		    <div class="pwdFind-Email">
-		        이메일 <input type="email" id="userEmail" name="userEmail" placeholder="이메일을 입력하세요."><button id="email-veri">이메일 인증</button>
+		        이메일 <input type="email" id="email" name="email" placeholder="이메일을 입력하세요.">
 		    </div>
 		    <div class="pwdFind-btn">
-		        <button type="button" id="pwdF-btn" name="pwdF-btn"><a href="pwdFind.html">비밀번호 찾기</a></button>
-		    </div>  		
+		        <button type="submit" id="pwdF-btn" name="pwdF-btn">아이디 확인</button>
+		    </div>		
   		</form>
 	</div>
 	
