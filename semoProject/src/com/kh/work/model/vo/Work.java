@@ -23,6 +23,9 @@ public class Work {
 	private String workUpdateDay;
 	private int[] workGenre;
 	
+	//LSH
+	private String nickName;
+	
 	public Work() {
 
 	}
@@ -213,6 +216,14 @@ public class Work {
 
 	public void setUpdateDay(Date updateDay) {
 		this.updateDay = updateDay;
+	}
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
 }

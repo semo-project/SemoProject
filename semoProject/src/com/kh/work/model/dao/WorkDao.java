@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.common.PageInfo;
 import com.kh.work.model.vo.Work;
 
 public class WorkDao {
@@ -135,6 +136,7 @@ public class WorkDao {
 		return listCount;
 		
 	}
+	
 	public ArrayList<Work> selectList(Connection conn, PageInfo pi){
 		ArrayList<Work> list = new ArrayList<>();
 		
@@ -164,10 +166,7 @@ public class WorkDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				list.add(new Work(rset.getInt("workNo"),
-									rset.getString()))
-								
-							
+				
 			}
 			
 		} catch (SQLException e) {
@@ -180,8 +179,142 @@ public class WorkDao {
 		return list;
 		
 	}
+	
+	// LSH
+	public int getWorkListCount(Connection conn) {
+		int listCount = 0;
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("getWorkListCount");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sql);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return listCount;
+	}
+	
+	// LSH
+	public ArrayList<Work> adminWorkList(Connection conn, PageInfo pi) {
+		ArrayList<Work> list = new ArrayList<>();
+				
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("adminWorkList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);			
 
+			int startRow = (pi.getCurrentPage() - 1) * pi.getWorkLimit() + 1;
+			int endRow = startRow + pi.getWorkLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
 
+			while(rset.next()) {
+				Work w = new Work();
+				
+				w.setWorktitle(rset.getString("work_title"));
+				w.setNickName(rset.getString("member_nickname"));
+				w.setWriterNo(rset.getInt("writer_no"));
+				
+				list.add(w);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
 
+	// LSH
+	public int getWorkSearchListCount(Connection conn, String search) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		int listCount = 0;
+		
+		String sql = prop.getProperty("getWorkSearchListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, search);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	
+	// LSH
+	public ArrayList<Work> adminWorkSearchList(Connection conn, PageInfo pi, String search) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<Work> list = new ArrayList<>();
+		
+		String sql = prop.getProperty("adminWorkSearchList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
 
+			int startRow = (pi.getCurrentPage() - 1) * pi.getWorkLimit() + 1;
+			int endRow = startRow + pi.getWorkLimit() - 1;
+			
+			pstmt.setString(1, search);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Work w = new Work();
+				
+				w.setWorktitle(rset.getString("work_title"));
+				w.setNickName(rset.getString("member_nickname"));
+				w.setWriterNo(rset.getInt("writer_no"));
+				
+				list.add(w);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+ 
 }

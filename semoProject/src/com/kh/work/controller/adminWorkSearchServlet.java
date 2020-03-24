@@ -13,18 +13,17 @@ import com.kh.common.PageInfo;
 import com.kh.work.model.service.WorkService;
 import com.kh.work.model.vo.Work;
 
-
 /**
- * Servlet implementation class adminWorkListServlet
+ * Servlet implementation class adminWorkSearchServlet
  */
-@WebServlet("/list.wo")
-public class adminWorkListServlet extends HttpServlet {
+@WebServlet("/adWorkSearch.wo")
+public class adminWorkSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public adminWorkListServlet() {
+    public adminWorkSearchServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,8 +32,9 @@ public class adminWorkListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		// 여기서 작가들의 모든 작품 불러오겟죠 네네
+		
+		String search = request.getParameter("search");
+		
 		int listCount;			// 총 게시글 갯수
 		int currentPage;		// 현재 페이지 (즉, 요청한 페이지)
 		int startPage;			// 현재 페이지 하단에 보여지는 페이징 바의 시작 수
@@ -45,7 +45,7 @@ public class adminWorkListServlet extends HttpServlet {
 		int boardLimit;			// 한 페이지에 보여질 게시글 최대 갯수
 		
 		// 총 게시글 수
-		listCount = new WorkService().getWorkListCount();
+		listCount = new WorkService().getWorkSearchListCount(search);
 		
 		// 현재 페이지
 		currentPage = 1;
@@ -75,11 +75,12 @@ public class adminWorkListServlet extends HttpServlet {
 		// 위에 구해진 정보들을 바탕으로 dao에서 글을 긁어올 것
 		PageInfo pi = new PageInfo(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
 		
-		ArrayList<Work> list = new WorkService().adminWorkList(pi);
+		ArrayList<Work> list = new WorkService().adminWorkSearchList(pi, search);
 		
 		if(list != null) {
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
+			request.setAttribute("search", search);
 			request.getRequestDispatcher("views/admin/work/adminWorkList.jsp").forward(request, response);			
 		} else {
 			request.setAttribute("msg", "조회 실패");
