@@ -3,7 +3,7 @@
 <%@ page import="com.kh.member.model.vo.Member" %>
 <%
 	String contextPath = request.getContextPath();
-	String msg = (String)request.getAttribute("msg");
+	//String msg = (String)request.getAttribute("msg");
 	Member loginUser = (Member)session.getAttribute("loginUser");
 %>
 <!DOCTYPE html>
@@ -102,8 +102,8 @@
 		                <button type="submit" class="btn btn-sm btn-outline-warning lgBtn lgbtn-major lgBtn-wide lgBtn-mid">로그인</button>
 		              </div>
 		              <div class="login_links" style="text-align:center">
-		                <a id="member_join" href="member_join.html">회원가입</a>
-		                <a id="id_pw_find" href="id_pwd_find.html">아이디/비밀번호 찾기</a>
+		                <a id="member_join" href="memberTerms.me">회원가입</a>
+		                <a id="id_pw_find" href="idpwdFind.me">아이디/비밀번호 찾기</a>
 		              </div>
 		              <div class="login_driver">
 		                <span>또는</span>
@@ -163,5 +163,12 @@
       </div>
     </div>
   </nav>
+  
+  <script>
+  	function semoBoard(){
+  		location.href="<%= request.getContextPath() %>/boardList.bo";
+  	}
+  </script>
+  
 </body>
 </html>

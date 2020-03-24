@@ -118,6 +118,16 @@ public class MemberService {
 		 return result;
 	 }
 	
+	 public int nickNameChk(String nickName) {
+		 Connection conn = getConnection();
+		 
+		 int result = new MemberDao().nickNameChk(conn, nickName);
+		 
+		 close(conn);
+		 
+		 return result;
+	 }
+	 
 	
 	/** LSH
 	 * Admin - 전체 회원 보기 페이징 처리

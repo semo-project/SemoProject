@@ -37,7 +37,7 @@ public class InsertMemberServlet extends HttpServlet {
 		String userId = request.getParameter("memberId");			
 		String userPwd = request.getParameter("memberPwd");			
 		String userName = request.getParameter("memberName");		
-		String userNickname = request.getParameter("memberNickname");		
+		String userNickname = request.getParameter("nickName");		
 		String userAddress = request.getParameter("memberAddress");		
 		String userPhone = request.getParameter("phone");				
 		int userAge = Integer.parseInt(request.getParameter("age"));					
@@ -54,7 +54,7 @@ public class InsertMemberServlet extends HttpServlet {
 			response.setContentType("text/html; charset=utf-8");
 
 			PrintWriter out = response.getWriter();
-			out.println("<script>alert('회원가입에 실패했습니다.'); location href='memberEnrollForm.jsp';</script>");
+			out.println("<script>alert('회원가입에 실패했습니다.'); location href='MemberEnroll.me';</script>");
 			
 		}
 	}
