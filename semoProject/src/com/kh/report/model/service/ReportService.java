@@ -118,6 +118,11 @@ public class ReportService {
 		return result;
 	}
 	
+	/**
+	 * Admin - 댓글 신고 전체 건 리턴
+	 * @param pi
+	 * @return
+	 */
 	public ArrayList<Report> selectCommentList(PageInfo pi) {
 		Connection conn = getConnection();
 		
@@ -127,4 +132,36 @@ public class ReportService {
 		
 		return list;
 	}
+	
+	/**
+	 * Admin - 검색어에 맞춘 댓글 신고 수 리턴
+	 * @param search
+	 * @return
+	 */
+	public int getListCommentSearchCount(String search) {
+		Connection conn = getConnection();
+		
+		int listCount = new ReportDao().getListCommentSearchCount(conn, search);
+		
+		close(conn);
+		
+		return listCount;
+	}
+	
+	/**
+	 * Admin - 검색어에 맞춘 댓글 신고 전체 건 리턴
+	 * @param pi
+	 * @param search
+	 * @return
+	 */
+	public ArrayList<Report> selectCommentSearchList(PageInfo pi, String search) {
+		Connection conn = getConnection();
+		
+		ArrayList<Report> list = new ReportDao().selectCommentSearchList(conn, pi, search);
+		
+		close(conn);
+		
+		return list;
+	}
+
 }

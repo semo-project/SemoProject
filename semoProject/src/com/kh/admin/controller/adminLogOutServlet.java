@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * admin계정에서 로그아웃 하여 메인으로 가는 서블릿
@@ -29,6 +30,10 @@ public class adminLogOutServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		// 현재 로그인 중인 loginUser 지워주고 메인으로 보내주는 거
+		HttpSession session = request.getSession();
+		session.removeAttribute("loginUser");
+		
+		response.sendRedirect(request.getContextPath());
 	}
 
 	/**

@@ -287,7 +287,7 @@
                 	
                 	if(noArr.length >= 1) {
                 		var no = noArr.join(", ");
-                		location.href= "<%=contextPath%>/confirm.re?pageId=6&&no=" + no;
+                		location.href= "<%=contextPath%>/confirm.re?report=1&&pageId=6&&no=" + no;
                 	} else {
                 		alert("확인할 신고 건을 선택해주세요.")
                 	}

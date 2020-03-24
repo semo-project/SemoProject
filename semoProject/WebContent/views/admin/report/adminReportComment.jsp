@@ -44,8 +44,8 @@
                         <br><br>
                         <div class="card mb-4">
                             <div class="card-header"><i class="fas fa-table mr-1"></i>게시글 신고 목록
-                                <button class="btn btn-primary" style="float:right;">검색</button>
-                                <input type="text" class="search" id="memberSearch" style="float: right;">
+                                <button class="btn btn-primary" style="float:right;" id="searchBtn">검색</button>
+                                <input type="text" class="search" id="commentSearch" style="float: right;" placeholder="id를 입력해주세요">
                             </div>
                             <div class="card-body">
 
@@ -81,7 +81,7 @@
                                         </tbody>
                                     </table>
 									<label style="color:gray;">아이디를 클릭하세요</label>
-                                    <button class="btn btn-danger" style="float: right;">신고 확인</button>
+                                    <button class="btn btn-danger" style="float: right;" id="confirm">신고 확인</button>
                                 </div>
                                 <br>
 							
@@ -131,13 +131,13 @@
 								<div class="pagingArea" align="center">
 								
 								<!-- 맨 처음으로 (<<) -->
-								<button onclick="location.href='<%=contextPath%>/list.re?pageId=6';" class="btn btn-outline-primary"> &lt;&lt; </button>
+								<button onclick="location.href='<%=contextPath%>/comment.re?pageId=6';" class="btn btn-outline-primary"> &lt;&lt; </button>
 								
 								<!-- 이전페이지(<) -->
 								<%if(currentPage == 1){ %>
 								<button disabled class="btn btn-outline-primary"> &lt; </button>
 								<%}else{ %>
-								<button onclick="location.href='<%=contextPath%>/list.re?pageId=6&&currentPage=<%=currentPage-1%>';" class="btn btn-outline-primary"> &lt; </button>
+								<button onclick="location.href='<%=contextPath%>/comment.re?pageId=6&&currentPage=<%=currentPage-1%>';" class="btn btn-outline-primary"> &lt; </button>
 								<%} %>
 								
 								<!-- 페이지 목록 -->
@@ -146,7 +146,7 @@
 									<%if(currentPage == p){ %>
 									<button disabled class="btn btn-primary"> <%=p%> </button>
 									<%}else{ %>
-									<button onclick="location.href='<%=contextPath%>/list.re?pageId=6&&currentPage=<%=p%>';" class="btn btn-outline-primary"> <%= p %> </button>
+									<button onclick="location.href='<%=contextPath%>/comment.re?pageId=6&&currentPage=<%=p%>';" class="btn btn-outline-primary"> <%= p %> </button>
 									<%} %>
 					
 								<%} %>
@@ -155,11 +155,11 @@
 								<%if(currentPage == maxPage){ %>
 								<button disabled class="btn btn-outline-primary"> &gt; </button>
 								<%}else{ %>
-								<button onclick="location.href='<%=contextPath%>/list.re?pageId=6&&currentPage=<%=currentPage+1%>';" class="btn btn-outline-primary"> &gt; </button>
+								<button onclick="location.href='<%=contextPath%>/comment.re?pageId=6&&currentPage=<%=currentPage+1%>';" class="btn btn-outline-primary"> &gt; </button>
 								<%} %>
 								
 								<!-- 맨 마지막으로 (>>) -->
-								<button onclick="location.href='<%=contextPath%>/list.re?pageId=6&&currentPage=<%=maxPage%>'" class="btn btn-outline-primary"> &gt;&gt; </button>
+								<button onclick="location.href='<%=contextPath%>/comment.re?pageId=6&&currentPage=<%=maxPage%>'" class="btn btn-outline-primary"> &gt;&gt; </button>
 				
 								</div>
 								
@@ -189,7 +189,7 @@
                                 <td>
                                     <label class="modal-title-font">댓글 내용</label>
                                     <br>
-                                    <label class="board-title"></label>
+                                    <label class="board-comment"></label>
                                 </td>
                             </tr>
                             <tr>
@@ -234,6 +234,10 @@
 
         <script>
             $(function() {
+            	var boardNo = "";
+				var groupName = "";
+				var msg = "<%=confirmMessage%>";
+				
             	// 모달
                 $("#reportModal").on('show.bs.modal', function(event){
                 	var comment = $(event.relatedTarget).data('comment');
@@ -246,6 +250,44 @@
                 	modal.find(".board-content").text(content);
                 	
                 	// 게시글 원문 보러가기 위해
+                });
+            	
+             	// 신고 확인 메시지
+				if(msg != "null") {
+	    			alert(msg);
+	    			<% session.removeAttribute("confirmMessage"); %>
+	    			<% confirmMessage = null;%>
+	    			msg = "null";
+	    		}
+				
+				// 검색
+                $("#searchBtn").click(function(){
+                	console.log("test");
+                    var search = $("#commentSearch").val();
+                    location.href = "<%=contextPath%>/commentSearch.re?pageId=6&&search=" + search;
+                });
+				
+             	// 게시글 본문 보러가기
+                $("#goBoard").click(function() {
+                	// 게시글 댓글과 웹툰 댓글을 보여줘야 하는데, 그럼 해당 글을 보여줘야 돼
+                	
+                	//location.href = "<%=contextPath%>";
+                });
+                
+				// 신고 확인
+                $("#confirm").click(function() {
+                	var noArr = new Array();
+                	
+                	$('input:checkbox[name=reportCheck]:checked').each(function() {
+                		noArr.push(this.value);
+                	});
+                	
+                	if(noArr.length >= 1) {
+                		var no = noArr.join(", ");
+                		location.href= "<%=contextPath%>/confirm.re?report=2&&pageId=6&&no=" + no;
+                	} else {
+                		alert("확인할 신고 건을 선택해주세요.")
+                	}
                 });
             });
         </script>

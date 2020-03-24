@@ -288,4 +288,73 @@ public class ReportDao {
 		return list;
 		
 	}
+	
+	public int getListCommentSearchCount(Connection conn, String search) {
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("getListCommentSearchCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, search);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return listCount;
+	}
+	
+	public ArrayList<Report> selectCommentSearchList(Connection conn, PageInfo pi, String search) {
+		ArrayList<Report> list = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectCommentSearchList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setString(1, search);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Report r = new Report();
+				
+				r.setReportContent(rset.getString("report_content"));
+				r.setCommentContent(rset.getString("report_comment"));
+				
+				r.setReportNo(rset.getInt("report_no"));
+				r.setReportGroupNo(rset.getInt("report_group_no"));
+				r.setMemberNo(rset.getInt("member_no"));
+				r.setMemberId(rset.getString("member_id"));
+				r.setReportClassName(rset.getString("report_class_name"));
+				r.setReportDate(rset.getDate("report_date"));
+				
+				list.add(r);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
 }

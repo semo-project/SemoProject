@@ -31,13 +31,19 @@ public class adminReportConfirmServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		String no = request.getParameter("no");
+		int report = Integer.parseInt(request.getParameter("report"));
 		
 		int result = new ReportService().confirmReport(no);
 		
 		if(result > 0) {
 			HttpSession session = request.getSession();
 			session.setAttribute("confirmMessage", "신고 확인 되었습니다.");
-			response.sendRedirect("list.re?pageId=6");
+			
+			if(report == 1) {
+				response.sendRedirect("list.re?pageId=6");				
+			} else {
+				response.sendRedirect("comment.re?pageId=6");								
+			}
 		} else {
 			request.setAttribute("msg", "확인 실패");
 			request.getRequestDispatcher("views/common/adminErrorPage.jsp").forward(request, response);			
