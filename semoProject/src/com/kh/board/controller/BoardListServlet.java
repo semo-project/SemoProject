@@ -1,7 +1,6 @@
-package com.kh.member.controller;
+package com.kh.board.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,20 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.member.model.service.MemberService;
-import com.kh.member.model.vo.Member;
+import com.kh.board.model.service.BoardService;
 
 /**
- * Servlet implementation class IdfindServlet
+ * Servlet implementation class BoardListServlet
  */
-@WebServlet("/idfind.me")
-public class IdfindServlet extends HttpServlet {
+@WebServlet("/boardList.bo")
+public class BoardListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public IdfindServlet() {
+    public BoardListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,23 +30,29 @@ public class IdfindServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.setCharacterEncoding("utf-8");
+		int listCount;
+		int currentPage;
+		int startPage;
+		int endPage;
+		int maxPage;
 		
-		String userName = request.getParameter("userName");
-		String email = request.getParameter("email");
+		int pageLimit;
+		int boardLimit;
 		
-		Member findUserName = new MemberService().idFind(userName, email);
+		listCount = new BoardService().getListCount();
 		
-		if(findUserName != null) {
-			request.setAttribute("findUserName", findUserName);
-			request.getRequestDispatcher("views/member/idFind.jsp").forward(request, response);			
-		}else {
-			response.setContentType("text/html; charset=utf-8");
-
-			PrintWriter out = response.getWriter();
-			out.println("<script>alert('아이디 조회에 실패했습니다'); location.href='idpwdFind.me';</script>");
+		currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		//System.out.println(findUserName);
+		
+		pageLimit = 5;
+		boardLimit = 5;
+		
+		maxPage = (int)Math.ceil((double)listCount/boardLimit);
+		
+		startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
 	}
 
 	/**
