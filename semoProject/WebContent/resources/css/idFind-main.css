@@ -1,0 +1,37 @@
+    .idFind, .idFind-userName, .idFind-Email, .idFind-btn, 
+    .pwdFind, .pwdFind-userId, .pwdFind-Email, .pwdFind-btn{
+        margin-left: 37%;
+    }
+    .idFind, .pwdFind{
+        margin-top: 5%;
+        font-size: larger;
+    }
+    #userName{
+        margin-top: 0.5%;
+        width: 20%;
+        margin-left: 5%;
+    }
+    #userEmail{
+        margin-top: 1%;
+        width: 32%;
+        margin-left: 3.3%;
+    }
+    .idFind-btn, .pwdFind-btn{
+        margin-top: 2%;
+    }
+    #idF-btn, #pwdF-btn{
+        background: yellowgreen;
+        color: white;
+        border: 0px;
+    }
+    #userFid{
+        margin-top: 0.5%;
+        width: 20%;
+        margin-left: 3.3%;
+    }
+    #email-veri{
+        margin-left: 1%;
+        border: 0px;
+        background: rgb(54, 54, 54);
+        color: white;
+    }
