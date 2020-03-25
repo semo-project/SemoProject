@@ -20,64 +20,12 @@ public class Member {
 	private Date entDate;				// 탈퇴일
 	private String accusationFlag;		// 활동중지여부
 	private int accusationCount;		// 누적된 신고 수
-	
-	private Date modifyDate;			// 회원 수정일
-	private Date accusationDate;		// 활동중지일
-	
 	private String approvalFlag;
 	
 	public Member() {
 		
 	}
 
-	public Member(int memberNo, String memberId, String memberPwd, String memberName, String memberNickname,
-			String memberAddress, String phone, int age, String gender, String email, Date enrollDate,
-			int myCookieCount, String entYN, Date entDate, String accusationFlag, int accusationCount, Date modifyDate,
-			Date accusationDate) {
-		super();
-		this.memberNo = memberNo;
-		this.memberId = memberId;
-		this.memberPwd = memberPwd;
-		this.memberName = memberName;
-		this.memberNickname = memberNickname;
-		this.memberAddress = memberAddress;
-		this.phone = phone;
-		this.age = age;
-		this.gender = gender;
-		this.email = email;
-		this.enrollDate = enrollDate;
-		this.myCookieCount = myCookieCount;
-		this.entYN = entYN;
-		this.entDate = entDate;
-		this.accusationFlag = accusationFlag;
-		this.accusationCount = accusationCount;
-		this.modifyDate = modifyDate;
-		this.accusationDate = accusationDate;
-	}
-
-	// LSH 관리자 페이지 처리용 생성자
-	public Member(int memberNo, String memberId, String memberName, String phone, int age, String gender,
-			Date enrollDate) {
-		super();
-		this.memberNo = memberNo;
-		this.memberId = memberId;
-		this.memberName = memberName;
-		this.phone = phone;
-		this.age = age;
-		this.gender = gender;
-		this.enrollDate = enrollDate;
-	}
-	
-	// LSH 관리자 페이지 블랙리스트 조회용 생성자
-	public Member(int memberNo, String memberId, int accusationCount, Date accusationDate) {
-		super();
-		this.memberNo = memberNo;
-		this.memberId = memberId;
-		this.accusationCount = accusationCount;
-		this.accusationDate = accusationDate;
-	}
-	
-	// KJY
 	public Member(int memberNo, String memberId, String memberPwd, String memberName, String memberNickname,
 			String memberAddress, String phone, int age, String gender, String email, Date enrollDate,
 			int myCookieCount, String entYN, Date entDate, String accusationFlag, int accusationCount) {
@@ -100,7 +48,6 @@ public class Member {
 		this.accusationCount = accusationCount;
 	}
 	
-	// KJY 
 	public Member(String memberId, String memberNickname, String memberAddress, String phone, String email) {
 		super();
 		this.memberId = memberId;
@@ -108,32 +55,6 @@ public class Member {
 		this.memberAddress = memberAddress;
 		this.phone = phone;
 		this.email = email;
-	}
-	
-	// KJH
-	public Member(String memberId, String memberPwd, String memberName, String memberNickname, String memberAddress,
-			String phone, int age, String gender, String email) {
-		super();
-		this.memberId = memberId;
-		this.memberPwd = memberPwd;
-		this.memberName = memberName;
-		this.memberNickname = memberNickname;
-		this.memberAddress = memberAddress;
-		this.phone = phone;
-		this.age = age;
-		this.gender = gender;
-		this.email = email;
-	}
-	
-	// KJH
-	public Member(String memberId, Date enrollDate) {
-		this.memberId = memberId;
-		this.enrollDate = enrollDate;
-	}
-
-	// KJH
-	public Member(int memberNo) {
-		this.memberNo = memberNo;
 	}
 
 	public int getMemberNo() {
@@ -263,23 +184,7 @@ public class Member {
 	public void setAccusationCount(int accusationCount) {
 		this.accusationCount = accusationCount;
 	}
-
-	public Date getModifyDate() {
-		return modifyDate;
-	}
-
-	public void setModifyDate(Date modifyDate) {
-		this.modifyDate = modifyDate;
-	}
-
-	public Date getAccusationDate() {
-		return accusationDate;
-	}
-
-	public void setAccusationDate(Date accusationDate) {
-		this.accusationDate = accusationDate;
-	}
-
+	
 	public String getApprovalFlag() {
 		return approvalFlag;
 	}
@@ -294,7 +199,9 @@ public class Member {
 				+ memberName + ", memberNickname=" + memberNickname + ", memberAddress=" + memberAddress + ", phone="
 				+ phone + ", age=" + age + ", gender=" + gender + ", email=" + email + ", enrollDate=" + enrollDate
 				+ ", myCookieCount=" + myCookieCount + ", entYN=" + entYN + ", entDate=" + entDate + ", accusationFlag="
-				+ accusationFlag + ", accusationCount=" + accusationCount + ", modifyDate=" + modifyDate
-				+ ", accusationDate=" + accusationDate + ", approvalFlag=" + approvalFlag + "]";
+				+ accusationFlag + ", accusationCount=" + accusationCount + " + approvalFlag=" + approvalFlag + "]";
 	}
+	
+	
+
 }

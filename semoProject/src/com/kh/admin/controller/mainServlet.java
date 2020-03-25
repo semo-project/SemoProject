@@ -29,7 +29,8 @@ public class mainServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		request.getRequestDispatcher("views/admin/common/adminIndex.jsp").forward(request, response);
-
+//		response.sendRedirect("views/admin/common/adminIndex.jsp");
+		// 위에 건 되고 아래 건 안 되는 이유가 뭐야?
 	}
 
 	/**

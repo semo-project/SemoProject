@@ -32,6 +32,36 @@
     button{
       border-radius: 5px;
     }
+    .modal{
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgb(0, 0, 0);
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+    .modal-content{
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 50%;
+    }
+    .close{
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    .close:hover, .close:focus{
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
   </style>
 </head>
 
@@ -57,24 +87,6 @@
       <!-- Sidebar Column -->
       <div class="col-lg-3 mb-4">
       	<%@ include file="myPageSidebar.jsp" %>
-      	<%-- <div class="list-group">
-          <a href="myPage.me" class="list-group-item">내 정보 보기</a>
-          <a href="modifyInfo.me" class="list-group-item">내 정보 수정</a>
-          <a href="addCookie.me" class="list-group-item">쿠키 충전</a>
-          <a href="log.html" class="list-group-item">쿠키 충전 내역</a>
-          <a href="bookmark.html" class="list-group-item">즐겨찾기한 웹툰</a>
-          <a href="like.html" class="list-group-item">좋아요한 웹툰</a>
-          <a href="question.html" class="list-group-item">문의글 확인</a>
-          <a href="usedCookie.html" class="list-group-item">웹툰 결제 내역</a>
-          <a href="myboard.html" class="list-group-item">내 게시글 보기</a>
-          <a href="withdraw.html" class="list-group-item">회원 탈퇴</a>
-          <% if (mem.getApprovalFlag().equals("N") || mem.getApprovalFlag().equals("null")) { %>
-      		<a href="author.html" class="list-group-item">작가 등록 신청</a>
-    	  <% } else { %>
-      		<a href="#" class="list-group-item">내 작품 관리</a>
-         	<a href="#" class="list-group-item">수익 관리</a>
-      	  <% } %>
-		</div> --%>
       </div>
       <!-- Content Column -->
       <div class="col-lg-9 mb-4">
@@ -122,7 +134,7 @@
           <div class="btns" align="center">
             <button type="reset">취소하기</button>
             <button type="submit">적용하기</button>
-            <button type="button" onclick="">비밀번호 변경</button>
+            <button id="modal" type="button" onclick="">비밀번호 변경</button>
           </div>
 		  <!-- <script>
 			 $(function(){
@@ -148,7 +160,84 @@
 		  </script> -->
         </form>
       </div>
+      
     </div>
+      <div id="myModal" class="modal">
+      	<form action="updatePwd.me" method="POST">
+      	  <input type="hidden" value="<%= mem.getMemberId() %>">
+          <div class="modal-content">
+          <span class="close">&times;</span>
+          <table>
+          	<tr>
+          	  <td>현재 비밀번호 : </td>
+          	  <td><input type="password" name="currentPwd"></td>
+          	</tr>
+          	<tr>
+          	  <td>변경할 비밀번호 : </td>
+          	  <td><input type="password" name="newPwd" placeholder="영어, 특수문자 포함 10자 이상" min="10"></td>
+          	</tr><tr>
+          	  <td>비밀번호 확인 : </td>
+          	  <td><input type="password" name="newPwdCheck"></td>
+          	</tr>
+          </table>
+          </div>
+	    <button type="button">취소하기</button>
+	    <button type="submit" onclick="return pwdValidate();">변경하기</button>
+      	</form>
+      </div>
+    
+    <script>    
+    var modal = document.getElementById("myModal");
+    var btn = document.getElementById("modal");
+    var span = document.getElementsByClassName("close")[0];
+    btn.onclick = function() {
+      modal.style.display = "block";
+    };
+
+    span.onclick = function() {
+      modal.style.display = "none";
+    };
+
+    window.onclick = function(event) {
+      if (event.target == modal){
+        modal.style.display = "none";
+      }
+    };
+    
+    function pwdValidate(){
+    	
+    	var currentPwd1 = "<%= mem.getMemberPwd() %>";
+    	var currentPwd2 = $("input[name='currentPwd']");
+    	var newPwd = $("input[name='newPwd']");
+    	var newPwdCheck = $("input[name='newPwdCheck']");
+    	if(newPwd.val().trim() == ""){
+           alert("새 비밀번호를 입력해주세요");
+           return false;
+        }
+    	if(!check(/^[a-z\d!@#$%^&*]{10, }$/i, newPwd, "유효한 비밀번호를 입력해주세요.")){
+            return false;
+        }
+        if(newPwdCheck.val().trim() == ""){
+           alert("비밀번호 확인을 입력해주세요.");
+           return false;
+        }
+        
+        if(currentPwd1 != currentPwd2.val()){
+        	alert("현재 비밀번호를 다르게 입력하셨습니다. 다시 입력해주세요.");
+        	return false;
+        }
+        
+        if(newPwd.val() != newPwdCheck.val()){
+           alert("변경할 비밀번호가 다릅니다. 다시 입력해주세요");
+           newPwdCheck.val("").focus();
+           return false;
+        }
+        
+        return true;
+        
+    }
+    
+    </script>
     <!-- /.row -->
 
   </div>

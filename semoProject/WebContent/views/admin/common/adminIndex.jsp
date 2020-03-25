@@ -29,7 +29,7 @@
                                 <div class="card bg-primary text-white mb-4">
                                     <div class="card-body">회원 관리</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="<%=contextPath%>/list.me?pageId=1">View Details</a>
+                                        <a class="small text-white stretched-link" href="Member_전체회원관리.html">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
@@ -82,7 +82,6 @@
                 <%@ include file="adminFooter.jsp" %>
             </div>
         </div>
-        
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
