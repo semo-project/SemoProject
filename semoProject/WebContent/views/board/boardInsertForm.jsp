@@ -125,24 +125,25 @@
 		
 	</form>
 		<!-- 모달창 -->
+		<!--
 		<button id="okBtn">확인</button>
 	    <button id="cancelBtn">취소</button>
-	 
+	  -->
 	    <!-- 모달 영역 -->
-	    <div id="myModal" class="modal">
+	   <!--  <div id="myModal" class="modal"> -->
 	    
 	      <!-- 모달 내용 -->
-	      <div class="modal-content">
+	     <!--  <div class="modal-content">
 	        <span class="close">&times;</span>                                                               
 	        <p>게시물을 올리시겠습니까?</p>
 	        <div class="modalBtn">
-	        	<button type="button">취소</button>
+	        	<button type="button" onclick="location.href='boardList.bo'">취소</button>
 	        	<button type="button">확인</button>
 	        </div>
 	      </div>
 	 
 	    </div>
-	    
+	     -->
 	    <!-- Bootstrap core JavaScript -->
 		<script src="<%= request.getContextPath() %>/resources/js/jquery.min.js"></script>
 		<script src="<%= request.getContextPath() %>/resources/js/bootstrap.bundle.min.js"></script>

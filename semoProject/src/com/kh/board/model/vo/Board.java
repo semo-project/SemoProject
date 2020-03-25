@@ -32,8 +32,6 @@ public class Board {
 		this.boardWriter = boardWriter;
 	}
 
-	
-
 	public Board(int boardNo, String boardTitle, int boardCnt, String boardWriter, Date boardWriteDate) {
 		super();
 		this.boardNo = boardNo;
@@ -42,7 +40,19 @@ public class Board {
 		this.boardWriter = boardWriter;
 		this.boardWriteDate = boardWriteDate;
 	}
-
+	
+	//게시판 내용 조회
+	public Board(int boardNo, String boardTitle, String boardContent, int boardCnt, String boardWriter,
+			Date boardWriteDate) {
+		super();
+		this.boardNo = boardNo;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.boardCnt = boardCnt;
+		this.boardWriter = boardWriter;
+		this.boardWriteDate = boardWriteDate;
+	}
+	
 	public int getBoardNo() {
 		return boardNo;
 	}

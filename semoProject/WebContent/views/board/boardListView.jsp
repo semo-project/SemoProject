@@ -22,6 +22,12 @@
 		cursor:pointer;
 		text-align:center;
 	}
+	.searchFormArea{
+		margin-top:3%;
+	}
+	.pagingArea{
+		margin-top:2%;
+	}
 </style>
 </head>
 <body>
@@ -31,13 +37,13 @@
   <div class="container">
 
     <!-- Page Heading/Breadcrumbs -->
-    <h1 class="mt-4 mb-3">그림게시판
+    <h1 class="mt-4 mb-3">웹툰 TalkTalk
       <!-- <small>Subheading</small> -->
     </h1>
 
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="Notice_공지사항.html">세모게시판 > 웹툰 TalkTalk</a>
+        <a href="boardList.bo">세모게시판</a> > <a href="boardList.bo">웹툰 TalkTalk</a>
       </li>
     </ol>
 
@@ -46,8 +52,8 @@
       <!-- Sidebar Column -->
       <div class="col-lg-3 mb-4">
         <div class="list-group">
-          <a href="semoBoard.html" class="list-group-item">그림게시판</a>
           <a href="boardList.bo" class="list-group-item">웹툰 TalkTalk</a>
+          <a href="semoBoard.html" class="list-group-item">그림게시판</a>
           <a href="talkfree.html" class="list-group-item">수다수다 유머방</a>
         </div>
       </div>
@@ -102,6 +108,23 @@
             		<% } %>
             	</tbody>
             </table>
+            
+            <form class="searchFormArea" align="center" method="get" action="" onsubmit="return keyboard_check()">
+            	<td>
+            		<select name="searchOption">
+            			<option value="제목">제목</option>
+            			<option value="작성자명">작성자명</option>
+            			<option value="내용">내용</option>
+            		</select>
+            	</td>
+            	<td>
+            		<input type="text" name="inputArea">
+            	</td>
+            	<td>
+            		<input type="submit" name="searchBtn" value="검색">
+            	</td>
+            </form>
+            
         	<% if(loginUser != null) { %>
         		<button class="write_btn" onclick="location.href='<%=contextPath%>/insertForm.bo';">작성하기</button>
         	<% } %>
@@ -154,7 +177,7 @@
 				
 				var boardNo = $(this).children().eq(0).text();
 				
-				location.href="<%=contextPath%>/detail.bo?boardNo=" + boardNo;
+				location.href="<%=contextPath%>/webdetail.bo?boardNo=" + boardNo;
 			});
 		});
 	</script>

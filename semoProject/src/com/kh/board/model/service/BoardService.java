@@ -10,10 +10,6 @@ import com.kh.board.model.dao.BoardDao;
 import com.kh.board.model.vo.Board;
 import com.kh.board.model.vo.PageInfo;
 
-/**
- * @author JaeHeeKim
- *
- */
 public class BoardService {
 	
 	/**
@@ -51,6 +47,78 @@ public class BoardService {
 		Connection conn = getConnection();
 		
 		int result = new BoardDao().insertBoard(conn, b);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	/**
+	 * 1-4. 일반게시판 상세조회 서비스
+	 *
+	 */
+	public Board webDetail(int boardNo) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().webCount(conn, boardNo);
+		
+		Board b = null;
+		if(result > 0) {
+			b = new BoardDao().webDetail(conn, boardNo);
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return b;
+	}
+	/**
+	 * 1-5. 수정하고싶은 게시판 선택
+	 *
+	 */
+	public Board selectUpdateBoard(int boardNo) {
+		Connection conn = getConnection();
+		
+		Board b = new BoardDao().webDetail(conn, boardNo);
+		
+		close(conn);
+		
+		return b;
+	}
+	/**
+	 * 1-6. 게시판 글 수정 서비스
+	 *
+	 */
+	public int updateBoard(Board b) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().updateBoard(conn, b);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	/**
+	 * 1-7. 게시판 글 삭제 서비스
+	 *
+	 */
+	public int deleteWeb(int boardNo) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().deleteWeb(conn, boardNo);
 		
 		if(result > 0) {
 			commit(conn);
