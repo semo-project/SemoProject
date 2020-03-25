@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.kh.member.model.vo.Member" %>
+<%
+	//Member loginUser = (Member)request.getAttribute("loginUser");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,7 +52,10 @@
         text-decoration: none;
         cursor: pointer;
     }
-	
+	.modal-content{
+		max-width:fit-content;
+		
+	}
 </style>
 </head>
 <body>
@@ -127,7 +134,7 @@
 	      <!-- 모달 내용 -->
 	      <div class="modal-content">
 	        <span class="close">&times;</span>                                                               
-	        <p>게시물을 올리시겠습니끼?</p>
+	        <p>게시물을 올리시겠습니까?</p>
 	        <div class="modalBtn">
 	        	<button type="button">취소</button>
 	        	<button type="button">확인</button>
@@ -135,6 +142,11 @@
 	      </div>
 	 
 	    </div>
+	    
+	    <!-- Bootstrap core JavaScript -->
+		<script src="<%= request.getContextPath() %>/resources/js/jquery.min.js"></script>
+		<script src="<%= request.getContextPath() %>/resources/js/bootstrap.bundle.min.js"></script>
+		
 	<script>
 		// Get the modal
 	    var modal = document.getElementById('myModal');

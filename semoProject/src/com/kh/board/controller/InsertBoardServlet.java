@@ -7,9 +7,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.board.model.service.BoardService;
 import com.kh.board.model.vo.Board;
+import com.kh.member.model.vo.Member;
 
 /**
  * Servlet implementation class InsertBoardServlet
@@ -30,6 +32,8 @@ public class InsertBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
 		
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
@@ -40,7 +44,8 @@ public class InsertBoardServlet extends HttpServlet {
 		b.setBoardContent(content);
 		b.setBoardWriter(writer);
 		
-		int result = new BoardService().insertBoard(title, content, writer);
+		int result = new BoardService().insertBoard(b);
+		request.setAttribute("loginUser", loginUser);
 		
 		if(result > 0) {
 			response.sendRedirect("boardList.bo");

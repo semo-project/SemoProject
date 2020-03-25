@@ -1,9 +1,7 @@
 package com.kh.board.model.service;
 
-import static com.kh.common.JDBCTemplate.getConnection;
-import static com.kh.common.JDBCTemplate.close;
-import static com.kh.common.JDBCTemplate.commit;
-import static com.kh.common.JDBCTemplate.rollback;
+import static com.kh.common.JDBCTemplate.*;
+
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -49,10 +47,10 @@ public class BoardService {
 	 * 1-3. 일반게시판 작성 서비스
 	 *
 	 */
-	public int insertBoard(String title, String content, String writer) {
+	public int insertBoard(Board b) {
 		Connection conn = getConnection();
 		
-		int result = new BoardDao().insertBoard(conn, title, content, writer);
+		int result = new BoardDao().insertBoard(conn, b);
 		
 		if(result > 0) {
 			commit(conn);

@@ -22,6 +22,11 @@
 			<button type="button" onclick="location.href ='#'">만화 보러가기</button>
 		</div>
 	</div>
+	
+	<!-- Bootstrap core JavaScript -->
+  <script src="<%= request.getContextPath() %>/resources/js/jquery.min.js"></script>
+  <script src="<%= request.getContextPath() %>/resources/js/bootstrap.bundle.min.js"></script>
+  
 	<script></script>
 </body>
 </html>

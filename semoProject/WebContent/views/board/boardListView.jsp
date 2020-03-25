@@ -17,6 +17,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="<%= request.getContextPath()%>/resources/css/boardmain.css" rel="stylesheet">
+<style>
+	#board_table2>tbody>tr:hover{
+		cursor:pointer;
+		text-align:center;
+	}
+</style>
 </head>
 <body>
 
@@ -138,9 +144,13 @@
     </div>
 </div>
 <!-- /.container -->
+<!-- Bootstrap core JavaScript -->
+  <script src="<%= request.getContextPath() %>/resources/js/jquery.min.js"></script>
+  <script src="<%= request.getContextPath() %>/resources/js/bootstrap.bundle.min.js"></script>
+
 	<script>
 		$(function(){
-			$(".board_table2>tbody>tr").click(function(){
+			$("#board_table2>tbody>tr").click(function(){
 				
 				var boardNo = $(this).children().eq(0).text();
 				

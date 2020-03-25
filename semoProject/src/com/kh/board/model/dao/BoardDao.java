@@ -76,11 +76,11 @@ public class BoardDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				list.add(new Board(rset.getInt("boardNo"),
-								   rset.getString("boardTitle"),
-								   rset.getInt("boardCnt"),
-								   rset.getString("boardWriter"),
-								   rset.getDate("boardWriteDate")));
+				list.add(new Board(rset.getInt("board_No"),
+								   rset.getString("board_Title"),
+								   rset.getInt("board_Cnt"),
+								   rset.getString("member_no"),
+								   rset.getDate("board_WriteDate")));
 			}
 			
 		} catch (SQLException e) {
@@ -109,6 +109,10 @@ public class BoardDao {
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			close(pstmt);
 		}
+		
+		return result;
 	}
 }

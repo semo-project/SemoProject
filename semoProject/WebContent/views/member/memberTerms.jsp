@@ -435,6 +435,10 @@ NAVER 내의 개별 서비스 이용, 이벤트 응모 및 경품 신청 과정�
     </form>
 </div>
 
+<!-- Bootstrap core JavaScript -->
+  <script src="<%= request.getContextPath() %>/resources/js/jquery.min.js"></script>
+  <script src="<%= request.getContextPath() %>/resources/js/bootstrap.bundle.min.js"></script>
+
 <script>
 	$(function(){
 		$(":radio").change(function(){
