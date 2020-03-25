@@ -123,6 +123,8 @@
 		            </div>
 		          </li>
 	          </form>
+	          
+	          <!-- 로그인이 되었다면 -->
 	          <% } else { %>
 	          <li class="nav-item dropdown" style="padding=0">
 	            <a class="nav-link dropdown-toggle" href="#" id="test2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -133,28 +135,32 @@
 	                    </div>
 	                  </div>
 	            </a>
-	            <div class="dropdown-menu dropdown-menu-center" aria-labelledby="test2"> 
-	              <div class="loginArea" id="loginLogo" style="text-align: left;">
-	              	<img class="userImg" src="<%=contextPath%>/resources/images/defaultIcon.png" width="25px"
-	              	 height="25px" margin-left="2px"><%= loginUser.getMemberName() %>
-	              	 <button>로그아웃</button>
-	              </div>
-	              <div class="myCoin">
-	                  보유 코인 : <%= loginUser.getMyCookieCount() %>개 <button>충전하기</button>
-	              </div>
+				<div class="dropdown-menu dropdown-menu-center" aria-labelledby="test2"> 
+					<div class="loginArea" id="loginLogo" style="text-align: left; margin-top:0px" >
+						<img class="userImg" src="<%=contextPath%>/resources/images/defaultIcon.png" width="25px" height="25px" margin-left="2px">
+						<%= loginUser.getMemberName() %>
+	              	 	<button class="btn btn-primary btn-sm" style="float:right; margin-right:5px;">로그아웃</button>
+	              	 	<div class="dropdown-divider"></div>
+	              	</div>
 	              
-	              <% if(loginUser != null & loginUser.getMemberId().equals("admin")) { %>
-	              <div class="adminPgIn">
-	                  <a href="<%=contextPath %>/main.ad">관리자페이지</a>
-	              </div>
-	              <% } else { %>
-	              <div class="myPageIn">
-	                  <a href="myPage.me">마이페이지</a>
-	              </div>
-	              <div class="writerPgIn">
-	                  <a href="">작가페이지</a>
-	              </div>	              
-	              <% } %>
+	              	<!-- 관리자라면 -->
+					<% if(loginUser != null & loginUser.getMemberId().equals("admin")) { %>
+					<div class="adminPgIn drop-item">
+						<a href="<%=contextPath %>/main.ad" style="margin-left:15px; color:blue">관리자 페이지로</a>
+					</div>
+					<!-- 관리자가 아니라면 -->
+					<% } else { %>
+					<div class="myCoin">
+						보유 코인 : <%= loginUser.getMyCookieCount() %>개 <button>충전하기</button>
+					</div>
+					
+					<div class="myPageIn">
+	                	<a href="myPage.me">마이페이지</a>
+					</div>
+	              	<div class="writerPgIn">
+	                  	<a href="">작가페이지</a>
+	              	</div>	              
+	              	<% } %>
 	            </div>
 	          </li>
 	          <% } %>
