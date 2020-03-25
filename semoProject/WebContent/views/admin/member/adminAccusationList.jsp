@@ -69,18 +69,24 @@
                                     </thead>
                                     
                                     <tbody>
-                                    	<% for(Member m : list) { %>
-                                        <tr>
-                                            <td><input type="checkbox" name="accusCheck" value=<%=m.getMemberNo()%>></td>
-                                            <td><%=m.getMemberId() %></td>
-                                            <td><%=m.getAccusationDate() %></td>
-                                            <td>
-                                            	<% long time = Math.abs((new Date().getTime() - m.getAccusationDate().getTime())/(24*60*60*1000)); %>
-                                            	<%=time %>
-                                            </td>
-                                            <td><%=m.getAccusationCount() %></td>
-                                        </tr>
-                                        <% } %>
+                                    	<% if(list.size() != 0) { %>
+	                                    	<% for(Member m : list) { %>
+	                                        <tr>
+	                                            <td><input type="checkbox" name="accusCheck" value=<%=m.getMemberNo()%>></td>
+	                                            <td><%=m.getMemberId() %></td>
+	                                            <td><%=m.getAccusationDate() %></td>
+	                                            <td>
+	                                            	<% long time = Math.abs((new Date().getTime() - m.getAccusationDate().getTime())/(24*60*60*1000)); %>
+	                                            	<%=time %>
+	                                            </td>
+	                                            <td><%=m.getAccusationCount() %></td>
+	                                        </tr>
+	                                        <% } %>
+	                                    <% } else { %>
+	                                    	<tr>
+	                                    		<td colspan="5" style="text-align:center;">조회된 데이터가 없습니다</td>
+	                                    	</tr>
+	                                    <% } %>
                                     </tbody>
                                 </table>
 

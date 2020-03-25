@@ -71,15 +71,21 @@
                                     </thead>
                                     
                                     <tbody>
-                                   	 	<% for(Writer w : list) {%>
-                                        <tr>                                        	
-                                            <td><input type="checkbox" name="writerAprv" value="<%=w.getWriterNo()%>"></td>
-                                            <td><%=w.getWriterName() %></td>
-                                            <td><%=w.getWriterId() %></td>
-                                            <td><%=w.getWriterNickname() %></td>
-                                            <td><a href="approvDetail.wr?pageId=1&&no=<%=w.getWriterNo() %>">작품 보기</a></td>                                            
-                                        </tr>
-                                        <% } %>
+                                    	<% if(list.size() != 0) { %>
+	                                   	 	<% for(Writer w : list) {%>
+	                                        <tr>                                        	
+	                                            <td><input type="checkbox" name="writerAprv" value="<%=w.getWriterNo()%>"></td>
+	                                            <td><%=w.getWriterName() %></td>
+	                                            <td><%=w.getWriterId() %></td>
+	                                            <td><%=w.getWriterNickname() %></td>
+	                                            <td><a href="approvDetail.wr?pageId=1&&no=<%=w.getWriterNo() %>">작품 보기</a></td>                                            
+	                                        </tr>
+	                                        <% } %>
+	                                    <% } else { %>
+	                                    	<tr>
+	                                    		<td colspan="5" style="text-align:center;">조회된 데이터가 없습니다.</td>
+	                                    	</tr>
+	                                    <% } %>
                                     </tbody>                                
                                 </table>
                                 

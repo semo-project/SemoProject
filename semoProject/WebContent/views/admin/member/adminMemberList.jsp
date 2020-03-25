@@ -67,14 +67,20 @@
 									</thead>
                                     
 									<tbody>
-									<% for(Member m : list) { %>
+									<% if(list.size() != 0) { %>
+										<% for(Member m : list) { %>
+											<tr>
+												<td><%=m.getMemberName() %></td>
+												<td><%=m.getMemberId() %></td>
+												<td><%=m.getPhone() %></td>
+												<td><%=m.getGender() %></td>
+												<td><%=m.getAge() %></td>
+												<td><%=m.getEnrollDate() %></td>
+											</tr>
+										<% } %>
+									<% } else { %>
 										<tr>
-											<td><%=m.getMemberName() %></td>
-											<td><%=m.getMemberId() %></td>
-											<td><%=m.getPhone() %></td>
-											<td><%=m.getGender() %></td>
-											<td><%=m.getAge() %></td>
-											<td><%=m.getEnrollDate() %></td>
+											<td colspan="6" style="text-align:center;">조회된 데이터가 없습니다.</td>
 										</tr>
 									<% } %>
 									</tbody>

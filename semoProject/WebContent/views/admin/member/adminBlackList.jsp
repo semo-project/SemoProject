@@ -65,17 +65,23 @@
                                     </thead>
                                     
                                     <tbody>
-                                    	<% for(Member m : list) { %>
-                                        <tr>
-                                            <td><input type="checkbox" name="accusCheck" value="<%=m.getMemberNo()%>"></td>
-                                            <td><%=m.getMemberId() %></td>
-                                            <td style="color: <% if (m.getAccusationCount() >= 5) {%> 
-                                            						red
-                                            				  <% } else { %>
-                                            				  		black
-                                            				  <% } %>;"><%=m.getAccusationCount() %></td>
-                                        </tr>
-                                        <% } %>
+                                    	<% if(list.size() != 0) { %>
+	                                    	<% for(Member m : list) { %>
+	                                        <tr>
+	                                            <td><input type="checkbox" name="accusCheck" value="<%=m.getMemberNo()%>"></td>
+	                                            <td><%=m.getMemberId() %></td>
+	                                            <td style="color: <% if (m.getAccusationCount() >= 5) {%> 
+	                                            						red
+	                                            				  <% } else { %>
+	                                            				  		black
+	                                            				  <% } %>;"><%=m.getAccusationCount() %></td>
+	                                        </tr>
+	                                        <% } %>
+	                                    <% } else { %>
+	                                    	<tr>
+	                                    		<td colspan="3" style="text-align:center;">조회된 데이터가 없습니다</td>
+	                                    	</tr>
+	                                    <% } %>
                                     </tbody>
                                 </table>
 

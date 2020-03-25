@@ -68,22 +68,28 @@
 										</thead>
                                         
 										<tbody>
-											<% for(Report r : list) { %>
-											<tr >
-												<td><input type="checkbox" name="reportCheck" value="<%=r.getReportNo()%>"></td>
-												<!-- 휴 체크박스 눌러도 뜨니까 이런 식으로 해야 돼 -->
-												<td data-toggle="modal" data-target="#reportModal" data-title="<%=r.getBoardTitle()%>" 
-																							   data-group="<%=r.getReportClassName()%>" 
-																							   data-content="<%=r.getReportContent()%>"
-																							   data-boardNo="<%=r.getWritingNo()%>"
-																							   data-boardGroup="<%=r.getBoardGroupName()%>"
-													style="color:blue; cursor:pointer;">
-													<%=r.getMemberId() %>
-												</td>
-												<td><%=r.getReportClassName() %></td>
-												<td><%=r.getBoardTitle() %></td>
-												<td><%=r.getReportDate() %></td>
-											</tr>
+											<% if(list.size() != 0) { %>
+												<% for(Report r : list) { %>
+												<tr >
+													<td><input type="checkbox" name="reportCheck" value="<%=r.getReportNo()%>"></td>
+													<!-- 휴 체크박스 눌러도 뜨니까 이런 식으로 해야 돼 -->
+													<td data-toggle="modal" data-target="#reportModal" data-title="<%=r.getBoardTitle()%>" 
+																								   data-group="<%=r.getReportClassName()%>" 
+																								   data-content="<%=r.getReportContent()%>"
+																								   data-boardNo="<%=r.getWritingNo()%>"
+																								   data-boardGroup="<%=r.getBoardGroupName()%>"
+														style="color:blue; cursor:pointer;">
+														<%=r.getMemberId() %>
+													</td>
+													<td><%=r.getReportClassName() %></td>
+													<td><%=r.getBoardTitle() %></td>
+													<td><%=r.getReportDate() %></td>
+												</tr>
+												<% } %>
+											<% } else { %>
+												<tr>
+													<td colspan="5" style="text-align:center;">조회된 데이터가 없습니다</td>
+												</tr>
 											<% } %>
 										</tbody>
 									</table>

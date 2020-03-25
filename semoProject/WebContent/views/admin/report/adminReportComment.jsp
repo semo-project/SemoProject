@@ -69,22 +69,28 @@
                                         </thead>
                                         
                                         <tbody>
-                                        	<% for(Report r : list) { %>
-                                            <tr>
-                                                <td><input type="checkbox" name="reportCheck" value="<%=r.getReportNo()%>"></td>
-                                                <td data-toggle="modal" data-target="#reportModal" data-comment="<%=r.getCommentContent()%>" 
-																							   	   data-group="<%=r.getReportClassName()%>" 
-																							       data-content="<%=r.getReportContent()%>"
-																							       data-boardNo="<%=r.getWritingNo()%>"
-													style="color:blue; cursor:pointer;">
-													<%=r.getMemberId() %>
-												</td>
-                                                <td><%=r.getReportClassName() %></td>
-                                                <td><% if(r.getReportGroupNo() == 2) {%>게시글 댓글
-                                                	<% } else { %>웹툰 댓글 <%} %></td>
-                                                <td><%=r.getReportDate() %></td>
-                                            </tr>
-                                            <% } %>
+                                        	<% if(list.size() != 0) { %>
+	                                        	<% for(Report r : list) { %>
+	                                            <tr>
+	                                                <td><input type="checkbox" name="reportCheck" value="<%=r.getReportNo()%>"></td>
+	                                                <td data-toggle="modal" data-target="#reportModal" data-comment="<%=r.getCommentContent()%>" 
+																								   	   data-group="<%=r.getReportClassName()%>" 
+																								       data-content="<%=r.getReportContent()%>"
+																								       data-boardNo="<%=r.getWritingNo()%>"
+														style="color:blue; cursor:pointer;">
+														<%=r.getMemberId() %>
+													</td>
+	                                                <td><%=r.getReportClassName() %></td>
+	                                                <td><% if(r.getReportGroupNo() == 2) {%>게시글 댓글
+	                                                	<% } else { %>웹툰 댓글 <%} %></td>
+	                                                <td><%=r.getReportDate() %></td>
+	                                            </tr>
+	                                            <% } %>
+	                                        <% } else { %>
+	                                        	<tr>
+	                                        		<td colspan="5" style="text-align:center;">조회된 데이터가 없습니다</td>
+	                                        	</tr>
+	                                        <% } %>
                                         </tbody>
                                     </table>
 									<label style="color:gray;">아이디를 클릭하세요</label>

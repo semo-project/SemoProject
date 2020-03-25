@@ -45,9 +45,7 @@
                     
                     <div class="diyDiv mb-4">
                         <label id="writerName">
-                        	<%if(list.size() != 0) { %>
-                        	<%=list.get(0).getNickName() %>
-                        	<%} %>
+                        	<%if(list.size() != 0) { list.get(0).getNickName(); }%>
                         </label> 작가의 작품 목록
                     </div>
 
@@ -72,32 +70,40 @@
                                     </thead>
                                     
                                     <tbody>
-                                        <tr>
-                                        	<% for(int i=0; i<list.size(); i++) { %>
-                                            <td><input type="checkbox" name="secretCheck" value="<%=list.get(i).getWorkNo()%>"></td>
-                                            <td>
-                                            	<a href="<%=contextPath%>/episodeList.wo?pageId=4&&no=<%=list.get(i).getWorkNo()%>">
-                                            	<%=list.get(i).getWorktitle() %>
-                                            	</a>
-                                            </td>
-                                            <td><%=list.get(i).getGenre() %></td>
-                                            <td><%=list.get(i).getWorkSummary() %></td>
-                                            <td>
-                                            	<%if(list.get(i).getSecretFlag().equals("N")) { %> 조회 가능
-                                            	<% } else {%> 조회 불가
-                                            	<% } %>
-                                            </td>
-                                        </tr>
+                                    	<% if(list.size() != 0) { %>
+	                                        <% for(Work w : list) { %>
+	                                        <tr>
+	                                            <td><input type="checkbox" name="secretCheck" value="<%=w.getWorkNo()%>"></td>
+	                                            <td>
+	                                            	<a href="<%=contextPath%>/episodeList.wo?pageId=4&&no=<%=w.getWorkNo()%>">
+	                                            	<%=w.getWorktitle() %>
+	                                            	</a>
+	                                            </td>
+	                                            <td><%=w.getGenre() %></td>
+	                                            <td><%=w.getWorkSummary() %></td>
+	                                            <td>
+	                                            	<%if(w.getSecretFlag().equals("N")) { %> 조회 가능
+	                                            	<% } else {%> 조회 불가
+	                                            	<% } %>
+	                                            </td>
+	                                        </tr>
+                                        	<% } %>
+                                        <% } else { %>
+                                        	<tr>
+                                        		<td colspan="5" style="text-align:center;">조회된 데이터가 없습니다.</td>
+                                        	</tr>
                                         <% } %>
                                     </tbody>
                                 </table>
-								
+								<% if(list.size() != 0) { %>
 								<div style="float: right;">
                                 <button class="btn btn-danger" id="secretBtn">숨김 처리</button>
 	                            <button class="btn btn-danger" id="disSecretBtn">숨김 해제</button>
                                 </div>
-
+								<% } %>
+								
                             </div>
+                            <% if(list.size() != 0) { %>
                             <!-- 검색어를 받아온 게 있다면 -->
 							<% if(search != null) { %>
 							
@@ -177,7 +183,8 @@
 			
 							</div>
 							
-							<% } %>                                
+							<% } %>    
+							<% } %>                            
                         </div>
                     </div>
                 </div>
@@ -191,6 +198,8 @@
     <script>
     	$(function(){
 			var msg = "<%=scrMsg%>";
+			
+			var writerNo = "<%if(list.size() != 0) { list.get(0).getWriterNo(); }%>";
     		
     		if(msg != "null") {
     			alert(msg);
@@ -201,7 +210,7 @@
     		
             $("#searchBtn").click(function(){
                var search = $("#workSearch").val();
-               location.href = "<%=contextPath%>/writerSearch.wo?pageId=4&&no=<%=list.get(0).getWriterNo()%>&&search=" + search;
+               location.href = "<%=contextPath%>/writerSearch.wo?pageId=4&&no=" + writerNo + "&&search=" + search;
             });
             
             // 숨김처리
@@ -214,7 +223,7 @@
     			
     			if(scrArr.length >= 1) {
     				var scrNo = scrArr.join(", ");
-    				location.href = "<%=contextPath%>/workScrt.wo?pageId=4&&writerNo=<%=list.get(0).getWriterNo()%>&&no=" + scrNo;
+    				location.href = "<%=contextPath%>/workScrt.wo?pageId=4&&writerNo=" + writerNo + "&&no=" + scrNo;
     			} else {
     				alert("숨김처리 할 작품을 선택해주세요.");
     			}
@@ -230,7 +239,7 @@
     			
     			if(scrArr.length >= 1) {
     				var scrNo = scrArr.join(", ");
-    				location.href = "<%=contextPath%>/disScrt.wo?pageId=4&&writerNo=<%=list.get(0).getWriterNo()%>&&no=" + scrNo;
+    				location.href = "<%=contextPath%>/disScrt.wo?pageId=4&&writerNo=" + writerNo + "&&no=" + scrNo;
     			} else {
     				alert("숨김해제 할 작품을 선택해주세요.");
     			}

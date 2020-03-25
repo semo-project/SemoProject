@@ -64,14 +64,20 @@
                                     </thead>
                                     
                                     <tbody>
-                                    	<%for(Work w : list) { %>
-                                        <tr>
-                                            <td><%=w.getWorktitle() %></td>
-                                            <td><%=w.getNickName() %></td>
-                                            <td><a href="<%=contextPath%>/writerList.wo?pageId=4&&no=<%=w.getWriterNo()%>">작품 리스트 보기</a></td>
-                                            <!-- 그리고 보내줄 때 작가 번호도 보내줘야 함 일단 뺌 -->
-                                        </tr>
-                                        <%} %>
+                                    	<% if(list.size() != 0) { %>
+	                                    	<%for(Work w : list) { %>
+	                                        <tr>
+	                                            <td><%=w.getWorktitle() %></td>
+	                                            <td><%=w.getNickName() %></td>
+	                                            <td><a href="<%=contextPath%>/writerList.wo?pageId=4&&no=<%=w.getWriterNo()%>">작품 리스트 보기</a></td>
+	                                            <!-- 그리고 보내줄 때 작가 번호도 보내줘야 함 일단 뺌 -->
+	                                        </tr>
+	                                        <%} %>
+	                                    <% } else { %>
+	                                    	<tr>
+	                                    		<td colspan="3" style="text-align:center;">조회된 데이터가 없습니다</td>
+	                                    	</tr>
+	                                    <% } %>
                                     </tbody>
                                 </table>
                                 <br><br>
