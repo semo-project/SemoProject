@@ -25,6 +25,7 @@ public class Work {
 	
 	//LSH
 	private String nickName;
+	private String genre;
 	
 	public Work() {
 
@@ -224,6 +225,14 @@ public class Work {
 
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
+	}
+
+	public String getGenre() {
+		return genre;
+	}
+
+	public void setGenre(String genre) {
+		this.genre = genre;
 	}
 
 }

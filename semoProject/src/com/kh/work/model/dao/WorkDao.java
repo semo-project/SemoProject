@@ -15,6 +15,14 @@ import java.util.Properties;
 import com.kh.common.PageInfo;
 import com.kh.work.model.vo.Work;
 
+/**
+ * @author lsh94
+ *
+ */
+/**
+ * @author lsh94
+ *
+ */
 public class WorkDao {
 	
 	private Properties prop = new Properties();
@@ -317,4 +325,262 @@ public class WorkDao {
 		return list;
 	}
  
+	// LSH
+	public int getAdminWorkWriterCount(Connection conn, int no) {
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("getAdminWorkWriterCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+	
+		return listCount;
+	}
+	
+	public ArrayList<Work> selectAdminWorkWriterList(Connection conn, PageInfo pi, int no) {
+		ArrayList<Work> list = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectAdminWorkWriterList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getWorkLimit() + 1;
+			int endRow = startRow + pi.getWorkLimit() - 1;
+			
+			pstmt.setInt(1, no);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Work w = new Work();
+				
+				// 여기서는 장르가 여러 값일 수 있기 때문에 장르 빼고 불러오기
+				w.setNickName(rset.getString("member_nickname"));
+				w.setWorktitle(rset.getString("work_title"));
+				w.setWorkSummary(rset.getString("work_summary"));
+				w.setWorkNo(rset.getInt("work_no"));
+				w.setSecretFlag(rset.getString("secret_flag"));
+				w.setWriterNo(rset.getInt("writer_no"));
+				
+				list.add(w);
+			}
+			
+			// 만약 해당하는 작품이 하나라도 존재한다면
+			if(list.size() > 0 ){
+				// 장르 세팅해주러
+				adminSetGenre(conn, list);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
+	// LSH
+	// 작품 별로 장르를 담아오는 메서드,, sql문으로 작성하면 될 거 같은데 몸이 고생하는 중
+	public void adminSetGenre(Connection conn, ArrayList<Work> list) {
+
+		// 갑자기 분위기 장르
+		
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		
+		// 장르 담아줄 변수 (작품마다 다르게 담겨야 하기 때문에 초기화는 해주지 않고 선언만)
+		ArrayList<String> genre;
+		
+		// 장르 이름만 받아올 sql 구문
+		String genreSql = prop.getProperty("selectGenre");
+		
+		try {
+			pst = conn.prepareStatement(genreSql);
+			
+			// work는 언제든지 리스트로 여러 개일 수 있기 때문에 for문
+			for(Work w : list) {
+				// workNo를 for문으로 돌려가며 받아줌
+				pst.setInt(1, w.getWorkNo());
+				rs = pst.executeQuery();
+				
+				// genre_name만 받아올 list
+				genre = new ArrayList<>();
+				while(rs.next()) {
+					genre.add(rs.getString("genre_name"));
+				}
+				
+				// 하나의 작품에 해당하는 모든 장르를 담아 join 함수로 묶어서 string 변수에 담기
+				String workGenre = String.join(", ", genre);
+				
+				// 위에서 세팅한 장르들의 묶음을 해당 Work 변수에 세팅해주기
+				w.setGenre(workGenre);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pst);
+		}
+	}
+	
+	//LSH
+	public int secretWorkConfirm(Connection conn, String no, int flag) {
+		int result = 0;
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		String sql;
+		if(flag == 1) { // 이미 숨김된 건이 있는지 조회
+			sql = "SELECT COUNT(*) FROM TB_WORK WHERE SECRET_FLAG = 'Y' AND WORK_NO IN (" + no + ")";
+		} else { // 숨김되지 않은 건을 선택했는지 조회
+			sql = "SELECT COUNT(*) FROM TB_WORK WHERE SECRET_FLAG = 'N' AND WORK_NO IN (" + no + ")";
+		}
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sql);
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}		
+		
+		return result;
+	}
+	
+	//LSH
+	public int secretWork(Connection conn, String no, int flag) {
+		
+		Statement stmt = null;
+		int result = 0;
+		
+		String sql;
+		if(flag == 1) {
+			sql = "UPDATE TB_WORK SET SECRET_FLAG = 'Y' WHERE WORK_NO IN (" + no + ")";
+		} else {
+			sql = "UPDATE TB_WORK SET SECRET_FLAG = 'N' WHERE WORK_NO IN (" + no + ")";			
+		}
+		
+		try {
+			stmt = conn.createStatement();
+			
+			result = stmt.executeUpdate(sql);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+		}
+		
+		return result;
+	}
+	
+	// LSH
+	public int getAdminWriterSearchCount(Connection conn, int no, String search) {
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("getAdminWriterSearchCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, search);
+			pstmt.setInt(2, no);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+	
+		return listCount;
+	}
+	
+	public ArrayList<Work> selectAdminWriterSearchList(Connection conn, PageInfo pi, int no, String search) {
+		ArrayList<Work> list = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectAdminWriterSearchList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getWorkLimit() + 1;
+			int endRow = startRow + pi.getWorkLimit() - 1;
+			
+			pstmt.setInt(1, no);
+			pstmt.setString(2, search);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Work w = new Work();
+				
+				// 여기서는 장르가 여러 값일 수 있기 때문에 장르 빼고 불러오기
+				w.setNickName(rset.getString("member_nickname"));
+				w.setWorktitle(rset.getString("work_title"));
+				w.setWorkSummary(rset.getString("work_summary"));
+				w.setWorkNo(rset.getInt("work_no"));
+				w.setSecretFlag(rset.getString("secret_flag"));
+				w.setWriterNo(rset.getInt("writer_no"));
+				
+				list.add(w);
+			}
+			
+			// 만약 해당하는 작품이 하나라도 존재한다면
+			if(list.size() > 0 ){
+				// 장르 세팅해주러
+				adminSetGenre(conn, list);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
 }

@@ -83,13 +83,13 @@
 							<div class="pagingArea" align="center">
 							
 							<!-- 맨 처음으로 (<<) -->
-							<button onclick="location.href='<%=contextPath%>/adWorkSearch.wo?pageId=1&&search=<%=search %>';" class="btn btn-outline-primary"> &lt;&lt; </button>
+							<button onclick="location.href='<%=contextPath%>/adWorkSearch.wo?pageId=4&&search=<%=search %>';" class="btn btn-outline-primary"> &lt;&lt; </button>
 							
 							<!-- 이전페이지(<) -->
 							<%if(currentPage == 1){ %>
 							<button disabled class="btn btn-outline-primary"> &lt; </button>
 							<%}else{ %>
-							<button onclick="location.href='<%=contextPath%>/adWorkSearch.wo?pageId=1&&currentPage=<%=currentPage-1%>&&search=<%=search %>';" class="btn btn-outline-primary"> &lt; </button>
+							<button onclick="location.href='<%=contextPath%>/adWorkSearch.wo?pageId=4&&currentPage=<%=currentPage-1%>&&search=<%=search %>';" class="btn btn-outline-primary"> &lt; </button>
 							<%} %>
 							
 							<!-- 페이지 목록 -->
@@ -98,7 +98,7 @@
 								<%if(currentPage == p){ %>
 								<button disabled class="btn btn-primary"> <%=p%> </button>
 								<%}else{ %>
-								<button onclick="location.href='<%=contextPath%>/adWorkSearch.wo?pageId=1&&currentPage=<%=p%>&&search=<%=search %>';" class="btn btn-outline-primary"> <%= p %> </button>
+								<button onclick="location.href='<%=contextPath%>/adWorkSearch.wo?pageId=4&&currentPage=<%=p%>&&search=<%=search %>';" class="btn btn-outline-primary"> <%= p %> </button>
 								<%} %>
 				
 							<%} %>
@@ -107,7 +107,7 @@
 							<%if(currentPage == maxPage){ %>
 							<button disabled class="btn btn-outline-primary"> &gt; </button>
 							<%}else{ %>
-							<button onclick="location.href='<%=contextPath%>/adWorkSearch.wo?pageId=1&&currentPage=<%=currentPage+1%>&&search=<%=search %>';" class="btn btn-outline-primary"> &gt; </button>
+							<button onclick="location.href='<%=contextPath%>/adWorkSearch.wo?pageId=4&&currentPage=<%=currentPage+1%>&&search=<%=search %>';" class="btn btn-outline-primary"> &gt; </button>
 							<%} %>
 			
 			

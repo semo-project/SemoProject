@@ -60,3 +60,15 @@ semoProject/WebContent/WEB-INF/jspwork/org/apache/jsp/views/admin/common/adminIn
 semoProject/WebContent/WEB-INF/jspwork/org/apache/jsp/views/admin/common/adminIndex_jsp.class
 semoProject/WebContent/WEB-INF/jspwork/org/apache/jsp/index_jsp.java
 semoProject/WebContent/WEB-INF/jspwork/org/apache/jsp/index_jsp.class
+semoProject/WebContent/WEB-INF/jspwork/org/apache/jsp/views/admin/work/adminWorkWriterList_jsp.java
+semoProject/WebContent/WEB-INF/jspwork/org/apache/jsp/views/admin/work/adminWorkWriterList_jsp.class
+semoProject/WebContent/WEB-INF/jspwork/org/apache/jsp/views/admin/work/adminWorkList_jsp.java
+semoProject/WebContent/WEB-INF/jspwork/org/apache/jsp/views/admin/work/adminWorkList_jsp.class
+semoProject/WebContent/WEB-INF/jspwork/org/apache/jsp/views/admin/work/adminWorkApprov_jsp.java
+semoProject/WebContent/WEB-INF/jspwork/org/apache/jsp/views/admin/work/adminWorkApprov_jsp.class
+semoProject/WebContent/WEB-INF/jspwork/org/apache/jsp/views/admin/member/adminBlackList_jsp.java
+semoProject/WebContent/WEB-INF/jspwork/org/apache/jsp/views/admin/member/adminBlackList_jsp.class
+semoProject/WebContent/WEB-INF/jspwork/org/apache/jsp/views/admin/common/adminIndex_jsp.java
+semoProject/WebContent/WEB-INF/jspwork/org/apache/jsp/views/admin/common/adminIndex_jsp.class
+semoProject/WebContent/WEB-INF/jspwork/org/apache/jsp/index_jsp.java
+semoProject/WebContent/WEB-INF/jspwork/org/apache/jsp/index_jsp.class

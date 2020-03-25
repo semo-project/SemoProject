@@ -119,4 +119,96 @@ public class WorkService {
 		return list;
 	}
 	
+	/**
+	 * Admin - 작가별 작품 조회 리스트 전체 수 리턴
+	 * @return
+	 */
+	public int getAdminWorkWriterCount(int no) {
+		Connection conn = getConnection();
+		
+		int listCount = new WorkDao().getAdminWorkWriterCount(conn, no);
+		
+		close(conn);
+		
+		return listCount;		
+	}
+	
+	/**
+	 * Admin - 작가 별 작품 조회 리스트 전체 리턴
+	 * @param pi
+	 * @param no
+	 * @return
+	 */
+	public ArrayList<Work> selectAdminWorkWriterList(PageInfo pi, int no) {
+		Connection conn = getConnection();
+		
+		ArrayList<Work> list = new WorkDao().selectAdminWorkWriterList(conn, pi, no);
+		
+		close(conn);
+		
+		return list;
+	}
+	
+	/**
+	 * Admin - 작가 별 작품 중 숨김처리를 하고 싶은 작품 중 숨김처리 여부 확인
+	 * @param no
+	 * @return
+	 */
+	public int secretWorkConfirm(String no, int flag) {
+		Connection conn = getConnection();
+		
+		int result = new WorkDao().secretWorkConfirm(conn, no, flag);
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	/**
+	 * Admin - 작품 숨김 처리 및 해제
+	 * @param no
+	 * @return
+	 */
+	public int secretWork(String no, int flag) {
+		Connection conn = getConnection();
+		
+		int result = new WorkDao().secretWork(conn, no, flag);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	/**
+	 * Admin - 검색어에 맞춰 작가 별 작품 리스트 전체 수 리턴
+	 * @param no
+	 * @param search
+	 * @return
+	 */
+	public int getAdminWriterSearchCount(int no, String search) {
+		Connection conn = getConnection();
+		
+		int listCount = new WorkDao().getAdminWriterSearchCount(conn, no, search);
+		
+		close(conn);
+		
+		return listCount;		
+	}
+	
+	public ArrayList<Work> selectAdminWriterSearchList(PageInfo pi, int no, String search) {
+		Connection conn = getConnection();
+		
+		ArrayList<Work> list = new WorkDao().selectAdminWriterSearchList(conn, pi, no, search);
+		
+		close(conn);
+		
+		return list;
+	}
+	
 }
