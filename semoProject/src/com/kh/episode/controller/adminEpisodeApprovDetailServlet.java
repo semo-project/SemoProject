@@ -1,4 +1,4 @@
-package com.kh.work.controller;
+package com.kh.episode.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

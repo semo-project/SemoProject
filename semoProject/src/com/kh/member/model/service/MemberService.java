@@ -59,6 +59,24 @@ public class MemberService {
 		
 	}
 	
+	public Member updatePwd(Member mem, String newPwd) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().updatePwd(conn, mem.getMemberId(), newPwd);
+		if(result > 0) {
+			commit(conn);
+			mem = selectMember(mem.getMemberId());
+			if(mem.getApprovalFlag() == null) {
+				mem.setApprovalFlag("null");
+			}
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return mem;
+		
+	}
+	
 	public int insertMember(Member mem) {
 		Connection conn = getConnection();
 		

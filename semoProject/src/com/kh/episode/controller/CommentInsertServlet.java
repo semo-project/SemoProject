@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.episode.model.service.EpisodeService;
 import com.kh.episode.model.vo.Comment;
-import com.kh.episode.service.episodeService;
 import com.kh.member.model.vo.Member;
 
 /**
@@ -41,7 +41,7 @@ public class CommentInsertServlet extends HttpServlet {
 		c.setEpisodeNo(eNo);
 		c.setMemberNo(member); // "1"
 		
-		int result = new episodeService().insertComment(c);
+		int result = new EpisodeService().insertComment(c);
 		
 		PrintWriter out = response.getWriter();
 		out.print(result);

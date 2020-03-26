@@ -10,8 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.kh.episode.model.service.EpisodeService;
 import com.kh.episode.model.vo.Comment;
-import com.kh.episode.service.episodeService;
+import com.kh.episode.model.vo.Reply;
 
 /**
  * Servlet implementation class CommentListServlet
@@ -35,7 +36,7 @@ public class CommentListServlet extends HttpServlet {
 
 		int eNo = Integer.parseInt(request.getParameter("eNo"));
 		
-		ArrayList<Comment> list = new episodeService().selectReplyList(eNo);
+		ArrayList<Reply> list = new EpisodeService().selectReplyList(eNo);
 	
 		response.setContentType("application/json; charset=utf-8");
 		

@@ -175,6 +175,23 @@ public class MemberDao {
 		
 	}
 	
+	public int updatePwd(Connection conn, String userId, String newPwd) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("updatePwd");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, newPwd);
+			pstmt.setString(2, userId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
 	public Member idFind(Connection conn, String userName, String email) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;

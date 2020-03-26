@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.kh.episode.model.service.episodeService;
+import com.kh.episode.model.service.EpisodeService;
 /**
  * Servlet implementation class adminEpisodeSecretServlet
  */
@@ -40,7 +40,7 @@ public class adminEpisodeSecretServlet extends HttpServlet {
 		int workNo = Integer.parseInt(request.getParameter("workNo"));
 		
 		// 혹시 이미 숨김처리 된 건, 또는 숨김해제 된 건이 있다면
-		int secretFlag = new episodeService().secretEpisodeConfirm(no, div);
+		int secretFlag = new EpisodeService().secretEpisodeConfirm(no, div);
 		
 		HttpSession session = request.getSession();
 		
@@ -56,7 +56,7 @@ public class adminEpisodeSecretServlet extends HttpServlet {
 			return;
 		}
 		
-		int result = new episodeService().secretEpisode(no, div);
+		int result = new EpisodeService().secretEpisode(no, div);
 		
 		if(result > 0) {
 			if(div == 1) {
