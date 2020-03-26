@@ -26,6 +26,8 @@ public class Work {
 	//LSH
 	private String nickName;
 	private String genre;
+	private int episodeNo;
+	private String episodeTitle;
 	
 	public Work() {
 
@@ -235,4 +237,19 @@ public class Work {
 		this.genre = genre;
 	}
 
+	public int getEpisodeNo() {
+		return episodeNo;
+	}
+
+	public void setEpisodeNo(int episodeNo) {
+		this.episodeNo = episodeNo;
+	}
+
+	public String getEpisodeTitle() {
+		return episodeTitle;
+	}
+
+	public void setEpisodeTitle(String episodeTitle) {
+		this.episodeTitle = episodeTitle;
+	}
 }

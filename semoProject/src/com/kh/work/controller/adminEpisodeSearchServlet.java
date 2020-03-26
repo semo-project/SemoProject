@@ -14,16 +14,16 @@ import com.kh.work.model.service.WorkService;
 import com.kh.work.model.vo.Work;
 
 /**
- * Servlet implementation class adminWorkEpisodeServlet
+ * Servlet implementation class adminEpisodeSearchServlet
  */
-@WebServlet("/episodeList.wo")
-public class adminWorkEpisodeServlet extends HttpServlet {
+@WebServlet("/adSearch.ep")
+public class adminEpisodeSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public adminWorkEpisodeServlet() {
+    public adminEpisodeSearchServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,8 +32,9 @@ public class adminWorkEpisodeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+		
 		int no = Integer.parseInt(request.getParameter("no"));
+		String search = request.getParameter("search");
 		
 		int listCount;			// 총 게시글 갯수
 		int currentPage;		// 현재 페이지 (즉, 요청한 페이지)
@@ -45,7 +46,7 @@ public class adminWorkEpisodeServlet extends HttpServlet {
 		int boardLimit;			// 한 페이지에 보여질 게시글 최대 갯수
 		
 		// 총 게시글 수
-		listCount = new WorkService().getAdminEpisodeCnt(no);
+		listCount = new WorkService().getAdminEpiSearchCnt(no, search);
 		
 		// 현재 페이지
 		currentPage = 1;
@@ -75,11 +76,12 @@ public class adminWorkEpisodeServlet extends HttpServlet {
 		// 위에 구해진 정보들을 바탕으로 dao에서 글을 긁어올 것
 		PageInfo pi = new PageInfo(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
 		
-		ArrayList<Work> list = new WorkService().selectAdminEpisode(pi, no);
+		ArrayList<Work> list = new WorkService().selectAdminEpiSearch(pi, no, search);
 		
 		if(list != null) {
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
+			request.setAttribute("search", search);
 			request.getRequestDispatcher("views/admin/work/adminWorkEpisode.jsp").forward(request, response);			
 		} else {
 			request.setAttribute("msg", "조회 실패");

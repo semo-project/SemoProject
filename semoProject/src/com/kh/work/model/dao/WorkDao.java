@@ -13,16 +13,9 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.common.PageInfo;
+import com.kh.episode.model.vo.Episode;
 import com.kh.work.model.vo.Work;
 
-/**
- * @author lsh94
- *
- */
-/**
- * @author lsh94
- *
- */
 public class WorkDao {
 	
 	private Properties prop = new Properties();
@@ -534,6 +527,7 @@ public class WorkDao {
 		return listCount;
 	}
 	
+	//LSH
 	public ArrayList<Work> selectAdminWriterSearchList(Connection conn, PageInfo pi, int no, String search) {
 		ArrayList<Work> list = new ArrayList<>();
 		
@@ -573,6 +567,152 @@ public class WorkDao {
 			if(list.size() > 0 ){
 				// 장르 세팅해주러
 				adminSetGenre(conn, list);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
+	//LSH
+	public int getAdminEpisodeCnt(Connection conn, int no) {
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("getAdminEpisodeCnt");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	
+	//LSH
+	public ArrayList<Work> selectAdminEpisode(Connection conn, PageInfo pi, int no) {
+		ArrayList<Work> list = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectAdminEpisode");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getWorkLimit() + 1;
+			int endRow = startRow + pi.getWorkLimit() - 1;
+			
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Work w = new Work();
+				
+				w.setWorkNo(rset.getInt("work_no"));
+				w.setWorktitle(rset.getString("work_title"));
+				w.setNickName(rset.getString("member_nickname"));
+				w.setEpisodeNo(rset.getInt("episode_no"));
+				w.setSecretFlag(rset.getString("secret_flag"));
+				w.setEpisodeTitle(rset.getString("episode_title"));
+				
+				list.add(w);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
+	//LSH
+	public int getAdminEpiSearchCnt(Connection conn, int no, String search) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		int listCount = 0;
+		
+		String sql = prop.getProperty("getAdminEpiSearchCnt");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			pstmt.setString(2, search);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+
+	//LSH
+	public ArrayList<Work> selectAdminEpiSearch(Connection conn, PageInfo pi, int no, String search) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<Work> list = new ArrayList<>();
+		
+		String sql = prop.getProperty("selectAdminEpiSearch");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getWorkLimit() + 1;
+			int endRow = startRow + pi.getWorkLimit() - 1;
+			
+			pstmt.setInt(1, no);
+			pstmt.setString(2, search);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Work w = new Work();
+				
+				w.setWorkNo(rset.getInt("work_no"));
+				w.setWorktitle(rset.getString("work_title"));
+				w.setNickName(rset.getString("member_nickname"));
+				w.setEpisodeNo(rset.getInt("episode_no"));
+				w.setSecretFlag(rset.getString("secret_flag"));
+				w.setEpisodeTitle(rset.getString("episode_title"));
+				
+				list.add(w);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.kh.common.PageInfo;
+import com.kh.episode.model.vo.Episode;
 import com.kh.work.model.dao.WorkDao;
 import com.kh.work.model.vo.Work;
 
@@ -201,10 +202,74 @@ public class WorkService {
 		return listCount;		
 	}
 	
+	/**
+	 * Admin - 검색어에 맞춰진 작가의 작가 별 작품 리스트 전체 리턴
+	 * @param pi
+	 * @param no
+	 * @param search
+	 * @return
+	 */
 	public ArrayList<Work> selectAdminWriterSearchList(PageInfo pi, int no, String search) {
 		Connection conn = getConnection();
 		
 		ArrayList<Work> list = new WorkDao().selectAdminWriterSearchList(conn, pi, no, search);
+		
+		close(conn);
+		
+		return list;
+	}
+	
+	/**
+	 * Admin - 작품 별 에피소드 조회 전체 수 리턴
+	 * @param no
+	 * @return
+	 */
+	public int getAdminEpisodeCnt(int no) {
+		Connection conn = getConnection();
+		
+		int listCount = new WorkDao().getAdminEpisodeCnt(conn, no);
+		
+		close(conn);
+		
+		return listCount;
+	}
+	
+	/**
+	 * Admin - 작품 별 에피소드 전체 조회 
+	 * @param pi
+	 * @param no
+	 * @return
+	 */
+	public ArrayList<Work> selectAdminEpisode(PageInfo pi, int no) {
+		Connection conn = getConnection();
+		
+		ArrayList<Work> list = new WorkDao().selectAdminEpisode(conn, pi, no);
+		
+		close(conn);
+		
+		return list;
+	}
+	
+	/**
+	 * Admin - 검색어에 맞춘 에피소드 리스트 전체 수 리턴
+	 * @param no
+	 * @param search
+	 * @return
+	 */
+	public int getAdminEpiSearchCnt(int no, String search) {
+		Connection conn = getConnection();
+		
+		int listCount = new WorkDao().getAdminEpiSearchCnt(conn, no, search);
+		
+		close(conn);
+		
+		return listCount;
+	}
+	
+	public ArrayList<Work> selectAdminEpiSearch(PageInfo pi, int no, String search) {
+		Connection conn = getConnection();
+		
+		ArrayList<Work> list = new WorkDao().selectAdminEpiSearch(conn, pi, no, search);
 		
 		close(conn);
 		
