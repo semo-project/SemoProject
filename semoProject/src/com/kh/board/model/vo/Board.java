@@ -14,10 +14,58 @@ public class Board {
 	private int btype;
 	private String boardWriter;
 	
+	// KJY
+	private int memberId;
+	private int listNo;
+	
 	public Board() {
 			
 	}
 
+	public Board(int boardNo, String boardTitle, String boardContent, int boardCnt, Date boardWriteDate,
+	         String groupName, String status, int btype, String boardWriter) {
+	      super();
+	      this.boardNo = boardNo;
+	      this.boardTitle = boardTitle;
+	      this.boardContent = boardContent;
+	      this.boardCnt = boardCnt;
+	      this.boardWriteDate = boardWriteDate;
+	      this.groupName = groupName;
+	      this.status = status;
+	      this.btype = btype;
+	      this.boardWriter = boardWriter;
+	   }
+	   
+   public Board(int listNo, int boardNo, String boardTitle, Date boardWriteDate, int boardCnt) {
+		super();
+		this.listNo = listNo;
+		this.boardNo = boardNo;
+		this.boardTitle = boardTitle;
+		this.boardWriteDate = boardWriteDate;
+		this.boardCnt = boardCnt;
+	}
+   
+   public Board(int boardNo, String boardTitle, String boardContent, int boardCnt, Date boardWriteDate,
+			String groupName, int memberId) {
+		super();
+		this.boardNo = boardNo;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.boardCnt = boardCnt;
+		this.boardWriteDate = boardWriteDate;
+		this.groupName = groupName;
+		this.memberId = memberId;
+	}
+
+	public Board(int boardNo, String boardTitle, int boardCnt, String boardWriter, Date boardWriteDate) {
+		super();
+		this.boardNo = boardNo;
+		this.boardTitle = boardTitle;
+		this.boardCnt = boardCnt;
+		this.boardWriter = boardWriter;
+		this.boardWriteDate = boardWriteDate;
+	}
+	  
 	public Board(int boardNo, String boardTitle, String boardContent, int boardCnt, Date boardWriteDate,
 			String groupName, String status, int btype) {
 		super();
@@ -29,15 +77,6 @@ public class Board {
 		this.groupName = groupName;
 		this.status = status;
 		this.btype = btype;
-	}
-	
-	public Board(int boardNo, String boardTitle, int boardCnt, String boardWriter, Date boardWriteDate) {
-		super();
-		this.boardNo = boardNo;
-		this.boardTitle = boardTitle;
-		this.boardCnt = boardCnt;
-		this.boardWriter = boardWriter;
-		this.boardWriteDate = boardWriteDate;
 	}
 	
 	//게시판 내용 조회
@@ -107,6 +146,22 @@ public class Board {
 
 	public void setBoardWriter(String boardWriter) {
 		this.boardWriter = boardWriter;
+	}
+
+	public int getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(int memberId) {
+		this.memberId = memberId;
+	}
+
+	public int getListNo() {
+		return listNo;
+	}
+
+	public void setListNo(int listNo) {
+		this.listNo = listNo;
 	}
 
 	@Override

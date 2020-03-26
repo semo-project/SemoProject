@@ -164,4 +164,20 @@ public class BoardService {
 		
 		return list;
 	}
+	
+	///////////////////////////////////////////////////////////////////
+	// KJY
+	public int countList(int userNo) {
+		Connection conn = getConnection();
+		int result = new BoardDao().countList(conn, userNo);
+		close(conn);
+		return result;
+	}
+	
+	public ArrayList<Board> selectMyList(PageInfo pi, int userNo){
+		Connection conn = getConnection();
+		ArrayList<Board> list = new BoardDao().selectMyList(conn, pi, userNo);
+		close(conn);
+		return list;
+	}
 }
