@@ -31,6 +31,108 @@ public class WorkDao {
 		}
 	}
 	
+	// PJH
+public int insertWorkGenre(Connection conn, int[]genre) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertWorkGenre");
+				
+			
+			try {
+				for(int i =0; i<genre.length ; i++) {
+				
+				pstmt= conn.prepareStatement(sql);
+				pstmt.setInt(1, genre[i]);
+				
+				result = pstmt.executeUpdate();
+				
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				
+				close(pstmt);
+			}
+			//스트링 업데이트데이라는 거 만들고 
+			
+			//서블릿.getupdate데이 메소드 실행시켜서 
+			//워크객체에 담겨있는 제대로 빼오는 작업. 
+			
+			return result;
+		}
+	//작품 insert 
+	public int insertWork(Connection conn, Work w) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertWork");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+						
+			pstmt.setString(1, w.getUpdateDay()); 
+			pstmt.setString(2, w.getWorkSummary());
+			pstmt.setString(3, w.getWorkPlot());
+			pstmt.setString(4, w.getThumbnailModify());
+			pstmt.setInt(5, w.getWriterNo());
+			pstmt.setString(6, w.getWorkTitle());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	//작품리스트조회
+	public ArrayList<Work> selectWorkList(Connection conn) {
+		
+		ArrayList<Work> list = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectWorkList");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, 1);// 
+			rset = pstmt.executeQuery();
+			
+			
+			while(rset.next()) {
+				Work w = new Work();
+				w.setWorkTitle(rset.getString("WORK_TITLE"));	
+				w.setThumbnailModify(rset.getString("Thumbnail_Modify"));
+				w.setWorkSummary(rset.getString("WORK_SUMMARY"));
+				
+				list.add(w);
+
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
 	public int getListCount(Connection conn) {
 		int listCount = 0;
 		

@@ -29,7 +29,9 @@ public class NoticeDao {
 			e.printStackTrace();
 		}
 	}
+	
 	public ArrayList<Notice> selectList(Connection conn){
+		
 		ArrayList<Notice> list = new ArrayList<>();
 		
 		Statement stmt = null;
@@ -44,10 +46,8 @@ public class NoticeDao {
 			while(rset.next()) {
 				list.add(new Notice(rset.getInt("notice_no"),
 								    rset.getString("notice_title"),
-								    rset.getDate("notice_date")
-								   ));
-				
-
+								    rset.getString("notice_content"),
+								    rset.getDate("notice_date")));
 			}
 			
 		} catch (SQLException e) {
@@ -58,7 +58,7 @@ public class NoticeDao {
 		}
 		
 		return list;
-		
+			
 	}
 	public int insertNotice(Connection conn, Notice n) {
 		int result = 0;

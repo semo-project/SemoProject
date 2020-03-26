@@ -13,6 +13,37 @@ import com.kh.work.model.vo.Work;
 
 public class WorkService {
 	
+	// PJH
+	public int insertWork(Work w, int[]genre ) {
+		
+		Connection conn = getConnection();
+		
+		int result1 = new WorkDao().insertWork(conn, w);
+		int result2 = new WorkDao().insertWorkGenre(conn, genre);
+		
+		if(result1*result2 > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+			
+		} 
+			close(conn);
+			
+		return result1*result2;
+		
+	}
+	
+	public ArrayList<Work> selectWorkList() {
+		Connection conn = getConnection();
+		
+		ArrayList<Work> list= new WorkDao().selectWorkList(conn);
+		
+		close(conn);
+		
+		
+		return list;
+	}
+
 	/** 
 	 * 1. 요일별 게시물 갯수 조회
 	 * @return

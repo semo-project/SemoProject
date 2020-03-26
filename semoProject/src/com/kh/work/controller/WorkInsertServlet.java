@@ -1,6 +1,7 @@
 package com.kh.work.controller;
 
 import java.io.IOException;
+import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -50,61 +51,54 @@ public class WorkInsertServlet extends HttpServlet {
 			MultipartRequest multiRequest = 
 					new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			
-					
-			
-			//1.title
-									 
-			
-			
-//			String startday = multiRequest.getParameter("startday"); date라 오류가 남
-			
-//			String requestday = multiRequest.getParameter("requestday");
-			
-			//2
-			
+			//연재요일
 			String[] updateDay = multiRequest.getParameterValues("updateday");
-			//배열로 담아온것을 조인해여 변환(장르와조인)
+			
+			//		연재요일 > 배열로 담아온것을 조인해여 변환(장르와조인)3
 			String updateDay1 = String.join(",",updateDay);
-
-			
-			
-			String [] stgenre = multiRequest.getParameterValues("genre"); 				
-			
+			String [] stgenre = multiRequest.getParameterValues("genre");		
 		    int[] genre = new int[stgenre.length];
 		      
 		    	for(int i=0;i<stgenre.length;i++) {
 		         
 		    		genre[i]= Integer.parseInt(stgenre[i]);
-		    	}
-			
-			//3
-			String plot = multiRequest.getParameter("plot");
-			
-			//4
+		    	}	    	
+		    	
+			//작품 시작일
+		    String d = multiRequest.getParameter("startday");
+		    Date startday =Date.valueOf(d);
+		    
+		    
+			//작품요약
 			String summary = multiRequest.getParameter("summary");
-			//5
+			//작품줄거리
+			String plot = multiRequest.getParameter("plot");	
+			
+			
+		
+			//첨부파일
 			String file1= multiRequest.getFilesystemName("file1"); 
 			
+			//작가 로그인 번호
+			int writerNo = Integer.parseInt(multiRequest.getParameter("writerNo")); 
+	         
+			
+			//작품제목
 			String title = multiRequest.getParameter("title");	
 			
 			
+			Work w = new Work();		
 			
-																							 
-
-
-			Work w = new Work();
-			
-//			w.setStartDay(startday); //데이트 타입이라 오류가 난다라
-//			w.setRequestDate(requestday);
-			w.setWorkUpdateDay(updateDay1);
-			w.setWorkGenre(genre);
-			w.setWorkPlot(plot);
+			w.setUpdateDay(updateDay1);
+			w.setStartDay(startday);
 			w.setWorkSummary(summary);
+			w.setWorkPlot(plot);
 			w.setThumbnailModify(file1);
-			w.setWorktitle(title);
+			w.setWriterNo(writerNo);
+			w.setWorkTitle(title);
 			
 			
-			int result = new WorkService().insertWork(w);
+			int result = new WorkService().insertWork(w,genre);
 			
 			if(result > 0) {
 				response.sendRedirect("list.wr");

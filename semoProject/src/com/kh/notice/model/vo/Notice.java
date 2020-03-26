@@ -13,17 +13,21 @@ public class Notice {
 		
 	}
 	
-	
-
 	public Notice(int noticeNo, String noticeTitle, Date noticeDate) {
 		super();
 		this.noticeNo = noticeNo;
 		this.noticeTitle = noticeTitle;
 		this.noticeDate = noticeDate;
 	}
-
-
-
+	
+	public Notice(int noticeNo, String noticeTitle, String noticeContent, Date noticeDate) {
+		super();
+		this.noticeNo = noticeNo;
+		this.noticeTitle = noticeTitle;
+		this.noticeContent = noticeContent;
+		this.noticeDate = noticeDate;
+	}
+	
 	public Notice(int noticeNo, String noticeTitle, String noticeContent, Date noticeDate, int noticeCnt) {
 		super();
 		this.noticeNo = noticeNo;
@@ -78,11 +82,5 @@ public class Notice {
 		return "Notice [noticeNo=" + noticeNo + ", noticeTitle=" + noticeTitle + ", noticeContent=" + noticeContent
 				+ ", noticeDate=" + noticeDate + ", noticeCnt=" + noticeCnt + "]";
 	}
-	
-	
-	
-	
-	
-	
 
 }

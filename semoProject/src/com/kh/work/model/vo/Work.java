@@ -1,7 +1,6 @@
 package com.kh.work.model.vo;
 
 import java.sql.Date;
-import java.util.Arrays;
 
 public class Work {
 	
@@ -98,6 +97,49 @@ public class Work {
 		this.writerNo = writerNo;
 		this.workTitle = workTitle;
 		this.genreName = genreName;
+	}
+	
+	//PJH
+	public Work(int workNo, String workSummary, String thumbnailModify, String worktitle) {
+		super();
+		this.workNo = workNo;
+		this.workSummary = workSummary;
+		this.thumbnailModify = thumbnailModify;
+		this.workTitle = worktitle;
+	}
+	
+	public Work(String updateDay, Date startDay, String workSummary, String workPlot, String thumbnailModify,
+			int writerNo, String worktitle) {
+		super();
+		this.updateDay = updateDay;
+		this.startDay = startDay;
+		this.workSummary = workSummary;
+		this.workPlot = workPlot;
+		this.thumbnailModify = thumbnailModify;
+		this.writerNo = writerNo;
+		this.workTitle = worktitle;
+	}
+	
+	public Work(int workNo, Date startDay, Date requestDate, Date approvalDate, String workSummary, String workPlot,
+			String approvalStatus, int serialCnt, int bookmarkCnt, String thumbnailModify, String thumbnailOriginal,
+			String secretFlag, int writerNo, String worktitle, String updateDay, int[] workGenre) {
+		super();
+		this.workNo = workNo;
+		this.startDay = startDay;
+		this.requestDate = requestDate;
+		this.approvalDate = approvalDate;
+		this.workSummary = workSummary;
+		this.workPlot = workPlot;
+		this.approvalStatus = approvalStatus;
+		this.serialCnt = serialCnt;
+		this.bookmarkCnt = bookmarkCnt;
+		this.thumbnailModify = thumbnailModify;
+		this.thumbnailOriginal = thumbnailOriginal;
+		this.secretFlag = secretFlag;
+		this.writerNo = writerNo;
+		this.workTitle = worktitle;
+		this.updateDay = updateDay;
+
 	}
 
 	public int getWorkNo() {
