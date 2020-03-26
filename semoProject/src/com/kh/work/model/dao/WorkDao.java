@@ -31,85 +31,6 @@ public class WorkDao {
 		}
 	}
 	
-	//장르를 건들어야하는 .
-	//sql 
-	
-	public int insertWorkGenre(Connection conn, Work w) {
-		
-		int result = 0;
-		
-		PreparedStatement pstmt = null;
-		
-		String sql = prop.getProperty("insertWorkGenre");
-		
-		int []genre =w.getWorkGenre();
-		
-			
-			try {
-				for(int i =0; i<genre.length ; i++) {
-				
-				pstmt= conn.prepareStatement(sql);
-				pstmt.setInt(1, genre[i]);
-				
-				result = pstmt.executeUpdate();
-				
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}finally {
-				
-				close(pstmt);
-			}
-
-			
-			//스트링 업데이트데이라는 거 만들고 
-			
-			//서블릿.getupdate데이 메소드 실행시켜서 
-			//워크객체에 담겨있는 제대로 빼오는 작업. 
-			
-		
-			
-			return result;
-		}
-		 
-		
-		
-	
-	
-	//작품 insert 
-	public int insertWork(Connection conn, Work w) {
-		
-		int result = 0;
-		
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertWork");
-		
-		
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-						
-			pstmt.setString(1, w.getWorkUpdateDay()); 
-			pstmt.setString(2, w.getWorkSummary());
-			pstmt.setString(3, w.getWorkPlot());
-			pstmt.setString(4, w.getThumbnailModify());
-			pstmt.setString(5, w.getWorktitle());
-			
-			result = pstmt.executeUpdate();
-			
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		
-		
-		return result;
-	}
-	
 	public int getListCount(Connection conn) {
 		int listCount = 0;
 		
@@ -137,37 +58,60 @@ public class WorkDao {
 		return listCount;
 		
 	}
-	
-	public ArrayList<Work> selectList(Connection conn, PageInfo pi){
+	public ArrayList<Work> selectList(Connection conn){
 		ArrayList<Work> list = new ArrayList<>();
 		
-		PreparedStatement pstmt = null;
+		Statement stmt = null;
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("selectList");
 		
 		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			/*
-			 * ex) boardLimit : 10
-			 * currentPage : 1		--> startRow : 1 	endRow : 10
-			 * currentPage : 2		--> startRow : 11	endRow : 20
-			 * currentPage : 3		--> startRow : 21	endRow : 30
-			 * 
-			 * startRow : (currentPage - 1) * WorkLimit + 1
-			 * endRow : startRow + WorkLimit - 1
-			 */
-			int startRow = (pi.getCurrentPage() - 1) * pi.getWorkLimit() + 1;
-			int endRow = startRow + pi.getWorkLimit() - 1;
-			
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			
-			rset = pstmt.executeQuery();
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sql);			
 			
 			while(rset.next()) {
-				
+				list.add(new Work(rset.getInt("work_no"),
+								  rset.getString("work_title"),
+								  rset.getInt("writer_no"),
+								  rset.getInt("serial_cnt"),
+								  rset.getDate("approval_date")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return list;
+		
+	}
+	public ArrayList<Work> mondayList(Connection conn, String day){
+		
+		ArrayList<Work> list = new ArrayList<>();
+		
+		PreparedStatement  pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("mondayList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, day);
+			
+			rset = pstmt.executeQuery();		
+			
+			
+			
+			while(rset.next()) {
+				list.add(new Work(rset.getInt("work_no"),
+								  rset.getString("UPDATE_DAY"),
+								  rset.getDate("approval_date"),
+								  rset.getInt("serial_cnt"),
+								  rset.getInt("writer_no"),
+								  rset.getString("work_title")));	
 			}
 			
 		} catch (SQLException e) {
@@ -176,9 +120,177 @@ public class WorkDao {
 			close(rset);
 			close(pstmt);
 		}
-		
 		return list;
 		
+	}
+	public ArrayList<Work> selectGenreList(Connection conn){
+		ArrayList<Work> list = new ArrayList<>();
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectGenreList");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sql);			
+			
+			while(rset.next()) {
+				list.add(new Work(rset.getInt("work_no"),
+						  		  rset.getString("work_title"),
+						  		  rset.getInt("writer_no"),
+						  		  rset.getInt("serial_cnt"),
+						  		  rset.getDate("approval_date")));	
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return list;
+
+	}
+
+
+
+	public int getWriterListCount(Connection conn) {
+		int WriterListCount = 0;
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("getWriterListCount");
+		
+		try {
+			stmt = conn.createStatement();
+			
+			rset = stmt.executeQuery(sql);
+			
+			if(rset.next()) {
+				WriterListCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return WriterListCount;
+	}
+
+	public ArrayList<Work> genreList(Connection conn, int genre) {
+		ArrayList<Work> list = new ArrayList<>();
+		
+		PreparedStatement  pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("genreList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, genre);
+			
+			rset = pstmt.executeQuery();		
+			
+			//System.out.println(genre);
+			
+			while(rset.next()) {
+				list.add(new Work(rset.getInt("work_No"),
+								  rset.getString("work_Title"),
+								  rset.getInt("writer_No"),
+								  rset.getInt("serial_Cnt"),
+								  rset.getDate("approval_Date")));	
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	// 작품 선택
+	public Work selectSerial(Connection conn, int wno) {
+		
+		Work w = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectSerial");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, wno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				w = new Work(rset.getInt("WORK_NO"),
+							  rset.getDate("APPROVAL_DATE"),
+							  rset.getString("WORK_SUMMARY"),
+							  rset.getInt("WRITER_NO"),
+							  rset.getString("WORK_TITLE"),
+							  rset.getString("GENRE_NAME"));
+							
+			}		
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return w;
+	}
+
+	// 에피소드 전체 조회
+	public ArrayList<Episode> episodeList(Connection conn, int wno) {
+		ArrayList<Episode> list = new ArrayList<>();
+		
+		PreparedStatement  pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("episodeList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, wno);
+			
+			rset = pstmt.executeQuery();		
+			
+			
+			
+			while(rset.next()) {
+				list.add(new Episode(rset.getInt("EPISODE_NO"),
+								  rset.getDate("APPROVAL_DATE"),
+								  rset.getInt("VIEWS_CNT"),
+								  rset.getString("WORK_TITLE"),
+								  rset.getString("EPISODE_TITLE")));
+								 	
+			}
+			for(Episode w : list) {
+				System.out.println(w);
+			}
+				
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 	
 	// LSH
@@ -230,7 +342,7 @@ public class WorkDao {
 			while(rset.next()) {
 				Work w = new Work();
 				
-				w.setWorktitle(rset.getString("work_title"));
+				w.setWorkTitle(rset.getString("work_title"));
 				w.setNickName(rset.getString("member_nickname"));
 				w.setWriterNo(rset.getInt("writer_no"));
 				
@@ -302,7 +414,7 @@ public class WorkDao {
 			while(rset.next()) {
 				Work w = new Work();
 				
-				w.setWorktitle(rset.getString("work_title"));
+				w.setWorkTitle(rset.getString("work_title"));
 				w.setNickName(rset.getString("member_nickname"));
 				w.setWriterNo(rset.getInt("writer_no"));
 				
@@ -371,7 +483,7 @@ public class WorkDao {
 				
 				// 여기서는 장르가 여러 값일 수 있기 때문에 장르 빼고 불러오기
 				w.setNickName(rset.getString("member_nickname"));
-				w.setWorktitle(rset.getString("work_title"));
+				w.setWorkTitle(rset.getString("work_title"));
 				w.setWorkSummary(rset.getString("work_summary"));
 				w.setWorkNo(rset.getInt("work_no"));
 				w.setSecretFlag(rset.getString("secret_flag"));
@@ -554,7 +666,7 @@ public class WorkDao {
 				
 				// 여기서는 장르가 여러 값일 수 있기 때문에 장르 빼고 불러오기
 				w.setNickName(rset.getString("member_nickname"));
-				w.setWorktitle(rset.getString("work_title"));
+				w.setWorkTitle(rset.getString("work_title"));
 				w.setWorkSummary(rset.getString("work_summary"));
 				w.setWorkNo(rset.getInt("work_no"));
 				w.setSecretFlag(rset.getString("secret_flag"));
@@ -631,7 +743,7 @@ public class WorkDao {
 				Work w = new Work();
 				
 				w.setWorkNo(rset.getInt("work_no"));
-				w.setWorktitle(rset.getString("work_title"));
+				w.setWorkTitle(rset.getString("work_title"));
 				w.setNickName(rset.getString("member_nickname"));
 				w.setEpisodeNo(rset.getInt("episode_no"));
 				w.setSecretFlag(rset.getString("secret_flag"));
@@ -706,7 +818,7 @@ public class WorkDao {
 				Work w = new Work();
 				
 				w.setWorkNo(rset.getInt("work_no"));
-				w.setWorktitle(rset.getString("work_title"));
+				w.setWorkTitle(rset.getString("work_title"));
 				w.setNickName(rset.getString("member_nickname"));
 				w.setEpisodeNo(rset.getInt("episode_no"));
 				w.setSecretFlag(rset.getString("secret_flag"));
@@ -772,7 +884,7 @@ public class WorkDao {
 				Work w = new Work();
 				
 				w.setWorkNo(rset.getInt("work_no"));
-				w.setWorktitle(rset.getString("work_title"));
+				w.setWorkTitle(rset.getString("work_title"));
 				w.setNickName(rset.getString("member_nickname"));
 				w.setRequestDate(rset.getDate("request_date"));
 				
@@ -845,7 +957,7 @@ public class WorkDao {
 				Work w = new Work();
 				
 				w.setWorkNo(rset.getInt("work_no"));
-				w.setWorktitle(rset.getString("work_title"));
+				w.setWorkTitle(rset.getString("work_title"));
 				w.setNickName(rset.getString("member_nickname"));
 				w.setRequestDate(rset.getDate("request_date"));
 				
@@ -904,7 +1016,7 @@ public class WorkDao {
 				w = new Work();
 				
 				w.setWorkNo(rset.getInt("work_no"));
-				w.setWorktitle(rset.getString("work_title"));
+				w.setWorkTitle(rset.getString("work_title"));
 				w.setNickName(rset.getString("member_nickname"));
 				w.setWorkSummary(rset.getString("work_summary"));
 				w.setWorkPlot(rset.getString("work_plot"));

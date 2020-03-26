@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import com.kh.episode.model.vo.Comment;
 import com.kh.episode.model.vo.Episode;
+import com.kh.episode.model.vo.Reply;
 import com.kh.common.PageInfo;
 import com.kh.episode.model.dao.EpisodeDao;
 
@@ -13,30 +14,53 @@ import com.kh.episode.model.dao.EpisodeDao;
 public class EpisodeService {
 
 	
-	public ArrayList<Comment> selectReplyList(int eNo){
+	public ArrayList<Reply> selectReplyList(int eNo){
 		Connection conn = getConnection();
 		
-		ArrayList<Comment> list = new EpisodeDao().selectReplyList(conn, eNo);
+		ArrayList<Reply> list = new EpisodeDao().selectReplyList(conn, eNo);
 		
 		close(conn);
 		
 		return list;
 	}
-	public int insertComment(Comment c) {
+	
+	/**
+	 * 에피소드 디테일
+	 * @param genre
+	 * @return
+	 */
+
+	
+	public Episode episodeDetail(int eno) {
+		
 		Connection conn = getConnection();
 		
-		int result = new EpisodeDao().insertComment(conn, c);
+		Episode e = new EpisodeDao().episodeDetail(conn, eno);
+		
+		
+		close(conn);
+
+		return e;
+	}
+	
+	/**
+	 * 에피소드 댓글 넣어주는
+	 * @param r
+	 * @return
+	 */
+	public int insertReply(Reply r) {
+		Connection conn = getConnection();
+		
+		int result = new EpisodeDao().insertReply(conn, r);
 		
 		if(result > 0) {
 			commit(conn);
 		}else {
-			rollback(conn);
+			rollback(conn); 
 		}
-		
 		close(conn);
 		
 		return result;
-		
 	}
 	
 	/**

@@ -13,26 +13,8 @@ import com.kh.work.model.vo.Work;
 
 public class WorkService {
 	
-	public int insertWork(Work w) {
-		
-		Connection conn = getConnection();
-		
-		int result1 = new WorkDao().insertWork(conn, w);
-		int result2 = new WorkDao().insertWorkGenre(conn, w);
-		
-		if(result1*result2 > 0) {
-			commit(conn);
-		}else {
-			rollback(conn);
-		} 
-		
-		close(conn);			
-		
-		return result1*result2;
-	}
-	
 	/** 
-	 * 1. 연재 리스트 총갯수 조회용 서비스
+	 * 1. 요일별 게시물 갯수 조회
 	 * @return
 	 */
 	public int getListCount() {
@@ -46,14 +28,108 @@ public class WorkService {
 	}
 	
 	/**
-	 * 1_2. 웹툰 리스트 조회용 서비스
-	 * @param pi	currentPage, boardLimit 값이 담겨있는 PageInfo객체
-	 * @return		현재페이지에 보여져야할 게시판리스트
+	 * 2. 요일별 총 작품 갯수 객체
+	 * @param pi
+	 * @return
 	 */
-	public ArrayList<Work> selectList(PageInfo pi){
+	public ArrayList<Work> selectList(){
+		
+		
 		Connection conn = getConnection();
 		
-		ArrayList<Work> list = new WorkDao().selectList(conn, pi);
+		ArrayList<Work> list = new WorkDao().selectList(conn);
+		
+		close(conn);
+		
+		return list;
+	}
+	
+	/**
+	 * 2-1. 월일별 총 작품 갯수 객체
+	 * @param pi
+	 * @return
+	 */
+	public ArrayList<Work> mondayList(String day){
+		
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Work> list = new WorkDao().mondayList(conn,day);
+		
+		close(conn);
+		
+		return list;
+	}
+	
+	/**
+	 * 3. 장르별 게시물 갯수 조회
+	 * @return
+	 */
+	public ArrayList<Work> selectGenreList(){
+		
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Work> list = new WorkDao().selectGenreList(conn);
+		
+		close(conn);
+		
+		return list;
+	}
+	
+	/**
+	 * 3-1. 월일별 총 작품 갯수 객체
+	 * @param pi
+	 * @return
+	 */
+	public ArrayList<Work> genreList(int genre){
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Work> list = new WorkDao().genreList(conn,genre);
+		
+		close(conn);
+		
+		return list;
+	}
+	
+	/**
+	 * 4. 작가별 게시물 갯수 조회
+	 * @return
+	 */
+	public int getWriterListCount() {
+		
+		Connection conn = getConnection();
+		
+		int WriterListCount = new WorkDao().getWriterListCount(conn);
+		
+		close(conn);
+		
+		return WriterListCount;
+	}
+	
+	public Work selectSerial(int wno) {
+		
+		Connection conn = getConnection();
+		
+		
+		Work w = new WorkDao().selectSerial(conn, wno);
+		
+		
+		close(conn);
+		
+		
+		
+		
+		return w;
+			
+	}
+	
+	public ArrayList<Episode> episodeList(int wno) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Episode> list = new WorkDao().episodeList(conn,wno);
 		
 		close(conn);
 		

@@ -15,6 +15,7 @@ import java.util.Properties;
 import com.kh.common.PageInfo;
 import com.kh.episode.model.vo.Comment;
 import com.kh.episode.model.vo.Episode;
+import com.kh.episode.model.vo.Reply;
 
 public class EpisodeDao {
 
@@ -30,12 +31,12 @@ public class EpisodeDao {
 		}
 	}
 	
-	public ArrayList<Comment> selectReplyList(Connection conn, int eNo){
+	public ArrayList<Reply> selectReplyList(Connection conn, int eNo){
 		
-		ArrayList<Comment> list = new ArrayList<>();
+		ArrayList<Reply> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectComment");
+		String sql = prop.getProperty("selectRlisk");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -43,12 +44,12 @@ public class EpisodeDao {
 			
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
-				Comment c = new Comment();
-				c.setContent(rset.getString("content"));
-				c.setMemberNo(rset.getInt("member_no"));
-				c.setCreationDate(rset.getDate("creation_date"));
+				Reply r = new Reply();
+				r.setContent(rset.getString("content"));
+				r.setCreationDate(rset.getDate("creation_date"));
+				r.setMemberId(rset.getString("member_id"));
 				
-				list.add(c);
+				list.add(r);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -60,18 +61,49 @@ public class EpisodeDao {
 		return list;
 	}
 
-	public int insertComment(Connection conn, Comment c) {
-		int result = 0;
+	public Episode episodeDetail(Connection conn, int eno) {
+		
+		Episode e = null;
+		
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertComment");
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("episodeDetail");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, c.getContent());
-			pstmt.setInt(2, c.getEpisodeNo());
-			pstmt.setInt(3, c.getMemberNo());
+			pstmt.setInt(1, eno);
 			
-			result = pstmt.executeUpdate();
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				e = new Episode(rset.getInt("EPISODE_NO"),
+								rset.getString("WORK_TITLE"),
+								rset.getString("EPISODE_TITLE"));
+							
+			}		
+			
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return e;
+	}
+
+	public int insertReply(Connection conn, Reply r) {
+		int result= 0;
+		
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertReply");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, r.getContent());
+			pstmt.setInt(2, r.getEpisodeNo());
+			pstmt.setInt(3, Integer.parseInt(r.getMemberId()));
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

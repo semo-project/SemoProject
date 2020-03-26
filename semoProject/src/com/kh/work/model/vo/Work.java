@@ -6,7 +6,7 @@ import java.util.Arrays;
 public class Work {
 	
 	private int workNo;
-	private Date updateDay;
+	private String updateDay;
 	private Date startDay;
 	private Date requestDate;
 	private Date approvalDate;
@@ -19,9 +19,9 @@ public class Work {
 	private String thumbnailOriginal;
 	private String secretFlag;
 	private int writerNo;
-	private String worktitle;
-	private String workUpdateDay;
-	private int[] workGenre;
+	private String workTitle;
+	private int genreNo;
+	private String genreName;
 	
 	//LSH
 	private String nickName;
@@ -33,22 +33,13 @@ public class Work {
 
 	}
 
-	public Work(String workSummary, String workPlot, String thumbnailModify, String worktitle, String workUpdateDay,
-			int[] workGenre) {
-		super();
-		this.workSummary = workSummary;
-		this.workPlot = workPlot;
-		this.thumbnailModify = thumbnailModify;
-		this.worktitle = worktitle;
-		this.workUpdateDay = workUpdateDay;
-		this.workGenre = workGenre;
-	}
-
-	public Work(int workNo, Date startDay, Date requestDate, Date approvalDate, String workSummary, String workPlot,
-			String approvalStatus, int serialCnt, int bookmarkCnt, String thumbnailModify, String thumbnailOriginal,
-			String secretFlag, int writerNo, String worktitle, String workUpdateDay, int[] workGenre) {
+	public Work(int workNo, String updateDay, Date startDay, Date requestDate, Date approvalDate, String workSummary,
+			String workPlot, String approvalStatus, int serialCnt, int bookmarkCnt, String thumbnailModify,
+			String thumbnailOriginal, String secretFlag, int writerNo, String workTitle, int genreNo,
+			String genreName) {
 		super();
 		this.workNo = workNo;
+		this.updateDay = updateDay;
 		this.startDay = startDay;
 		this.requestDate = requestDate;
 		this.approvalDate = approvalDate;
@@ -61,28 +52,52 @@ public class Work {
 		this.thumbnailOriginal = thumbnailOriginal;
 		this.secretFlag = secretFlag;
 		this.writerNo = writerNo;
-		this.worktitle = worktitle;
-		this.workUpdateDay = workUpdateDay;
-		this.workGenre = workGenre;
+		this.workTitle = workTitle;
+		this.genreNo = genreNo;
+		this.genreName = genreName;
 	}
 	
-	public Work(int workNo, Date updateDay, Date requestDate, Date approvalDate, String workSummary, String workPlot,
-			String approvalStatus, int serialCnt, int bookmarkCnt, String thumbnailModify, String thumbnailOriginal,
-			String secretFlag, int writerNo) {
+	// selectList
+	public Work(int workNo, String workTitle, int serialCnt, Date approvalDate, int writerNo) {
+		super();
+		this.workNo = workNo;
+		this.approvalDate = approvalDate;
+		this.serialCnt = serialCnt;
+		this.writerNo = writerNo;
+		this.workTitle = workTitle;
+	}
+	
+	//mondayList
+	public Work(int workNo, String updateDay, Date approvalDate, int serialCnt, int writerNo, String workTitle) {
 		super();
 		this.workNo = workNo;
 		this.updateDay = updateDay;
-		this.requestDate = requestDate;
+		this.approvalDate = approvalDate;
+		this.serialCnt = serialCnt;
+		this.writerNo = writerNo;
+		this.workTitle = workTitle;
+	}
+
+	//selectGenreList
+	public Work(int workNo, String workTitle, int writerNo, int serialCnt, Date approvalDate) {
+		super();
+		this.workNo = workNo;
+		this.workTitle = workTitle;
+		this.writerNo = writerNo;
+		this.serialCnt = serialCnt;
+		this.approvalDate = approvalDate;
+	}
+	//selectSerial
+	
+	
+	public Work(int workNo, Date approvalDate, String workSummary, int writerNo, String workTitle, String genreName) {
+		super();
+		this.workNo = workNo;
 		this.approvalDate = approvalDate;
 		this.workSummary = workSummary;
-		this.workPlot = workPlot;
-		this.approvalStatus = approvalStatus;
-		this.serialCnt = serialCnt;
-		this.bookmarkCnt = bookmarkCnt;
-		this.thumbnailModify = thumbnailModify;
-		this.thumbnailOriginal = thumbnailOriginal;
-		this.secretFlag = secretFlag;
 		this.writerNo = writerNo;
+		this.workTitle = workTitle;
+		this.genreName = genreName;
 	}
 
 	public int getWorkNo() {
@@ -189,38 +204,6 @@ public class Work {
 		this.writerNo = writerNo;
 	}
 
-	public String getWorktitle() {
-		return worktitle;
-	}
-
-	public void setWorktitle(String worktitle) {
-		this.worktitle = worktitle;
-	}
-
-	public String getWorkUpdateDay() {
-		return workUpdateDay;
-	}
-
-	public void setWorkUpdateDay(String workUpdateDay) {
-		this.workUpdateDay = workUpdateDay;
-	}
-
-	public int[] getWorkGenre() {
-		return workGenre;
-	}
-
-	public void setWorkGenre(int[] workGenre) {
-		this.workGenre = workGenre;
-	}
-
-	public Date getUpdateDay() {
-		return updateDay;
-	}
-
-	public void setUpdateDay(Date updateDay) {
-		this.updateDay = updateDay;
-	}
-
 	public String getNickName() {
 		return nickName;
 	}
@@ -252,4 +235,37 @@ public class Work {
 	public void setEpisodeTitle(String episodeTitle) {
 		this.episodeTitle = episodeTitle;
 	}
+
+	public String getUpdateDay() {
+		return updateDay;
+	}
+
+	public void setUpdateDay(String updateDay) {
+		this.updateDay = updateDay;
+	}
+
+	public String getWorkTitle() {
+		return workTitle;
+	}
+
+	public void setWorkTitle(String workTitle) {
+		this.workTitle = workTitle;
+	}
+
+	public int getGenreNo() {
+		return genreNo;
+	}
+
+	public void setGenreNo(int genreNo) {
+		this.genreNo = genreNo;
+	}
+
+	public String getGenreName() {
+		return genreName;
+	}
+
+	public void setGenreName(String genreName) {
+		this.genreName = genreName;
+	}
+	
 }

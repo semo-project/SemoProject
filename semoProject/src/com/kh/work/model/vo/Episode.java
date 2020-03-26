@@ -1,6 +1,6 @@
-package com.kh.episode.model.vo;
+package com.kh.work.model.vo;
 
-import java.sql.Date;
+import java.sql.*;
 
 public class Episode {
 
@@ -16,33 +16,14 @@ public class Episode {
 	private String writerComment;
 	private String secretFlag;
 	private int workNo;
-	
 	private int fileNo;
 	private String episodeModify;
 	private int fileLevel;
 	private String workTitle;
 	private String episodeTitle;
 	
-	public Episode () {
+	public Episode(){
 		
-	}
-
-	public Episode(int episodeNo, Date registDate, Date approvalDate, String approvalStatus, int viewsCnt,
-			Date modificationDate, int starGrade, int likeCnt, int serialCnt, String writerComment, String secretFlag,
-			int workNo) {
-		super();
-		this.episodeNo = episodeNo;
-		this.registDate = registDate;
-		this.approvalDate = approvalDate;
-		this.approvalStatus = approvalStatus;
-		this.viewsCnt = viewsCnt;
-		this.modificationDate = modificationDate;
-		this.starGrade = starGrade;
-		this.likeCnt = likeCnt;
-		this.serialCnt = serialCnt;
-		this.writerComment = writerComment;
-		this.secretFlag = secretFlag;
-		this.workNo = workNo;
 	}
 	
 	public Episode(int episodeNo, Date approvalDate, int viewsCnt, String workTitle, String episodeTitle) {
@@ -53,17 +34,10 @@ public class Episode {
 		this.workTitle = workTitle;
 		this.episodeTitle = episodeTitle;
 	}
-	
-	public Episode(int episodeNo, String workTitle, String episodeTitle) {
-		super();
-		this.episodeNo = episodeNo;
-		this.workTitle = workTitle;
-		this.episodeTitle = episodeTitle;
-	}
-	
+
 	public Episode(int episodeNo, Date registDate, Date approvalDate, String approvalStatus, int viewsCnt,
 			Date modificationDate, int starGrade, int likeCnt, int serialCnt, String writerComment, String secretFlag,
-			int workNo, int fileNo, String episodeModify, int fileLevel, String workTitle, String episodeTitle) {
+			int workNo, int fileNo, String episodeModify, int fileLevel, String workTitle) {
 		super();
 		this.episodeNo = episodeNo;
 		this.registDate = registDate;
@@ -81,7 +55,12 @@ public class Episode {
 		this.episodeModify = episodeModify;
 		this.fileLevel = fileLevel;
 		this.workTitle = workTitle;
-		this.episodeTitle = episodeTitle;
+	}
+	
+	public Episode(int int1, String string) {
+		super();
+		this.episodeNo = episodeNo;
+		this.workTitle = workTitle;
 	}
 
 	public int getEpisodeNo() {
@@ -113,7 +92,7 @@ public class Episode {
 	}
 
 	public void setApprovalStatus(String approvalStatus) {
-		approvalStatus = this.approvalStatus;
+		this.approvalStatus = approvalStatus;
 	}
 
 	public int getViewsCnt() {
@@ -179,7 +158,7 @@ public class Episode {
 	public void setWorkNo(int workNo) {
 		this.workNo = workNo;
 	}
-	
+
 	public int getFileNo() {
 		return fileNo;
 	}
@@ -229,4 +208,9 @@ public class Episode {
 				+ fileNo + ", episodeModify=" + episodeModify + ", fileLevel=" + fileLevel + ", workTitle=" + workTitle
 				+ ", episodeTitle=" + episodeTitle + "]";
 	}
+	
+	
+	
+	
 }
+

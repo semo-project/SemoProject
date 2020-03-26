@@ -1,15 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ page import="java.util.ArrayList, com.kh.board.model.vo.*" %>
+    <%@page import="java.util.ArrayList"%>
+<%@page import="com.kh.work.model.vo.PageInfo" %>
+<%@page import="com.kh.work.model.vo.Work"%>
 <%
-	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
-	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	
-	int listCount = pi.getListCount();
-	int currentPage = pi.getCurrentPage();
-	int maxPage = pi.getMaxPage();
-	int startPage = pi.getStartPage();
-	int endPage = pi.getEndPage();
+
+	String contextPath = request.getContextPath();
+	ArrayList<Work> list = (ArrayList<Work>)request.getAttribute("list");
+
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -66,17 +64,18 @@
 
 <body>
 
+
    <!-- Navigation -->
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
   <div class="container">
-    <a class="navbar-brand" href="index.html">세모웹툰</a>
+    <a class="navbar-brand" href="http://localhost:8888/semo/">세모웹툰</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="about.html">연재</a>
+          <a class="nav-link" href="http://localhost:8888/semo/">연재</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="services.html">세모게시판</a>
@@ -142,19 +141,20 @@
     <div class="lzTab lzTab--hor" role="tablist" data-ga-event-category="연재_UI" style="text-align: center;
     padding-top: 40px; padding-bottom: 40px;">
       <div class="lzTab-hor" role="tablist" data-ga-event-category="연재_UI_종류" style="display: inline-flex;">
-        <p style="padding-right: 30px;"><button  type="button" class="btn btn-secondary btn-lg" data-tab="1" role="tab" aria-controls="publish_category-1" data-go-on="click" data-ga-event-action="click_tab" data-ga-event-label="탭_요일별">요일별</button></p>
-        <p style="padding-right: 30px;"><button  type="button" class="btn btn-secondary btn-lg" data-tab="2" role="tab" aria-controls="publish_category-2" data-go-on="click" data-ga-event-action="click_tab" data-ga-event-label="탭_장르별">장르별</button></p>
+        <p style="padding-right: 30px;"><button  type="button" class="btn btn-secondary btn-lg" onclick="week()">요일별</button></p>
+        <p style="padding-right: 30px;"><button  type="button" class="btn btn-secondary btn-lg" onclick="genre()">장르별</button></p>
         <p style="padding-right: 30px;"><button  type="button" class="btn btn-secondary btn-lg" data-tab="3" role="tab" aria-controls="publish_category-3" data-go-on="click" data-ga-event-action="click_tab" data-ga-event-label="탭_작품별">작품별</button></p>
         <p style="padding-right: 30px;"><button  type="button" class="btn btn-secondary btn-lg" data-tab="4" role="tab" aria-controls="publish_category-4" data-go-on="click" data-ga-event-action="click_tab" data-ga-event-label="탭_작가별">작가별</button></p>
       </div>
       <div class="lzTab" role="tablist" data-ga-event-category="연재_UI_요일">
-        <button type="button" class="btn btn-dark" data-tab="1" role="tab" aria-controls="scheduled-day-1" data-go-on="click" data-ga-event-action="click_tab" data-ga-event-label="탭_월">월</button>
-        <button type="button" class="btn btn-dark" data-tab="2" role="tab" aria-controls="scheduled-day-1" data-go-on="click" data-ga-event-action="click_tab" data-ga-event-label="탭_화">화</button>
-        <button type="button" class="btn btn-dark" data-tab="3" role="tab" aria-controls="scheduled-day-1" data-go-on="click" data-ga-event-action="click_tab" data-ga-event-label="탭_수">수</button>
-        <button type="button" class="btn btn-dark" data-tab="4" role="tab" aria-controls="scheduled-day-1" data-go-on="click" data-ga-event-action="click_tab" data-ga-event-label="탭_목">목</button>
-        <button type="button" class="btn btn-dark" data-tab="5" role="tab" aria-controls="scheduled-day-1" data-go-on="click" data-ga-event-action="click_tab" data-ga-event-label="탭_금">금</button>
-        <button type="button" class="btn btn-dark" data-tab="6" role="tab" aria-controls="scheduled-day-1" data-go-on="click" data-ga-event-action="click_tab" data-ga-event-label="탭_토">토</button>
-        <button type="button" class="btn btn-dark" data-tab="7" role="tab" aria-controls="scheduled-day-1" data-go-on="click" data-ga-event-action="click_tab" data-ga-event-label="탭_일">일</button>
+        <button type="button" class="btn btn-dark" onclick="week(this.value)" value="월" id="dayButton" >월</button>
+        <button type="button" class="btn btn-dark" onclick="week(this.value)" value="화" id="dayButton" >화</button>
+        <button type="button" class="btn btn-dark" onclick="week(this.value)" value="수" id="dayButton">수</button>
+        <button type="button" class="btn btn-dark" onclick="week(this.value)" value="목" id="dayButton">목</button>
+        <button type="button" class="btn btn-dark" onclick="week(this.value)" value="금" id="dayButton">금</button>
+        <button type="button" class="btn btn-dark" onclick="week(this.value)" value="토" id="dayButton">토</button>
+        <button type="button" class="btn btn-dark" onclick="week(this.value)" value="일" id="dayButton">일</button>
+       	 
      
       </div>
       
@@ -163,133 +163,39 @@
     <div class="container">
     <p>요일별 전체 웹툰</p>
 <hr>
-    <div class="row">
-      <div class="col-lg-4 col-sm-6 portfolio-item">
-        <div class="card h-100">
-          <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-          <div class="card-body">
-            <h4 class="card-title">
-              <a href="#">Project One</a>
-            </h4>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-sm-6 portfolio-item">
-        <div class="card h-100">
-          <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-          <div class="card-body">
-            <h4 class="card-title">
-              <a href="#">Project Two</a>
-            </h4>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-sm-6 portfolio-item">
-        <div class="card h-100">
-          <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-          <div class="card-body">
-            <h4 class="card-title">
-              <a href="#">Project Two</a>
-            </h4>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-sm-6 portfolio-item">
-        <div class="card h-100">
-          <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-          <div class="card-body">
-            <h4 class="card-title">
-              <a href="#">Project Two</a>
-            </h4>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-sm-6 portfolio-item">
-        <div class="card h-100">
-          <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-          <div class="card-body">
-            <h4 class="card-title">
-              <a href="#">Project Three</a>
-            </h4>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos quisquam, error quod sed cumque, odio distinctio velit nostrum temporibus necessitatibus et facere atque iure perspiciatis mollitia recusandae vero vel quam!</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-sm-6 portfolio-item">
-        <div class="card h-100">
-          <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-          <div class="card-body">
-            <h4 class="card-title">
-              <a href="#">Project Four</a>
-            </h4>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-sm-6 portfolio-item">
-        <div class="card h-100">
-          <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-          <div class="card-body">
-            <h4 class="card-title">
-              <a href="#">Project Five</a>
-            </h4>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-sm-6 portfolio-item">
-        <div class="card h-100">
-          <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-          <div class="card-body">
-            <h4 class="card-title">
-              <a href="#">Project Six</a>
-            </h4>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque earum nostrum suscipit ducimus nihil provident, perferendis rem illo, voluptate atque, sit eius in voluptates, nemo repellat fugiat excepturi! Nemo, esse.</p>
-          </div>
+
+        <div class="row">
+       
+        	<% if(list.isEmpty()){ %>
+        	<div>
+ 					<div><p>조회된 리스트가 없습니다.</p></div>       	
+        	</div>
+        	<% }else{ %>
+					<% for(Work w : list){ %>
+				<div class="col-lg-4 col-sm-6 portfolio-item divWork">
+       					<div class="card h-100">
+							<input type="hidden" class="wNo" id="wNo" value="<%=w.getWorkNo()%>">
+							<div class="card h-100">
+          						<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+          					<div class="card-body">
+								<h4>
+									<a href="#"><%= w.getWorkTitle() %></a>
+								</h4>
+							<p>											
+							<%= w.getApprovalDate() %><br>
+							조회수 : <%= w.getSerialCnt() %>
+							
+							</p>
+					</div>
+				 </div>
+     		 </div>
+     	</div>
+						<% } %>
+				<% } %>
+      
         </div>
       </div>
     </div>
-
-  <!-- 페이징바 영역 -->
-		<div class="pagingArea" align="center">
-			<!-- 맨 처음으로 (<<) -->
-			<button onclick="location.href='<%=contextPath%>/list.bo';"> &lt;&lt; </button>
-			
-			<!-- 이전페이지(<) -->
-			<%if(currentPage == 1){ %>
-			<button disabled> &lt; </button>
-			<%}else{ %>
-			<button onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%=currentPage-1%>';"> &lt; </button>
-			<%} %>
-			
-			<!-- 페이지 목록 -->
-			<%for(int p=startPage; p<=endPage; p++){ %>
-				
-				<%if(currentPage == p){ %>
-				<button disabled> <%=p%> </button>
-				<%}else{ %>
-				<button onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%=p%>';"> <%= p %> </button>
-				<%} %>
-			
-				
-			<%} %>
-			
-			<!-- 다음페이지(>) -->
-			<%if(currentPage == maxPage){ %>
-			<button disabled> &gt; </button>
-			<%}else{ %>
-			<button onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%=currentPage+1%>';"> &gt; </button>
-			<%} %>
-			
-			
-			<!-- 맨 마지막으로 (>>) -->
-			<button onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%=maxPage%>'"> &gt;&gt; </button>
-		</div>
-
   </div>
   <!-- /.container -->
 
@@ -309,16 +215,35 @@
  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
  
- <script>
-		$(function(){
-			$(".listArea>tbody>tr").click(function(){
-				
-				var bId = $(this).children().eq(0).text();
-				
-				location.href="<%=contextPath%>/detail.bo?bId=" + bId;
-			});
-		});
+  <script>
+	 function week(val) {
+		 location.href="<%=contextPath%>/week.mon?day=" + val;
+	 }
 	</script>
+  <script>
+	 function genre(){
+		 location.href="<%=request.getContextPath()%>/list.genre";
+	 }
+  </script>
+	
+	
+	<script>
+	 function week(){
+		 location.href="<%=request.getContextPath()%>/list.week";
+	 }
+  </script>
+  
+
+	<script>
+	$(function() {
+		$(".divWork").click(function() {
+			var val = $(this).children().children().eq(0).val();
+			location.href="<%=contextPath%>/view.se?wno=" + val;
+		});
+	});
+	
+	</script>
+	
 </body>
 
 </html>
