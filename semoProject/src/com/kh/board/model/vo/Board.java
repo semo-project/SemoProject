@@ -12,6 +12,12 @@ public class Board {
 	private String groupName;
 	private String status;
 	private int btype;
+	private String boardWriter;
+	
+	public Board() {
+			
+	}
+
 	public Board(int boardNo, String boardTitle, String boardContent, int boardCnt, Date boardWriteDate,
 			String groupName, String status, int btype) {
 		super();
@@ -24,6 +30,28 @@ public class Board {
 		this.status = status;
 		this.btype = btype;
 	}
+	
+	public Board(int boardNo, String boardTitle, int boardCnt, String boardWriter, Date boardWriteDate) {
+		super();
+		this.boardNo = boardNo;
+		this.boardTitle = boardTitle;
+		this.boardCnt = boardCnt;
+		this.boardWriter = boardWriter;
+		this.boardWriteDate = boardWriteDate;
+	}
+	
+	//게시판 내용 조회
+	public Board(int boardNo, String boardTitle, String boardContent, int boardCnt, String boardWriter,
+			Date boardWriteDate) {
+		super();
+		this.boardNo = boardNo;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.boardCnt = boardCnt;
+		this.boardWriter = boardWriter;
+		this.boardWriteDate = boardWriteDate;
+	}
+	
 	public int getBoardNo() {
 		return boardNo;
 	}
@@ -72,12 +100,19 @@ public class Board {
 	public void setBtype(int btype) {
 		this.btype = btype;
 	}
+
+	public String getBoardWriter() {
+		return boardWriter;
+	}
+
+	public void setBoardWriter(String boardWriter) {
+		this.boardWriter = boardWriter;
+	}
+
 	@Override
 	public String toString() {
 		return "Board [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
 				+ ", boardCnt=" + boardCnt + ", boardWriteDate=" + boardWriteDate + ", groupName=" + groupName
-				+ ", status=" + status + ", btype=" + btype + "]";
-	}
-	
-	
+				+ ", status=" + status + ", btype=" + btype + ", boardWriter=" + boardWriter + "]";
+	}	
 }
