@@ -52,6 +52,10 @@
     	</div>
     </form>
     
+    <!-- Bootstrap core JavaScript -->
+  <script src="<%= request.getContextPath() %>/resources/js/jquery.min.js"></script>
+  <script src="<%= request.getContextPath() %>/resources/js/bootstrap.bundle.min.js"></script>
+    
     <script>
     	function pwdValidate(){
     		var newPwd = $("input[name='newPwd']");

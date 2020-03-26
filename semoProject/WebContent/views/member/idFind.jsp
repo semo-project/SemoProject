@@ -32,8 +32,12 @@
 	
 	  <div class="pwdFind-btn">
 	  <button type="button" id="pwdF-btn" name="pwdF-btn"><a href="views/member/idpwdFind.jsp">비밀번호 찾기</a></button>
-	  <button type="button" id="lgF-btn" name="lgF-btn"><a href="logForm_home.html">로그인</a></button>
+	  <button type="button" id="lgF-btn" name="lgF-btn"><a href="views/member/loginForm.jsp">로그인</a></button>
 	</div>
 
+<!-- Bootstrap core JavaScript -->
+  <script src="<%= request.getContextPath() %>/resources/js/jquery.min.js"></script>
+  <script src="<%= request.getContextPath() %>/resources/js/bootstrap.bundle.min.js"></script>
+  
 </body>
 </html>
