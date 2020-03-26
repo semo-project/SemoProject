@@ -6,21 +6,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.work.model.service.WorkService;
-import com.kh.work.model.vo.Work;
 
 /**
- * Servlet implementation class adminWorkApprovDetailServlet
+ * Servlet implementation class adminWorkApprovConfirmServlet
  */
-@WebServlet("/approvDetail.wo")
-public class adminWorkApprovDetailServlet extends HttpServlet {
+@WebServlet("/approvConfirm.wo")
+public class adminWorkApprovConfirmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public adminWorkApprovDetailServlet() {
+    public adminWorkApprovConfirmServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,18 +30,20 @@ public class adminWorkApprovDetailServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		// 어케 신청했는지 작품 테이블로 화긘
-		int no = Integer.parseInt(request.getParameter("no"));
+		String no = request.getParameter("no");
 		
-		Work w = new WorkService().getApprovWork(no);
+		// 승인 처리
+		int result = new WorkService().approvConfirm(no);
 		
-		if(w != null) {
-			request.setAttribute("work", w);
-			request.getRequestDispatcher("views/admin/work/adminWorkApprovDetail.jsp").forward(request, response);
+		if(result > 0) {
+			HttpSession session = request.getSession();
+			session.setAttribute("approvMsg", "승인 되었습니다.");
+			response.sendRedirect("workApprov.wo?pageId=5");
 		} else {
-			request.setAttribute("msg", "작품 디테일 조회 실패");
+			request.setAttribute("msg", "작품 등록 승인 실패");
 			request.getRequestDispatcher("views/common/adminErrorPage.jsp").forward(request, response);
 		}
+	
 	}
 
 	/**

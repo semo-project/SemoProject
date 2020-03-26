@@ -16,12 +16,12 @@ import com.kh.common.PageInfo;
 import com.kh.episode.model.vo.Comment;
 import com.kh.episode.model.vo.Episode;
 
-public class episodeDao {
+public class EpisodeDao {
 
 	private Properties prop = new Properties();
 	
-	public episodeDao() {
-		String fileName = episodeDao.class.getResource("/sql/episode/episode-query.properties").getPath();
+	public EpisodeDao() {
+		String fileName = EpisodeDao.class.getResource("/sql/episode/episode-query.properties").getPath();
 		
 		try {
 			prop.load(new FileReader(fileName));
@@ -139,6 +139,66 @@ public class episodeDao {
 		}
 		
 		return result;
+	}
+	
+	//LSH
+	public int getEpiApprovListCount(Connection conn) {
+		int listCount = 0;
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("getEpiApprovListCount");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sql);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return listCount;
+	}
+	
+	public ArrayList<Episode> adminEpiApprovList(Connection conn, PageInfo pi) {
+		ArrayList<Episode> list = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("adminEpiApprovList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getWorkLimit() + 1;
+			int endRow = startRow + pi.getWorkLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Episode e = new Episode();
+				
+				list.add(e);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
 	}
 
 }

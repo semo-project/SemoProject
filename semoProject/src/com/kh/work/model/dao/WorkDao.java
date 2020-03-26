@@ -723,4 +723,209 @@ public class WorkDao {
 		
 		return list;
 	}
+	
+	public int getWorkApprovListCount(Connection conn) {
+		int listCount = 0;
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("getWorkApprovListCount");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sql);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return listCount;
+	}
+	
+	public ArrayList<Work> adminWorkApprovList(Connection conn, PageInfo pi) {
+		ArrayList<Work> list = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("adminWorkApprovList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getWorkLimit() + 1;
+			int endRow = startRow + pi.getWorkLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Work w = new Work();
+				
+				w.setWorkNo(rset.getInt("work_no"));
+				w.setWorktitle(rset.getString("work_title"));
+				w.setNickName(rset.getString("member_nickname"));
+				w.setRequestDate(rset.getDate("request_date"));
+				
+				list.add(w);
+			}
+			
+			// 만약 해당하는 작품이 하나라도 존재한다면
+			if(list.size() > 0 ){
+				adminSetGenre(conn, list);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
+	public int getWorkApprovSearchCnt(Connection conn, String search) {
+		
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("getWorkApprovSearchCnt");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, search);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	
+	public ArrayList<Work> selectWorkApprovSearch(Connection conn, PageInfo pi, String search) {
+		ArrayList<Work> list = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectWorkApprovSearch");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getWorkLimit() + 1;
+			int endRow = startRow + pi.getWorkLimit() - 1;
+			
+			pstmt.setString(1, search);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Work w = new Work();
+				
+				w.setWorkNo(rset.getInt("work_no"));
+				w.setWorktitle(rset.getString("work_title"));
+				w.setNickName(rset.getString("member_nickname"));
+				w.setRequestDate(rset.getDate("request_date"));
+				
+				list.add(w);
+			}
+			// 만약 해당하는 작품이 하나라도 존재한다면
+			if(list.size() > 0 ){
+				adminSetGenre(conn, list);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
+	public int approvConfirm(Connection conn, String no) {
+		int result = 0;
+		
+		Statement stmt = null;
+		
+		String sql = "UPDATE TB_WORK SET APPROVAL_STATUS = 'Y', APPROVAL_DATE = SYSDATE WHERE WORK_NO IN (" + no + ")";
+		
+		try {
+			stmt = conn.createStatement();
+			
+			result = stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+		}
+		
+		return result;
+	}
+	
+	public Work getApprovWork(Connection conn, int no) {
+		Work w = null;
+		Work newW = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("getApprovWork");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				w = new Work();
+				
+				w.setWorkNo(rset.getInt("work_no"));
+				w.setWorktitle(rset.getString("work_title"));
+				w.setNickName(rset.getString("member_nickname"));
+				w.setWorkSummary(rset.getString("work_summary"));
+				w.setWorkPlot(rset.getString("work_plot"));
+				
+			}
+			
+			// 장르 설정해줘야 하는데 장르 세팅하는 함수가 list 받아옴 ㅠㅠ
+			if(w != null) {
+				ArrayList<Work> work = new ArrayList<>();
+				work.add(w);
+				
+				adminSetGenre(conn, work);
+				
+				if(work.size() > 0) {
+					newW = work.get(0);					
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return newW;
+	}
 }

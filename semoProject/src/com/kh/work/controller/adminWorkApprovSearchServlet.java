@@ -1,4 +1,4 @@
-package com.kh.episode.controller;
+package com.kh.work.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,20 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.common.PageInfo;
-import com.kh.episode.model.service.EpisodeService;
-import com.kh.episode.model.vo.Episode;
+import com.kh.work.model.service.WorkService;
+import com.kh.work.model.vo.Work;
 
 /**
- * Servlet implementation class adminEpisodeApprovServlet
+ * Servlet implementation class adminWorkApprovSearchServlet
  */
-@WebServlet("/episodeApprov.ep")
-public class adminEpisodeApprovServlet extends HttpServlet {
+@WebServlet("/workSearchApprov.wo")
+public class adminWorkApprovSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public adminEpisodeApprovServlet() {
+    public adminWorkApprovSearchServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,7 +32,10 @@ public class adminEpisodeApprovServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+		
+		String search = request.getParameter("search");
+		
+		// 여기서 작가들의 모든 작품 불러오겟죠 네네
 		int listCount;			// 총 게시글 갯수
 		int currentPage;		// 현재 페이지 (즉, 요청한 페이지)
 		int startPage;			// 현재 페이지 하단에 보여지는 페이징 바의 시작 수
@@ -43,7 +46,7 @@ public class adminEpisodeApprovServlet extends HttpServlet {
 		int boardLimit;			// 한 페이지에 보여질 게시글 최대 갯수
 		
 		// 총 게시글 수
-		listCount = new EpisodeService().getEpiApprovListCount();
+		listCount = new WorkService().getWorkApprovSearchCnt(search);
 		
 		// 현재 페이지
 		currentPage = 1;
@@ -73,19 +76,20 @@ public class adminEpisodeApprovServlet extends HttpServlet {
 		// 위에 구해진 정보들을 바탕으로 dao에서 글을 긁어올 것
 		PageInfo pi = new PageInfo(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
 		
-		ArrayList<Episode> list = new EpisodeService().adminEpiApprovList(pi);
+		ArrayList<Work> list = new WorkService().selectWorkApprovSearch(pi, search);
 		
 		if(list != null) {
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
-			request.getRequestDispatcher("views/admin/work/adminWorkEpisodeApprov.jsp").forward(request, response);			
+			request.setAttribute("search", search);
+			request.getRequestDispatcher("views/admin/work/adminWorkApprov.jsp").forward(request, response);			
 		} else {
 			request.setAttribute("msg", "조회 실패");
 			request.getRequestDispatcher("views/common/adminErrorPage.jsp").forward(request, response);
-		}
+		}	
+	
 	}
-	
-	
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

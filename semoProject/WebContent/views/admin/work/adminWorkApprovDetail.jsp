@@ -1,8 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.kh.work.model.vo.Work" %>
+<%
+	Work w = (Work)request.getAttribute("work");
+%>
 <!DOCTYPE html>
 <html lang="en">
-
+<head>
+<meta charset="utf-8" />
+	<title>Admin Page</title>
+	<link href="resources/css/admin_styles.css" rel="stylesheet" type="text/css"/>
+	<link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
+</head>
+<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <body class="sb-nav-fixed">
     
     <%@ include file="../common/adminTopNav.jsp" %>
@@ -26,15 +37,13 @@
                             <td rowspan="2" style="width: 30%; ">
                                 <div class="diyDiv" style="height:340px;">
                                     <label class="td30bold">작품 요약</label><br>
-                                    복수를 꿈 꾸는 두 소녀의 이야기
+									<%=w.getWorkSummary() %>
                                 </div>
                             </td>
                             <td rowspan="2" style="width: 40%;">
                                 <div class="diyDiv" style="height:340px;">
                                     <label class="td30bold">줄거리</label><br>
-                                    치사율 100%의 인싸 희귀병 소녀 '사랑' <br>
-                                    누구보다 차분하고 두려움 없는 같은 반 소녀 '은조' <br>
-                                    두 소녀가 가슴 속 칼을 품고 세상을 향한 복수를 꿈꾼다 <br>
+                                    <%=w.getWorkPlot() %>
                                 </div>
                             </td>
                         </tr>
@@ -44,7 +53,7 @@
                                     <table class="width100">
                                         <tr>
                                             <td class="td30bold">작품명</td>
-                                            <td>칼 가는 소녀</td>
+                                            <td><%=w.getWorktitle() %></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -52,7 +61,7 @@
                                     <table class="width100">
                                         <tr>
                                             <td class="td30bold">장르</td>
-                                            <td>일상</td>
+                                            <td><%=w.getGenre() %></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -60,7 +69,7 @@
                                     <table class="width100">
                                         <tr>
                                             <td class="td30bold">작가명</td>
-                                            <td>오리</td>
+                                            <td><%=w.getNickName() %></td>
                                         </tr>
                                     </table>
                                 </div>

@@ -58,20 +58,7 @@
                                             <td><a href="<%=contextPath%>/episodeApprovDetail.wo?pageId=5">2화</a></td>
                                             <td>2020.02.11</td>
                                         </tr>
-                                        <tr>
-                                            <td><input type="checkbox"></td>
-                                            <td>이윤창</td>
-                                            <td>좀비딸</td>
-                                            <td><a href="#">2화</a></td>
-                                            <td>2020.02.11</td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox"></td>
-                                            <td>이윤창</td>
-                                            <td>좀비딸</td>
-                                            <td><a href="#">2화</a></td>
-                                            <td>2020.02.11</td>
-                                        </tr>
+                                        
                                     </tbody>
                                 </table>
 

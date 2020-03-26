@@ -266,6 +266,13 @@ public class WorkService {
 		return listCount;
 	}
 	
+	/**
+	 * Admin - 작품 별 에피소드 조회 중 검색어에 맞춘 리스트만 리턴
+	 * @param pi
+	 * @param no
+	 * @param search
+	 * @return
+	 */
 	public ArrayList<Work> selectAdminEpiSearch(PageInfo pi, int no, String search) {
 		Connection conn = getConnection();
 		
@@ -276,4 +283,99 @@ public class WorkService {
 		return list;
 	}
 	
+	/**
+	 * Admin - 작품 등록 승인을 기다리는 친구들의 수
+	 * @return
+	 */
+	public int getWorkApprovListCount() {
+		Connection conn = getConnection();
+		
+		int listCount = new WorkDao().getWorkApprovListCount(conn);
+		
+		close(conn);
+		
+		return listCount;
+	}
+	
+	/**
+	 * Admin - 작품 등록 승인을 기다리는 친구들의 모임
+	 * @param pi
+	 * @return
+	 */
+	public ArrayList<Work> adminWorkApprovList(PageInfo pi) {
+		Connection conn = getConnection();
+		
+		ArrayList<Work> list = new WorkDao().adminWorkApprovList(conn, pi);
+		
+		close(conn);
+		
+		return list;
+	}
+	
+	/**
+	 * Admin - 작품 등록 승인 대기 건 중 검색된 친구들의 수
+	 * @param search
+	 * @return
+	 */
+	public int getWorkApprovSearchCnt(String search) {
+		Connection conn = getConnection();
+		
+		int listCount = new WorkDao().getWorkApprovSearchCnt(conn, search);
+		
+		close(conn);
+		
+		return listCount;
+	}
+	
+	/**
+	 * Admin - 작품 등록 승인
+	 * @param pi
+	 * @param search
+	 * @return
+	 */
+	public ArrayList<Work> selectWorkApprovSearch(PageInfo pi, String search) {
+		Connection conn = getConnection();
+		
+		ArrayList<Work> list = new WorkDao().selectWorkApprovSearch(conn, pi, search);
+		
+		close(conn);
+		
+		return list;
+	}
+	
+	/**
+	 * Admin - 작품 승인
+	 * @param no
+	 * @return
+	 */
+	public int approvConfirm(String no) {
+		Connection conn = getConnection();
+		
+		int result = new WorkDao().approvConfirm(conn, no);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	/**
+	 * Admin - 작품 승인 건 세부조회
+	 * @param no
+	 * @return
+	 */
+	public Work getApprovWork(int no) {
+		Connection conn = getConnection();
+		
+		Work w = new WorkDao().getApprovWork(conn, no);
+		
+		close(conn);
+		
+		return w;
+	}
 }

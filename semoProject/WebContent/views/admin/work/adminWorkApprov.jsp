@@ -1,5 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="com.kh.common.PageInfo"%>
+<%@page import="com.kh.work.model.vo.Work"%>
+<%@page import="java.util.ArrayList"%>
+<%
+	ArrayList<Work> list = (ArrayList<Work>)request.getAttribute("list");
+
+	String search = (String)request.getAttribute("search");
+
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	
+	// 승인 후 메시지
+	String approvMsg = (String)session.getAttribute("approvMsg");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,8 +50,8 @@
                     <br><br>
                     <div class="card mb-4">
                         <div class="card-header"><i class="fas fa-table mr-1"></i>작품 등록 신청 목록
-                            <button class="btn btn-primary" style="float:right;">검색</button>
-                            <input type="text" class="search" id="memberSearch" style="float: right;">
+                            <button class="btn btn-primary" style="float:right;" id="searchBtn">검색</button>
+                            <input type="text" class="search" id="workApprovSearch" style="float: right;" placeholder="작품명을 입력하세요">
                             
                         </div>
                         <div class="card-body">
@@ -50,34 +69,111 @@
                                     </thead>
                                     
                                     <tbody>
-                                        <tr>
-                                            <td><input type="checkbox"></td>
-                                            <td>오리</td>
-                                            <td><a href="<%=contextPath%>/approvDetail.wo?pageId=5">칼가는 소녀</a></td>
-                                            <td>일상</td>
-                                            <td>2020.02.11</td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox"></td>
-                                            <td>오리</td>
-                                            <td><a href="#">칼가는 소녀</a></td>
-                                            <td>일상</td>
-                                            <td>2020.02.11</td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox"></td>
-                                            <td>오리</td>
-                                            <td><a href="#">칼가는 소녀</a></td>
-                                            <td>일상</td>
-                                            <td>2020.02.11</td>
-                                        </tr>
+                                    	<% if(list.size() != 0) {%>
+	                                 		<% for(Work w : list) { %>   	
+	                                        <tr> 
+	                                            <td><input type="checkbox" name="approvCheck" value="<%=w.getWorkNo()%>"></td>
+	                                            <td><%=w.getNickName() %></td>
+	                                            <td><a href="<%=contextPath%>/approvDetail.wo?pageId=5&&no=<%=w.getWorkNo()%>"><%=w.getWorktitle() %></a></td>
+	                                            <td><%=w.getGenre() %></td>
+	                                            <td><%=w.getRequestDate() %></td>
+	                                        </tr>
+	                                        <% } %>
+                                        <% } else {%>
+                                        	<tr>
+                                        		<td colspan="5" style="text-align:center;">조회된 데이터가 없습니다</td>
+                                        	</tr>
+                                        <% } %>
                                     </tbody>
                                 </table>
 
-                                <button class="btn btn-danger" style="float: right;">승인</button>
+                                <button class="btn btn-danger" style="float: right;" id="approvBtn">승인</button>
                                 <!-- <input type="submit" class="btn btn-danger" style="float: right;" value="승인"> -->
                             </div>
                             
+                            <% if(list.size() != 0) { %>
+                            <!-- 검색어를 받아온 게 있다면 -->
+							<% if(search != null) { %>
+							
+							<!-- 페이징바 영역 -->
+							<div class="pagingArea" align="center">
+							
+							<!-- 맨 처음으로 (<<) -->
+							<button onclick="location.href='<%=contextPath%>/workSearchApprov.wo?pageId=5&&search=<%=search %>';" class="btn btn-outline-primary"> &lt;&lt; </button>
+							
+							<!-- 이전페이지(<) -->
+							<%if(currentPage == 1){ %>
+							<button disabled class="btn btn-outline-primary"> &lt; </button>
+							<%}else{ %>
+							<button onclick="location.href='<%=contextPath%>/workSearchApprov.wo?pageId=5&&currentPage=<%=currentPage-1%>&&search=<%=search %>';" class="btn btn-outline-primary"> &lt; </button>
+							<%} %>
+							
+							<!-- 페이지 목록 -->
+							<%for(int p=startPage; p<=endPage; p++){ %>
+				
+								<%if(currentPage == p){ %>
+								<button disabled class="btn btn-primary"> <%=p%> </button>
+								<%}else{ %>
+								<button onclick="location.href='<%=contextPath%>/workSearchApprov.wo?pageId=5&&currentPage=<%=p%>&&search=<%=search %>';" class="btn btn-outline-primary"> <%= p %> </button>
+								<%} %>
+				
+							<%} %>
+			
+							<!-- 다음페이지(>) -->
+							<%if(currentPage == maxPage){ %>
+							<button disabled class="btn btn-outline-primary"> &gt; </button>
+							<%}else{ %>
+							<button onclick="location.href='<%=contextPath%>/workSearchApprov.wo?pageId=5&&currentPage=<%=currentPage+1%>&&search=<%=search %>';" class="btn btn-outline-primary"> &gt; </button>
+							<%} %>
+			
+			
+							<!-- 맨 마지막으로 (>>) -->
+							<button onclick="location.href='<%=contextPath%>/workSearchApprov.wo?pageId=5&&currentPage=<%=maxPage%>&&search=<%=search %>'" class="btn btn-outline-primary"> &gt;&gt; </button>
+			
+							</div>
+							
+							<% } else { %>
+							
+							<!-- 페이징바 영역 -->
+							<div class="pagingArea" align="center">
+							
+							<!-- 맨 처음으로 (<<) -->
+							<button onclick="location.href='<%=contextPath%>/workApprov.wo?pageId=5';" class="btn btn-outline-primary"> &lt;&lt; </button>
+							
+							<!-- 이전페이지(<) -->
+							<%if(currentPage == 1){ %>
+							<button disabled class="btn btn-outline-primary"> &lt; </button>
+							<%}else{ %>
+							<button onclick="location.href='<%=contextPath%>/workApprov.wo?pageId=5&&currentPage=<%=currentPage-1%>';" class="btn btn-outline-primary"> &lt; </button>
+							<%} %>
+							
+							<!-- 페이지 목록 -->
+							<%for(int p=startPage; p<=endPage; p++){ %>
+				
+								<%if(currentPage == p){ %>
+								<button disabled class="btn btn-primary"> <%=p%> </button>
+								<%}else{ %>
+								<button onclick="location.href='<%=contextPath%>/workApprov.wo?pageId=5&&currentPage=<%=p%>';" class="btn btn-outline-primary"> <%= p %> </button>
+								<%} %>
+				
+							<%} %>
+			
+							<!-- 다음페이지(>) -->
+							<%if(currentPage == maxPage){ %>
+							<button disabled class="btn btn-outline-primary"> &gt; </button>
+							<%}else{ %>
+							<button onclick="location.href='<%=contextPath%>/workApprov.wo?pageId=5&&currentPage=<%=currentPage+1%>';" class="btn btn-outline-primary"> &gt; </button>
+							<%} %>
+			
+			
+							<!-- 맨 마지막으로 (>>) -->
+							<button onclick="location.href='<%=contextPath%>/workApprov.wo?pageId=5&&currentPage=<%=maxPage%>'" class="btn btn-outline-primary"> &gt;&gt; </button>
+			
+							</div>
+							
+							<% } %>    
+							<% } %>        
+							
                         </div>
                     </div>
                 </div>
@@ -92,6 +188,39 @@
     	function goEpisode() {
     		location.href = "<%=contextPath%>/episodeApprov.wo?pageId=5";
     	}
+    	
+    	$(function(){    
+    		
+			var msg = "<%=approvMsg%>";
+			
+    		if(msg != "null") {
+    			alert(msg);
+    			<% session.removeAttribute("approvMsg");%>
+    			<% approvMsg = null; %>
+    			msg = "null";
+    		}
+    		
+            $("#searchBtn").click(function(){
+               var search = $("#workApprovSearch").val();
+               location.href = "<%=contextPath%>/workSearchApprov.wo?pageId=5&&search=" + search;
+            });
+            
+        	// 승인처리
+            $("#approvBtn").click(function() {
+    			var approvArr = new Array();
+    			
+    			$('input:checkbox[name=approvCheck]:checked').each(function() {
+    				approvArr.push(this.value);
+    			});
+    			
+    			if(approvArr.length >= 1) {
+    				var no = approvArr.join(", ");
+    				location.href = "<%=contextPath%>/approvConfirm.wo?pageId=5&&no=" + no;
+    			} else {
+    				alert("승인할 작품을 선택해주세요");
+    			}
+    		});
+        });
     </script>
 </body>
 </html>
