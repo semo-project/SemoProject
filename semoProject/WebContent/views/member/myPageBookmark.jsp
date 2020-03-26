@@ -1,7 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.kh.member.model.vo.Member" %>
-<% Member mem = (Member)request.getAttribute("mem"); %>
+<%@ page import="com.kh.member.model.vo.Member,java.util.ArrayList, com.kh.bookmark.model.vo.Bookmark, com.kh.board.model.vo.*" %>
+<%
+	Member mem = (Member)request.getAttribute("mem"); 
+	ArrayList<Bookmark> list = (ArrayList<Bookmark>)request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,7 +60,21 @@
         <h2 align="center">즐겨찾기한 웹툰</h2>
         <hr>
         <div class="row">
-          <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+         <% if(list.isEmpty()) { %>
+           <h1>조회된 리스트가 없습니다.</h1>
+         <% } else { %>
+          <% for(Bookmark b : list) { %>
+            <div class="card h-100">
+              <a href="<%= contextPath %>/work.wo?wNo=<%= b.getWorkNo() %>"><img src="<%= b.getThumbnailModify() %>" title="<%= b.getWorkTitle() %>" width="100%" height="71%"></a>
+              <div class="card-body">
+                <h4 class="card-title">
+                  <a href="<%= contextPath %>/work.wo?wNo=<%= b.getWorkNo() %>"><%= b.getWorkTitle() %></a>
+                </h4>
+              </div>
+            </div>
+          <% } %>
+         <% } %>
+          <!-- <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
             <div class="card h-100">
               <a href="#"><img src="https://shared-comic.pstatic.net/thumb/webtoon/183559/thumbnail/thumbnail_IMAG06_cffe8f9f-1968-4c48-b7d5-7d40d48da340.jpg" title="신의 탑" alt="신의 탑" onerror="this.src='https://static-comic.pstatic.net/staticImages/COMICWEB/NAVER/img/common/non125_101.gif'" width="100%" height="71%"></a>
               <div class="card-body">
@@ -129,8 +153,44 @@
                 </h4>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
+        
+        <!-- 페이징바 영역 -->
+		<div class="pagingArea" align="center">
+			<!-- 맨 처음으로 (<<) -->
+			<button onclick="location.href='<%=contextPath%>/list.bo';"> &lt;&lt; </button>
+			
+			<!-- 이전페이지(<) -->
+			<%if(currentPage == 1){ %>
+			<button disabled> &lt; </button>
+			<%}else{ %>
+			<button onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%=currentPage-1%>';"> &lt; </button>
+			<%} %>
+			
+			<!-- 페이지 목록 -->
+			<%for(int p=startPage; p<=endPage; p++){ %>
+				
+				<%if(currentPage == p){ %>
+				<button disabled> <%=p%> </button>
+				<%}else{ %>
+				<button onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%=p%>';"> <%= p %> </button>
+				<%} %>
+			
+				
+			<%} %>
+			
+			<!-- 다음페이지(>) -->
+			<%if(currentPage == maxPage){ %>
+			<button disabled> &gt; </button>
+			<%}else{ %>
+			<button onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%=currentPage+1%>';"> &gt; </button>
+			<%} %>
+			
+			
+			<!-- 맨 마지막으로 (>>) -->
+			<button onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%=maxPage%>'"> &gt;&gt; </button>
+		</div>
 
         <!-- Pagination -->
         <ul class="pagination justify-content-center">

@@ -50,6 +50,7 @@
       padding: 20px;
       border: 1px solid #888;
       width: 50%;
+      max-width: fit-content;
     }
     .close{
       color: #aaa;
@@ -180,7 +181,7 @@
           	  <td><input type="password" name="newPwdCheck"></td>
           	</tr>
           </table>
-          </div>
+          </div align="center">
 	    <button type="button">취소하기</button>
 	    <button type="submit" onclick="return pwdValidate();">변경하기</button>
       	</form>

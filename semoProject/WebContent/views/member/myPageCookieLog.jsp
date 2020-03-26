@@ -1,7 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.kh.member.model.vo.Member" %>
-<% Member mem = (Member)request.getAttribute("mem"); %>
+<%@ page import="com.kh.member.model.vo.Member,java.util.ArrayList, com.kh.cookie.model.vo.Cookie, com.kh.board.model.vo.*" %>
+<% 
+	Member mem = (Member)request.getAttribute("mem");
+	ArrayList<Cookie> list = (ArrayList<Cookie>)request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -62,7 +72,21 @@
             <th>결제수단/개수</th>
             <th>금액</th>
           </tr>
-          <tr>
+          <% if(list.isEmpty()) { %>
+          	<tr>
+            <td colspan="4"><h1>조회된 리스트가 없습니다.</h1></td>
+            </tr>
+          <% } else { %>
+          	<% for(Cookie c : list) {%>
+          		<tr>
+          			<td><%= c.getListNo() %></td>
+          			<td><%= c.getChargedDate() %></td>
+          			<td><%= c.getPaymentMethod() %>/<%= c.getChargedCookies() %></td>
+          			<td><%= c.getPaymentAmount() %></td>
+          		</tr>
+          	<% } %>
+          <% } %>
+          <!-- <tr>
             <td>5</td>
             <td>2020-02-10</td>
             <td>무통장입금/100개</td>
@@ -91,9 +115,44 @@
             <td>2019-12-23</td>
             <td>무통장입금/10개</td>
             <td>900원</td>
-          </tr>
+          </tr> -->
         </table>
       </div>
+      <!-- 페이징바 영역 -->
+		<div class="pagingArea" align="center">
+			<!-- 맨 처음으로 (<<) -->
+			<button onclick="location.href='<%=contextPath%>/list.bo';"> &lt;&lt; </button>
+			
+			<!-- 이전페이지(<) -->
+			<%if(currentPage == 1){ %>
+			<button disabled> &lt; </button>
+			<%}else{ %>
+			<button onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%=currentPage-1%>';"> &lt; </button>
+			<%} %>
+			
+			<!-- 페이지 목록 -->
+			<%for(int p=startPage; p<=endPage; p++){ %>
+				
+				<%if(currentPage == p){ %>
+				<button disabled> <%=p%> </button>
+				<%}else{ %>
+				<button onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%=p%>';"> <%= p %> </button>
+				<%} %>
+			
+				
+			<%} %>
+			
+			<!-- 다음페이지(>) -->
+			<%if(currentPage == maxPage){ %>
+			<button disabled> &gt; </button>
+			<%}else{ %>
+			<button onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%=currentPage+1%>';"> &gt; </button>
+			<%} %>
+			
+			
+			<!-- 맨 마지막으로 (>>) -->
+			<button onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%=maxPage%>'"> &gt;&gt; </button>
+		</div>
     </div>
     <!-- /.row -->
 
