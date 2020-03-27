@@ -53,7 +53,7 @@
                                     <table class="width100">
                                         <tr>
                                             <td class="td30bold">작품명</td>
-                                            <td><%=w.getWorktitle() %></td>
+                                            <td><%=w.getWorkTitle() %></td>
                                         </tr>
                                     </table>
                                 </div>

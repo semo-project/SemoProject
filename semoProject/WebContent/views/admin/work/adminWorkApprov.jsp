@@ -74,7 +74,7 @@
 	                                        <tr> 
 	                                            <td><input type="checkbox" name="approvCheck" value="<%=w.getWorkNo()%>"></td>
 	                                            <td><%=w.getNickName() %></td>
-	                                            <td><a href="<%=contextPath%>/approvDetail.wo?pageId=5&&no=<%=w.getWorkNo()%>"><%=w.getWorktitle() %></a></td>
+	                                            <td><a href="<%=contextPath%>/approvDetail.wo?pageId=5&&no=<%=w.getWorkNo()%>"><%=w.getWorkTitle() %></a></td>
 	                                            <td><%=w.getGenre() %></td>
 	                                            <td><%=w.getRequestDate() %></td>
 	                                        </tr>
@@ -186,7 +186,7 @@
     
     <script>
     	function goEpisode() {
-    		location.href = "<%=contextPath%>/episodeApprov.wo?pageId=5";
+    		location.href = "<%=contextPath%>/episodeApprov.ep?pageId=5";
     	}
     	
     	$(function(){    
@@ -215,7 +215,7 @@
     			
     			if(approvArr.length >= 1) {
     				var no = approvArr.join(", ");
-    				location.href = "<%=contextPath%>/approvConfirm.wo?pageId=5&&no=" + no;
+    				location.href = "<%=contextPath%>/approvConfirm.ep?pageId=5&&no=" + no;
     			} else {
     				alert("승인할 작품을 선택해주세요");
     			}

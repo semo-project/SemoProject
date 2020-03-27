@@ -14,16 +14,16 @@ import com.kh.episode.model.service.EpisodeService;
 import com.kh.episode.model.vo.Episode;
 
 /**
- * Servlet implementation class adminEpisodeApprovServlet
+ * Servlet implementation class adminEpisodeApprovSearchServlet
  */
-@WebServlet("/episodeApprov.ep")
-public class adminEpisodeApprovServlet extends HttpServlet {
+@WebServlet("/epApprovSearch.ep")
+public class adminEpisodeApprovSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public adminEpisodeApprovServlet() {
+    public adminEpisodeApprovSearchServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,6 +32,8 @@ public class adminEpisodeApprovServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		String search = request.getParameter("search");
 		
 		int listCount;			// 총 게시글 갯수
 		int currentPage;		// 현재 페이지 (즉, 요청한 페이지)
@@ -43,7 +45,7 @@ public class adminEpisodeApprovServlet extends HttpServlet {
 		int boardLimit;			// 한 페이지에 보여질 게시글 최대 갯수
 		
 		// 총 게시글 수
-		listCount = new EpisodeService().getEpiApprovListCount();
+		listCount = new EpisodeService().getEpiApprovSearchCount(search);
 		
 		// 현재 페이지
 		currentPage = 1;
@@ -73,16 +75,18 @@ public class adminEpisodeApprovServlet extends HttpServlet {
 		// 위에 구해진 정보들을 바탕으로 dao에서 글을 긁어올 것
 		PageInfo pi = new PageInfo(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
 		
-		ArrayList<Episode> list = new EpisodeService().adminEpiApprovList(pi);
+		ArrayList<Episode> list = new EpisodeService().adminEpiApprovSearch(pi, search);
 		
 		if(list != null) {
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
+			request.setAttribute("search", search);
 			request.getRequestDispatcher("views/admin/work/adminWorkEpisodeApprov.jsp").forward(request, response);			
 		} else {
 			request.setAttribute("msg", "조회 실패");
 			request.getRequestDispatcher("views/common/adminErrorPage.jsp").forward(request, response);
 		}
+		
 	}
 
 	/**
