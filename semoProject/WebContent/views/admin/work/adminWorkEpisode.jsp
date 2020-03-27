@@ -60,7 +60,7 @@
                         </div>
                         <div class="diyDiv" style="display: inline-block; width: 79%;">
                             <label>
-                            	<% if(list.size() != 0) { %> <%=list.get(0).getWorktitle()%> <%}%>
+                            	<% if(list.size() != 0) { %> <%=list.get(0).getWorkTitle()%> <%}%>
                             </label>
                         </div> 
                     </div>

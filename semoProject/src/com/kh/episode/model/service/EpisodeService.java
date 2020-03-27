@@ -129,4 +129,71 @@ public class EpisodeService {
 		
 		return list;
 	}
+	
+	/**
+	 * Admin - 검색어에 맞춰진 에피소드 승인 건 전체 수 리턴
+	 * @param search
+	 * @return
+	 */
+	public int getEpiApprovSearchCount(String search) {
+		Connection conn = getConnection();
+		
+		int listCount = new EpisodeDao().getEpiApprovSearchCount(conn, search);
+		
+		close(conn);
+		
+		return listCount;
+	}
+	
+	/**
+	 * Admin - 검색어에 맞춰진 에피소드 승인 건 전체 리턴
+	 * @param pi
+	 * @param search
+	 * @return
+	 */
+	public ArrayList<Episode> adminEpiApprovSearch(PageInfo pi, String search) {
+		Connection conn = getConnection();
+		
+		ArrayList<Episode> list = new EpisodeDao().adminEpiApprovSearch(conn, pi, search);
+		
+		close(conn);
+		
+		return list;
+	}
+	
+	/**
+	 * Admin - 에피소드 대기 승인
+	 * @param no
+	 * @return
+	 */
+	public int epApprovConfirm(String no) {
+		Connection conn = getConnection();
+		System.out.println("test");
+		int result = new EpisodeDao().epApprovConfirm(conn, no);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	/**
+	 * Admin - 에피소드 디테일 조회
+	 * @param no
+	 * @return
+	 */
+	public Episode getEpisodeApprov(int no) {
+		Connection conn = getConnection();
+		
+		Episode ep = new EpisodeDao().getEpisodeApprov(conn, no);
+		
+		close(conn);
+		
+		return ep;
+	}
 } 
