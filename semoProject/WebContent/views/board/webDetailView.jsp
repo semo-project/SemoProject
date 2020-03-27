@@ -1,8 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.kh.board.model.vo.Board" %>
+<%@ page import="com.kh.board.model.vo.Board, com.kh.member.model.vo.Member" %>
 <%
 	Board b = (Board)request.getAttribute("b");
+
+
+	Member m = new Member();
+	Member loginUser2 = (Member)session.getAttribute("loginUser");
+	
+	if(loginUser2 != null) {
+		m = loginUser2;
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -172,6 +180,8 @@
       
       
       <script>
+      var m = "<%=m.getMemberNickname()%>";
+      
       	$(function(){
       		selectCommentList();
       		setInterval(selectCommentList(), 2000);
@@ -206,30 +216,27 @@
       	// 댓글 리스트 가져오는 ajax
       	function selectCommentList(){
       		var boardNo = <%=b.getBoardNo()%>;
-      		var loginUser = <%=session.getAttribute("loginUser")%>;
       		
-      		console.log(loginUser);
       		$.ajax({
       			url:"commentList.bo",
       			data:{boardNo:boardNo},
       			type:"get",
       			success:function(list){
       				var value="";
- 					console.log(list); 
- 					console.log(loginUser);
+ 					
       				for(var i in list){
 						value += '<tr>' + 
 									'<td width="90px">' + list[i].commentWriter + '</td>' +    
 									'<td width="330px">' + list[i].commentContent + '</td>' +
 									'<td width="100px">' + list[i].commentDate + '</td>';
 									
-						if(loginUser != null && loginUser.getMemberNickname().equals(list[i].commentWriter)){
+						if(m != null && m == list[i].commentWriter){
 							value += '<td width="70px">' + '<button id="comUpBtn" style="border:0;">' + '[수정]' + '</button>' + '</td>' +
 									 '<td width="70px">' + '<button id="comDelBtn" style="border:0;">' + '[삭제]' + '</button>' + '</td>';
 						}			
 							value += '</tr>';
 					}
- 					console.log(list);     				
+ 									
       				
       				$("#commentList").html(value);
       			},

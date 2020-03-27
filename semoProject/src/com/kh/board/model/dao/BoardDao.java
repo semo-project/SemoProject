@@ -308,6 +308,8 @@ public class BoardDao {
 			while(rset.next()) {
 				Comment c = new Comment();
 				
+				c.setCommentNo(rset.getInt("comment_no"));
+				c.setComBoardNo(rset.getInt("board_no"));
 				c.setCommentWriter(rset.getString("member_nickname"));
 				c.setCommentContent(rset.getString("comment_content"));
 				c.setCommentDate(rset.getDate("comment_date"));
