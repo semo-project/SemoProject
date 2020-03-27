@@ -164,7 +164,44 @@ public class BoardService {
 		
 		return list;
 	}
-	
+	/**
+	 * 1-10. 댓글 수정 서비스
+	 *
+	 */
+	public int commentUp(Comment c) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().commentUp(conn, c);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	/**
+	 * 1-11. 댓글 삭제 서비스
+	 *
+	 */
+	public int deleteCom(int commentNo) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().deleteCom(conn, commentNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
 	///////////////////////////////////////////////////////////////////
 	// KJY
 	public int countList(int userNo) {
