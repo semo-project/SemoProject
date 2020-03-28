@@ -14,16 +14,16 @@ import com.kh.member.model.service.MemberService;
 import com.kh.member.model.vo.Member;
 
 /**
- * Servlet implementation class loginServlet
+ * Servlet implementation class MemberDeleteServlet
  */
-@WebServlet("/login.me")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/delete.me")
+public class MemberDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public MemberDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,28 +33,29 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		response.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		int userNo = ((Member)session.getAttribute("loginUser")).getMemberNo();
 		
-		String userId = request.getParameter("userId");
-		String userPwd = request.getParameter("userPwd");
+		int result = new MemberService().deleteMember(userNo);
 		
-		Member loginUser = new MemberService().loginMember(userId, userPwd);
-		
-		if(loginUser != null) {
-			HttpSession session = request.getSession();
-			session.setAttribute("loginUser", loginUser);
+		if(result > 0) {
+			session.removeAttribute("loginUser");
+			String message = "회원 탈퇴에 성공했습니다.";
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('" + message + "');");
+			out.println("</script>");
 			response.sendRedirect(request.getContextPath());
 		} else {
-			String message = "로그인 실패!!";
+			String message = "회원탈퇴 실패!!";
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
 			out.println("alert('" + message + "');");
 			out.println("history.back(-1);");
 			out.println("</script>");
-			
 		}
-		
 		
 	}
 

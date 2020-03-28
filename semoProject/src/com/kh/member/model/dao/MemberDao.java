@@ -145,6 +145,23 @@ public class MemberDao {
 		
 	}
 	
+	public int deleteMember(Connection conn, int userNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("deleteMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
 	public int insertMember(Connection conn, Member m) {
 		int result = 0;
 		
