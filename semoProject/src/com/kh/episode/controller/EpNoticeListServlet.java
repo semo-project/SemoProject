@@ -1,28 +1,29 @@
-package com.kh.work.controller;
+package com.kh.episode.controller;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
 
-import javax.servlet.*;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.work.model.service.*;
-import com.kh.work.model.vo.*;
+import com.google.gson.Gson;
+import com.kh.episode.model.service.EpisodeService;
+import com.kh.episode.model.vo.EpNotice;
 
 /**
- * Servlet implementation class WeekSerialMonServlet
+ * Servlet implementation class EpNoticeListServlet
  */
-@WebServlet("/week.mon")
-public class WeekSerialMonServlet extends HttpServlet {
+@WebServlet("/notice.ep")
+public class EpNoticeListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WeekSerialMonServlet() {
+    public EpNoticeListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,18 +32,15 @@ public class WeekSerialMonServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		int wno = Integer.parseInt(request.getParameter("wno"));
 
-		String day = request.getParameter("day");
+		ArrayList<EpNotice> list = new EpisodeService().selectWnList(wno);	
+		response.setContentType("application/json; charset=utf-8");
 		
-		ArrayList<Work> list = new WorkService().mondayList(day);
 		
-		request.setAttribute("list", list);
-		
-		System.out.println(list);
-
-		RequestDispatcher view =request.getRequestDispatcher("views/work/weekSerial.jsp");
-				view.forward(request, response);
-		
+		Gson gson = new Gson();
+		gson.toJson(list, response.getWriter());
 	}
 
 	/**

@@ -1,28 +1,27 @@
-package com.kh.work.controller;
+package com.kh.board.controller;
 
 import java.io.IOException;
-import java.util.*;
 
-import javax.servlet.*;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.kh.work.model.service.*;
-import com.kh.work.model.vo.*;
+import com.kh.member.model.vo.Member;
 
 /**
- * Servlet implementation class WeekSerialMonServlet
+ * Servlet implementation class BoardReportServlet
  */
-@WebServlet("/week.mon")
-public class WeekSerialMonServlet extends HttpServlet {
+@WebServlet("/boardReport.bo")
+public class BoardReportServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WeekSerialMonServlet() {
+    public BoardReportServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,18 +30,17 @@ public class WeekSerialMonServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String day = request.getParameter("day");
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
 		
-		ArrayList<Work> list = new WorkService().mondayList(day);
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+		String boardTitle = request.getParameter("boardTitle");
+		String boardWriter = request.getParameter("boardWriter");
 		
-		request.setAttribute("list", list);
-		
-		System.out.println(list);
-
-		RequestDispatcher view =request.getRequestDispatcher("views/work/weekSerial.jsp");
-				view.forward(request, response);
-		
+		String advertise = request.getParameter("advertise");
+		String salacity = request.getParameter("salacity");
+		String defamation = request.getParameter("defamation");
+		String etc = request.getParameter("defamation");
 	}
 
 	/**

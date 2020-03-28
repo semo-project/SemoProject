@@ -54,8 +54,8 @@
       <div class="col-lg-3 mb-4">
         <div class="list-group">
           <a href="boardList.bo" class="list-group-item">웹툰 TalkTalk</a>
+          <a href="freeList.bo" class="list-group-item">수다수다 유머방</a>
           <a href="semoBoard.html" class="list-group-item">그림게시판</a>
-          <a href="talkfree.html" class="list-group-item">수다수다 유머방</a>
         </div>
       </div>
     </div>
