@@ -76,7 +76,7 @@
 	                                            <td><input type="checkbox" name="secretCheck" value="<%=w.getWorkNo()%>"></td>
 	                                            <td>
 	                                            	<a href="<%=contextPath%>/episodeList.wo?pageId=4&&no=<%=w.getWorkNo()%>">
-	                                            	<%=w.getWorktitle() %>
+	                                            	<%=w.getWorkTitle() %>
 	                                            	</a>
 	                                            </td>
 	                                            <td><%=w.getGenre() %></td>

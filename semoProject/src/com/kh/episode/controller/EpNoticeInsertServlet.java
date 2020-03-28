@@ -1,4 +1,4 @@
-package com.kh.board.controller;
+package com.kh.episode.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class CommentUpServlet
+ * Servlet implementation class EpNoticeInsertServlet
  */
-@WebServlet("/commentUp.bo")
-public class CommentUpServlet extends HttpServlet {
+@WebServlet("/ninsert.wr")
+public class EpNoticeInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CommentUpServlet() {
+    public EpNoticeInsertServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

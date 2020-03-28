@@ -72,6 +72,8 @@ public class BoardListServlet extends HttpServlet {
 		
 		RequestDispatcher view = request.getRequestDispatcher("views/board/boardListView.jsp");
 		view.forward(request, response);
+		
+		System.out.println(list);
 	}
 
 	/**

@@ -57,7 +57,7 @@
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 		
 			<ul class="navbar-nav">
-				<a class="nav-link" href="about();" style="float:left;">연재</a>
+				<a class="nav-link" href="<%=request.getContextPath()%>/list.week" style="float:left;">연재</a>
 				<div class="nav-link" onclick="semoBoard();" style="cursor:pointer;">세모게시판</div>	
       		</ul>
       		
@@ -127,13 +127,13 @@
 	          <!-- 로그인이 되었다면 -->
 	          <% } else { %>
 	          <li class="nav-item dropdown" style="padding=0">
-	            <a class="nav-link dropdown-toggle" href="#" id="test2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	                <div class="media mt-4 comment_area2">
+	            <a class="nav-link dropdown-toggle" href="#" id="test2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="height:41px;">
+	                <div class="media comment_area2" style="margin-top: 0px;">
 	                    <img class="userImg" src="<%=contextPath%>/resources/images/defaultIcon.png" width="25px" height="25px" margin-left="2px">
 	                    <div class="media-body">
 	                      <%=loginUser.getMemberName() %>
 	                    </div>
-	                  </div>
+	                </div>
 	            </a>
 				<div class="dropdown-menu dropdown-menu-center" aria-labelledby="test2"> 
 					<div class="loginArea" id="loginLogo" style="text-align: left; margin-top:0px" >
@@ -175,6 +175,11 @@
   		location.href="<%= request.getContextPath() %>/boardList.bo";
   	}
   </script>
+  <script>
+	 function about(){
+		 location.href("<%=request.getContextPath()%>/list.week");
+	 }
+	</script>
   
 </body>
 </html>

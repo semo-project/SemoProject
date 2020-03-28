@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "java.util.ArrayList, com.kh.notice.model.vo.Notice" %>    
 
+<% 
+	ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list");
+
+%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,68 +93,44 @@
     <!-- Content Column -->
     
 
+	<% if(list.isEmpty()){ %>
+	
+	<div style="height:215px; width:700px">
+		<h3>존재하는 공지사항이 없습니다.</h3>
+	</div>
+	<% }else { %>
+	
+		<% for(Notice n : list){ %>
+		<div class="mb-4" id="accordion" role="tablist" aria-multiselectable="true">
+			<div class="card">
+				<div class="card-header" role="tab" id="headingTwo">
+				  <h5 class="mb-0">
+				  <div>
+				    <div>
+				      <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+				      	<%= n.getNoticeTitle() %>
+				     </a>
+				     <small><%= n.getNoticeDate() %></small>
+				      </div>
+				    </div>
+				  </h5>
+				</div>
+			
+					<div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+						  <div class="card-body">
+						  	<%=n.getNoticeContent() %>
+						  </div>
+					</div>
+				</div>
+					<% } %>
+				<% } %>
+		  	</div>
+		</div><!-- /Content Row -->
+	</div><!-- /Page Content -->
 
-    <div class="mb-4" id="accordion" role="tablist" aria-multiselectable="true">
-      <div class="card">
-        <div class="card-header" role="tab" id="headingOne">
-          <h5 class="mb-0">
-            <div>
-              <div><small>154</small>
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">내 서제 편의성 개선 안내
-                </a>
-                <small>2020.03.01</small>
-              </div>
-            </div>
-          </h5>
-        </div>
 
-        <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
-          <div class="card-body">
-            공지사항 내용 1
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header" role="tab" id="headingTwo">
-          <h5 class="mb-0">
-            <div>
-              <div><small>153</small>
-              <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">세모 웹툰 개인정보처리방침 개정안내
-              </a>
-              <small>2020.02.01</small>
-            </div>
-          </h5>
-        </div>
-        <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
-          <div class="card-body">
-            안녕하세요.<br> 여러 개로 나뉘어져 있던 작품 장르들이 개편되었습니다!<br>더불어 개편된 장르명을 토대로 독자님들의 취향에 맞는 작품들을 <br>
-            선택하실 수 있도록 취향 반영 기능이 업데이트 되었으니<br> 꼬옥 잊지 말고 이용해 보시기 바랍니다.<br><br>[변경된 장르 정보]<br><br>
-            로맨스<br><br>BL드라마<br>판타지<br>개그<br>액션<br>학원<br>미스터리<br>백합<br>일상<br><br>[취향 설정 홈 메뉴 이용방법]<br><br><br>안드로이드 앱 : 왼쪽 상단 메뉴 > 설정 > 취향 설정<br>
-            iOS 앱 : 하단 마이페이지 > 설정 > 취향 설정<br> Web 환경 : 오른쪽 상단 메뉴 > 내 정보 > 취향 설정 <br>감사합니다. 
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header" role="tab" id="headingThree">
-          <h5 class="mb-0">
-            <div>
-              <div><small>152</small>
-                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">세모웹툰 개인정보처리방침 개정안내
-                </a>
-              <small>2020.01.01</small>
-              </div>
-          </h5>
-        </div>
-        <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
-          <div class="card-body">
-            공지 3 내용
-          </div>
-        </div>
-      </div>
-    </div>
 
-  </div>
-  <div class="paging">
+  <div class="paging" >
     <a href="#" class="bt first">처음 페이지</a>
     <a href="#" class="bt prev">이전 페이지</a>
     <a href="#" class="num on">1</a>
@@ -160,7 +141,6 @@
     <a href="#" class="bt next">다음 페이지</a>
     <a href="#" class="bt last">마지막 페이지</a>
   </div>
-</div>
 
   <!-- /.row -->
 
@@ -176,8 +156,8 @@
 </footer>
 
 <!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="resources/js/jquery.min.js"></script>
+<script src="resources/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

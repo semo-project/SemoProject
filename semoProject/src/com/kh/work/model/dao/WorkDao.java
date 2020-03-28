@@ -66,7 +66,7 @@ public int insertWorkGenre(Connection conn, int[]genre) {
 		}
 	//작품 insert 
 	public int insertWork(Connection conn, Work w) {
-		
+		System.out.println("test");
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
@@ -380,12 +380,10 @@ public int insertWorkGenre(Connection conn, int[]genre) {
 								  rset.getString("EPISODE_TITLE")));
 								 	
 			}
-			for(Episode w : list) {
-				System.out.println(w);
-			}
+//			for(Episode w : list) {
+//				System.out.println(w);
+//			}
 				
-			
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

@@ -12,9 +12,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<head>
+<meta charset="utf-8" />
+	<title>Admin Page</title>
+	<link href="resources/css/admin_styles.css" rel="stylesheet" type="text/css"/>
+	<link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
 </head>
+<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <body class="sb-nav-fixed">
 
     <%@ include file="../common/adminTopNav.jsp" %>
@@ -26,25 +31,17 @@
             <main>
                 <div class="container-fluid">
                     <h1 class="mt-4">공지사항 관리</h1>
-                    <!--
-                    <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                        <li class="breadcrumb-item active">전체 회원 보기</li>
-                    </ol>
-                    -->
+                    
                     <br>
+                    <div class="diyDiv mb-4">
+                        <label>수정이 불가하오니, 신중한 작성 부탁 드립니다.</label> 
+                        <!-- 빈공간이지만 점점 추가될 예정이라 -->
+                    </div>
                     
-                    <button class="btn btn-dark" type="button"><a style="color: white;" id="tr1">공지사항 작성</a></button>
-                    &nbsp;
-                    <button class="btn btn-dark" type="button"><a style="color: white;" id="tr2">공지사항 수정</a></button>
-                    
-                    
-                    <br><br>
                     <div class="card mb-4">
                         <div class="card-header"><i class="fas fa-table mr-1"></i>공지사항 목록
                             <button class="btn btn-primary" style="float:right;">검색</button>
                             <input type="text" class="search" id="memberSearch" style="float: right;">
-                            
                         </div>
                         <div class="card-body">
 
@@ -53,9 +50,9 @@
                                     <thead>
                                         <tr>
                                             <th></th>
-                                            <th>번호</th>
-                                            <th>제목</th>
-                                            <th>날짜</th>
+                                            <th>No</th>
+                                            <th>Title</th>
+                                            <th>Write Date</th>
                                         </tr>
                                     </thead>
                                     
@@ -63,15 +60,15 @@
                                     
                                     <% if(list.isEmpty()){ %>
 									<tr>
-										<td colspan="4"> 존재하는 공지사항이 없습니다.</td>
+										<td colspan="4" style="text-align:center;">조회된 데이터가 없습니다.</td>
 									</tr>
 									<% }else{ %>
                                     
                                     	<% for(Notice n : list){ %>
-                                    	<tr id="tr1">
+                                    	<tr>
                                             <td><input type="checkbox"></td>
                                             <td><%= n.getNoticeNo() %></td>
-                                            <td><a href="#"><%= n.getNoticeTitle() %></a></td>
+                                            <td style="color:blue; cursor:pointer;" onclick="test();" value="<%=n.getNoticeNo()%>"><%= n.getNoticeTitle() %></td>
                                             <td><%= n.getNoticeDate() %></td>
                                         </tr>
                                         	<% } %>
@@ -79,48 +76,43 @@
 										
                                     </tbody>
                                 </table>
-
-                                <button class="btn btn-danger" style="float: right;">삭제</button>
-                                <!-- <input type="submit" class="btn btn-danger" style="float: right;" value="승인"> -->
+								
+								<div style="float: right;" >
+									<button class="btn btn-dark" type="button" id="insertBtn">작성하기</button>
+				                    &nbsp;
+				                    <!-- <button class="btn btn-dark" type="button" id="tr2">수정하기</button>
+				                    &nbsp; -->
+	                                <button class="btn btn-danger">삭제하기</button>
+                                </div>
                             </div>
                             
                         </div>
                     </div>
                 </div>
             </main>
-            <footer class="py-4 bg-light mt-auto">
-                <div class="container-fluid">
-                    <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Cookies</div>
-                        <div>
-                            <a href="#">Privacy Policy</a>
-                            &middot;
-                            <a href="#">Terms &amp; Conditions</a>
-                        </div>
-                    </div>
-                </div>
-            </footer>
+           
+           	<%@ include file ="../common/adminFooter.jsp" %>
         </div>
     </div>
     
         <!-- Modal1-->
-    <form class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
-    action="<%=request.getContextPath()%>/ainsert.no" method="POST" >
-        <div class="modal-dialog" id=insertNotice role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">공지사항 작성</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+    	<form class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    		  action="<%=request.getContextPath()%>/ainsert.no" method="POST" >
+			<div class="modal-dialog" id=insertNotice role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">공지사항 작성</h5>
+                    	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                       	 	<span aria-hidden="true">&times;</span>
+                    	</button>
+                	</div>
                 <div class="modal-body">
-                    <table class="table">
+                    <table class="table" id="dataTables">
                         <tr>
                             <td>
                                 <label class="modal-title-font">공지사항 제목</label>
                                 <br>
-                                <input type="text" name="title" >
+                                <input type="text" name="title" class="input" style="width:450px">
                             </td>
                         </tr>
                         <tr>                            
@@ -129,21 +121,15 @@
                                 <br>
                                 <%=today%>
                             </td>
-                        
                         </tr>
-
                         <tr>
                             <td>
                                 <label class="modal-title-font">공지사항 내용</label>
                                 <br>
-                                <textarea style="resize:none" class="diyDiv" cols="50" rows="10" name = "content"> 
-                                
-                                
+                                <textarea style="resize:none" class="diyDiv" cols="57" rows="10" name = "content"> 
                                 </textarea>
-                                
                             </td>
                         </tr>
-
                     </table>                        
                 </div>
                 <div class="modal-footer">
@@ -156,7 +142,7 @@
 
     <!-- Modal 2-->
     <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
-    action=<%=contextPath %>/ainsert.no" method="post">
+    	 action=<%=contextPath %>/ainsert.no" method="post">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -171,17 +157,13 @@
                             <td>
                                 <label class="modal-title-font">공지사항 제목</label>
                                 <br>
-                                
-                                
                             </td>
                         </tr>
-
                         <tr>
                             <td>
                                 <label class="modal-title-font">공지사항 내용</label>
                                 <br>
                                 <div class="diyDiv" style="height: 150px;">
-                                    편의성 개선은 안내는 공지사항에서 확인해
                                 </div>
                             </td>
                         </tr>
@@ -190,7 +172,6 @@
                                 <label> 공지사항 수정 내용 </label>
                                 <br>
                                 <div style="height:250px;">
-                                    	수정할 사항은 여기다가 입력
                                 </div>
                             </td>
                         </tr>
@@ -204,27 +185,26 @@
         </div>
     </div>
 
-    
-
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="js/scripts.js"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
     <script src="assets/demo/datatables-demo.js"></script>
-<script>
-    $(function() {
-        $("#tr1").click(function() {
-            $("#exampleModal").modal("show");
-        });
-    });
-    $(function() {
-        $("#tr2").click(function() {
-            $("#exampleModal2").modal("show");
-        });
-    });
-    
-    
-</script>
+
+	<script>
+	    $(function() {
+	        $("#insertBtn").click(function() {
+	            $("#exampleModal").modal("show");
+	        });
+	        $("#tr2").click(function() {
+	            $("#exampleModal2").modal("show");
+	        });
+	        
+	        function test() {
+	        	alert("test");
+	        }
+	    });
+	</script>
 </body>
 </html>

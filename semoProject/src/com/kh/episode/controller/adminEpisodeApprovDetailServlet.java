@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.episode.model.service.EpisodeService;
+import com.kh.episode.model.vo.Episode;
+
 /**
  * Servlet implementation class adminEpisodeApprovDetailServlet
  */
@@ -27,8 +30,19 @@ public class adminEpisodeApprovDetailServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		// 에피소드 등록 디테일 보여주기
-		request.getRequestDispatcher("views/admin/work/adminWorkEpisodeApprovDetail.jsp").forward(request, response);
+		// 에피소드 번호
+		int no = Integer.parseInt(request.getParameter("no"));
+		
+		Episode ep = new EpisodeService().getEpisodeApprov(no);
+		
+		if(ep != null) {
+			request.setAttribute("episode", ep);
+			request.getRequestDispatcher("views/admin/work/adminWorkEpisodeApprovDetail.jsp").forward(request, response);			
+		} else {
+			request.setAttribute("msg", "조회 실패");
+			request.getRequestDispatcher("views/common/adminErrorPage.jsp").forward(request, response);
+		}
+		
 	
 	}
 

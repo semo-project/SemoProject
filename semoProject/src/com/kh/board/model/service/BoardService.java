@@ -165,6 +165,51 @@ public class BoardService {
 		return list;
 	}
 	
+	/**
+	 * 1-10. 댓글 삭제 서비스
+	 *
+	 */
+	public int deleteCom(int commentNo) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().deleteCom(conn, commentNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	/**
+	 * 2-1. 수다수다 게시판  총 개수
+	 * 	 
+	 */
+	public int freeListCount() {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().freeListCount(conn);
+		
+		close(conn);
+		
+		return result;
+	}
+	/**
+	 * 2-2. 수다수다 게시판 리스트 수
+	 * 	 
+	 */
+	public ArrayList<Board> selectfreeList(PageInfo pi){
+		Connection conn = getConnection();
+		
+		ArrayList<Board> list = new BoardDao().selectfreeList(conn, pi);
+		
+		close(conn);
+		
+		return list;
+	}
 	///////////////////////////////////////////////////////////////////
 	// KJY
 	public int countList(int userNo) {

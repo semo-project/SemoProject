@@ -23,6 +23,10 @@ public class Episode {
 	private String workTitle;
 	private String episodeTitle;
 	
+	// LSH
+	private String nickName;
+	
+	
 	public Episode () {
 		
 	}
@@ -218,6 +222,14 @@ public class Episode {
 
 	public void setEpisodeTitle(String episodeTitle) {
 		this.episodeTitle = episodeTitle;
+	}
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
 	@Override

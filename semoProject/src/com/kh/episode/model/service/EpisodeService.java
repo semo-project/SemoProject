@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.kh.episode.model.vo.Comment;
+import com.kh.episode.model.vo.EpNotice;
 import com.kh.episode.model.vo.Episode;
 import com.kh.episode.model.vo.Reply;
 import com.kh.common.PageInfo;
@@ -128,5 +129,117 @@ public class EpisodeService {
 		close(conn);
 		
 		return list;
+	}
+
+	/**
+	 * 공지사항 조회
+	 * @param wno
+	 * @return
+	 */
+	public ArrayList<EpNotice> selectWnList(int wno) {
+		Connection conn = getConnection();
+		
+		ArrayList<EpNotice> list = new EpisodeDao().selectWnList(conn, wno);
+		
+		
+		close(conn);
+		
+		return list;
+}
+	
+	/**
+	 * Admin - 검색어에 맞춰진 에피소드 승인 건 전체 수 리턴
+	 * @param search
+	 * @return
+	 */
+	public int getEpiApprovSearchCount(String search) {
+		Connection conn = getConnection();
+		
+		int listCount = new EpisodeDao().getEpiApprovSearchCount(conn, search);
+		
+		close(conn);
+		
+		return listCount;
+	}
+	
+	/**
+	 * Admin - 검색어에 맞춰진 에피소드 승인 건 전체 리턴
+	 * @param pi
+	 * @param search
+	 * @return
+	 */
+	public ArrayList<Episode> adminEpiApprovSearch(PageInfo pi, String search) {
+		Connection conn = getConnection();
+		
+		ArrayList<Episode> list = new EpisodeDao().adminEpiApprovSearch(conn, pi, search);
+
+		
+		close(conn);
+		
+		return list;
+	}
+
+
+	
+	/**
+	 * Admin - 에피소드 대기 승인
+	 * @param no
+	 * @return
+	 */
+	public int epApprovConfirm(String no) {
+		Connection conn = getConnection();
+		System.out.println("test");
+		int result = new EpisodeDao().epApprovConfirm(conn, no);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	/**
+	 * Admin - 에피소드 디테일 조회
+	 * @param no
+	 * @return
+	 */
+	public Episode getEpisodeApprov(int no) {
+		Connection conn = getConnection();
+		
+		Episode ep = new EpisodeDao().getEpisodeApprov(conn, no);
+		
+		close(conn);
+		
+		return ep;
+	}
+	
+	//에피소드 리스트 조회
+	public ArrayList<Episode> selectEpisodeList() {
+
+		Connection conn=getConnection();
+		
+		ArrayList<Episode> list = new EpisodeDao().selectEpisodeList(conn);
+		
+		
+		close(conn);
+		return list;
+	}
+
+	//에피소드 상세 조회시 작품에 정보.
+	public Episode selectworkList(int wNo) {
+		
+		Connection conn = getConnection();
+		
+		Episode e = new EpisodeDao().selectworkList(conn,wNo);
+		
+		
+		close(conn);
+			
+		
+		return e;
 	}
 } 

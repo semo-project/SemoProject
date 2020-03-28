@@ -308,6 +308,8 @@ public class BoardDao {
 			while(rset.next()) {
 				Comment c = new Comment();
 				
+				c.setCommentNo(rset.getInt("comment_no"));
+				c.setComBoardNo(rset.getInt("board_no"));
 				c.setCommentWriter(rset.getString("member_nickname"));
 				c.setCommentContent(rset.getString("comment_content"));
 				c.setCommentDate(rset.getDate("comment_date"));
@@ -321,6 +323,114 @@ public class BoardDao {
 			close(pstmt);
 		}
 		
+		return list;
+	}
+	
+	public int commentUp(Connection conn, Comment c) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateComment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, c.getCommentContent());
+			pstmt.setInt(2, c.getCommentNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int deleteCom(Connection conn, int commentNo) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteCom");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, commentNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int freeListCount(Connection conn) {
+		int result = 0;
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("freeListCount");
+		
+		try {
+			stmt = conn.createStatement();
+			
+			rset = stmt.executeQuery(sql);
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return result;
+	}
+	
+	public ArrayList<Board> selectfreeList(Connection conn, PageInfo pi){
+		ArrayList<Board> list = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectFreeList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Board(rset.getInt("board_No"),
+								   rset.getString("board_Title"),
+								   rset.getInt("board_Cnt"),
+								   rset.getString("member_no"),
+								   rset.getDate("board_WriteDate")));
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		System.out.println(list);
 		return list;
 	}
 }
