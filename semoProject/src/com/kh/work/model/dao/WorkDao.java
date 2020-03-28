@@ -66,7 +66,7 @@ public int insertWorkGenre(Connection conn, int[]genre) {
 		}
 	//작품 insert 
 	public int insertWork(Connection conn, Work w) {
-		
+		System.out.println("test");
 		int result = 0;
 		
 		PreparedStatement pstmt = null;

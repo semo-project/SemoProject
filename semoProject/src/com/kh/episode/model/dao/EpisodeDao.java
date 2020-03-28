@@ -356,5 +356,73 @@ public class EpisodeDao {
 		
 		return ep;
 	}
+	
+	//에피소드 전체조회
+	public ArrayList<Episode> selectEpisodeList(Connection conn) {
+
+		ArrayList<Episode> list = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectEpList");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,1);	
+			rset=pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Episode ep = new Episode();
+
+				ep.setRegistDate(rset.getDate("REGIST_DATE"));
+				ep.setApprovalDate(rset.getDate("APPROVAL_DATE"));
+				ep.setStarGrade(rset.getInt("STAR_GRADE"));
+				ep.setEpisodeTitle(rset.getNString("EPISODE_TITLE"));
+				ep.setWorkNo(rset.getInt("WORK_NO"));
+				
+				list.add(ep);
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	//
+
+	public Episode selectworkList(Connection conn,int wNo) {
+		
+		Episode e = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectWorkList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, wNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				Episode ep = new Episode();
+				
+				ep.setWorkTitle(rset.getString("WORK_TITLE"));
+				ep.setWorkNo(rset.getInt("WORK_NO"));
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		
+		return null;
+	}
 
 }

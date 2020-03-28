@@ -26,6 +26,7 @@ public class Episode {
 	// LSH
 	private String nickName;
 	
+	
 	public Episode () {
 		
 	}
