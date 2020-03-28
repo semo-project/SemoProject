@@ -9,9 +9,8 @@ public class Board {
 	private String boardContent;
 	private int boardCnt;
 	private Date boardWriteDate;
-	private String groupName;
+	private int groupType;
 	private String status;
-	private int btype;
 	private String boardWriter;
 	
 	// KJY
@@ -23,16 +22,15 @@ public class Board {
 	}
 
 	public Board(int boardNo, String boardTitle, String boardContent, int boardCnt, Date boardWriteDate,
-	         String groupName, String status, int btype, String boardWriter) {
+	         int groupType, String status, String boardWriter) {
 	      super();
 	      this.boardNo = boardNo;
 	      this.boardTitle = boardTitle;
 	      this.boardContent = boardContent;
 	      this.boardCnt = boardCnt;
 	      this.boardWriteDate = boardWriteDate;
-	      this.groupName = groupName;
+	      this.groupType = groupType;
 	      this.status = status;
-	      this.btype = btype;
 	      this.boardWriter = boardWriter;
 	   }
 	   
@@ -46,14 +44,14 @@ public class Board {
 	}
    
    public Board(int boardNo, String boardTitle, String boardContent, int boardCnt, Date boardWriteDate,
-			String groupName, int memberId) {
+			int groupType, int memberId) {
 		super();
 		this.boardNo = boardNo;
 		this.boardTitle = boardTitle;
 		this.boardContent = boardContent;
 		this.boardCnt = boardCnt;
 		this.boardWriteDate = boardWriteDate;
-		this.groupName = groupName;
+		this.groupType = groupType;
 		this.memberId = memberId;
 	}
 
@@ -67,16 +65,16 @@ public class Board {
 	}
 	  
 	public Board(int boardNo, String boardTitle, String boardContent, int boardCnt, Date boardWriteDate,
-			String groupName, String status, int btype) {
+			int groupType, String status) {
 		super();
 		this.boardNo = boardNo;
 		this.boardTitle = boardTitle;
 		this.boardContent = boardContent;
 		this.boardCnt = boardCnt;
 		this.boardWriteDate = boardWriteDate;
-		this.groupName = groupName;
+		this.groupType = groupType;
 		this.status = status;
-		this.btype = btype;
+		
 	}
 	
 	//게시판 내용 조회
@@ -121,11 +119,11 @@ public class Board {
 	public void setBoardWriteDate(Date boardWriteDate) {
 		this.boardWriteDate = boardWriteDate;
 	}
-	public String getGroupName() {
-		return groupName;
+	public int getgroupType() {
+		return groupType;
 	}
-	public void setGroupName(String groupName) {
-		this.groupName = groupName;
+	public void setgroupType(int groupType) {
+		this.groupType = groupType;
 	}
 	public String getStatus() {
 		return status;
@@ -133,13 +131,7 @@ public class Board {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public int getBtype() {
-		return btype;
-	}
-	public void setBtype(int btype) {
-		this.btype = btype;
-	}
-
+	
 	public String getBoardWriter() {
 		return boardWriter;
 	}
@@ -167,7 +159,7 @@ public class Board {
 	@Override
 	public String toString() {
 		return "Board [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
-				+ ", boardCnt=" + boardCnt + ", boardWriteDate=" + boardWriteDate + ", groupName=" + groupName
-				+ ", status=" + status + ", btype=" + btype + ", boardWriter=" + boardWriter + "]";
+				+ ", boardCnt=" + boardCnt + ", boardWriteDate=" + boardWriteDate + ", groupType=" + groupType
+				+ ", status=" + status + ", boardWriter=" + boardWriter + "]";
 	}	
 }

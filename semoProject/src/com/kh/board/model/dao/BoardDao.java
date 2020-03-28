@@ -368,4 +368,69 @@ public class BoardDao {
 		
 		return result;
 	}
+	
+	public int freeListCount(Connection conn) {
+		int result = 0;
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("freeListCount");
+		
+		try {
+			stmt = conn.createStatement();
+			
+			rset = stmt.executeQuery(sql);
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return result;
+	}
+	
+	public ArrayList<Board> selectfreeList(Connection conn, PageInfo pi){
+		ArrayList<Board> list = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectFreeList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Board(rset.getInt("board_No"),
+								   rset.getString("board_Title"),
+								   rset.getInt("board_Cnt"),
+								   rset.getString("member_no"),
+								   rset.getDate("board_WriteDate")));
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		System.out.println(list);
+		return list;
+	}
 }

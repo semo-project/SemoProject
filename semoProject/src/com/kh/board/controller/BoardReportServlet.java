@@ -7,21 +7,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.kh.board.model.service.BoardService;
-import com.kh.board.model.vo.Comment;
+import com.kh.member.model.vo.Member;
 
 /**
- * Servlet implementation class ComUpdateServlet
+ * Servlet implementation class BoardReportServlet
  */
-@WebServlet("/commentUp.bo")
-public class ComUpdateServlet extends HttpServlet {
+@WebServlet("/boardReport.bo")
+public class BoardReportServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ComUpdateServlet() {
+    public BoardReportServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,22 +30,17 @@ public class ComUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
 		
-		int commentNo = Integer.parseInt(request.getParameter("commentNo"));
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+		String boardTitle = request.getParameter("boardTitle");
+		String boardWriter = request.getParameter("boardWriter");
 		
-		Comment c = new Comment();
-		c.setCommentContent(request.getParameter("content"));
-		c.setCommentNo(commentNo);
-		
-		int result = new BoardService().commentUp(c);
-		
-		if(result >0) {
-			response.sendRedirect("webdetail.bo?commentNo="+commentNo);
-		}else {
-			request.setAttribute("msg", "댓글 작성 실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);;
-		}
+		String advertise = request.getParameter("advertise");
+		String salacity = request.getParameter("salacity");
+		String defamation = request.getParameter("defamation");
+		String etc = request.getParameter("defamation");
 	}
 
 	/**

@@ -13,17 +13,18 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.board.model.service.BoardService;
 import com.kh.board.model.vo.Board;
 import com.kh.board.model.vo.PageInfo;
+
 /**
- * Servlet implementation class BoardListServlet
+ * Servlet implementation class FreeListServlet
  */
-@WebServlet("/boardList.bo")
-public class BoardListServlet extends HttpServlet {
+@WebServlet("/freeList.bo")
+public class FreeListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardListServlet() {
+    public FreeListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,7 +33,6 @@ public class BoardListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		int listCount;
 		int currentPage;
 		int startPage;
@@ -42,7 +42,7 @@ public class BoardListServlet extends HttpServlet {
 		int pageLimit;
 		int boardLimit;
 		
-		listCount = new BoardService().getListCount();
+		listCount = new BoardService().freeListCount();
 		
 		currentPage = 1;
 		
@@ -65,15 +65,13 @@ public class BoardListServlet extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
 		
-		ArrayList<Board> list = new BoardService().selectList(pi);
+		ArrayList<Board> list = new BoardService().selectfreeList(pi);
 		
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
 		
-		RequestDispatcher view = request.getRequestDispatcher("views/board/boardListView.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("views/board/freeTalkListView.jsp");
 		view.forward(request, response);
-		
-		System.out.println(list);
 	}
 
 	/**

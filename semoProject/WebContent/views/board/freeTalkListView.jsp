@@ -38,13 +38,13 @@
   <div class="container">
 
     <!-- Page Heading/Breadcrumbs -->
-    <h1 class="mt-4 mb-3">웹툰 TalkTalk
+    <h1 class="mt-4 mb-3">수다수다 유머방
       <!-- <small>Subheading</small> -->
     </h1>
 
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="freeList.bo">세모게시판</a> > <a href="freeList.bo">웹툰 TalkTalk</a>
+        <a href="boardList.bo">세모게시판</a> > <a href="freeList.bo">수다수다 유머방</a>
       </li>
     </ol>
 
@@ -53,9 +53,9 @@
       <!-- Sidebar Column -->
       <div class="col-lg-3 mb-4">
         <div class="list-group">
-          <a href="freeList.bo" class="list-group-item">웹툰 TalkTalk</a>
-          <a href="semoBoard.html" class="list-group-item">그림게시판</a>
+          <a href="boardList.bo" class="list-group-item">웹툰 TalkTalk</a>
           <a href="freeList.bo" class="list-group-item">수다수다 유머방</a>
+          <a href="semoBoard.html" class="list-group-item">그림게시판</a>
         </div>
       </div>
     </div>
@@ -67,12 +67,12 @@
           <table style="width: 600px;margoin-left: auto;margin-left: 25%;margin-top: -19%;">
               <tr style="border-bottom:1px solid rgb(163, 160, 160);">
                   <td>
-                      <h2>웹툰TalkTalk</h2>
+                      <h2>수다수다 유머방</h2>
                   </td>
               </tr>
               <tr style="border:1px solid rgb(163, 160, 160); margin-top: 5px;">
                   <td>
-                      <h6>웹툰에 대해 자유롭게 얘기해보아요!</h6>
+                      <h6>재미있는 유머들이 가득한 곳!</h6>
                   </td>
               </tr>
           </table>
@@ -127,7 +127,7 @@
             </form>
             
         	<% if(loginUser != null) { %>
-        		<button class="write_btn" onclick="location.href='<%=contextPath%>/insertForm.bo';">작성하기</button>
+        		<button class="write_btn" onclick="location.href='<%=contextPath%>/freeInForm.bo';">작성하기</button>
         	<% } %>
         	
         	<!-- 페이징바 영역 -->
@@ -178,7 +178,7 @@
 				
 				var boardNo = $(this).children().eq(0).text();
 				
-				location.href="<%=contextPath%>/webdetail.bo?boardNo=" + boardNo;
+				location.href="<%=contextPath%>/freedetail.bo?boardNo=" + boardNo;
 			});
 		});
 	</script>

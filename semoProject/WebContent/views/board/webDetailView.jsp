@@ -54,6 +54,16 @@
 	commentArea>table tr{
 		margin-top:5px;
 	}
+	#modal {
+		display:none;
+		background-color:#FFFFFF;
+		position:absolute;
+		top:500px;
+		left:200px;
+		padding:10px;
+		border:2px solid #E2E2E2;
+		z-Index:9999
+	}
 </style>
 </head>
 <body>
@@ -79,8 +89,8 @@
       <div class="col-lg-3 mb-4">
         <div class="list-group">
           <a href="boardList.bo" class="list-group-item">웹툰 TalkTalk</a>
+          <a href="freeList.bo" class="list-group-item">수다수다 유머방</a>
           <a href="semoBoard.html" class="list-group-item">그림게시판</a>
-          <a href="talkfree.html" class="list-group-item">수다수다 유머방</a>
         </div>
       </div>
     </div>
@@ -105,13 +115,14 @@
       </div>
       
 </div>
+		
 		<div class="outer" style="margin-left:30%; margin-top: -0.1%;">
           <table>
           	<tr>
           		<th>No.<%=b.getBoardNo() %></th>
           		<th colspan="3" align="center"><%=b.getBoardTitle() %></th>
           		<th></th>
-          		<th style="font-size:small;"><input type="button" id="boardReport" onclick="boardReport();" value="게시글신고"></th>
+          		<th></th>
           	</tr>
           	<tr>
           		<th></th>
@@ -144,9 +155,55 @@
           	<% if(loginUser != null && loginUser.getMemberNickname().equals(b.getBoardWriter())) {%>
           		<button onclick="location.href='<%=contextPath%>/updateForm.bo?boardNo=<%=b.getBoardNo()%>'">수정</button>
 				<button onclick="deleteWeb();">삭제</button>
-			<% } %>
-          </div>
-		
+			<% }else if(loginUser != null && loginUser.getMemberNickname() != (b.getBoardWriter())){ %>
+				<button id="reportBtn">게시글 신고</button>
+				<div id="modal">
+	    			<table>
+	    				<tr>
+		    				<th><h4>신고하기</h4></th>
+	    				</tr>
+	    				<tr>
+	    					<th colspan="3"><hr></th>
+	    				</tr>
+	    				<tr>
+	    					<td>제 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목 : </td>
+	    					<td align="left"><%=b.getBoardTitle()%></td>
+	    				</tr>
+	    				<tr>
+	    					<td>작&nbsp;&nbsp;성&nbsp;&nbsp;자 : </td>
+	    					<td><%=b.getBoardWriter()%></td>
+	    				</tr>
+	    				<tr>
+	    					<th colspan="3"><hr></th>
+	    				</tr>	
+	    				<tr>
+	    					<td></td>
+	    					<td><input type="checkbox" name="advertise"><label style="margin-left:4px;">부적절한 홍보 게시글</label></td>
+	    					<td style="width:40px;"></td>
+	    				</tr>
+	    				<tr>
+	    					<td></td>
+	    					<td><input type="checkbox" name="salacity"><label style="margin-left:4px;">음란성 또는 청소년에게 부적합한 내용</label></td>
+	    				</tr>
+	    				<tr>
+	    					<td></td>
+	    					<td><input type="checkbox" name="defamation"><label style="margin-left:4px;">명예훼손/사생활 침해 및 저작권 침해 등</label></td>
+	    				</tr>
+	    				<tr>
+	    					<td></td>
+	    					<td><input type="checkbox" name="etc"><label style="margin-left:4px;">기타</label>
+	    						<textarea style="resize:none; width:300px;"></textarea>
+	    					</td>
+	    				</tr>
+	    			</table>
+	    			<br>
+	    			<button type="submit" id="repOkBtn" align="center" onclick="location.href='<%=contextPath%>/boardReport.bo?boardNo=<%=b.getBoardNo()%>'">확인</button>
+	    			<!-- <button class="repCloseBtn">닫기</button> -->
+				</div>
+	          </div>
+	          <%}else{ %>
+	          		<input type="hidden">
+	          <%} %>
 		</div>
 		
 	<script>
@@ -156,6 +213,25 @@
       		}
       	}
     </script>
+    
+    <!-- 게시글 신고 모달 -->
+    <script type="text/javascript" src="<%= request.getContextPath() %>/resources/js/modal.js"></script>
+	<script type="text/javascript">
+		// 모달창 인스턴트 생성
+		var myModal = new Example.Modal({
+	    	id: "modal" // 모달창 아이디 지정
+		});
+	  
+		// 모달 창 여는 버튼에 이벤트 걸기
+		$("#reportBtn").click(function() {
+	    	myModal.show(); // 모달창 보여주기
+		});
+	  
+		// 모달 창 안에 있는 확인 버튼에 이벤트 걸기
+		$("#repOkBtn").click(function() {
+	  	  	myModal.hide(); // 모달창 감추기
+		});
+	</script>
       
 		<!-- 댓글 작성 폼 -->
 		<div class="commentArea">
