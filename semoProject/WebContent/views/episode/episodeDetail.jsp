@@ -35,6 +35,7 @@
     min-width: 978px;
     min-width: 800px;
     
+    
   }
   .screen_out{
     overflow: hidden;
@@ -163,59 +164,70 @@
 
 <br><br>
         <hr>
-
+</div>
         
         <hr>
         <!-- Comments Form -->
-        <div class="card my-4" style=" width: max-content; margin-right: auto; margin-left: auto; width: 80%;">
-          <h5 class="card-header">댓글:
-            
-          </h5>
+        <div class="card my-4 replyArea" style=" width: max-content; margin-right: auto; margin-left: auto; width: 70%;">
+        <% if(loginUser != null){ %>
+          <h5 class="card-header" style="color: black;">댓글: </h5>
           <div class="card-body">
             <div class="wrap_spo">
               <div class="box_check">
                 <input type="checkbox" class="inp_check" id="spoCheck">
                 <label for="spoCheck">
                   <span class="ico_comm"></span>
-                  <span class="desc_spo">댓글에 스포일러가 포함된 경우 체크해 주세요.</span>
+                  <span class="desc_spo" style="color: black;">댓글에 스포일러가 포함된 경우 체크해 주세요.</span>
                 </label>
               </div>
             </div>
             <form>
               <div class="form-group">
-                <textarea class="form-control" rows="3"></textarea>
+                <textarea class="form-control" rows="3" id="replyContent" style="resize:none;"></textarea>
               </div>
-              <button type="submit" class="btn btn-primary">등록</button>
+              <button type="button" class="btn btn-primary" id="addReply">등록</button>
             </form>
           </div>
         </div>
+		<% }else{ %>
+		 <h5 class="card-header" style="color: black;">댓글: </h5>
+          <div class="card-body">
+            <div class="wrap_spo">
+              <div class="box_check">
+                <input type="checkbox" class="inp_check" id="spoCheck">
+                <label for="spoCheck">
+                  <span class="ico_comm"></span>
+                  <span class="desc_spo" style="color: black;">댓글에 스포일러가 포함된 경우 체크해 주세요.</span>
+                </label>
+              </div>
+            </div>
+            <form>
+              <div class="form-group">
+                <textarea class="form-control" rows="3" readonly style="resize:none; font-size: 14px;">로그인한 사용자만 가능한 서비스입니다. 로그인 후 이용해주세요</textarea>
+              </div>
+              <button type="button" class="btn btn-primary" disabled>등록</button>
+            </form>
+          </div>
+        </div>
+       <% } %>
 
-       
-
-     	 </div>
-      </div>
+     	 
+   
 	
 	<!-- 댓글 관련 영역 -->
-	<div class="replyArea">
+	<div >
 		
-		<!-- 댓글 작성하는 table -->
-		<table border="1" align="center">
-			<tr>
-				<th>댓글작성</th>
-				<% if(loginUser != null){ %>
-				<td><textarea id="replyContent" rows="3" cols="60" style="resize:none;"></textarea></td>
-				<td><button id="addReply">댓글등록</button></td>
-				<% }else{ %>
-				<td><textarea readonly rows="3" cols="60" style="resize:none;">로그인한 사용자만 가능한 서비스입니다. 로그인 후 이용해주세요</textarea></td>
-				<td><button disabled>댓글등록</button></td>
-				<% } %>
-			</tr>
-		</table>
+		
 		
 		<!-- 댓글 리스트들 보여지는 div -->
 		<div id="replyListArea">
 			<table id="replyList" border="1" align="center">
+				<tr>
 				
+				</tr>
+				<div>
+				
+				</div>
 			</table>
 		</div>
 		<br><br><br><br>
@@ -246,32 +258,38 @@
 		//console.log("문서읽기 완료");
 		selectReplyList();
 		
-		window.setInterval(selectReplyList, 2000);
+		//window.setInterval(selectReplyList, 2000);
 		
 		$("#addReply").click(function(){
 			// 댓글등록 버튼 클릭시 댓글 작성하기 기능수행하는 ajax
 			
 			// 전달할 값
-			var content = $("#content").val(); // 작성된 댓글 내용
+			var content = $("#replyContent").val(); // 작성된 댓글 내용
 			var eNo = <%=e.getEpisodeNo()%>;
 			
-			$.ajax({
-				url:"rinsert.bo",
-				data:{
-					content:content,
-					eNo:eNo
-				},
-				type:"post",
-				success:function(result){
-					if(result == 1){
-						selectReplyList();
-						$("#content").val("");
-					}
-				},
-				error:function(){
-					console.log("댓글 작성 ajax 통신실패!!");	
-				}					
-			});
+			if(content != ""){
+				$.ajax({
+					url:"rinsert.bo",
+					data:{
+						content:content,
+						eNo:eNo
+					},
+					type:"post",
+					success:function(result){
+						if(result == 1){
+							selectReplyList();
+							$("#replyContent").val("");
+						}
+					},
+					error:function(){
+						console.log("댓글 작성 ajax 통신실패!!");	
+					}					
+				});
+				
+			}else{
+				alert("댓글내용작성하세요");
+			}
+			
 			
 			
 		});
@@ -290,7 +308,7 @@
 				data:{eNo:eNo},
 				type:"get",
 				success:function(list){
-					console.log(list); // 객체 배열의 형태
+					//console.log(list); // 객체 배열의 형태
 					//console.log(1);
 					var value = "";
 					//for(var i=0; i<list.length; i++){
@@ -299,8 +317,23 @@
 									'<td width="100px">' + list[i].memberId + '</td>' +    
 									'<td width="330px">' + list[i].content + '</td>' +
 									'<td width="150px">' + list[i].creationDate + '</td>' +
+									'<td><button type="button" data-toggle="modal" data-target="#myModal2" >신고</button></td>'+
 								 '</tr>';
+								 
+					/* 	value +='<div class="">' +
+				          
+							          '<div class="list_cmt">' +
+							            '<span class="desc_info">' +
+							            '<strong class="txt_nick">' + list[i].memberId + '</strong>'+
+							            '<span class="txt_date">' + list[i].creationDate + '</span>'+
+							            '<span class="txt_bar"></span>' +
+							            '<button type="button" class="btn_comm_btn_report btn_report_parent">신고</button>'+
+							          	'</span>'+
+										'<textarea class="form-control" rows="3" cols="100">' + list[i].content + '</textarea>'+
+							            '</div>'+
+							          '</div>'; */
 					}
+					console.log(value);
 					
 					$("#replyList").html(value);
 					
@@ -310,7 +343,8 @@
 			});
 		}
 	</script>
-
+ 
+   
 </body>
 
 </html>

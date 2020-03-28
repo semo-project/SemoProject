@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.kh.episode.model.vo.Comment;
+import com.kh.episode.model.vo.EpNotice;
 import com.kh.episode.model.vo.Episode;
 import com.kh.episode.model.vo.Reply;
 import com.kh.common.PageInfo;
@@ -129,6 +130,22 @@ public class EpisodeService {
 		
 		return list;
 	}
+
+	/**
+	 * 공지사항 조회
+	 * @param wno
+	 * @return
+	 */
+	public ArrayList<EpNotice> selectWnList(int wno) {
+		Connection conn = getConnection();
+		
+		ArrayList<EpNotice> list = new EpisodeDao().selectWnList(conn, wno);
+		
+		
+		close(conn);
+		
+		return list;
+}
 	
 	/**
 	 * Admin - 검색어에 맞춰진 에피소드 승인 건 전체 수 리턴
@@ -155,11 +172,14 @@ public class EpisodeService {
 		Connection conn = getConnection();
 		
 		ArrayList<Episode> list = new EpisodeDao().adminEpiApprovSearch(conn, pi, search);
+
 		
 		close(conn);
 		
 		return list;
 	}
+
+
 	
 	/**
 	 * Admin - 에피소드 대기 승인
@@ -196,4 +216,5 @@ public class EpisodeService {
 		
 		return ep;
 	}
+
 } 

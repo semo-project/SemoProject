@@ -1,4 +1,4 @@
-package com.kh.work.controller;
+package com.kh.episode.controller;
 
 import java.io.*;
 import java.util.*;
@@ -7,6 +7,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 
+import com.kh.episode.model.vo.Episode;
 import com.kh.work.model.service.*;
 import com.kh.work.model.vo.*;
 

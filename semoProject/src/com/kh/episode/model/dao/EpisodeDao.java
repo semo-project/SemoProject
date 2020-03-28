@@ -13,6 +13,10 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.common.PageInfo;
+
+import com.kh.episode.model.vo.Comment;
+import com.kh.episode.model.vo.EpNotice;
+
 import com.kh.episode.model.vo.Episode;
 import com.kh.episode.model.vo.Reply;
 
@@ -103,6 +107,8 @@ public class EpisodeDao {
 			pstmt.setString(1, r.getContent());
 			pstmt.setInt(2, r.getEpisodeNo());
 			pstmt.setInt(3, Integer.parseInt(r.getMemberId()));
+			
+			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -355,6 +361,40 @@ public class EpisodeDao {
 		}
 		
 		return ep;
+	}
+
+	public ArrayList<EpNotice> selectWnList(Connection conn, int wno) {
+		
+		ArrayList<EpNotice> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectWnList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, wno);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				EpNotice n = new EpNotice();
+				n.setNoticeNo(rset.getInt("noticeNo"));
+				n.setMemberNo(rset.getInt("memberNo"));
+				n.setTitle(rset.getString("title"));
+				n.setContent(rset.getString("content"));
+				n.setWriterDate(rset.getDate("writerDate"));
+			
+				
+				list.add(n);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+		
 	}
 
 }

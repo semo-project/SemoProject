@@ -21,7 +21,7 @@
                         &nbsp;
                         <button class="btn btn-dark" type="button" onclick="goMemberStats();">성별/연령별</button>
                         &nbsp;
-                        <button class="btn btn-dark" type="button" onclick="goCookieCount();">쿠키결제</button>
+                        <!-- <button class="btn btn-dark" type="button" onclick="goCookieCount();">쿠키결제</button> -->
 
                         <br><br>
 

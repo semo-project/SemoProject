@@ -23,7 +23,6 @@ public class NoticeService {
 		
 		ArrayList<Notice> list = new NoticeDao().selectList(conn);
 		
-		
 		close(conn);
 		
 		return list;

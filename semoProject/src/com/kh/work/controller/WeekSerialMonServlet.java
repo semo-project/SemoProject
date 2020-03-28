@@ -37,6 +37,8 @@ public class WeekSerialMonServlet extends HttpServlet {
 		ArrayList<Work> list = new WorkService().mondayList(day);
 		
 		request.setAttribute("list", list);
+		
+		System.out.println(list);
 
 		RequestDispatcher view =request.getRequestDispatcher("views/work/weekSerial.jsp");
 				view.forward(request, response);
