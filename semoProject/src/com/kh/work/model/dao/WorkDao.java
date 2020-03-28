@@ -380,12 +380,10 @@ public int insertWorkGenre(Connection conn, int[]genre) {
 								  rset.getString("EPISODE_TITLE")));
 								 	
 			}
-			for(Episode w : list) {
-				System.out.println(w);
-			}
+//			for(Episode w : list) {
+//				System.out.println(w);
+//			}
 				
-			
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
