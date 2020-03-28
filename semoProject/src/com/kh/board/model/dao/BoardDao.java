@@ -308,6 +308,8 @@ public class BoardDao {
 			while(rset.next()) {
 				Comment c = new Comment();
 				
+				c.setCommentNo(rset.getInt("comment_no"));
+				c.setComBoardNo(rset.getInt("board_no"));
 				c.setCommentWriter(rset.getString("member_nickname"));
 				c.setCommentContent(rset.getString("comment_content"));
 				c.setCommentDate(rset.getDate("comment_date"));
@@ -322,5 +324,48 @@ public class BoardDao {
 		}
 		
 		return list;
+	}
+	
+	public int commentUp(Connection conn, Comment c) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateComment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, c.getCommentContent());
+			pstmt.setInt(2, c.getCommentNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int deleteCom(Connection conn, int commentNo) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteCom");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, commentNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 }

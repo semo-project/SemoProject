@@ -1,8 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.kh.board.model.vo.Board" %>
+<%@ page import="com.kh.board.model.vo.Board, com.kh.member.model.vo.Member, com.kh.board.model.vo.Comment" %>
 <%
 	Board b = (Board)request.getAttribute("b");
+
+	Comment c = new Comment();
+	Member m = new Member();
+	Member loginUser2 = (Member)session.getAttribute("loginUser");
+	
+	if(loginUser2 != null) {
+		m = loginUser2;
+	}
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -41,6 +50,9 @@
 	}
 	#comUpBtn{
 		background:red;
+	}
+	commentArea>table tr{
+		margin-top:5px;
 	}
 </style>
 </head>
@@ -148,30 +160,32 @@
 		<!-- 댓글 작성 폼 -->
 		<div class="commentArea">
 			<!-- 댓글 작성 table -->
-			<table border="1" align="center">
+			<table border="0" align="center">
 				<tr>
 					<th>댓글</th>
 					<% if(loginUser != null){ %>
 						<td><textarea id="commentContent" rows="3" cols="60" style="resize:none"></textarea></td>
-						<td><button id="addComment">댓글 작성</button>
+						<td><button class="btn btn-warning" id="addComment">댓글 작성</button>
 					<%}else{ %>
 						<td><textarea readonly rows="3" cols="60" style="resize:none"></textarea></td>
-						<td><button disabled>댓글 작성</button>
+						<td><button class="btn btn-warning" disabled>댓글 작성</button>
 					<% } %>
 				</tr>
 			</table>
 			
 			<!-- 댓글 리스트 area -->
-			<div id="commentListArea" style="margin-bottom:5%;">
-				<table id="commentList" border="1" align="center">
+			<div id="commentListArea">
+				<table id="commentList" border="0" align="center" style="margin-top:10px;">
 					 
 				</table>
 			</div>
 		</div>
-       
-      
+     
       
       <script>
+      var m = "<%=m.getMemberNickname()%>";
+      var c = "<%=c.getCommentContent()%>";
+      
       	$(function(){
       		selectCommentList();
       		setInterval(selectCommentList(), 2000);
@@ -206,39 +220,63 @@
       	// 댓글 리스트 가져오는 ajax
       	function selectCommentList(){
       		var boardNo = <%=b.getBoardNo()%>;
-      		var loginUser = <%=session.getAttribute("loginUser")%>;
       		
-      		console.log(loginUser);
       		$.ajax({
       			url:"commentList.bo",
       			data:{boardNo:boardNo},
       			type:"get",
       			success:function(list){
       				var value="";
- 					console.log(list); 
- 					console.log(loginUser);
+ 					
       				for(var i in list){
-						value += '<tr>' + 
+						value += '<tr style="margin-top:5px;">' + 
 									'<td width="90px">' + list[i].commentWriter + '</td>' +    
-									'<td width="330px">' + list[i].commentContent + '</td>' +
+									'<td width="239px" class="contentArea">' + list[i].commentContent + '</td>' +
 									'<td width="100px">' + list[i].commentDate + '</td>';
 									
-						if(loginUser != null && loginUser.getMemberNickname().equals(list[i].commentWriter)){
-							value += '<td width="70px">' + '<button id="comUpBtn" style="border:0;">' + '[수정]' + '</button>' + '</td>' +
-									 '<td width="70px">' + '<button id="comDelBtn" style="border:0;">' + '[삭제]' + '</button>' + '</td>';
-						}			
-							value += '</tr>';
+						if(m != null && m == list[i].commentWriter){
+							value += '<td width="70px">' + '<button class="comDelBtn" style="border:0; background-color: white;" value="' + list[i].commentNo + '">' + 
+									 '<img style="width:10px; height:10px; border-radius:10px; margin-bottom:5px;" src="resources/images/xxxx.jpeg">' +
+									 '</button>' + '</td>' +
+									 '</tr>';
+						}else{
+							value += '<td width="70px">' + '<button class="comRepBtn" style="border:0; background-color: white;" value="' + list[i].commentNo + '">' + 
+									 '<img style="width:10px; height:10px; border-radius:10px; margin-bottom:5px;" src="resources/images/report.png">' + 
+									 '</button>' + '</td>'+
+									 '</tr>';							
+						}		
+						
 					}
- 					console.log(list);     				
-      				
+ 					
       				$("#commentList").html(value);
       			},
       			error:function(){
       				console.log("댓글 리스트  ajax 통신실패");
       			}
       		});
-      		
       	}
+      	
+      	$(document).on("click",".comDelBtn",function commentDel(){
+      		var comdel = $(this).val();
+      		
+      		if(confirm("정말로 삭제하시겠습니까?")){
+      			$.ajax({
+      	             url:"comDelete.bo",
+      	            data : {
+      	               comdel:comdel
+      	            },
+      	            type : "POST",
+      	            success : function(result) {
+      	            	if(result > 0){
+      	            		selectCommentList();
+      	            	}
+      	            },
+      	            error : function() {
+      	               console.log("ajax 통신 실패!!");
+      	            }
+      	         });
+      		}
+      	});
       </script>
           
 <!-- /.container -->

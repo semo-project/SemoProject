@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.kh.episode.model.vo.Episode" %>
+<%
+	Episode ep = (Episode)request.getAttribute("episode");
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,7 +18,7 @@
                 <main>
                     <div class="container-fluid">
                         <h1 class="mt-4">
-                            작품 등록 및 승인
+                            	작품 등록 및 승인
 
                             <button class="btn btn-dark" style="float: right;" onclick="goEpisodeApprov();">목록으로</button>
                         </h1>
@@ -22,8 +26,8 @@
                         <br>
 
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item">좀비딸</li>
-                            <li class="breadcrumb-item">2화</li>
+                            <li class="breadcrumb-item"><%=ep.getWorkTitle() %></li>
+                            <li class="breadcrumb-item"><%=ep.getEpisodeTitle() %></li>
                         </ol>
 
                         <div>

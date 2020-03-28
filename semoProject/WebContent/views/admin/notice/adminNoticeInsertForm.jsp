@@ -34,7 +34,6 @@
                     
                     <br>
                     <div class="diyDiv mb-4">
-                        <label>수정이 불가하오니, 신중한 작성 부탁 드립니다.</label> 
                         <!-- 빈공간이지만 점점 추가될 예정이라 -->
                     </div>
                     
@@ -50,9 +49,9 @@
                                     <thead>
                                         <tr>
                                             <th></th>
-                                            <th>No</th>
-                                            <th>Title</th>
-                                            <th>Write Date</th>
+                                            <th>번호</th>
+                                            <th>제목</th>
+                                            <th>날짜</th>
                                         </tr>
                                     </thead>
                                     
@@ -65,10 +64,10 @@
 									<% }else{ %>
                                     
                                     	<% for(Notice n : list){ %>
-                                    	<tr>
+                                    	<tr id="tr1">
                                             <td><input type="checkbox"></td>
                                             <td><%= n.getNoticeNo() %></td>
-                                            <td style="color:blue; cursor:pointer;" onclick="test();" value="<%=n.getNoticeNo()%>"><%= n.getNoticeTitle() %></td>
+                                            <td><a href="#"><%= n.getNoticeTitle() %></a></td>
                                             <td><%= n.getNoticeDate() %></td>
                                         </tr>
                                         	<% } %>
@@ -78,10 +77,10 @@
                                 </table>
 								
 								<div style="float: right;" >
-									<button class="btn btn-dark" type="button" id="insertBtn">작성하기</button>
+									<button class="btn btn-dark" type="button" id="tr1">작성하기</button>
 				                    &nbsp;
-				                    <!-- <button class="btn btn-dark" type="button" id="tr2">수정하기</button>
-				                    &nbsp; -->
+				                    <button class="btn btn-dark" type="button" id="tr2">수정하기</button>
+				                    &nbsp;
 	                                <button class="btn btn-danger">삭제하기</button>
                                 </div>
                             </div>
@@ -112,7 +111,7 @@
                             <td>
                                 <label class="modal-title-font">공지사항 제목</label>
                                 <br>
-                                <input type="text" name="title" class="input" style="width:450px">
+                                <input type="text" name="title" >
                             </td>
                         </tr>
                         <tr>                            
@@ -126,8 +125,7 @@
                             <td>
                                 <label class="modal-title-font">공지사항 내용</label>
                                 <br>
-                                <textarea style="resize:none" class="diyDiv" cols="57" rows="10" name = "content"> 
-                                </textarea>
+                                <textarea style="resize:none" class="diyDiv" cols="55" rows="10" name = "content"></textarea>
                             </td>
                         </tr>
                     </table>                        
@@ -157,13 +155,17 @@
                             <td>
                                 <label class="modal-title-font">공지사항 제목</label>
                                 <br>
+                                
+                                
                             </td>
                         </tr>
+
                         <tr>
                             <td>
                                 <label class="modal-title-font">공지사항 내용</label>
                                 <br>
                                 <div class="diyDiv" style="height: 150px;">
+                                    편의성 개선은 안내는 공지사항에서 확인해
                                 </div>
                             </td>
                         </tr>
@@ -172,6 +174,7 @@
                                 <label> 공지사항 수정 내용 </label>
                                 <br>
                                 <div style="height:250px;">
+                                    	수정할 사항은 여기다가 입력
                                 </div>
                             </td>
                         </tr>
@@ -194,16 +197,14 @@
 
 	<script>
 	    $(function() {
-	        $("#insertBtn").click(function() {
+	        $("#tr1").click(function() {
 	            $("#exampleModal").modal("show");
 	        });
+	    });
+	    $(function() {
 	        $("#tr2").click(function() {
 	            $("#exampleModal2").modal("show");
 	        });
-	        
-	        function test() {
-	        	alert("test");
-	        }
 	    });
 	</script>
 </body>

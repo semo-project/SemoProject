@@ -67,7 +67,7 @@
                                     	<% if(list.size() != 0) { %>
 	                                    	<%for(Work w : list) { %>
 	                                        <tr>
-	                                            <td><%=w.getWorktitle() %></td>
+	                                            <td><%=w.getWorkTitle() %></td>
 	                                            <td><%=w.getNickName() %></td>
 	                                            <td><a href="<%=contextPath%>/writerList.wo?pageId=4&&no=<%=w.getWriterNo()%>">작품 리스트 보기</a></td>
 	                                            <!-- 그리고 보내줄 때 작가 번호도 보내줘야 함 일단 뺌 -->
