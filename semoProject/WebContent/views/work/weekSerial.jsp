@@ -61,8 +61,8 @@
 
 </style>
 </head>
-
 <body>
+
 
 
    <!-- Navigation -->
@@ -147,13 +147,13 @@
         <p style="padding-right: 30px;"><button  type="button" class="btn btn-secondary btn-lg" data-tab="4" role="tab" aria-controls="publish_category-4" data-go-on="click" data-ga-event-action="click_tab" data-ga-event-label="탭_작가별">작가별</button></p>
       </div>
       <div class="lzTab" role="tablist" data-ga-event-category="연재_UI_요일">
-        <button type="button" class="btn btn-dark" onclick="week(this.value)" value="월" id="dayButton" >월</button>
-        <button type="button" class="btn btn-dark" onclick="week(this.value)" value="화" id="dayButton" >화</button>
-        <button type="button" class="btn btn-dark" onclick="week(this.value)" value="수" id="dayButton">수</button>
-        <button type="button" class="btn btn-dark" onclick="week(this.value)" value="목" id="dayButton">목</button>
-        <button type="button" class="btn btn-dark" onclick="week(this.value)" value="금" id="dayButton">금</button>
-        <button type="button" class="btn btn-dark" onclick="week(this.value)" value="토" id="dayButton">토</button>
-        <button type="button" class="btn btn-dark" onclick="week(this.value)" value="일" id="dayButton">일</button>
+        <button type="button" class="btn btn-dark " onclick="weekday(this.value)" value="월" id="dayButton">월</button>
+        <button type="button" class="btn btn-dark " onclick="weekday(this.value)" value="화" id="dayButton">화</button>
+        <button type="button" class="btn btn-dark " onclick="weekday(this.value)" value="수" id="dayButton">수</button>
+        <button type="button" class="btn btn-dark " onclick="weekday(this.value)" value="목" id="dayButton">목</button>
+        <button type="button" class="btn btn-dark " onclick="weekday(this.value)" value="금" id="dayButton">금</button>
+        <button type="button" class="btn btn-dark " onclick="weekday(this.value)" value="토" id="dayButton">토</button>
+        <button type="button" class="btn btn-dark " onclick="weekday(this.value)" value="일" id="dayButton">일</button>
        	 
      
       </div>
@@ -215,11 +215,7 @@
  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
  
-  <script>
-	 function week(val) {
-		 location.href="<%=contextPath%>/week.mon?day=" + val;
-	 }
-	</script>
+  
   <script>
 	 function genre(){
 		 location.href="<%=request.getContextPath()%>/list.genre";
@@ -229,9 +225,15 @@
 	
 	<script>
 	 function week(){
+		 
 		 location.href="<%=request.getContextPath()%>/list.week";
 	 }
   </script>
+  <script>
+	 function weekday(val) {
+		 location.href="<%=contextPath%>/week.mon?day=" + val;
+	 }
+	</script>
   
 
 	<script>

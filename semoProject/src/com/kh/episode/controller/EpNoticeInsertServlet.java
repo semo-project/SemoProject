@@ -1,28 +1,23 @@
-package com.kh.work.controller;
+package com.kh.episode.controller;
 
 import java.io.IOException;
-import java.util.*;
-
-import javax.servlet.*;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.work.model.service.*;
-import com.kh.work.model.vo.*;
-
 /**
- * Servlet implementation class WeekSerialMonServlet
+ * Servlet implementation class EpNoticeInsertServlet
  */
-@WebServlet("/week.mon")
-public class WeekSerialMonServlet extends HttpServlet {
+@WebServlet("/ninsert.wr")
+public class EpNoticeInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WeekSerialMonServlet() {
+    public EpNoticeInsertServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,18 +26,8 @@ public class WeekSerialMonServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String day = request.getParameter("day");
-		
-		ArrayList<Work> list = new WorkService().mondayList(day);
-		
-		request.setAttribute("list", list);
-		
-		System.out.println(list);
-
-		RequestDispatcher view =request.getRequestDispatcher("views/work/weekSerial.jsp");
-				view.forward(request, response);
-		
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**

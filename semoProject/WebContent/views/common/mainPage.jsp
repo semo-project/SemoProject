@@ -67,7 +67,7 @@
       <div class="collapse navbar-collapse" id="navbarResponsive" style="display:block">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <div class="nav-link" onclick="about();">연재</div>
+            <div class="nav-link" href="<%=request.getContextPath()%>/list.week">연재</div>
           </li>
           <li class="nav-item">
             <div class="nav-link" onclick="semoBoard();">세모게시판</div>
@@ -240,5 +240,10 @@
   <script src="<%= request.getContextPath() %>/resources/js/jquery.min.js"></script>
   <script src="<%= request.getContextPath() %>/resources/js/bootstrap.bundle.min.js"></script>
 	
+	<script>
+	 function about(){
+		 location.href("<%=request.getContextPath()%>/list.week");
+	 }
+	</script>
 </body>
 </html>

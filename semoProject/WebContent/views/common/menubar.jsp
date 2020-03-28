@@ -57,7 +57,7 @@
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 		
 			<ul class="navbar-nav">
-				<a class="nav-link" href="about();" style="float:left;">연재</a>
+				<a class="nav-link" href="<%=request.getContextPath()%>/list.week" style="float:left;">연재</a>
 				<div class="nav-link" onclick="semoBoard();" style="cursor:pointer;">세모게시판</div>	
       		</ul>
       		
@@ -175,6 +175,11 @@
   		location.href="<%= request.getContextPath() %>/boardList.bo";
   	}
   </script>
+  <script>
+	 function about(){
+		 location.href("<%=request.getContextPath()%>/list.week");
+	 }
+	</script>
   
 </body>
 </html>

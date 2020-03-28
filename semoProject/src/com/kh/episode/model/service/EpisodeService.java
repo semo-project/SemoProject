@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.kh.episode.model.vo.Comment;
+import com.kh.episode.model.vo.EpNotice;
 import com.kh.episode.model.vo.Episode;
 import com.kh.episode.model.vo.Reply;
 import com.kh.common.PageInfo;
@@ -124,6 +125,20 @@ public class EpisodeService {
 		Connection conn = getConnection();
 		
 		ArrayList<Episode> list = new EpisodeDao().adminEpiApprovList(conn, pi);
+		
+		close(conn);
+		
+		return list;
+	}
+	/**
+	 * 공지사항 조회
+	 * @param wno
+	 * @return
+	 */
+	public ArrayList<EpNotice> selectWnList(int wno) {
+		Connection conn = getConnection();
+		
+		ArrayList<EpNotice> list = new EpisodeDao().selectWnList(conn, wno);
 		
 		close(conn);
 		
