@@ -11,6 +11,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="<%= request.getContextPath()%>/resources/css/boardmain.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Gugi&display=swap" rel="stylesheet">
 <style>
 	#board_table2>tbody>tr:hover{
 		cursor:pointer;
@@ -31,13 +33,13 @@
   <div class="container">
 
     <!-- Page Heading/Breadcrumbs -->
-    <h1 class="mt-4 mb-3">웹툰 TalkTalk
+    <h1 class="mt-4 mb-3">
       <!-- <small>Subheading</small> -->
     </h1>
 
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="boardList.bo">세모게시판</a> > <a href="boardList.bo">웹툰 TalkTalk</a>
+        <a href="boardList.bo" style="font-family: 'Gugi'">세모게시판</a> > <a href="boardList.bo" style="font-family: 'Gugi'">웹툰 TalkTalk</a>
       </li>
     </ol>
 
@@ -55,19 +57,21 @@
     
       <!-- Content Column -->
       
-      <div class="semoTalk">
+      <div class="semoTalk" style="margin-top: 8%">
           <table style="width: 600px;margoin-left: auto;margin-left: 25%;margin-top: -19%;">
-              <tr style="border-bottom:1px solid rgb(163, 160, 160);">
+              <tr>
                   <td>
-                      <h2>웹툰TalkTalk</h2>
+                      <h3 style="font-family: 'Gugi'">웹툰TalkTalk</h3>
                   </td>
               </tr>
-              <tr style="border:1px solid rgb(163, 160, 160); margin-top: 5px;">
+              <tr style="border-bottom:1px solid rgb(163, 160, 160); margin-top: 5px;">
                   <td>
                       <h6>웹툰에 대해 자유롭게 얘기해보아요!</h6>
                   </td>
               </tr>
           </table>
+         </div> 
+         
           <div class="board_div2">
             <table id="board_table2" style="margin-left:13.5%;">
             <colgroup>
@@ -123,6 +127,14 @@
     </div>
 </div>
 
+<!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+  
 <!-- /.container -->
 <!-- Bootstrap core JavaScript -->
   <script src="<%= request.getContextPath() %>/resources/js/jquery.min.js"></script>

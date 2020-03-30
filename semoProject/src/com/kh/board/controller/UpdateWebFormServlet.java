@@ -33,6 +33,7 @@ public class UpdateWebFormServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+		System.out.println(boardNo);
 		
 		Board b = new Board();
 		b.setBoardTitle(request.getParameter("title"));

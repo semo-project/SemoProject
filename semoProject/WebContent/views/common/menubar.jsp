@@ -159,7 +159,7 @@
       </div>
     </div>
   </nav>
-  
+
   <script>
   	function semoBoard(){
   		location.href="<%= request.getContextPath() %>/boardList.bo";
