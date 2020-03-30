@@ -18,8 +18,9 @@
           <a href="usedLog.me" class="list-group-item">웹툰 결제 내역</a>
           <a href="myBoard.me" class="list-group-item">내 게시글 보기</a>
           <a href="withdraw.me" class="list-group-item">회원 탈퇴</a>
-          <% if (mem.getApprovalFlag().equals("N") || mem.getApprovalFlag().equals("null")) { %>
+          <% if (mem.getApprovalFlag().equals("null")) { %>
       		<a href="authorRequest.me" class="list-group-item">작가 등록 신청</a>
+      	  <% } else if(mem.getApprovalFlag().equals("N")) { %>
     	  <% } else { %>
       		<a href="list.wr" class="list-group-item">내 작품 관리</a>
          	<a href="#" class="list-group-item">수익 관리</a>

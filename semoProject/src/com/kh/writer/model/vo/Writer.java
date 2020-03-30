@@ -2,7 +2,7 @@ package com.kh.writer.model.vo;
 
 import java.sql.Date;
 
-public class Writer {
+public class Writer  {
 	
 	private int writerNo;			// 회원 번호 (작가 번호)
 	private String accountNo;		// 계좌 번호
@@ -19,9 +19,9 @@ public class Writer {
 	private String writerNickname;
 	private String writerId;
 	
-	public Writer() {}
+	public Writer () {}
 
-	public Writer(int writerNo, String accountNo, String restFlag, String repWorkExp, String approvalFlag,
+	public Writer (int writerNo, String accountNo, String restFlag, String repWorkExp, String approvalFlag,
 			Date approvalDate, String bankName, String originalName, String changeName) {
 		super();
 		this.writerNo = writerNo;
@@ -34,9 +34,22 @@ public class Writer {
 		this.originalName = originalName;
 		this.changeName = changeName;
 	}
+	
+	// 작가 신청용
+	public Writer(int writerNo, String accountNo, String restFlag, String repWorkExp, String bankName, String originalName,
+			String changeName) {
+		super();
+		this.writerNo = writerNo;
+		this.accountNo = accountNo;
+		this.restFlag = restFlag;
+		this.repWorkExp = repWorkExp;
+		this.bankName = bankName;
+		this.originalName = originalName;
+		this.changeName = changeName;
+	}
 
 	// 작가 승인 대기 회원 조회용
-	public Writer(int writerNo, String writerName, String writerId, String writerNickname) {
+	public Writer (int writerNo, String writerName, String writerId, String writerNickname) {
 		super();
 		this.writerNo = writerNo;
 		this.writerName = writerName;
@@ -45,7 +58,7 @@ public class Writer {
 	}
 	
 	// 작가 승인 대기 회원 세부조회용
-	public Writer(int writerNo, String repWorkExp, String originalName, String changeName, String writerNickname) {
+	public Writer (int writerNo, String repWorkExp, String originalName, String changeName, String writerNickname) {
 		super();
 		this.writerNo = writerNo;
 		this.repWorkExp = repWorkExp;

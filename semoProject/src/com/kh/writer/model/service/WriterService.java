@@ -1,6 +1,9 @@
 package com.kh.writer.model.service;
 
-import static com.kh.common.JDBCTemplate.*;
+import static com.kh.common.JDBCTemplate.close;
+import static com.kh.common.JDBCTemplate.commit;
+import static com.kh.common.JDBCTemplate.getConnection;
+import static com.kh.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -185,6 +188,19 @@ public class WriterService {
 		
 		close(conn);
 		
+		return result;
+	}
+	
+	public int authorRequest(Writer w) {
+		Connection conn = getConnection();
+		int result = new WriterDao().authorRequest(conn, w);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
 		return result;
 	}
 }

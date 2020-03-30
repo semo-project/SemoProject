@@ -375,4 +375,25 @@ public class WriterDao {
 		
 		return result;
 	}
+	
+	public int authorRequest(Connection conn, Writer w) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("authorRequest");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, w.getWriterNo());
+			pstmt.setString(2, w.getAccountNo());
+			pstmt.setString(3, w.getRepWorkExp());
+			pstmt.setString(4, w.getBankName());
+			pstmt.setString(5, w.getOriginalName());
+			pstmt.setString(6, w.getChangeName());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }
