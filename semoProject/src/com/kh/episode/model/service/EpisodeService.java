@@ -234,7 +234,5 @@ public class EpisodeService {
 		Episode e = new EpisodeDao().test(conn, wNo);
 		return e;
 	}
-
-
-	
+		
 } 
