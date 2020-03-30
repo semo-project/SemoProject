@@ -16,6 +16,7 @@
 	
 	// 신고 확인 후 메시지
 	String confirmMessage = (String)session.getAttribute("confirmMessage");
+	
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -76,8 +77,7 @@
 													<td data-toggle="modal" data-target="#reportModal" data-title="<%=r.getBoardTitle()%>" 
 																								   data-group="<%=r.getReportClassName()%>" 
 																								   data-content="<%=r.getReportContent()%>"
-																								   data-boardNo="<%=r.getWritingNo()%>"
-																								   data-boardGroup="<%=r.getBoardGroupName()%>"
+																								   data-board="<%=r.getWritingNo()%>"
 														style="color:blue; cursor:pointer;">
 														<%=r.getMemberId() %>
 													</td>
@@ -251,7 +251,6 @@
 			$(function(){
 				// 모달창의 boardNo와 groupName을 전역변수로 받아와서 눌러줄 때 값을 넣어주고 게시글 원문 보는 버튼 눌렀을 때 넣어주자
 				var boardNo = "";
-				var groupName = "";
 				var msg = "<%=confirmMessage%>";
 				
 				// 신고 확인 메시지
@@ -280,14 +279,15 @@
                 	modal.find(".board-content").text(content);
                 	
                 	// 게시글 원문 보러가기 위해
-                	boardNo = $(event.relatedTarget).data('boardNo');
-                	groupName = $(event.relatedTarget).data('boardGroup');
+                	boardNo = $(event.relatedTarget).data('board');
+                	
                 });
                 
 				// 게시글 본문 보러가기
                 $("#goBoard").click(function() {
                 	// 보내줄 거야,, 여기서 boardNo, groupName 사용해야 돼
-                	//location.href = "<%=contextPath%>";
+                	//console.log(boardNo);
+                	location.href = "<%=contextPath%>/webdetail.bo?boardNo=" + boardNo;
                 });
                 
 				// 신고 확인
