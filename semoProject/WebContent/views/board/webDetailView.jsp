@@ -64,6 +64,16 @@
 		border:2px solid #E2E2E2;
 		z-Index:9999
 	}
+	#modal2 {
+		display:none;
+		background-color:#FFFFFF;
+		position:absolute;
+		top:500px;
+		left:200px;
+		padding:10px;
+		border:2px solid #E2E2E2;
+		z-Index:9999
+	}
 </style>
 </head>
 <body>
@@ -90,7 +100,6 @@
         <div class="list-group">
           <a href="boardList.bo" class="list-group-item">웹툰 TalkTalk</a>
           <a href="freeList.bo" class="list-group-item">수다수다 유머방</a>
-          <a href="semoBoard.html" class="list-group-item">그림게시판</a>
         </div>
       </div>
     </div>
@@ -157,6 +166,8 @@
 				<button onclick="deleteWeb();">삭제</button>
 			<% }else if(loginUser != null && loginUser.getMemberNickname() != (b.getBoardWriter())){ %>
 				<button id="reportBtn">게시글 신고</button>
+				
+				<!-- 게시글 신고 모달 -->
 				<div id="modal">
 	    			<table>
 	    				<tr>
@@ -170,7 +181,7 @@
 	    					<td align="left"><%=b.getBoardTitle()%></td>
 	    				</tr>
 	    				<tr>
-	    					<td>작&nbsp;&nbsp;성&nbsp;&nbsp;자 : </td>
+	    					<td>작&nbsp;성&nbsp;자  : </td>
 	    					<td><%=b.getBoardWriter()%></td>
 	    				</tr>
 	    				<tr>
@@ -178,34 +189,96 @@
 	    				</tr>	
 	    				<tr>
 	    					<td></td>
-	    					<td><input type="checkbox" name="advertise"><label style="margin-left:4px;">부적절한 홍보 게시글</label></td>
+	    					<td><input type="radio" name="reportList" id="advertise" value="advertise"><label style="margin-left:4px;">부적절한 홍보 게시글</label></td>
 	    					<td style="width:40px;"></td>
 	    				</tr>
 	    				<tr>
 	    					<td></td>
-	    					<td><input type="checkbox" name="salacity"><label style="margin-left:4px;">음란성 또는 청소년에게 부적합한 내용</label></td>
+	    					<td><input type="radio" name="reportList" id="salacity" value="salacity"><label style="margin-left:4px;">음란성 또는 청소년에게 부적합한 내용</label></td>
 	    				</tr>
 	    				<tr>
 	    					<td></td>
-	    					<td><input type="checkbox" name="defamation"><label style="margin-left:4px;">명예훼손/사생활 침해 및 저작권 침해 등</label></td>
+	    					<td><input type="radio" name="reportList" id="defamation" value="defamation"><label style="margin-left:4px;">명예훼손/사생활 침해 및 욕설 등</label></td>
 	    				</tr>
 	    				<tr>
 	    					<td></td>
-	    					<td><input type="checkbox" name="etc"><label style="margin-left:4px;">기타</label>
-	    						<textarea style="resize:none; width:300px;"></textarea>
+	    					<td><input type="radio" name="reportList" id="etc" value="etc"><label style="margin-left:4px;">기타</label>
 	    					</td>
+	    				</tr>
+	    				<tr>
+	    					<th colspan="3"><hr></th>
+	    				</tr>
+	    				<tr>
+	    					<td rowspan="2" colspan="3"><textarea name="reportContent" id="reportContent" placeholder="내용을 입력하세요." style="resize:none; width:400px; height:100px; margin-left:3%;"></textarea></td>
 	    				</tr>
 	    			</table>
 	    			<br>
-	    			<button type="submit" id="repOkBtn" align="center" onclick="location.href='<%=contextPath%>/boardReport.bo?boardNo=<%=b.getBoardNo()%>'">확인</button>
+	    			<button class="btn btn-warning" type="submit" id="repOkBtn" align="center">확인</button>
+	    			<button class="btn btn-warning" type="submit" id="repXBtn" align="center">취소</button>
 	    			<!-- <button class="repCloseBtn">닫기</button> -->
 				</div>
+	    			
 	          </div>
 	          <%}else{ %>
 	          		<input type="hidden">
 	          <%} %>
 		</div>
 		
+		<!-- 댓글 신고 모달 -->
+				<div id="modal2">
+	    			<table>
+	    				<tr>
+		    				<th><h4>신고하기</h4></th>
+	    				</tr>
+	    				<tr>
+	    					<th colspan="3"><hr></th>
+	    				</tr>
+	    				<tr id="conwriterRep" class="conwriterRep">
+	    					<td>작&nbsp;성&nbsp;자  : </td>
+	    					<td>
+	    						
+	    					</td>
+	    				</tr>
+	    				<tr id="contentRep" class="contentRep">
+	    					<td>내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;용 : </td>
+	    					<td align="left">
+	    						
+	    					</td>
+	    				</tr>
+	    				<tr>
+	    					<th colspan="3"><hr></th>
+	    				</tr>	
+	    				<tr>
+	    					<td></td>
+	    					<td><input type="radio" name="comRepList" id="advertise" value="advertise"><label style="margin-left:4px;">부적절한 홍보 게시글</label></td>
+	    					<td style="width:40px;"></td>
+	    				</tr>
+	    				<tr>
+	    					<td></td>
+	    					<td><input type="radio" name="comRepList" id="salacity" value="salacity"><label style="margin-left:4px;">음란성 또는 청소년에게 부적합한 내용</label></td>
+	    				</tr>
+	    				<tr>
+	    					<td></td>
+	    					<td><input type="radio" name="comRepList" id="defamation" value="defamation"><label style="margin-left:4px;">명예훼손/사생활 침해 및 욕설 등</label></td>
+	    				</tr>
+	    				<tr>
+	    					<td></td>
+	    					<td><input type="radio" name="comRepList" id="etc" value="etc"><label style="margin-left:4px;">기타</label>
+	    					</td>
+	    				</tr>
+	    				<tr>
+	    					<th colspan="3"><hr></th>
+	    				</tr>
+	    				<tr>
+	    					<td rowspan="2" colspan="3"><textarea name="comRepContent" id="comRepContent" placeholder="내용을 입력하세요." style="resize:none; width:400px; height:100px; margin-left:3%;"></textarea></td>
+	    				</tr>
+	    			</table>
+	    			<br>
+	    			<button class="btn btn-warning" type="submit" id="comRepBtn" align="center">확인</button>
+	    			<button class="btn btn-warning" type="submit" id="comRepXBtn" align="center">취소</button>
+	    			<!-- <button class="repCloseBtn">닫기</button> -->
+				</div>
+				
 	<script>
       	function deleteWeb(){
       		if(confirm("정말로 삭제하시겠습니까?")){
@@ -230,6 +303,47 @@
 		// 모달 창 안에 있는 확인 버튼에 이벤트 걸기
 		$("#repOkBtn").click(function() {
 	  	  	myModal.hide(); // 모달창 감추기
+		});
+		
+		// 모달 창 안에 있는 취소 버튼에 이번트 걸기
+		$("#repXBtn").click(function(){
+			myModal.hide();
+		});
+	</script>
+	
+
+
+	<script>
+		$(function(){
+			$("#repOkBtn").click(function(){
+				
+				var boardNo = <%=b.getBoardNo()%>;
+				var reporterNo = "<%=m.getMemberNo()%>";
+				var boardWriter = "<%=b.getBoardWriter()%>";
+				var reportRadio = $('input[name="reportList"]:checked').val();
+				var reportContent = $("#reportContent").val();
+				
+				$.ajax({
+					url:"boardReport.bo",
+					data:{
+						boardNo:boardNo,
+						reporterNo:reporterNo,
+						boardWriter:boardWriter,
+						reportRadio:reportRadio,
+						reportContent:reportContent
+					},
+					type:"post",
+					success:function(result){
+						if(result > 0){
+							myModal.hide();
+							alert("신고가 완료되었습니다.");
+						}
+					},
+					error:function(){
+						console.log("게시판신고 ajax 실패");
+					}
+				});
+			});
 		});
 	</script>
       
@@ -257,7 +371,7 @@
 			</div>
 		</div>
      
-      
+      <script type="text/javascript" src="<%= request.getContextPath() %>/resources/js/modal2.js"></script>
       <script>
       var m = "<%=m.getMemberNickname()%>";
       var c = "<%=c.getCommentContent()%>";
@@ -311,11 +425,13 @@
 									'<td width="100px">' + list[i].commentDate + '</td>';
 									
 						if(m != null && m == list[i].commentWriter){
+							/* 댓글 삭제 버튼 */
 							value += '<td width="70px">' + '<button class="comDelBtn" style="border:0; background-color: white;" value="' + list[i].commentNo + '">' + 
 									 '<img style="width:10px; height:10px; border-radius:10px; margin-bottom:5px;" src="resources/images/xxxx.jpeg">' +
 									 '</button>' + '</td>' +
 									 '</tr>';
 						}else{
+							/* 댓글 신고 버튼 */
 							value += '<td width="70px">' + '<button class="comRepBtn" style="border:0; background-color: white;" value="' + list[i].commentNo + '">' + 
 									 '<img style="width:10px; height:10px; border-radius:10px; margin-bottom:5px;" src="resources/images/report.png">' + 
 									 '</button>' + '</td>'+
@@ -325,13 +441,14 @@
 					}
  					
       				$("#commentList").html(value);
+      				
       			},
       			error:function(){
       				console.log("댓글 리스트  ajax 통신실패");
       			}
       		});
       	}
-      	
+      	/* 댓글 삭제 기능 */
       	$(document).on("click",".comDelBtn",function commentDel(){
       		var comdel = $(this).val();
       		
@@ -344,6 +461,7 @@
       	            type : "POST",
       	            success : function(result) {
       	            	if(result > 0){
+      	            		alert("댓글이 삭제되었습니다.");
       	            		selectCommentList();
       	            	}
       	            },
@@ -353,8 +471,93 @@
       	         });
       		}
       	});
+      	
       </script>
-          
+        
+       <!-- 댓글 신고 모달 -->
+		<script type="text/javascript" src="<%= request.getContextPath() %>/resources/js/modal2.js"></script>
+		<script type="text/javascript">
+			
+		// 모달창 인스턴트 생성
+			var myModal2 = new Example.Modal({
+		    	id: "modal2" // 모달창 아이디 지정
+			});
+		  	
+			// 모달 창 여는 버튼에 이벤트 걸기
+			$(document).on("click",".comRepBtn",function commentRep() {
+		    	myModal2.show(); // 모달창 보여주기
+		    	var memberNo = "<%=m.getMemberNo()%>";
+		    	var comReportNo = $(this).val();
+		    	
+		    	var commentWriter = $("#conwriterRep").val();
+		    	var commentContent = $("#contentRep").val();
+		    	$.ajax({
+		    		url:"comReport.bo",
+		    		data:{
+		    			comReportNo:comReportNo,
+		    			commentWriter:commentWriter,
+		    			commentContent:commentContent
+		    		},
+		    		type:"post",
+		    		success:function(c){
+		    			console.log(c);
+		    			var value1 ="";
+		    			var value2 ="";
+		    			
+    					value1 = '<td>작&nbsp;성&nbsp;자  : </td>' +
+    					'<td>' + c.commentWriter + '</td>'; 
+						
+    					$("#conwriterRep").html(value1);
+    					
+		    			value2 = '<td>내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;용 : </td>' + 
+    							 '<td align="left">' + c.commentContent + '</td>';
+    					
+		    			$("#contentRep").html(value2);
+		    			
+		    		},
+		    		error:function(){
+		    			console.log("댓글신고 ajax 통신 실패");
+		    		}
+		    	});
+		    	
+				// 모달 창 안에 있는 확인 버튼에 이벤트 걸기
+			    $("#comRepBtn").click(function(){
+			    	
+			    	var comRepRadio = $('input[name="comRepList"]:checked').val();
+					var comRepContent = $("#comRepContent").val();
+					
+					console.log(comReportNo);
+					console.log(comRepRadio);
+					console.log(comRepContent);
+					
+					$.ajax({
+						url:"comRepSend.bo",
+						data:{
+							comReportNo:comReportNo,
+							comRepRadio:comRepRadio,
+							comRepContent:comRepContent,
+							memberNo:memberNo
+						},
+						type:"post",
+						success:function(result){
+							if(result > 0){
+								myModal2.hide(); // 모달창 감추기
+								alert("신고가 완료되었습니다.");
+							}
+						},
+						error:function(){
+							console.log("댓글신고 ajax 통신실패");
+						}
+					});
+			    });
+			});
+			
+			
+			// 모달 창 안에 있는 취소 버튼에 이번트 걸기
+			$("#comRepXBtn").click(function(){
+				myModal2.hide();
+			});
+		</script>  
 <!-- /.container -->
 <!-- Bootstrap core JavaScript -->
   <script src="<%= request.getContextPath() %>/resources/js/jquery.min.js"></script>

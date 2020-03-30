@@ -32,7 +32,7 @@ public class WorkDao {
 	}
 	
 	// PJH
-public int insertWorkGenre(Connection conn, int[]genre) {
+	public int insertWorkGenre(Connection conn, int[]genre) {
 		
 		int result = 0;
 		
@@ -66,41 +66,54 @@ public int insertWorkGenre(Connection conn, int[]genre) {
 		}
 	//작품 insert 
 	public int insertWork(Connection conn, Work w) {
-		System.out.println("test");
-		int result = 0;
+	
+	int result = 0;
+	
+	PreparedStatement pstmt = null;
+	String sql = prop.getProperty("insertWork");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+					
+//		w.setUpdateDay(updateDay1);
+//		w.setStartDay(startday);
+//		w.setWorkSummary(summary);
+//		w.setWorkPlot(plot);
+//		w.setThumbnailModify(file1);
+//		w.setWriterNo(writerNo);
+//		w.setWorkTitle(title);
+//		
+		pstmt.setString(1, w.getUpdateDay()); //업데이트 요일
+		pstmt.setDate(2, w.getStartDay());
+		pstmt.setString(3, w.getWorkSummary());	//
+		pstmt.setString(4, w.getWorkPlot());
+		pstmt.setString(5, w.getThumbnailModify());
+		pstmt.setInt(6, w.getWriterNo());
+		pstmt.setString(7, w.getWorkTitle());
 		
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertWork");
+		result = pstmt.executeUpdate();
 		
-		try {
-			pstmt = conn.prepareStatement(sql);
-						
-			pstmt.setString(1, w.getUpdateDay()); 
-			pstmt.setString(2, w.getWorkSummary());
-			pstmt.setString(3, w.getWorkPlot());
-			pstmt.setString(4, w.getThumbnailModify());
-			pstmt.setInt(5, w.getWriterNo());
-			pstmt.setString(6, w.getWorkTitle());
-			
-			result = pstmt.executeUpdate();
-			
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
+		//INSERT INTO TB_WORK VALUES(SEQ_WNO.NEXTVAL, ?,?, SYSDATE , NULL,?, ?, 'N', DEFAULT, DEFAULT,?, NULL, DEFAULT, ?, ?)
+												// MON	시작일				'SAMMA','PLOT'				'첨부파일수정명'		'작가넘버' '작품타이틀'
+		//완료후 그패이지 다시 가져오게
 		
 		
-		return result;
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
 	}
+	
+	
+	return result;
+}
 
 	//작품리스트조회
-	public ArrayList<Work> selectWorkList(Connection conn) {
+	public ArrayList<Work> selectWorkList(Connection conn, int loginUser) {
 		
 		ArrayList<Work> list = new ArrayList<>();
-		
+		Work w = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -108,18 +121,16 @@ public int insertWorkGenre(Connection conn, int[]genre) {
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, 1);// 
+			pstmt.setInt(1, loginUser);		//  로그인한 작가 넘버 
 			rset = pstmt.executeQuery();
 			
 			
 			while(rset.next()) {
-				Work w = new Work();
-				w.setWorkTitle(rset.getString("WORK_TITLE"));	
-				w.setThumbnailModify(rset.getString("Thumbnail_Modify"));
-				w.setWorkSummary(rset.getString("WORK_SUMMARY"));
-				
-				list.add(w);
-
+				list.add(w = new Work(
+						rset.getString("WORK_SUMMARY"),
+						rset.getString("Thumbnail_Modify"),
+						rset.getString("WORK_TITLE")
+						));
 			}
 			
 		} catch (SQLException e) {
@@ -1117,6 +1128,7 @@ public int insertWorkGenre(Connection conn, int[]genre) {
 				w.setNickName(rset.getString("member_nickname"));
 				w.setWorkSummary(rset.getString("work_summary"));
 				w.setWorkPlot(rset.getString("work_plot"));
+				w.setThumbnailModify(rset.getString("thumbnail_modify"));
 				
 			}
 			
@@ -1214,5 +1226,56 @@ public int insertWorkGenre(Connection conn, int[]genre) {
 		}
 		return list;
 	
+	}
+
+	public int starinsert(Connection conn, Work w) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("starinsert");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, w.getWorkNo());
+			pstmt.setInt(2, w.getWriterNo()); 
+			pstmt.setString(3, w.getStarGrade()); 
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int secretEpisode(Connection conn, String no, int flag) {
+		int result = 0;
+		
+		String booleanFlag = "";
+		if(flag == 1) {
+			booleanFlag = "Y";
+		} else {
+			booleanFlag = "N";
+		}
+		
+		String sql = "UPDATE TB_EPISODE E SET E.SECRET_FLAG = '"+ booleanFlag + "' WHERE EXISTS (SELECT 0 FROM TB_WORK W WHERE W.WORK_NO = E.WORK_NO) AND E.WORK_NO IN (" + no + ")";
+		
+		Statement stmt = null;
+		
+		try {
+			stmt = conn.createStatement();
+			
+			result = stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+		}
+		
+		return result;
 	}
 }

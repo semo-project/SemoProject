@@ -8,10 +8,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.kh.common.MyFileRenamePolicy;
+import com.kh.member.model.vo.Member;
 import com.kh.work.model.service.WorkService;
 import com.kh.work.model.vo.Work;
 import com.oreilly.servlet.MultipartRequest;
@@ -37,6 +39,9 @@ public class WorkInsertServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//글자처리
 		request.setCharacterEncoding("UTF-8");
+		
+		HttpSession session = request.getSession();
+		
 	
 		if(ServletFileUpload.isMultipartContent(request)) {
 			

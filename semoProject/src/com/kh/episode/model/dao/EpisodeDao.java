@@ -364,7 +364,7 @@ public class EpisodeDao {
 	}
 	
 	//에피소드 전체조회
-	public ArrayList<Episode> selectEpisodeList(Connection conn) {
+	public ArrayList<Episode> selectEpisodeList(Connection conn,int wNo) {
 
 		ArrayList<Episode> list = new ArrayList<>();
 		
@@ -375,7 +375,7 @@ public class EpisodeDao {
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1,1);	
+			pstmt.setInt(1,wNo);	
 			rset=pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -463,6 +463,42 @@ public class EpisodeDao {
 		
 		return list;
 		
+	}
+	
+	public Episode test(Connection conn, int wNo) {
+		Episode e = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("test");
+				
+				try {
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setInt(1, wNo);
+					
+					rset = pstmt.executeQuery();
+					
+					if(rset.next()) {
+						e = new Episode(rset.getInt("EPISODE_NO"),
+								rset.getDate("APPROVAL_DATE"),
+								rset.getString("EPISODE_TITLE"),
+								rset.getString("WORKTITLE"));
+					}
+					} catch (SQLException ex) {
+						ex.printStackTrace();
+					} finally {
+						close(rset);
+						close(pstmt);
+					}
+		
+		
+		return e;
+		}
+
+	public int starinsert(Connection conn, String star) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 

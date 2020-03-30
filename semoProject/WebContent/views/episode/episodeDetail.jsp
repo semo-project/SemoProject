@@ -14,13 +14,13 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Modern Business - Start Bootstrap Template</title>
+  <title>세모웹툰</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="resources/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="css/modern-business.css" rel="stylesheet">
+  <link href="resources/css/modern-business.css" rel="stylesheet">
 <style>
 .snip1535 {
   background-color: black;
@@ -78,7 +78,7 @@
 }
 		.replyArea{
 			background:black;
-			color:white;
+			color:black;
 			margin:auto;
 			width:800px;
 		}
@@ -200,9 +200,9 @@
         margin-right: auto;
         margin-left: auto;">
 
-        <br>
-
-<nav id="viewer-footer" class="viewer_footer viewer__footer--active">
+        <br><br><br>
+        <hr>
+        <nav id="viewer-footer" class="viewer_footer viewer__footer--active">
   <ul id="episode-nav" class="viewer__nav"  style="list-style:none;">
     <li class="viewer__navItem" style="float: left;">
       <button  class="snip1535" type="button" disabled >이전화</button>
@@ -212,11 +212,9 @@
     </li>
   </ul>
 </nav>
+</div>
+</div>
 
-<br><br>
-        <hr>
-</div>
-</div>
         
         <hr>
         <!-- Comments Form -->
@@ -265,12 +263,21 @@
 
      	 
    
-	<br>
+	
 	<!-- 댓글 관련 영역 -->
 	<div >
 		<!-- 댓글 리스트들 보여지는 div -->
 		<div id="replyListArea">
-			<table id="replyList" border="1" align="center" style="width: 600px;">
+			 <table align="center " border="1" align="center" style="width: 600px; margin-left: auto;
+    margin-right: auto;
+    text-align: center;">
+                   
+                   <tr>
+                      <th width="90px">작성자</th>
+                      <th width="200px">제목</th>
+                      <th width="100px">작성일</th>
+                   </tr>
+			<table id="replyList" border="1" align="center" style="width: 600px; text-align: center;" >
 				<tr>
 				
 				</tr>
@@ -298,8 +305,8 @@
   </footer>
 
   <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="resources/js/jquery.min.js"></script>
+  <script src="resources/js/bootstrap.bundle.min.js"></script>
   
   <script>
   $(function(){
@@ -362,13 +369,13 @@
 					var value = "";
 					//for(var i=0; i<list.length; i++){
 					for(var i in list){
-						value +=  '<tr >' + 
+						value +=  '<tr>' + 
 		                           '<td width="90px">' + list[i].memberId + '</td>' +    
 		                           '<td width="200px" class="contentArea">' + list[i].content + '</td>' +
-		                           '<td width="100px">' + list[i].creationDate + '</td>';
+		                           '<td width="100px">' + list[i].creationDate + '</td></tr>';
 					
 					}
-					console.log(value);
+					//console.log(value);
 					
 					$("#replyList").html(value);
 					

@@ -46,10 +46,22 @@ public class QNA {
 		this.qnaContent = qnaContent;
 		this.qnaAnswerContent = qnaAnswerContent;
 	}
+	
+		public QNA(String qnaTitle, String qnaContent, int qnaContentNo, int memberNo) {
+		super();
+		this.qnaTitle = qnaTitle;
+		this.qnaContent = qnaContent;
+		this.qnaContentNo = qnaContentNo;
+		this.memberNo = memberNo;
+	}
+
+	
 
 	public int getQnaNo() {
 		return qnaNo;
 	}
+
+
 	public void setQnaNo(int qnaNo) {
 		this.qnaNo = qnaNo;
 	}

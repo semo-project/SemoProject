@@ -21,7 +21,7 @@ public class Work {
 	private String workTitle;
 	private int genreNo;
 	private String genreName;
-	
+	private String starGrade;
 	//LSH
 	private String nickName;
 	private String genre;
@@ -30,6 +30,23 @@ public class Work {
 	
 	public Work() {
 
+	
+	}
+	public Work(int workNo, int writerNo, String starGrade) {
+		super();
+		this.workNo = workNo;
+		this.writerNo = writerNo;
+		this.starGrade = starGrade;
+	}
+
+
+
+
+	public Work(String workSummary, String thumbnailModify, String workTitle) {
+		super();
+		this.workSummary = workSummary;
+		this.thumbnailModify = thumbnailModify;
+		this.workTitle = workTitle;
 	}
 
 	public Work(int workNo, String updateDay, Date startDay, Date requestDate, Date approvalDate, String workSummary,
@@ -150,6 +167,14 @@ public class Work {
 		this.workNo = workNo;
 	}
 
+	public String getUpdateDay() {
+		return updateDay;
+	}
+
+	public void setUpdateDay(String updateDay) {
+		this.updateDay = updateDay;
+	}
+
 	public Date getStartDay() {
 		return startDay;
 	}
@@ -246,6 +271,38 @@ public class Work {
 		this.writerNo = writerNo;
 	}
 
+	public String getWorkTitle() {
+		return workTitle;
+	}
+
+	public void setWorkTitle(String workTitle) {
+		this.workTitle = workTitle;
+	}
+
+	public int getGenreNo() {
+		return genreNo;
+	}
+
+	public void setGenreNo(int genreNo) {
+		this.genreNo = genreNo;
+	}
+
+	public String getGenreName() {
+		return genreName;
+	}
+
+	public void setGenreName(String genreName) {
+		this.genreName = genreName;
+	}
+
+	public String getStarGrade() {
+		return starGrade;
+	}
+
+	public void setStarGrade(String starGrade) {
+		this.starGrade = starGrade;
+	}
+
 	public String getNickName() {
 		return nickName;
 	}
@@ -278,36 +335,17 @@ public class Work {
 		this.episodeTitle = episodeTitle;
 	}
 
-	public String getUpdateDay() {
-		return updateDay;
+	@Override
+	public String toString() {
+		return "Work [workNo=" + workNo + ", updateDay=" + updateDay + ", startDay=" + startDay + ", requestDate="
+				+ requestDate + ", approvalDate=" + approvalDate + ", workSummary=" + workSummary + ", workPlot="
+				+ workPlot + ", approvalStatus=" + approvalStatus + ", serialCnt=" + serialCnt + ", bookmarkCnt="
+				+ bookmarkCnt + ", thumbnailModify=" + thumbnailModify + ", thumbnailOriginal=" + thumbnailOriginal
+				+ ", secretFlag=" + secretFlag + ", writerNo=" + writerNo + ", workTitle=" + workTitle + ", genreNo="
+				+ genreNo + ", genreName=" + genreName + ", starGrade=" + starGrade + ", nickName=" + nickName
+				+ ", genre=" + genre + ", episodeNo=" + episodeNo + ", episodeTitle=" + episodeTitle + "]";
 	}
-
-	public void setUpdateDay(String updateDay) {
-		this.updateDay = updateDay;
-	}
-
-	public String getWorkTitle() {
-		return workTitle;
-	}
-
-	public void setWorkTitle(String workTitle) {
-		this.workTitle = workTitle;
-	}
-
-	public int getGenreNo() {
-		return genreNo;
-	}
-
-	public void setGenreNo(int genreNo) {
-		this.genreNo = genreNo;
-	}
-
-	public String getGenreName() {
-		return genreName;
-	}
-
-	public void setGenreName(String genreName) {
-		this.genreName = genreName;
-	}
-	
 }
+	
+	
+	

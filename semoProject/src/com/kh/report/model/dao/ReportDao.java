@@ -274,6 +274,7 @@ public class ReportDao {
 				r.setMemberId(rset.getString("member_id"));
 				r.setReportClassName(rset.getString("report_class_name"));
 				r.setReportDate(rset.getDate("report_date"));
+				r.setWritingNo(rset.getInt("writing_no"));
 				
 				list.add(r);
 			}

@@ -215,7 +215,7 @@
     			
     			if(approvArr.length >= 1) {
     				var no = approvArr.join(", ");
-    				location.href = "<%=contextPath%>/approvConfirm.ep?pageId=5&&no=" + no;
+    				location.href = "<%=contextPath%>/approvConfirm.wo?pageId=5&&no=" + no;
     			} else {
     				alert("승인할 작품을 선택해주세요");
     			}

@@ -1,6 +1,8 @@
 package com.kh.member.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,6 +35,8 @@ public class EnrollIdCheckServlet extends HttpServlet {
 		
 		int result = new MemberService().enIdCheck(memberId);
 		
+		PrintWriter out = response.getWriter();
+		out.print(result);
 	}
 
 	/**

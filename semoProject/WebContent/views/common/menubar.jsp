@@ -63,15 +63,8 @@
 				<div class="nav-link" onclick="semoBoard();" style="cursor:pointer; color:#17a2b8">세모게시판</div>	
       		</ul>
       		
-			<ul class="navbar-nav ml-auto">
-        	<!-- 
-          		<li class="nav-item">
-            	<a class="nav-link" href="about();" style="float:left;">연재</a>
-          	</li>
-          	<li class="nav-item">
-            	<div class="nav-link" onclick="semoBoard();" style="cursor:pointer;">세모게시판</div>
-          	</li>
-          	-->
+			<ul class="navbar-nav ml-auto" style="margin-right: 20px;">
+        	
           	<li class="nav-item">
               	<input id="searchform" type="search" name="search" placeholder=" Search work..." class="container-1" style="border-radius: 0.25rem; height:100%; margin:0">
               	<input id="searchbtn" type="submit" class="btn" value="검색" style="height:100%">
@@ -94,11 +87,8 @@
 		              <div class="loginArea">
 		                <input type="password" id="userPwd" name="userPwd" placeholder="비밀번호">
 		              </div>
-		              <div class="loginArea">
-		                <label class="logCheck"> 
-		                  <input type="checkbox" name="remember_me" >
-		                  <i>로그인 상태 유지</i>
-		                </label>
+		              <div>
+		              	<br><br>
 		              </div>
 		              <div class="loginBtn">
 		                <button type="submit" class="btn btn-sm btn-outline-warning lgBtn lgbtn-major lgBtn-wide lgBtn-mid">로그인</button>
@@ -110,13 +100,11 @@
 		              <div class="login_driver">
 		                <span>또는</span>
 		              </div>
-		              <button type="button" class="account_btn account_btn-naver oauth-connect" data-service="naver">네이버로 로그인 / 가입</button>
-		              <button type="button" class="account_btn account_btn-kakao oauth-connect" data-service="kakao">카카오로 로그인 / 가입</button>
 		
 		              <p class="account_help">
 		                "
 		                    이용 중 도움이 필요하시면 ["
-		                <a href="ko/help">고객지원</a>
+		                <a href="<%=request.getContextPath() %>/list.no">고객지원</a>
 		                "] 페이지로, 로그인에 문제가 있다면 "
 		                <a href="semo:help@semo.com">semohelp@semo.com</a>
 		                "으로 문의해 주세요.
@@ -158,10 +146,7 @@
 					
 					<div class="myPageIn">
 	                	<a href="myPage.me">마이페이지</a>
-					</div>
-	              	<div class="writerPgIn">
-	                  	<a href="">작가페이지</a>
-	              	</div>	              
+					</div>             
 	              	<% } %>
 	            </div>
 	          </li>

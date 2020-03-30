@@ -65,13 +65,13 @@
 	<!-- 사이드바 -->
 	<div class="sidebar">
 		<!-- Page Heading/Breadcrumbs -->
-	    <h1 class="mt-4 mb-3">그림게시판
+	    <h1 class="mt-4 mb-3">
 	      <!-- <small>Subheading</small> -->
 	    </h1>
 	
 	    <ol class="breadcrumb">
 	      <li class="breadcrumb-item">
-	        <a href="Notice_공지사항.html">세모게시판 > 웹툰 TalkTalk</a>
+	        <a href="boardList.bo">세모게시판</a> > <a href="boardList.bo">웹툰 TalkTalk</a>
 	      </li>
 	    </ol>
 	
@@ -80,9 +80,8 @@
 	      <!-- Sidebar Column -->
 	      <div class="col-lg-3 mb-4">
 	        <div class="list-group">
-	          <a href="semoBoard.html" class="list-group-item">그림게시판</a>
 	          <a href="boardList.bo" class="list-group-item">웹툰 TalkTalk</a>
-	          <a href="talkfree.html" class="list-group-item">수다수다 유머방</a>
+          	  <a href="freeList.bo" class="list-group-item">수다수다 유머방</a>
         	</div>
       	  </div>
     	</div>
@@ -124,56 +123,11 @@
 		</div>
 		
 	</form>
-		<!-- 모달창 -->
-		<!--
-		<button id="okBtn">확인</button>
-	    <button id="cancelBtn">취소</button>
-	  -->
-	    <!-- 모달 영역 -->
-	   <!--  <div id="myModal" class="modal"> -->
-	    
-	      <!-- 모달 내용 -->
-	     <!--  <div class="modal-content">
-	        <span class="close">&times;</span>                                                               
-	        <p>게시물을 올리시겠습니까?</p>
-	        <div class="modalBtn">
-	        	<button type="button" onclick="location.href='boardList.bo'">취소</button>
-	        	<button type="button">확인</button>
-	        </div>
-	      </div>
-	 
-	    </div>
-	     -->
+		
 	    <!-- Bootstrap core JavaScript -->
 		<script src="<%= request.getContextPath() %>/resources/js/jquery.min.js"></script>
 		<script src="<%= request.getContextPath() %>/resources/js/bootstrap.bundle.min.js"></script>
 		
-	<script>
-		// Get the modal
-	    var modal = document.getElementById('myModal');
 	
-	    // Get the button that opens the modal
-	    var btn = document.getElementById("okBtn");
-	
-	    // Get the <span> element that closes the modal
-	    var span = document.getElementsByClassName("close")[0];                                          
-	
-	    // When the user clicks on the button, open the modal 
-	    btn.onclick = function() {
-	        modal.style.display = "block";
-	    }
-	
-	    // When the user clicks on <span> (x), close the modal
-	    span.onclick = function() {
-	        modal.style.display = "none";
-	    }
-	
-	    // When the user clicks anywhere outside of the modal, close it
-	    window.onclick = function(event) {
-	        if (event.target == modal) {
-	            modal.style.display = "none";
-	        }
-	    }
-	</script>
 </body>
 </html>

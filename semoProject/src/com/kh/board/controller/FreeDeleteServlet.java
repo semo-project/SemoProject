@@ -1,4 +1,4 @@
-package com.kh.episode.controller;
+package com.kh.board.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,17 +7,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.board.model.service.BoardService;
+
 /**
- * Servlet implementation class StarGradeServlet
+ * Servlet implementation class FreeDeleteServlet
  */
-@WebServlet("/star.gr")
-public class StarGradeServlet extends HttpServlet {
+@WebServlet("/freeDelete.bo")
+public class FreeDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public StarGradeServlet() {
+    public FreeDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,8 +28,16 @@ public class StarGradeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			String star = request.getParameter("star").substring(4);
-			int starNo = Integer.parseInt(star);
+
+		int result = new BoardService().deleteFree(Integer.parseInt(request.getParameter("boardNo")));
+		
+		if(result > 0) {
+			response.sendRedirect("freeList.bo");
+		}else {
+			request.setAttribute("msg", "게시판 삭제 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
+		
 	}
 
 	/**

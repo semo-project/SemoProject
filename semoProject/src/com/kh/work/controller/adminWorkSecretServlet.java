@@ -50,7 +50,13 @@ public class adminWorkSecretServlet extends HttpServlet {
 		// 숨김처리 진행
 		int result = new WorkService().secretWork(no, 1);
 		
-		if(result > 0) {
+		// 근데 걔 숨김처리 되면 에피소드도 숨김처리 되는 게 맞으니까 동시에 되어야 할 거 같아
+		// 근데 에피소드 숨김은 에피소드 번호들을 받아오기 때문에 해당 메서드를 쓰는 것보다 하나의 메서드를 새로 생성해야겠다
+		// 근데 해제도 할 거지? 그럼 구분하는 변수로 구분해주는 게 좋겠다
+		// 1: 숨김처리 / 2: 해제처리
+		int result1 = new WorkService().secretEpisode(no, 1);
+		
+		if(result * result1> 0) {
 			session.setAttribute("scrMsg", "숨김처리 되었습니다.");
 			response.sendRedirect("writerList.wo?pageId=4&&no=" + writerNo);
 		} else {
