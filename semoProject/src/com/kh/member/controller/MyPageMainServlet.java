@@ -1,6 +1,7 @@
 package com.kh.member.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -41,16 +42,17 @@ public class MyPageMainServlet extends HttpServlet {
 		Member mem = new MemberService().selectMember(userId);
 		
 		if(mem != null) {
-			if(mem.getApprovalFlag() == null) {
-				mem.setApprovalFlag("null");
-			}
-			request.setAttribute("mem", mem);
+			request.setAttribute("loginUser", loginUser);
 			RequestDispatcher view = request.getRequestDispatcher("views/member/myPageMain.jsp");
 			view.forward(request, response);
 		} else {
-			request.setAttribute("msg", "회원 조회 실패");
-			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
-			view.forward(request, response);
+			String message = "내 정보 조회 실패!!";
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('" + message + "');");
+			out.println("history.back(-1);");
+			out.println("</script>");
 		}
 		
 	}

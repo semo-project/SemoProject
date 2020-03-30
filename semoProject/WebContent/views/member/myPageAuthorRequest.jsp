@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.kh.member.model.vo.Member" %>
-<% Member mem = (Member)request.getAttribute("mem"); %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,7 +33,7 @@
 
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="index.html">메인</a>
+        <a href="<%= contextPath %>">메인</a>
       </li>
       <li class="breadcrumb-item active">마이페이지</li>
     </ol>
@@ -52,14 +50,11 @@
         <hr>
         <div class="outer">
           <form action="author.me" method="POST" enctype="multipart/form-data">
-            <input type="hidden" value="<%= mem.getMemberNo() %>" name="writer">
+            <input type="hidden" value="<%= loginUser.getMemberNo() %>" name="writer">
             <table>
               <tr>
                 <td colspan="3">
-                  <textarea name="introduce" id="introduce" cols="100" rows="24" style="resize: none; width: 100%;" placeholder="작가 등록 신청을 하실 당신을 환영합니다!
-                  저희 세모툰은 무분별하게 대충 그릴 예정인 이용자들을 먼저 배제하기 위해,
-                  작가님께서 그리신 만화를 먼저 올려주시면 관리자가 검토 후 세모툰의 작가로 임명해드릴 예정입니다.
-                  작가님께서 여기에 올리신 만화는 다른 용도로 이용하지 않으며, 자료는 최대 5일 후 삭제됩니다."></textarea>
+                  <textarea name="introduce" id="introduce" cols="100" rows="24" style="resize: none; width: 100%;" placeholder="작가 등록 신청을 하실 당신을 환영합니다!&#13;&#10;저희 세모툰은 무분별하게 대충 그릴 예정인 이용자들을 먼저 배제하기 위해,&#13;&#10;작가님께서 그리신 만화를 먼저 올려주시면 관리자가 검토 후 세모툰의 작가로 임명해드릴 예정입니다.&#13;&#10;작가님께서 여기에 올리신 만화는 다른 용도로 이용하지 않으며, 자료는 최대 5일 후 삭제됩니다."></textarea>
                 </td>
               </tr>
               <tr>
@@ -79,12 +74,12 @@
                   </select>
                 </td>
                 <td>
-                  <input id="bNum" name="bNum" type="text" placeholder="계좌번호('-' 포함해서 입력)" width="80">
+                  <input id="bNum" name="bNum" type="text" placeholder="계좌번호('-' 포함해서 입력)" style="width:200px;">
                 </td>
               </tr>
             </table>
             <br>
-            <button type="submit" align="center">제출하기</button>
+            <button class="btn btn-primary" type="submit" align="center">제출하기</button>
           </form>
         </div>
       </div>

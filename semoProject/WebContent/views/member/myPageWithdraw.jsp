@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.kh.member.model.vo.Member" %>
-<% Member mem = (Member)request.getAttribute("mem"); %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -67,7 +65,7 @@
 
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="index.html">메인</a>
+        <a href="<%= contextPath %>">메인</a>
       </li>
       <li class="breadcrumb-item active">마이페이지</li>
     </ol>
@@ -95,12 +93,12 @@
           <p>탈퇴 후에는 아이디 (아이디)로 다시 가입할 수 없으며 아이디와 데이터, 쿠키는 복구할 수 없습니다.
             게시판형 서비스에 남아 있는 게시글은 탈퇴 후 삭제할 수 없습니다.</p>
           <br><br>
-          <input type="checkbox"> 안내 사항을 모두 확인하였으며, 이에 동의합니다.
+          <label><input type="checkbox"> 안내 사항을 모두 확인하였으며, 이에 동의합니다.</label>
           <br><br><br>
 
           
         </div>
-        <button align="center" id="modal" onclick="withdraw();" disabled>탈퇴하기</button>
+        <button align="center" id="modal" class="btn btn-primary" onclick="withdraw();" disabled>탈퇴하기</button>
         <div id="myModal" class="modal">
       
           <div class="modal-content">
@@ -133,7 +131,7 @@
 				var btn = document.getElementById("modal");
 				var span = document.getElementsByClassName("close")[0];
 				var pwd = prompt("비밀번호를 입력해주세요");
-				if (pwd == "<%= mem.getMemberPwd() %>") {
+				if (pwd == "<%= loginUser.getMemberPwd() %>") {
 					var bool = confirm("정말로 탈퇴하시겠습니까?");
 					if (bool) {
 						location.href="<%= contextPath %>/delete.me";

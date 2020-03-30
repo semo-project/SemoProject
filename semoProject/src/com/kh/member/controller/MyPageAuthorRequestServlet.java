@@ -34,11 +34,7 @@ public class MyPageAuthorRequestServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
-		Member mem = new MemberService().selectMember(loginUser.getMemberId());
-		if(mem.getApprovalFlag() == null) {
-			mem.setApprovalFlag("null");
-		}
-		request.setAttribute("mem", mem);
+		request.setAttribute("loginUser", loginUser);
 		RequestDispatcher view = request.getRequestDispatcher("views/member/myPageAuthorRequest.jsp");
 		view.forward(request, response);
 	}
