@@ -18,6 +18,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="<%= request.getContextPath()%>/resources/css/boardmain.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Gugi&display=swap" rel="stylesheet">
 <style>
 	#board_table2>tbody>tr:hover{
 		cursor:pointer;
@@ -29,6 +31,7 @@
 	.pagingArea{
 		margin-top:2%;
 	}
+	
 </style>
 </head>
 <body>
@@ -44,7 +47,7 @@
 
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="boardList.bo">세모게시판</a> > <a href="boardList.bo">웹툰 TalkTalk</a>
+        <a href="boardList.bo" style="font-family: 'Gugi'">세모게시판</a> > <a href="boardList.bo" style="font-family: 'Gugi'">웹툰 TalkTalk</a>
       </li>
     </ol>
 
@@ -62,32 +65,33 @@
     
       <!-- Content Column -->
       
-      <div class="semoTalk">
+      <div class="semoTalk" style="margin-top: 8%">
           <table style="width: 600px;margoin-left: auto;margin-left: 25%;margin-top: -19%;">
-              <tr style="border-bottom:1px solid rgb(163, 160, 160);">
+              <tr>
                   <td>
-                      <h2>웹툰TalkTalk</h2>
+                      <h3 style="font-family: 'Gugi'">웹툰TalkTalk</h3>
                   </td>
               </tr>
-              <tr style="border:1px solid rgb(163, 160, 160); margin-top: 5px;">
+              <tr style="border-bottom:1px solid rgb(163, 160, 160); margin-top: 5px;">
                   <td>
                       <h6>웹툰에 대해 자유롭게 얘기해보아요!</h6>
                   </td>
               </tr>
           </table>
+         </div> 
           <div class="board_div2">
-            <table id="board_table2" style="margin-left:13.5%;">
-            <colgroup>
+            <table id="board_table2" style="margin-left:22.7%; margin-top:1.5%;">
+            <!-- <colgroup>
               <col style="width: 30%;">
-              <col style="width: 15%;">
+              <col style="width: 15%;"> -->
             </colgroup>
             	<thead>
 		            <tr>
-		              <th width="100px">글번호</th>
-		              <th width="300px">글제목</th>
+		              <th width="90px">글번호</th>
+		              <th width="230px">글제목</th>
 		              <th width="100px">조회수</th>
-		              <th width="150px">작성자</th>
-		              <th width="150px">작성일</th>
+		              <th width="100px">작성자</th>
+		              <th width="120px">작성일</th>
 		            </tr>
             	</thead>
             	<tbody>
@@ -113,7 +117,8 @@
         		<button class="write_btn" onclick="location.href='<%=contextPath%>/insertForm.bo';">작성하기</button>
         	<% } %>
         	
-            <form class="searchFormArea" align="center" method="post" action="<%= request.getContextPath()%>/searchBoardT.bo">
+            <form class="searchFormArea" align="center" method="post" action="<%= request.getContextPath()%>/searchBoardT.bo"
+            		style="margin-top:10%">
             	<td>
             		<select id="searchOption1" name="searchOption1">
             			<option value="boardTitle">제목</option>
@@ -132,42 +137,47 @@
         	<!-- 페이징바 영역 -->
 		    <div class="pagingArea" align="center">
 		    	  <!-- 맨 처음 -->
-		    	  <button onclick="location.href='<%=contextPath%>/boardList.bo';"> &lt;&lt; </button>
+		    	  <button class="pageBtn1 page1st" onclick="location.href='<%=contextPath%>/boardList.bo';"> &lt;&lt; </button>
 		    	  
 		    	  <!-- 이전page -->
 		    	  <%if(currentPage == 1){ %>
-		    	  		<button disable> &lt; </button>
+		    	  		<button class="pageBtn1 page2nd" disable> &lt; </button>
 		    	  <%}else{ %>
-		    	  		<button onclick="location.href='<%=contextPath %>/boardList.bo?currentPage=<%=currentPage-1%>';"> &lt; </button>
+		    	  		<button class="pageBtn1 page2nd" onclick="location.href='<%=contextPath %>/boardList.bo?currentPage=<%=currentPage-1%>';"> &lt; </button>
 		    	  <% } %>
 		    	  
 		    	  <!-- 페이지목록 -->
 		    	  <%for(int p=startPage; p<=endPage; p++){ %>
 		    	  		<%if(currentPage == p){%>
-		    	  			<button disabled> <%=p %></button>
+		    	  			<button class="pageBtn1" disabled> <%=p %></button>
 		    	  		<%}else{ %>
-		    	  			<button onclick="location.href='<%=contextPath%>/boardList.bo?currentPage=<%=p %>';"> <%=p %></button>
+		    	  			<button class="pageBtn1" onclick="location.href='<%=contextPath%>/boardList.bo?currentPage=<%=p %>';"> <%=p %></button>
 		    	  		<%} %>
 		    	  <%} %>
 		    	  
 		    	  <!-- 다음page -->
 		    	  <%if(currentPage == maxPage){ %>
-		    	  		<button disabled> &gt; </button>
+		    	  		<button class="pageBtn1 page2nd" disabled> &gt; </button>
 		    	  <%}else{ %>
-		    	  		<button onclick="location.href='<%=contextPath%>/boardList.bo?currentPage=<%=currentPage+1%>';"> &gt; </button>
+		    	  		<button class="pageBtn1 page2nd" onclick="location.href='<%=contextPath%>/boardList.bo?currentPage=<%=currentPage+1%>';"> &gt; </button>
 		    	  <%} %>
 		    	  
 		    	  <!-- 맨 마지막으로 -->
-		    	  <button onclick="location.href='<%=contextPath%>/boardList.bo?currentPage=<%=maxPage%>';"> &gt;&gt; </button>		
+		    	  <button class="pageBtn1 page1st" onclick="location.href='<%=contextPath%>/boardList.bo?currentPage=<%=maxPage%>';"> &gt;&gt; </button>		
 		    </div>
         	
           </div>
       </div>
-      
-    </div>
-</div>
 
-	
+
+<!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+    </div>
+    <!-- /.container -->
+  </footer>	
+  
 <!-- /.container -->
 <!-- Bootstrap core JavaScript -->
   <script src="<%= request.getContextPath() %>/resources/js/jquery.min.js"></script>

@@ -519,7 +519,7 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("searchFreeT");
+		String sql = prop.getProperty("searchBoardT");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -550,7 +550,7 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("searchFreeW");
+		String sql = prop.getProperty("searchBoardW");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -581,7 +581,7 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("searchFreeC");
+		String sql = prop.getProperty("searchBoardC");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);

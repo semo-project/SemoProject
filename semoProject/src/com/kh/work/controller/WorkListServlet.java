@@ -38,13 +38,19 @@ public class WorkListServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
+
 		Member mem = new MemberService().selectMember(loginUser.getMemberId());
+		
+		
+
 		if(mem.getApprovalFlag() == null) {
 			mem.setApprovalFlag("null");
 		}
+		
 		request.setAttribute("mem", mem);
 		
-		ArrayList<Work> list = new WorkService().selectWorkList();
+		ArrayList<Work> list = new WorkService().selectWorkList(mem.getMemberNo());
+		
 		
 		request.setAttribute("list", list);
 		

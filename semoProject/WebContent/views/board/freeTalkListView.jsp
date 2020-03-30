@@ -18,6 +18,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="<%= request.getContextPath()%>/resources/css/boardmain.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Gugi&display=swap" rel="stylesheet">
 <style>
 	#board_table2>tbody>tr:hover{
 		cursor:pointer;
@@ -28,6 +30,60 @@
 	}
 	.pagingArea{
 		margin-top:2%;
+	}
+	.outer{
+		width:800px;
+		height:500px;
+		background:white;
+		color:black;
+		margin-left:15%;
+		margin-top:50px;
+	}
+	.outer>table, .outer>table tr>*{
+		border:1px solid black;
+	}
+	.outer>table{
+		width:600px;
+		height:300px;
+	}
+	.outer>table p{
+		height:230px;
+	}
+	
+	.replyArea{
+		background:white;
+		color:black;
+		margin:auto;
+		width:800px;
+	}
+	#boardReport{
+		pointer:cursor;
+	}
+	#comUpBtn{
+		background:red;
+	}
+	commentArea>table tr{
+		margin-top:5px;
+	}
+	#modal {
+		display:none;
+		background-color:#FFFFFF;
+		position:absolute;
+		top:500px;
+		left:200px;
+		padding:10px;
+		border:2px solid #E2E2E2;
+		z-Index:9999
+	}
+	#modal2 {
+		display:none;
+		background-color:#FFFFFF;
+		position:absolute;
+		top:500px;
+		left:200px;
+		padding:10px;
+		border:2px solid #E2E2E2;
+		z-Index:9999
 	}
 </style>
 </head>
@@ -44,7 +100,7 @@
 
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="freeList.bo">세모게시판</a> > <a href="freeList.bo">수다수다 유머방</a>
+        <a href="freeList.bo" style="font-family: 'Gugi'">세모게시판</a> > <a href="freeList.bo" style="font-family: 'Gugi'">수다수다 유머방</a>
       </li>
     </ol>
 
@@ -62,32 +118,33 @@
     
       <!-- Content Column -->
       
-      <div class="semoTalk">
+      <div class="semoTalk" style="margin-top: 8%">
           <table style="width: 600px;margoin-left: auto;margin-left: 25%;margin-top: -19%;">
-              <tr style="border-bottom:1px solid rgb(163, 160, 160);">
+              <tr>
                   <td>
-                      <h2>수다수다 유머방</h2>
+                      <h3 style="font-family: 'Gugi'">수다수다 유머방</h3>
                   </td>
               </tr>
-              <tr style="border:1px solid rgb(163, 160, 160); margin-top: 5px;">
+              <tr style="border-bottom:1px solid rgb(163, 160, 160); margin-top: 5px;">
                   <td>
                       <h6>재미있는 유머들이 가득한 곳!</h6>
                   </td>
               </tr>
           </table>
+         </div>
           <div class="board_div2">
-            <table id="board_table2" style="margin-left:13.5%;">
-            <colgroup>
+            <table id="board_table2" style="margin-left:22.7%; margin-top:1.5%;">
+            <!-- <colgroup>
               <col style="width: 30%;">
               <col style="width: 15%;">
-            </colgroup>
+            </colgroup> -->
             	<thead>
 		            <tr>
-		              <th width="100px">글번호</th>
-		              <th width="300px">글제목</th>
+		              <th width="90px">글번호</th>
+		              <th width="230px">글제목</th>
 		              <th width="100px">조회수</th>
-		              <th width="150px">작성자</th>
-		              <th width="150px">작성일</th>
+		              <th width="100px">작성자</th>
+		              <th width="120px">작성일</th>
 		            </tr>
             	</thead>
             	<tbody>
@@ -166,6 +223,14 @@
       
     </div>
 </div>
+
+<!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+    </div>
+    <!-- /.container -->
+  </footer>
 <!-- /.container -->
 <!-- Bootstrap core JavaScript -->
   <script src="<%= request.getContextPath() %>/resources/js/jquery.min.js"></script>

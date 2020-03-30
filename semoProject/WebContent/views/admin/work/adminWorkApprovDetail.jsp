@@ -32,7 +32,7 @@
                     <table class="table">
                         <tr>
                             <td class="workThumbnail">
-                                <img class="img-thumbnail" src="assets/img/썸네일.PNG" alt="">
+                                <img class="img-thumbnail" src="<%=contextPath %>/resources/work_upfiles/<%=w.getThumbnailModify() %>" alt="">
                             </td>
                             <td rowspan="2" style="width: 30%; ">
                                 <div class="diyDiv" style="height:340px;">

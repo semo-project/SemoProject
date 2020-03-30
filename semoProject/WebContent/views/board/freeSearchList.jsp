@@ -11,6 +11,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="<%= request.getContextPath()%>/resources/css/boardmain.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Gugi&display=swap" rel="stylesheet">
 <style>
 	#board_table2>tbody>tr:hover{
 		cursor:pointer;
@@ -37,7 +39,7 @@
 
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="boardList.bo">세모게시판</a> > <a href="boardList.bo">수다수다 유머방</a>
+        <a href="freeList.bo" style="font-family: 'Gugi'">세모게시판</a> > <a href="freeList.bo" style="font-family: 'Gugi'">수다수다 유머방</a>
       </li>
     </ol>
 
@@ -55,14 +57,14 @@
     
       <!-- Content Column -->
       
-      <div class="semoTalk">
+      <div class="semoTalk" style="margin-top: 8%">
           <table style="width: 600px;margoin-left: auto;margin-left: 25%;margin-top: -19%;">
               <tr style="border-bottom:1px solid rgb(163, 160, 160);">
                   <td>
-                      <h2>수다수다 유머방</h2>
+                      <h3 style="font-family: 'Gugi'">수다수다 유머방</h3>
                   </td>
               </tr>
-              <tr style="border:1px solid rgb(163, 160, 160); margin-top: 5px;">
+              <tr style="border-bottom:1px solid rgb(163, 160, 160); margin-top: 5px;">
                   <td>
                       <h6>재미있는 유머들이 가득한 곳!</h6>
                   </td>
@@ -122,7 +124,13 @@
       
     </div>
 </div>
-
+<!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+    </div>
+    <!-- /.container -->
+  </footer>
 <!-- /.container -->
 <!-- Bootstrap core JavaScript -->
   <script src="<%= request.getContextPath() %>/resources/js/jquery.min.js"></script>

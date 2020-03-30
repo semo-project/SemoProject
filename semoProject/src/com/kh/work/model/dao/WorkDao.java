@@ -32,7 +32,7 @@ public class WorkDao {
 	}
 	
 	// PJH
-public int insertWorkGenre(Connection conn, int[]genre) {
+	public int insertWorkGenre(Connection conn, int[]genre) {
 		
 		int result = 0;
 		
@@ -64,8 +64,8 @@ public int insertWorkGenre(Connection conn, int[]genre) {
 			
 			return result;
 		}
-//작품 insert 
-public int insertWork(Connection conn, Work w) {
+	//작품 insert 
+	public int insertWork(Connection conn, Work w) {
 	
 	int result = 0;
 	
@@ -110,10 +110,10 @@ public int insertWork(Connection conn, Work w) {
 }
 
 	//작품리스트조회
-	public ArrayList<Work> selectWorkList(Connection conn) {
+	public ArrayList<Work> selectWorkList(Connection conn, int loginUser) {
 		
 		ArrayList<Work> list = new ArrayList<>();
-		
+		Work w = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -121,18 +121,16 @@ public int insertWork(Connection conn, Work w) {
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, 1);// 
+			pstmt.setInt(1, loginUser);		//  로그인한 작가 넘버 
 			rset = pstmt.executeQuery();
 			
 			
 			while(rset.next()) {
-				Work w = new Work();
-				w.setWorkTitle(rset.getString("WORK_TITLE"));	
-				w.setThumbnailModify(rset.getString("Thumbnail_Modify"));
-				w.setWorkSummary(rset.getString("WORK_SUMMARY"));
-				
-				list.add(w);
-
+				list.add(w = new Work(
+						rset.getString("WORK_SUMMARY"),
+						rset.getString("Thumbnail_Modify"),
+						rset.getString("WORK_TITLE")
+						));
 			}
 			
 		} catch (SQLException e) {
@@ -1130,6 +1128,7 @@ public int insertWork(Connection conn, Work w) {
 				w.setNickName(rset.getString("member_nickname"));
 				w.setWorkSummary(rset.getString("work_summary"));
 				w.setWorkPlot(rset.getString("work_plot"));
+				w.setThumbnailModify(rset.getString("thumbnail_modify"));
 				
 			}
 			
@@ -1248,6 +1247,33 @@ public int insertWork(Connection conn, Work w) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int secretEpisode(Connection conn, String no, int flag) {
+		int result = 0;
+		
+		String booleanFlag = "";
+		if(flag == 1) {
+			booleanFlag = "Y";
+		} else {
+			booleanFlag = "N";
+		}
+		
+		String sql = "UPDATE TB_EPISODE E SET E.SECRET_FLAG = '"+ booleanFlag + "' WHERE EXISTS (SELECT 0 FROM TB_WORK W WHERE W.WORK_NO = E.WORK_NO) AND E.WORK_NO IN (" + no + ")";
+		
+		Statement stmt = null;
+		
+		try {
+			stmt = conn.createStatement();
+			
+			result = stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
 		}
 		
 		return result;

@@ -37,19 +37,19 @@ public class FreeSearchServlet extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		
 		if(searchOption1.equals("boardTitle")) {
-			ArrayList<Board> list = new BoardService().boardSearch(searchContent);
+			ArrayList<Board> list = new BoardService().freeSearch(searchContent);
 			request.setAttribute("list", list);			
 		}
 		if(searchOption1.equals("boardWriter")) {
-			ArrayList<Board> list = new BoardService().boardWSearch(searchContent);
+			ArrayList<Board> list = new BoardService().freeWSearch(searchContent);
 			request.setAttribute("list", list);
 		}
 		if(searchOption1.equals("boardContent")) {
-			ArrayList<Board> list = new BoardService().boardCSearch(searchContent);
+			ArrayList<Board> list = new BoardService().freeCSearch(searchContent);
 			request.setAttribute("list", list);
 		}
 		
-		request.getRequestDispatcher("views/board/boardSearchList.jsp").forward(request, response);
+		request.getRequestDispatcher("views/board/freeSearchList.jsp").forward(request, response);
 	}
 
 	/**

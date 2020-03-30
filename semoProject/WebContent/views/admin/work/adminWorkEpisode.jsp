@@ -89,7 +89,13 @@
                                     		<% for(Work w : list) { %>
 	                                        <tr>
 	                                            <td><input type="checkbox" name="secretCheck" value="<%=w.getEpisodeNo()%>"></td>
-	                                            <td><a href="#"><%=w.getEpisodeTitle() %></a></td>
+	                                            <td>
+	                                            	<%if(w.getSecretFlag().equalsIgnoreCase("n")) { %>
+	                                            		<a href="<%=contextPath%>/episode.de?eNo=<%=w.getEpisodeNo()%>"><%=w.getEpisodeTitle() %></a>
+	                                            	<% } else { %>
+	                                            		<%=w.getEpisodeTitle() %>
+	                                            	<% } %>
+	                                            </td>
 	                                            <td>
 	                                            	<%if(w.getSecretFlag().equals("N")) { %> 조회 가능
 	                                            	<% } else {%> 조회 불가

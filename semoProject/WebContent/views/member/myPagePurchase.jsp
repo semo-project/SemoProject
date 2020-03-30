@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.kh.member.model.vo.Member" %>
-<% Member mem = (Member)request.getAttribute("mem"); %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -63,7 +61,7 @@
 
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="index.html">메인</a>
+        <a href="<%= contextPath %>">메인</a>
       </li>
       <li class="breadcrumb-item active">마이페이지</li>
     </ol>
@@ -82,13 +80,13 @@
 	        <tr>
 	          <td colspan="4" rowspan="4" width="200" height="200" align="center"><img src="<%= contextPath %>/resources/images/defaultIcon.png" alt="프로필사진"></td>
 	          <th rowspan="2">이름/아이디</th>
-	          <td rowspan="2"><%= mem.getMemberName() %>/<%= mem.getMemberId() %></td>
+	          <td rowspan="2"><%= loginUser.getMemberName() %>/<%= loginUser.getMemberId() %></td>
 	        </tr>
 	        <tr>
 	        </tr>
 	        <tr>
 	          <th rowspan="2">현재 보유 쿠키</th>
-	          <td rowspan="2"><%= mem.getMyCookieCount() %>개</td>
+	          <td rowspan="2"><%= loginUser.getMyCookieCount() %>개</td>
 	        </tr>
 	        <tr>
 	        </tr>
@@ -97,21 +95,21 @@
         <hr>
 		<form action="" method="POST">
            <div>
-            <input type="radio" name="price" value="900" checked>10개 / 900원
+            <label><input type="radio" name="price" value="900" checked>10개 / 900원</label>
           </div>
           <div>
-            <input type="radio" name="price" value="1800">20개 / 1,800원
+            <label><input type="radio" name="price" value="1800">20개 / 1,800원</label>
           </div>
           <div>
-            <input type="radio" name="price" value="2700">30개 / 2,700원
+            <label><input type="radio" name="price" value="2700">30개 / 2,700원</label>
           </div>
           <div>
-            <input type="radio" name="price" value="4900">50개 / 4,900원
+            <label><input type="radio" name="price" value="4500">50개 / 4,500원</label>
           </div>
           <div>
-            <input type="radio" name="price" value="9000">100개 / 9,000원
+            <label><input type="radio" name="price" value="9000">100개 / 9,000원</label>
           </div>
-          <button type="button">결제요청</button> 
+          <button type="button" class="btn btn-primary">결제요청</button> 
 		</form>
       </div>
     </div>
@@ -144,12 +142,23 @@
 		      merchant_uid : 'merchant_' + new Date().getTime(),
 		      name : '쿠키 ' + payName + '개',
 		      amount : amt,
-		      buyer_email : '<%= mem.getEmail() %>',
-		      buyer_name : '<%= mem.getMemberName() %>',
-		      buyer_tel : '<%= mem.getPhone() %>',
-		      buyer_addr : '<%= mem.getMemberAddress() %>',
+		      buyer_email : '<%= loginUser.getEmail() %>',
+		      buyer_name : '<%= loginUser.getMemberName() %>',
+		      buyer_tel : '<%= loginUser.getPhone() %>',
+		      buyer_addr : '<%= loginUser.getMemberAddress() %>',
 		  }, function(rsp) {
 		      if ( rsp.success ) {
+		    	  var amt = $('input[name="price"]:checked').val();
+		    	  var payName = amt/90;
+		    	  var payMethod = 'vbank';
+		    	  $.ajax({
+				    url:"addCookieLog.me",
+				    data:{amt:amt, payName:payName, payMethod:payMethod},
+				    type:"GET",
+				    complete:function(){
+				    	alert("ajax 통신 성공하였음");
+				    }
+		    	  });
 		          var msg = '결제가 완료되었습니다.';
 		          msg += '고유ID : ' + rsp.imp_uid;
 		          msg += '상점 거래ID : ' + rsp.merchant_uid;

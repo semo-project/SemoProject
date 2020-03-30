@@ -38,6 +38,17 @@ public class Work {
 		this.writerNo = writerNo;
 		this.starGrade = starGrade;
 	}
+
+
+
+
+	public Work(String workSummary, String thumbnailModify, String workTitle) {
+		super();
+		this.workSummary = workSummary;
+		this.thumbnailModify = thumbnailModify;
+		this.workTitle = workTitle;
+	}
+
 	public Work(int workNo, String updateDay, Date startDay, Date requestDate, Date approvalDate, String workSummary,
 			String workPlot, String approvalStatus, int serialCnt, int bookmarkCnt, String thumbnailModify,
 			String thumbnailOriginal, String secretFlag, int writerNo, String workTitle, int genreNo,

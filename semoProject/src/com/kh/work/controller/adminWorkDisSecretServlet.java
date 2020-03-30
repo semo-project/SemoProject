@@ -48,7 +48,10 @@ public class adminWorkDisSecretServlet extends HttpServlet {
 		// 모두 숨김처리 되어있는 건이라면 숨김해제 진행하기
 		int result = new WorkService().secretWork(no, 2);
 		
-		if(result > 0) {
+		// 작품 해결하면 에피소드 해제
+		int result1 = new WorkService().secretEpisode(no, 2);
+		
+		if(result * result1> 0) {
 			session.setAttribute("scrMsg", "숨김 해제 되었습니다.");
 			response.sendRedirect("writerList.wo?pageId=4&&no=" + writerNo);
 		} else {

@@ -32,13 +32,6 @@ public class MyPageWithdrawServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		Member loginUser = (Member)session.getAttribute("loginUser");
-		Member mem = new MemberService().selectMember(loginUser.getMemberId());
-		if(mem.getApprovalFlag() == null) {
-			mem.setApprovalFlag("null");
-		}
-		request.setAttribute("mem", mem);
 		RequestDispatcher view = request.getRequestDispatcher("views/member/myPageWithdraw.jsp");
 		view.forward(request, response);
 		

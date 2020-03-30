@@ -235,6 +235,7 @@ public class EpisodeService {
 		Episode e = new EpisodeDao().test(conn, wNo);
 		return e;
 	}
+
 	/**
 	 * 댓글 신고창
 	 * @param comReportNo
@@ -266,4 +267,5 @@ public class EpisodeService {
 	
 
 	
+
 } 

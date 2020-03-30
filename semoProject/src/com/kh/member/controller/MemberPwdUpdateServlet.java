@@ -49,7 +49,7 @@ public class MemberPwdUpdateServlet extends HttpServlet {
 			out.println("history.back(-1);");
 			out.println("</script>");
 		} else {
-			request.setAttribute("mem", mem);
+			request.setAttribute("loginUser", mem);
 			RequestDispatcher view = request.getRequestDispatcher("views/member/myPageMain.jsp");
 			view.forward(request, response);
 		}

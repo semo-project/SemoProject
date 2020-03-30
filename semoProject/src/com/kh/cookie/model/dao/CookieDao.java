@@ -87,5 +87,57 @@ private Properties prop = new Properties();
 		
 		
 	}
+	
+	public int updatePayway(Connection conn, int amt, String payMethod) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("updatePayway");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, payMethod);
+			pstmt.setInt(2, amt);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int updateCookie(Connection conn, int payName, String payMethod, int memberNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("updateCookie");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memberNo);
+			pstmt.setString(2, payMethod);
+			pstmt.setInt(3, payName);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 
+	
+	public int updateMemberCookie(Connection conn, int payName, int memberNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("updateMemberCookie");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, payName);
+			pstmt.setInt(2, memberNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }

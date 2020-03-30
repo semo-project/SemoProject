@@ -1,29 +1,28 @@
 package com.kh.member.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import com.kh.cookie.model.service.CookieService;
 import com.kh.member.model.service.MemberService;
 import com.kh.member.model.vo.Member;
 
 /**
- * Servlet implementation class loginServlet
+ * Servlet implementation class CookiePurchaseServlet
  */
-@WebServlet("/login.me")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/addCookieLog.me")
+public class CookiePurchaseServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public CookiePurchaseServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,31 +32,23 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		response.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		
-		String userId = request.getParameter("userId");
-		String userPwd = request.getParameter("userPwd");
+		int amt = Integer.parseInt(request.getParameter("amt"));
+		String payMethod = request.getParameter("payMethod");
+		int payName = Integer.parseInt(request.getParameter("payName"));
 		
-		Member loginUser = new MemberService().loginMember(userId, userPwd);
+		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 		
-		if(loginUser != null) {
-			if(loginUser.getApprovalFlag() == null) {
-				loginUser.setApprovalFlag("null");
-			}
-			HttpSession session = request.getSession();
-			session.setAttribute("loginUser", loginUser);
-			response.sendRedirect(request.getContextPath());
+		int result = new CookieService().updateLog(amt, payMethod, payName, loginUser);
+		
+		if(result > 0) {
+			Member mem = new MemberService().loginMember(loginUser.getMemberId(), loginUser.getMemberPwd());
+			request.setAttribute("loginUser", mem);
+			request.getRequestDispatcher("views/member/myPageMain.jsp").forward(request, response);
 		} else {
-			String message = "로그인 실패!!";
-			response.setContentType("text/html; charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			out.println("<script>");
-			out.println("alert('" + message + "');");
-			out.println("history.back(-1);");
-			out.println("</script>");
 			
 		}
-		
 		
 	}
 

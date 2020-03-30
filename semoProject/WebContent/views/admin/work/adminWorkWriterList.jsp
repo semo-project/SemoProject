@@ -45,7 +45,7 @@
                     
                     <div class="diyDiv mb-4">
                         <label id="writerName">
-                        	<%if(list.size() != 0) { list.get(0).getNickName(); }%>
+                        	<%if(list.size() != 0) {%> <%=list.get(0).getNickName()%> <%}%>
                         </label> 작가의 작품 목록
                     </div>
 
@@ -199,7 +199,7 @@
     	$(function(){
 			var msg = "<%=scrMsg%>";
 			
-			var writerNo = "<%if(list.size() != 0) { list.get(0).getWriterNo(); }%>";
+			var writerNo = <%if(list.size() != 0){%> "<%=list.get(0).getWriterNo()%>" <%}%>;
     		
     		if(msg != "null") {
     			alert(msg);
@@ -223,6 +223,7 @@
     			
     			if(scrArr.length >= 1) {
     				var scrNo = scrArr.join(", ");
+    				
     				location.href = "<%=contextPath%>/workScrt.wo?pageId=4&&writerNo=" + writerNo + "&&no=" + scrNo;
     			} else {
     				alert("숨김처리 할 작품을 선택해주세요.");
