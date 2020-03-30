@@ -17,14 +17,68 @@
   <title>Modern Business - Start Bootstrap Template</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="resources/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="css/modern-business.css" rel="stylesheet">
+  <link href="resources/css/modern-business.css" rel="stylesheet">
 <style>
+.snip1535 {
+  background-color: black;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: 'BenchNine', Arial, sans-serif;
+  font-size: 1em;
+  font-size: 22px;
+  line-height: 1em;
+  margin: 15px 40px;
+  outline: none;
+  padding: 12px 40px 10px;
+  position: relative;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.snip1535:before,
+.snip1535:after {
+  border-color: transparent;
+  -webkit-transition: all 0.25s;
+  transition: all 0.25s;
+  border-style: solid;
+  border-width: 0;
+  content: "";
+  height: 24px;
+  position: absolute;
+  width: 24px;
+}
+.snip1535:before {
+  border-color: black;
+  border-right-width: 2px;
+  border-top-width: 2px;
+  right: -5px;
+  top: -5px;
+}
+.snip1535:after {
+  border-bottom-width: 2px;
+  border-color: black;
+  border-left-width: 2px;
+  bottom: -5px;
+  left: -5px;
+}
+.snip1535:hover,
+.snip1535.hover {
+  background-color: black;
+}
+.snip1535:hover:before,
+.snip1535.hover:before,
+.snip1535:hover:after,
+.snip1535.hover:after {
+  height: 100%;
+  width: 100%;
+}
 		.replyArea{
 			background:black;
-			color:white;
+			color:black;
 			margin:auto;
 			width:800px;
 		}
@@ -120,12 +174,7 @@
 				<li>
 					<button type="button" class="btn_comm btn_like">좋아요 등록</button>
 				</li>
-				<li>
-				    <button type="button" class="btn_comm btn_nonstop">정주행켜기</button>
-				</li>
-				<li>
-				    <button type="button" class="btn_comm btn_fullscreen" data-go-on="click" >전체화면</button>
-				</li>
+				
 				<li>
 				    <a href="/" class="btn_comm btn_close">작품홈으로</a>
 				</li>
@@ -133,7 +182,9 @@
 	</div>
 	    
 
-    <div class="row"  id="semoweb">
+    <div class="row"  id="semoweb" style="margin-left: auto;
+    width: 1000px;
+    margin-right: auto;">
 
       <!-- Post Content Column -->
       <div class="">
@@ -152,23 +203,35 @@
         <br>
 
 <nav id="viewer-footer" class="viewer_footer viewer__footer--active">
-  <ul id="episode-nav" class="viewer__nav">
+  <ul id="episode-nav" class="viewer__nav"  style="list-style:none;">
     <li class="viewer__navItem" style="float: left;">
-      <button  class="viewer__navBtn--prev" type="button" disabled >이전화</button>
+      <button  class="snip1535" type="button" disabled >이전화</button>
     </li>
     <li class="viewer__navItem" style="float:right">
-      <button class="viewer__navBtn--next" type="button" disabled>다음화</button>
+      <button class="snip1535" type="button" disabled>다음화</button>
     </li>
   </ul>
 </nav>
 
 <br><br>
         <hr>
+        <nav id="viewer-footer" class="viewer_footer viewer__footer--active">
+  <ul id="episode-nav" class="viewer__nav"  style="list-style:none;">
+    <li class="viewer__navItem" style="float: left;">
+      <button  class="snip1535" type="button" disabled >이전화</button>
+    </li>
+    <li class="viewer__navItem" style="float:right">
+      <button class="snip1535" type="button" disabled>다음화</button>
+    </li>
+  </ul>
+</nav>
 </div>
+</div>
+
         
         <hr>
         <!-- Comments Form -->
-        <div class="card my-4 replyArea" style=" width: max-content; margin-right: auto; margin-left: auto; width: 70%;">
+        <div class="card my-4 replyArea" style=" width: max-content; margin-right: auto; margin-left: auto; width: 600px;">
         <% if(loginUser != null){ %>
           <h5 class="card-header" style="color: black;">댓글: </h5>
           <div class="card-body">
@@ -208,20 +271,17 @@
               <button type="button" class="btn btn-primary" disabled>등록</button>
             </form>
           </div>
-        </div>
+        
        <% } %>
 
      	 
    
-	
+	<br>
 	<!-- 댓글 관련 영역 -->
 	<div >
-		
-		
-		
 		<!-- 댓글 리스트들 보여지는 div -->
 		<div id="replyListArea">
-			<table id="replyList" border="1" align="center">
+			<table id="replyList" border="1" align="center" style="width: 600px;">
 				<tr>
 				
 				</tr>
@@ -249,8 +309,8 @@
   </footer>
 
   <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="resources/js/jquery.min.js"></script>
+  <script src="resources/js/bootstrap.bundle.min.js"></script>
   
   <script>
   $(function(){
@@ -313,27 +373,13 @@
 					var value = "";
 					//for(var i=0; i<list.length; i++){
 					for(var i in list){
-						value += '<tr>' + 
-									'<td width="100px">' + list[i].memberId + '</td>' +    
-									'<td width="330px">' + list[i].content + '</td>' +
-									'<td width="150px">' + list[i].creationDate + '</td>' +
-									'<td><button type="button" data-toggle="modal" data-target="#myModal2" >신고</button></td>'+
-								 '</tr>';
-								 
-					/* 	value +='<div class="">' +
-				          
-							          '<div class="list_cmt">' +
-							            '<span class="desc_info">' +
-							            '<strong class="txt_nick">' + list[i].memberId + '</strong>'+
-							            '<span class="txt_date">' + list[i].creationDate + '</span>'+
-							            '<span class="txt_bar"></span>' +
-							            '<button type="button" class="btn_comm_btn_report btn_report_parent">신고</button>'+
-							          	'</span>'+
-										'<textarea class="form-control" rows="3" cols="100">' + list[i].content + '</textarea>'+
-							            '</div>'+
-							          '</div>'; */
+						value +=  '<tr>' + 
+		                           '<td width="90px">' + list[i].memberId + '</td>' +    
+		                           '<td width="200px" class="contentArea">' + list[i].content + '</td>' +
+		                           '<td width="100px">' + list[i].creationDate + '</td></tr>';
+					
 					}
-					console.log(value);
+					//console.log(value);
 					
 					$("#replyList").html(value);
 					

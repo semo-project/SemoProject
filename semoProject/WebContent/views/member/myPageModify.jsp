@@ -181,9 +181,9 @@
           	  <td><input type="password" name="newPwdCheck"></td>
           	</tr>
           </table>
-          </div align="center">
 	    <button type="button">취소하기</button>
 	    <button type="submit" onclick="return pwdValidate();">변경하기</button>
+          </div align="center">
       	</form>
       </div>
     

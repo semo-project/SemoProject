@@ -1,4 +1,4 @@
-package com.kh.content.controller;
+package com.kh.qna.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,17 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.qna.model.service.QNAService;
+import com.kh.qna.model.vo.QNA;
+
 /**
- * Servlet implementation class adminNoticeContentServlet
+ * Servlet implementation class adminQnaDetailServlet
  */
-@WebServlet("/acontent.no")
-public class adminNoticeContentServlet extends HttpServlet {
+@WebServlet("/adDetail.qna")
+public class adminQnaDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public adminNoticeContentServlet() {
+    public adminQnaDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,9 +29,14 @@ public class adminNoticeContentServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		request.getRequestDispatcher("views/admin/notice/adminContent.jsp").forward(request, response);
+	
+		int no = Integer.parseInt(request.getParameter("no"));
 		
+		QNA q = new QNAService().adminSelectQNA(no);
+		
+		request.setAttribute("qna", q);
+		request.getRequestDispatcher("views/admin/notice/adminQnaDetailView.jsp").forward(request, response);
+	
 	}
 
 	/**

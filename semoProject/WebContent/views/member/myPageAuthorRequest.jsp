@@ -51,7 +51,8 @@
         <h2 align="center">작가 등록 신청</h2>
         <hr>
         <div class="outer">
-          <form action="" method="POST" enctype="multipart/form-data">
+          <form action="author.me" method="POST" enctype="multipart/form-data">
+            <input type="hidden" value="<%= mem.getMemberNo() %>" name="writer">
             <table>
               <tr>
                 <td colspan="3">
@@ -63,24 +64,22 @@
               </tr>
               <tr>
                 <td>
-                  <input name="file1" type="file">
-                  <input name="file2" type="file">
-                  <input name="file3" type="file">
-                  <input name="file4" type="file">
+                  <input id="file" name="file" type="file">
                 </td>
                 <td>
                   <select name="bank" id="bank">
-                    <option value="국민은행">국민은행</option>
-                    <option value="신한은행">신한은행</option>
-                    <option value="기업은행">기업은행</option>
-                    <option value="카카오뱅크">카카오뱅크</option>
+                    <option value="국민">국민은행</option>
+                    <option value="신한">신한은행</option>
+                    <option value="기업">기업은행</option>
+                    <option value="하나">하나은행</option>
+                    <option value="카카오">카카오뱅크</option>
                     <option value="우체국">우체국</option>
                     <option value="농협">농협</option>
                     <option value="신협">신협</option>
                   </select>
                 </td>
                 <td>
-                  <input type="text" placeholder="계좌번호('-' 포함해서 입력)" width="80">
+                  <input id="bNum" name="bNum" type="text" placeholder="계좌번호('-' 포함해서 입력)" width="80">
                 </td>
               </tr>
             </table>

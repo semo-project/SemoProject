@@ -319,7 +319,7 @@ public class EpisodeDao {
 		Statement stmt = null;
 		int result = 0;
 		
-		System.out.println(no);
+		
 		String sql = "UPDATE TB_EPISODE SET APPROVAL_STATUS = 'Y', APPROVAL_DATE = SYSDATE WHERE EPISODE_NO IN (" + no + ")";
 		
 		try {
@@ -445,15 +445,15 @@ public class EpisodeDao {
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				EpNotice n = new EpNotice();
-				n.setNoticeNo(rset.getInt("noticeNo"));
-				n.setMemberNo(rset.getInt("memberNo"));
+				n.setNoticeNo(rset.getInt("notice_No"));
 				n.setTitle(rset.getString("title"));
 				n.setContent(rset.getString("content"));
-				n.setWriterDate(rset.getDate("writerDate"));
+				n.setWriterDate(rset.getDate("writer_Date"));
 			
 				
 				list.add(n);
 			}
+			System.out.println(list);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -464,5 +464,38 @@ public class EpisodeDao {
 		return list;
 		
 	}
+	
+	public Episode test(Connection conn, int wNo) {
+		Episode e = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("test");
+				
+				try {
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setInt(1, wNo);
+					
+					rset = pstmt.executeQuery();
+					
+					if(rset.next()) {
+						e = new Episode(rset.getInt("EPISODE_NO"),
+								rset.getDate("APPROVAL_DATE"),
+								rset.getString("EPISODE_TITLE"),
+								rset.getString("WORKTITLE"));
+					}
+					} catch (SQLException ex) {
+						ex.printStackTrace();
+					} finally {
+						close(rset);
+						close(pstmt);
+					}
+		
+		
+		return e;
+		}
+
+
 
 }

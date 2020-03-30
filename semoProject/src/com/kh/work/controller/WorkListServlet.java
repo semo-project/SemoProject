@@ -16,7 +16,6 @@ import com.kh.member.model.vo.Member;
 import com.kh.work.model.service.WorkService;
 import com.kh.work.model.vo.Work;
 
-
 /**
  * Servlet implementation class WriterWorkListServlet
  */
@@ -36,10 +35,6 @@ public class WorkListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-//		ArrayList<Work> list = new WorkService().selectWorkList();
-//		
-//		request.setAttribute("list", list);
 		
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");

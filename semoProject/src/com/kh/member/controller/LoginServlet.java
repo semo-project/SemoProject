@@ -45,7 +45,7 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("loginUser", loginUser);
 			response.sendRedirect(request.getContextPath());
 		} else {
-			String message = "아이디 또는 비밀번호가 틀렸습니다 !!";
+			String message = "로그인 실패!!";
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");

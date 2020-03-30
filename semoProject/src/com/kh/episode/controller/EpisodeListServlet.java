@@ -3,6 +3,7 @@ package com.kh.episode.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -45,29 +46,35 @@ public class EpisodeListServlet extends HttpServlet {
 		request.setAttribute("mem", mem);
 
 		
-//		int wNo = Integer.parseInt(request.getParameter("wNo"));
-//		
-//		Episode e = new EpisodeService().selectworkList(wNo);
-//		
-//		
+		int wNo = Integer.parseInt(request.getParameter("wNo"));
+		//System.out.println(wNo);
+		
+		//test
+		Episode e = new EpisodeService().test(wNo);
+		
+		request.setAttribute("e", e);
+
+		RequestDispatcher view =request.getRequestDispatcher("views/episode/episodeList.jsp");
+				view.forward(request, response);
+	}
+		
+		
 //		ArrayList<Episode> list = new EpisodeService().selectEpisodeList(wNo); //에피소드 리스트
 //		
 //		if( e != null) {
 //			request.setAttribute("e" , e);
 //			request.setAttribute("list", list);
-//			request.getRequestDispatcher("views/episode/episodeList.jsp").forward(request, response);
+//			RequestDispatcher view =request.getRequestDispatcher("views/episode/episodeList.jsp");
+//			view.forward(request, response);
+//			
 //		} else {
 //			//에러페이지
 //		}
-		
-		ArrayList<Episode> list = new EpisodeService().selectEpisodeList(); //에피소드 리스트
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("views/episode/episodeList.jsp").forward(request, response);
 	
 	
 
 	
-	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
