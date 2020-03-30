@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
      <%@page import="java.util.ArrayList"%>
- <%@page import="com.kh.episode.model.vo.Episode"%>
-   <%@page import="com.kh.work.model.vo.Work"%>
+ <%@page import="com.kh.episode.model.vo.Episode, com.kh.episode.model.vo.EpNotice, com.kh.work.model.vo.Work"%>
  <%
- ArrayList<Episode> list = (ArrayList<Episode>)request.getAttribute("list");
+	ArrayList<Episode> list = (ArrayList<Episode>)request.getAttribute("list");
 	Work w = (Work)request.getAttribute("w");
-
+	EpNotice en = (EpNotice)request.getAttribute("en");
 %>
  
 <!DOCTYPE html>
@@ -18,14 +17,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
+  <meta charset="utf-8"> <meta name="viewport" content="width=device-width"> <title>URL 복사</title>
+
+
 
   <title>Modern Business - Start Bootstrap Template</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="resources/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="css/modern-business.css" rel="stylesheet">
+  <!-- <link href="css/modern-business.css" rel="stylesheet"> -->
 <style>
 
   .star-input>.input,
@@ -48,6 +50,12 @@ star-input>.input.focus{outline:1px dotted #ddd;}
 .star-input>.input>label[for="p4"]{width:120px;z-index:2;}
 .star-input>.input>label[for="p5"]{width:150px;z-index:1;}
 .star-input>output{display:inline-block;width:60px; font-size:18px;text-align:right; vertical-align:middle;}
+#row{
+	 width: 1000px;
+    height: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
 #heart {
       color: grey;  
       font-size: 50px;
@@ -218,6 +226,17 @@ star-input>.input.focus{outline:1px dotted #ddd;}
 	.star_rating a:first-child {margin-left:0;}
 	
 	.star_rating a.on {color:#777;}
+	
+	 #modal3 {
+      display:none;
+      background-color:#FFFFFF;
+      position:absolute;
+      top:500px;
+      left:200px;
+      padding:10px;
+      border:2px solid #E2E2E2;
+      z-Index:9999
+   }
 	</style>
 </head>
 
@@ -253,49 +272,52 @@ star-input>.input.focus{outline:1px dotted #ddd;}
       <div class="col-md-4">
         <h2 class="my-3"><%= w.getWorkTitle() %></h2>
         <h4><%= w.getGenreName() %></h4>
-       <input type="hidden"<%= w.getWorkNo() %>><p><%= w.getApprovalDate() %></p>
+       <input type="hidden"<%= w.getWorkNo() %>><p>연재일:<%= w.getApprovalDate() %></p>
         <p><button type="button" class="btn btn-secondary btn-block">첫회보기</button></p>
         
-        <ul class="clear_g list_append" style="display: flex;margin-left: auto; width: 200px;">
+        <ul class="clear_g list_append" style="display: flex;margin-left: 100px; width: 200px;">
           <li class="box_grade">
              <p class="star_rating">
 
-				<a href="#" class="on" onclick="starscore(this.value)" value="1">★</a>
+				<a href="#" class="on"  id="star1";>★</a>
 			
-				<a href="#" class="on" onclick="starscore(this.value)" value="2">★</a>
-			
-				<a href="#" class="on" onclick="starscore(this.value)" value="3">★</a>
-			
-				<a href="#" onclick="starscore(this.value)" value="4">★</a>
-			
-				<a href="#" onclick="starscore(this.value)" value="5" data-value-declared>★</a>	
+				<a href="#" class="on"  id="star2";>★</a>
 				
-
+				<a href="#" class="on"  id="star3";>★</a>
+				 
+				<a href="#"  class="on" id="star4";>★</a>
+		
+				<a href="#"  class="on" id="star5";>★</a>	
 
 			</p>
         
 	      </li>
 	      
 	    </ul>
-	   <script>
-	 function starscore(val) {
-		 //location.href="<%=contextPath%>/genre.fan?star=" + val;
-		 console.log(val);
-	 }
-	</script>
+	    <script>
+	 $('.on').click(function(){
+    var star = $(this).attr("id");
+   
+    location.href="<%=contextPath%>/star.gr?star=" + star;
+});
 	
+	 
+	</script>
     
-    <ul class="heart-share">
-      <li class="heart-share1">
-        
-      
+    <ul >
+     <li >
+     	
+	</li>
+     
+      <li>
+      		<button id='btn1' class="btn btn-secondary btn-lg">share</button>
+
       </li>
-      
-        <button id='btn1'class="btn-secondary btn-lg">Share</button>
+        
     </ul>
    
 	
-    <p><%= w.getWorkSummary() %></p>
+    <p>줄거리:<%= w.getWorkSummary() %></p>
     
       </div>
 
@@ -304,207 +326,48 @@ star-input>.input.focus{outline:1px dotted #ddd;}
 
     <!-- Related Projects Row -->
     <hr>
-    <h3 class="my-4">
-    	<p>
-    		<a class="btn_notice" href="#ex7">공지사항 </a>
-    		<input type="hidden" value="<%= w.getWorkNo() %>">
-    	</p>
-    </h3>
-        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal2"  style="background: blueviolet;height: 30px;width: 78px; float: right;">웹툰 구매</button>
- 
-			<div id="ex7" class="modal">
-  				<p>
-  				<div id="noticeno">
-				    <button type="button" class="close" data-dismiss="modal">&times;</button>
-				    <h3>공지사항</h1>
-				    
-				    <!-- 댓글 관련 영역 -->
-					<div >
-						<!-- 댓글 리스트들 보여지는 div -->
-						<div id="replyListArea">
-							<table id="replyList" border="1" align="center">
-								
-							</table>
-						</div>
-						<br><br><br><br>
-					</div>
-					
-				    <button type="button" style="color: white; background: #007AAE;height: 50px;width: 100px;text-align:center;margin-left: 38%;"" data-toggle="modal" data-dismiss="modal" data-target="#myModal3">작성</button>
-				</div>
-  				</p>
-			</div>
+    <div class="sort_comm" style="float: right;">
+     
+        <button class="btn btn-secondary btn-lg" type="button" onclick="episodelist1();">최신화부터</button>
+    
+        <button class="btn btn-secondary btn-lg" type="button" onclick="episodelist2();">첫화부터</button>
       
-    </div>
-    <div class="modal fade" id="myModal3" role="dialog">
-      <div class="modal-dialog modal-sm">
-        <div class="modal-content" style="margin-top:100px; width:600px; height: 800px;" >
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" style="float: right;">&times;</button>
-            
-			             <!-- Comments Form -->
-			        <div class="card my-4 replyArea" style=" width: max-content; margin-right: auto; margin-left: auto; width: 70%;">
-			        <% if(loginUser != null){ %>
-			          <h5 class="card-header" style="color: black;">댓글: </h5>
-			          <div class="card-body">
-			            <div class="wrap_spo">
-			              <div class="box_check">
-			                <input type="checkbox" class="inp_check" id="spoCheck">
-			                <label for="spoCheck">
-			                  <span class="ico_comm"></span>
-			                  <span class="desc_spo" style="color: black;">댓글에 스포일러가 포함된 경우 체크해 주세요.</span>
-			                </label>
-			              </div>
-			            </div>
-			            <form>
-			              <div class="form-group">
-			                <textarea class="form-control" rows="3" id="replyContent" style="resize:none;"></textarea>
-			              </div>
-			              <button type="button" class="btn btn-primary" id="addReply">등록</button>
-			            </form>
-			          </div>
-			        </div>
-					<% }else{ %>
-					 <h5 class="card-header" style="color: black;">댓글: </h5>
-			          <div class="card-body">
-			            <div class="wrap_spo">
-			              <div class="box_check">
-			                <input type="checkbox" class="inp_check" id="spoCheck">
-			                <label for="spoCheck">
-			                  <span class="ico_comm"></span>
-			                  <span class="desc_spo" style="color: black;">댓글에 스포일러가 포함된 경우 체크해 주세요.</span>
-			                </label>
-			              </div>
-			            </div>
-			            <form>
-			              <div class="form-group">
-			                <textarea class="form-control" rows="3" readonly style="resize:none; font-size: 14px;">로그인한 사용자만 가능한 서비스입니다. 로그인 후 이용해주세요</textarea>
-			              </div>
-			              <button type="button" class="btn btn-primary" disabled>등록</button>
-			            </form>
-			          </div>
-			        </div>
-			       <% } %>
-			            
-                                       
-                 <hr>
-                 <button type="button" class="btn btn-default" data-dismiss="modal" data-target="#myModal3" style="color: white; background: blueviolet;height: 50px;width: 100px;  text-align:center;">구매 완료</button> 
-   
-        </div>
-      </div>
-      </div>
-      </div>
-
-    <!-- 이중 모달 구매 모달-->
-    <div class="modal fade" id="myModal3" role="dialog">
-      <div class="modal-dialog modal-sm">
-        <div class="modal-content" style="margin-top:100px; width:600px; height: 800px;" >
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" style="float: right;">&times;</button>
-            
-            <div>
-              <table>
-                <tr>
-                  <th>
-                    <h4 class="modal-title" style="font-size:50px;"><strong>쿠키 구매</strong></h4>
-                  </th>
-                </tr>
-                <tr>
-                  <th><h5>나 혼자만 레벨업</h5></th>
-                </tr>                
-                <tr id="branchInfo">
-                  <th scope="row" id="branchInfo" class="bran">내가 가진 쿠키  </th>
-                  <td id="branchInfo"><b>9999쿠키</b></td>
-                </tr>
-                <tr id="branchInfo">
-                  <th scope="row" id="branchInfo" class="bran">이용권</th>
-                  <td id="branchInfo"><b>10 개</b></td>
-                </tr>
-              </table>
-
-            </div>
-          </div>
-          
-      <!-- 모달 지점안내 -->
-          <div class="modal-body" style="height:200px; width:400px;">
-               <table style="border:1px solid lightgray;width:100%;text-align:center;left-margin:10px;">				  
-            <tbody>
-              <div>
-                <table>
-                  <h3>이용권 충전</h3>
-               
-                  <tr id="branchInfo">
-                      <th scope="row" id="branchInfo" class="bran"><input type="radio"></th>
-                    <td id="branchInfo"><b>1쿠키</b>: 100캐시
-                      
-                    </td>
-                  </tr>
-                  <tr id="branchInfo">
-                    <th scope="row" id="branchInfo" class="bran"><input type="radio"></th>
-                  <td id="branchInfo"><b>10쿠키</b>: 900캐시
-                    
-                  </td>
-                </tr>
-                <tr id="branchInfo">
-                  <th scope="row" id="branchInfo" class="bran"><input type="radio"></th>
-                <td id="branchInfo"><b>1쿠키</b>: 100캐시
-                  
-                </td>
-              </tr>
-              <tr id="branchInfo">
-                <th scope="row" id="branchInfo" class="bran"><input type="radio"></th>
-              <td id="branchInfo"><b>1쿠키</b>: 100캐시
-                
-              </td>
-            </tr>
-            <tr id="branchInfo">
-              <th scope="row" id="branchInfo" class="bran"><input type="radio"></th>
-            <td id="branchInfo"><b>1쿠키</b>: 100캐시
-              
-            </td>
-          </tr>
-          <tr id="branchInfo">
-            <th scope="row" id="branchInfo" class="bran"><input type="radio"></th>
-          <td id="branchInfo"><b>1쿠키</b>: 100캐시
-            
-          </td>
-        </tr>
-             
-          </table>                              
-                 <hr>
-                 <button type="button" class="btn btn-default" data-dismiss="modal" data-target="#myModal3" style="color: white; background: blueviolet;height: 50px;width: 100px; float:; text-align:center;">구매 완료</button>
-            </div>
-            </tbody>
-        </table>
-          </div>
-          <div class="modal-footer">
-            <p></p>규정안내
-- 이 콘텐츠는 청약철회가 불가능한 상품으로서 결제(사용) 완료된 콘텐츠에 대한 구매 취소(청약철회)는 불가합니다.
-  단, 법정대리인의 동의가 없는 미성년자의 결제는 취소될 수 있습니다.
-- 발행자의 사정에 따라 업데이트가 지연될 수 있으며, 업데이트 지연을 이유로 한 구매 취소는 불가합니다.
-- 발행자의 의사에 따라 판매 가격이 변경될 수 있으며, 콘텐츠의 가격 변경을 이유로 한 구매 취소는 불가합니다.</p>
-          </div>
-        </div>
-      </div>
-      </div>
-      </div>
-    </h3>
-    <div class="sort_comm">
-      <strong class="screen_out">웹툰 정렬순서 선택</strong>
-      <span>
-        <input type="radio" id="sortRecent" name="wtsort" class="inp_radio">
-        <label for="sortRecent" class="label_radio">최신화부터</label>
-        
-      </span>
-      <span class="ico_commico_bar"></span>
-      <span>
-        <input type="radio" id="sortOld" name="wtsort" class="inp_radio">
-        <label for="sortOld" class="label_radio">첫화부터</label>
-        
-      </span>
 
     </div>
+		<h3>
+			<button id="noticeBtn">공지사항</button>
+		</h3>
+            
+            <!-- 공지사항 모달 -->
+            <div id="modal3">
+            <h3 align="center">공지사항</h3>
+                <table align="center">
+                   <tr>
+                      <th colspan="3"><hr></th>
+                   </tr>
+                   <tr>
+                      <th>No.</th>
+                      <th>제목</th>
+                      <th>작성일</th>
+                   </tr>
+                </table>
+                <table id="noticeList">
+                	
+                </table>
+                <textarea rows="1" cols="20"></textarea>
+                <button class="" type="button" id="Btn" align="center">글쓰기</button> 
+                <br>
+                   
+                <button class="btn btn-warning" type="submit" id="repOkBtn" align="center">확인</button>
+                <button class="btn btn-warning" type="submit" id="repXBtn" align="center">취소</button>
+                <!-- <button class="repCloseBtn">닫기</button> -->
+            </div>
+  
+    </div>
+</h3>
     <hr>
-    <div class="row">
+    <div class="row" style="margin-left: 45px; margin-right: 45px;">
+   
     
     
         <% if(list.isEmpty()){ %>
@@ -571,8 +434,8 @@ star-input>.input.focus{outline:1px dotted #ddd;}
   </footer>
 
   <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="resources/js/jquery.min.js"></script>
+  <script src="resources/js/bootstrap.bundle.min.js"></script>
 
   <!--별점 스크립트-->
   <script>var starRating = function(){
@@ -610,16 +473,9 @@ star-input>.input.focus{outline:1px dotted #ddd;}
         });
     };
     
-    starRating();</script>
-    <!-- 하트 스크립트-->
-    <script>
-      (function() {
-          const heart = document.getElementById('heart');
-          heart.addEventListener('click', function() {
-            heart.classList.toggle('red');
-          });
-        })();
-      </script>
+    starRating();
+    </script>
+    
       
       	<script>
 	$(function() {
@@ -632,151 +488,30 @@ star-input>.input.focus{outline:1px dotted #ddd;}
 	});
 	
 	</script>
-	 <p><a class="btn" href="#ex7">도달창띄우기2</a></p>
- 
-<div id="ex7" class="modal">
-  <p></p>
-</div>
- 
-<script>
-    $('a[href="#ex7"]').click(function(event) {
-      event.preventDefault();
- 
-      $(this).modal({
-        fadeDuration: 250
-      });
-    });
-</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+	
+
   <!-- Bootstrap core JavaScript -->
-  <script src="../resources/js/jquery-1.11.3.min.js"></script>
-<script src="../resources/js/star.js"></script>
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script>
+  <script src="resources/js/jquery-1.11.3.min.js"></script>
+<script src="resources/js/star.js"></script>
+  <script src="resources/js/jquery.min.js"></script>
+  <script src="resources/js/bootstrap.bundle.min.js"></script>
+<%-- <script>
 
 	
 	$(function() {
 		$(".btn_notice").click(function() {
 			var val = $(this).eq(0).next().val();
+		
 			location.href="<%=contextPath%>/notice.ep?wno=" + val;
-			
 		});
 	});
 	
-	</script>
+	</script> --%>
 	
 	<script>
-  $(function(){
-		// 소스코드 : html문서 로딩 후 바로 실행
-		//console.log("문서읽기 완료");
-	 	 selectWnlistt();
-		
-		//window.setInterval(selectReplyList, 2000);
-		
-		$("#addReply").click(function(){
-			// 댓글등록 버튼 클릭시 댓글 작성하기 기능수행하는 ajax
-			
-			// 전달할 값
-			var content = $("#replyContent").val(); // 작성된 댓글 내용
-			var wno = <%=w.getWorkNo()%>;
-			
-			if(content != ""){
-				$.ajax({
-					url:"ninsert.wr",
-					data:{
-						content:content,
-						wno:wno
-					},
-					type:"post",
-					success:function(result){
-						if(result == 1){
-							selectWnlist();
-							$("#replyContent").val("");
-						}
-					},
-					error:function(){
-						console.log("댓글 작성 ajax 통신실패!!");	
-					}					
-				});
-				
-			}else{
-				alert("댓글내용작성하세요");
-			}
-			
-			
-			
-		});
-		
-	});
-	
-		$(function() {
-			selectWnlist();
-		});
-		// 이 게시글에 딸려있는 댓글 리스트 조회하는 ajax
-		function selectWnlist(){
-			var wno = <%=w.getWorkNo()%>;
-			
-			$.ajax({
-				url:"notice.ep",
-				data:{wno:wno},
-				type:"get",
-				success:function(list){
-					//console.log(list); // 객체 배열의 형태
-					//console.log(1);
-					var value = "";
-					//for(var i=0; i<list.length; i++){
-					for(var i in list){
-						value += '<tr>' + 
-									'<td width="100px">' + list[i].memberNo + '</td>' +    
-									'<td width="100px">' + list[i].title + '</td>' +
-									'<td width="300px">' + list[i].content + '</td>' +
-									'<td width="100px">' + list[i].writeDate + '</td>' +
-								 '</tr>';
-								 
-					/* 	value +='<div class="">' +
-				          
-							          '<div class="list_cmt">' +
-							            '<span class="desc_info">' +
-							            '<strong class="txt_nick">' + list[i].memberId + '</strong>'+
-							            '<span class="txt_date">' + list[i].creationDate + '</span>'+
-							            '<span class="txt_bar"></span>' +
-							            '<button type="button" class="btn_comm_btn_report btn_report_parent">신고</button>'+
-							          	'</span>'+
-										'<textarea class="form-control" rows="3" cols="100">' + list[i].content + '</textarea>'+
-							            '</div>'+
-							          '</div>'; */
-					}
-					console.log(value);
-					
-					$("#replyList").html(value);
-					
-				},error:function(){
-					console.log("댓글 리스트 조회 ajax 통신 실패!!");
-				}
-			});
-		}
+		$('input[name=bbb]').length
 	</script>
- 	
 
-	<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
-		<script>
-			function copyToClipboard(val) {
-			  var t = document.createElement("textarea");
-			  document.body.appendChild(t);
-			  t.value = val;
-			  t.select();
-			  document.execCommand('copy');
-			  document.body.removeChild(t);
-			}
-			$('#btn1').click(function() {
-			  copyToClipboard('Hello World');
-			  alert('Copied!');
-			});
-		</script>
-		
 		<script>
 			$( ".star_rating a" ).click(function() {
 		
@@ -788,6 +523,112 @@ star-input>.input.focus{outline:1px dotted #ddd;}
 		
 			});
 	</script>
+	
+	<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script>
+			function copyToClipboard(val) {
+			  var t = document.createElement("textarea");
+			  document.body.appendChild(t);
+			  t.value = val;
+			  t.select();
+			  document.execCommand('copy');
+			  document.body.removeChild(t);
+			}
+			$('#btn1').click(function() {
+			  copyToClipboard('http://localhost:8888/semo/');
+			  alert('복사되었습니다.');
+			});
+	</script>
+	
+	 <script type="text/javascript" src="<%= request.getContextPath() %>/resources/js/modal3.js"></script>
+   <script type="text/javascript">
+      // 모달창 인스턴트 생성
+      var myModal3 = new Example.Modal({
+          id: "modal3" // 모달창 아이디 지정
+      });
+     
+      // 모달 창 여는 버튼에 이벤트 걸기
+      $("#noticeBtn").click(function() {
+          myModal3.show(); // 모달창 보여주기
+      });
+     
+      // 모달 창 안에 있는 확인 버튼에 이벤트 걸기
+      $("#repOkBtn").click(function() {
+             myModal3.hide(); // 모달창 감추기
+      });
+      
+      // 모달 창 안에 있는 취소 버튼에 이번트 걸기
+      $("#repXBtn").click(function(){
+         myModal3.hide();
+      });
+   </script>
+        
+        <!-- 공지사항 창 -->
+        <script>
+        // 이 게시글에 딸려있는 댓글 리스트 조회하는 ajax
+        $("#noticeBtn").click(function(){
+			var wno = <%= w.getWorkNo()%>;
+			   
+
+		function selectWnList(){
+			
+			$.ajax({
+				url:"notice.ep",
+				data:{wno:wno},
+				type:"get",
+				success:function(list){
+					console.log(list); // 객체 배열의 형태
+					
+					var value = "";
+					//for(var i=0; i<list.length; i++){
+					for(var i in list){
+						value += '<tr>' + 
+									'<td width="50px">' + list[i].noticeNo + '</td>' +    
+									'<td width="100px">' + list[i].title + '</td>' +
+									'<td width="200px">' + list[i].content+ '</td>' +
+									'<td width="100px">' + list[i].writerDate + '</td>' +
+								 '</tr>';
+					}
+					
+					$("#noticeList").html(value);
+					
+				},error:function(){
+					console.log("댓글 리스트 조회 ajax 통신 실패!!");
+				}
+			});
+		}
+	});
+	</script>
+	<%-- 
+	<script>
+	 function noticeList(val) {
+		 location.href="<%=contextPath%>/notice.ep?wno=" + val;
+	 }
+	</script> --%>
+	<script>
+	$(function() {
+		$(".divWork").click(function() {
+			var val = $(this).children().children().eq(0).val();
+			location.href="<%=contextPath%>/view.se?wno=" + val;
+		});
+	});
+	
+	</script>
+	
+	 <script>
+	 function episodelist1() {
+		 location.href="<%=contextPath%>/episo.de?wno=<%=w.getWorkNo()%>";
+		 
+	 }
+	</script>
+	<script>
+	 function episodelist2() {
+		 location.href="<%=contextPath%>/episo.as?wno=<%=w.getWorkNo()%>";
+		 
+	 }
+	</script>
+	
+	
 </body>
 
 </html>

@@ -21,6 +21,8 @@
 	<link rel="shortcut icon" href="#">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Gugi&display=swap" rel="stylesheet">
 	<script>
 	function loginValidate(){
 		if($("#userId").val().trim().length == 0){
@@ -46,10 +48,10 @@
 	</style>
 </head>
 <body>
-	<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-info fixed-top">
+	<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-white fixed-top">
 		<div class="container" style="margin:auto; padding:10px;">
 			<img alt="" src="<%=contextPath%>/resources/images/globe.png" width="4%" height="4%"> &nbsp;&nbsp;
-			<a class="navbar-brand" href="<%=contextPath %>">세모웹툰</a>
+			<a class="navbar-brand" style="color:black; font-size:1.5em; font-family: 'Gugi'" href="<%=contextPath %>">세모웹툰</a>
 			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -57,8 +59,8 @@
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 		
 			<ul class="navbar-nav">
-				<a class="nav-link" href="<%=request.getContextPath()%>/list.week" style="float:left;">연재</a>
-				<div class="nav-link" onclick="semoBoard();" style="cursor:pointer;">세모게시판</div>	
+				<a class="nav-link" href="<%=request.getContextPath()%>/list.week" style="float:left; color:#17a2b8">연재</a>
+				<div class="nav-link" onclick="semoBoard();" style="cursor:pointer; color:#17a2b8">세모게시판</div>	
       		</ul>
       		
 			<ul class="navbar-nav ml-auto">
@@ -130,7 +132,7 @@
 	            <a class="nav-link dropdown-toggle" href="#" id="test2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="height:41px;">
 	                <div class="media comment_area2" style="margin-top: 0px;">
 	                    <img class="userImg" src="<%=contextPath%>/resources/images/defaultIcon.png" width="25px" height="25px" margin-left="2px">
-	                    <div class="media-body">
+	                    <div class="media-body"  style="color:black">&nbsp;
 	                      <%=loginUser.getMemberName() %>
 	                    </div>
 	                </div>

@@ -4,16 +4,20 @@ import java.sql.Date;
 
 public class QNA {
 	
-	private int qnaNo;					// 문의글 분류번호
+	private int qnaNo;					// 문의글 번호
 	private String qnaTitle;			// 문의 제목
 	private String qnaContent;			// 문의 내용
 	private String qnaAnswerState;		// 문의 상태
 	private String qnaAnswerContent;	// 답변 내용	
 	private Date qnaAnswerDate;			// 답변 등록 날짜
-	private int qnaContentNo;			// 문의글 번호
+	private int qnaContentNo;			// 문의글 분류 번호
 	private Date qnaDate;				// 문의 작성일
 	private int memberNo;				// 문의한 회원 번호
+	
 	private int listNo;
+	
+	//LSH
+	private String memberId;			// 문의한 회원 아이디
 	
 	public QNA() {
 		
@@ -102,6 +106,14 @@ public class QNA {
 	}
 	public void setListNo(int listNo) {
 		this.listNo = listNo;
+	}
+
+	public String getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 
 	@Override

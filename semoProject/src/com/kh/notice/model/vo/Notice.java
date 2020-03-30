@@ -20,6 +20,14 @@ public class Notice {
 		this.noticeDate = noticeDate;
 	}
 	
+	// LSH 공지사항 수정용 
+	public Notice(int noticeNo, String noticeTitle, String noticeContent) {
+		super();
+		this.noticeNo = noticeNo;
+		this.noticeTitle = noticeTitle;
+		this.noticeContent = noticeContent;
+	}
+
 	public Notice(int noticeNo, String noticeTitle, String noticeContent, Date noticeDate) {
 		super();
 		this.noticeNo = noticeNo;

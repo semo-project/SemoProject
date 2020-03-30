@@ -380,10 +380,7 @@ public int insertWorkGenre(Connection conn, int[]genre) {
 								  rset.getString("EPISODE_TITLE")));
 								 	
 			}
-//			for(Episode w : list) {
-//				System.out.println(w);
-//			}
-				
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -1139,5 +1136,83 @@ public int insertWorkGenre(Connection conn, int[]genre) {
 		}
 		
 		return newW;
+	}
+
+	public ArrayList<Episode> episodeDesc(Connection conn, int wno) {
+		ArrayList<Episode> list = new ArrayList<>();
+		
+		PreparedStatement  pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = "SELECT EPISODE_NO, E.APPROVAL_DATE, VIEWS_CNT, WORK_TITLE, EPISODE_TITLE FROM TB_WORK W JOIN TB_EPISODE E USING(WORK_NO) WHERE WORK_NO = ? ORDER BY EPISODE_NO DESC";
+		System.out.println(sql);
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, wno);
+			
+			rset = pstmt.executeQuery();		
+			
+			
+			
+			while(rset.next()) {
+				list.add(new Episode(rset.getInt("EPISODE_NO"),
+								  rset.getDate("APPROVAL_DATE"),
+								  rset.getInt("VIEWS_CNT"),
+								  rset.getString("WORK_TITLE"),
+								  rset.getString("EPISODE_TITLE")));
+								 	
+			}
+			
+				System.out.println(list);
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	
+	}
+
+	public ArrayList<Episode> episodeAsc(Connection conn, int wno) {
+		ArrayList<Episode> list = new ArrayList<>();
+		
+		PreparedStatement  pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = "SELECT EPISODE_NO, E.APPROVAL_DATE, VIEWS_CNT, WORK_TITLE, EPISODE_TITLE FROM TB_WORK W JOIN TB_EPISODE E USING(WORK_NO) WHERE WORK_NO = ? ORDER BY EPISODE_NO ASC";
+		System.out.println(sql);
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, wno);
+			
+			rset = pstmt.executeQuery();		
+			
+			
+			
+			while(rset.next()) {
+				list.add(new Episode(rset.getInt("EPISODE_NO"),
+								  rset.getDate("APPROVAL_DATE"),
+								  rset.getInt("VIEWS_CNT"),
+								  rset.getString("WORK_TITLE"),
+								  rset.getString("EPISODE_TITLE")));
+								 	
+			}
+			
+				System.out.println(list);
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	
 	}
 }

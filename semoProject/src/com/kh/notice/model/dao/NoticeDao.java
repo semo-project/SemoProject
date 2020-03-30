@@ -87,8 +87,83 @@ public class NoticeDao {
 		return result;
 	}
 	
+	public Notice getAdminNotice(Connection conn, int no) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		Notice n = null;
+		
+		String sql = prop.getProperty("getAdminNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				n = new Notice();
+				
+				n.setNoticeTitle(rset.getString("notice_title"));
+				n.setNoticeNo(rset.getInt("notice_no"));
+				n.setNoticeContent(rset.getString("notice_content"));
+				n.setNoticeDate(rset.getDate("notice_date"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return n;		
+	}	
 	
+	public int adminUpdateNotice(Connection conn, Notice n) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("adminUpdateNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, n.getNoticeTitle());
+			pstmt.setString(2, n.getNoticeContent());
+			pstmt.setInt(3, n.getNoticeNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 	
+	public int adminDeleteNotice(Connection conn, int no) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("adminDeleteNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, no);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 
 }
 
