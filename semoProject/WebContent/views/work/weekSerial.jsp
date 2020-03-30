@@ -19,7 +19,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Modern Business - Start Bootstrap Template</title>
+  <title>세모웹툰</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
   <!-- Bootstrap core CSS -->
   <link href="<%= request.getContextPath() %>/resources/css/bootstrap.min.css" rel="stylesheet">
@@ -80,13 +80,13 @@
        
       </div>
       <div class="lzTab" role="tablist" data-ga-event-category="연재_UI_요일">
-        <button type="button" class="btn btn-dark " onclick="weekday(this.value)" value="월" id="dayButton">월</button>
-        <button type="button" class="btn btn-dark " onclick="weekday(this.value)" value="화" id="dayButton">화</button>
-        <button type="button" class="btn btn-dark " onclick="weekday(this.value)" value="수" id="dayButton">수</button>
-        <button type="button" class="btn btn-dark " onclick="weekday(this.value)" value="목" id="dayButton">목</button>
-        <button type="button" class="btn btn-dark " onclick="weekday(this.value)" value="금" id="dayButton">금</button>
-        <button type="button" class="btn btn-dark " onclick="weekday(this.value)" value="토" id="dayButton">토</button>
-        <button type="button" class="btn btn-dark " onclick="weekday(this.value)" value="일" id="dayButton">일</button>
+        <button type="button" class="btn btn-info " onclick="weekday(this.value)" value="월" id="dayButton">월</button>
+        <button type="button" class="btn btn-info " onclick="weekday(this.value)" value="화" id="dayButton">화</button>
+        <button type="button" class="btn btn-info " onclick="weekday(this.value)" value="수" id="dayButton">수</button>
+        <button type="button" class="btn btn-info " onclick="weekday(this.value)" value="목" id="dayButton">목</button>
+        <button type="button" class="btn btn-info " onclick="weekday(this.value)" value="금" id="dayButton">금</button>
+        <button type="button" class="btn btn-info " onclick="weekday(this.value)" value="토" id="dayButton">토</button>
+        <button type="button" class="btn btn-info " onclick="weekday(this.value)" value="일" id="dayButton">일</button>
        	 
      
       </div>

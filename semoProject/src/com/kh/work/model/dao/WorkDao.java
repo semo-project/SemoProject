@@ -1215,4 +1215,28 @@ public int insertWorkGenre(Connection conn, int[]genre) {
 		return list;
 	
 	}
+
+	public int starinsert(Connection conn, Work w) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("starinsert");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, w.getWorkNo());
+			pstmt.setInt(2, w.getWriterNo()); 
+			pstmt.setString(3, w.getStarGrade()); 
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 }

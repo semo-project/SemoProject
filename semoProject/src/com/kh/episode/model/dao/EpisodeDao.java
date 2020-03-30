@@ -465,6 +465,11 @@ public class EpisodeDao {
 		
 	}
 
+	public int starinsert(Connection conn, String star) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 
 
 }

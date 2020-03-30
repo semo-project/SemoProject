@@ -17,11 +17,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <meta charset="utf-8"> <meta name="viewport" content="width=device-width"> <title>URL 복사</title>
+  <meta charset="utf-8"> <meta name="viewport" content="width=device-width"> <title>세모웹툰</title>
 
 
 
-  <title>Modern Business - Start Bootstrap Template</title>
+  <title>세모웹툰</title>
 
   <!-- Bootstrap core CSS -->
   <link href="resources/css/bootstrap.min.css" rel="stylesheet">
@@ -258,7 +258,7 @@ star-input>.input.focus{outline:1px dotted #ddd;}
       <li class="breadcrumb-item">
         <a href="index.html">Home</a>
       </li>
-      <li class="breadcrumb-item active">Portfolio Item</li>
+      <li class="breadcrumb-item active"><%= w.getWorkTitle() %></li>
     </ol>
 
     <!-- Portfolio Item Row -->
@@ -273,8 +273,8 @@ star-input>.input.focus{outline:1px dotted #ddd;}
         <h2 class="my-3"><%= w.getWorkTitle() %></h2>
         <h4><%= w.getGenreName() %></h4>
        <input type="hidden"<%= w.getWorkNo() %>><p>연재일:<%= w.getApprovalDate() %></p>
-        <p><button type="button" class="btn btn-secondary btn-block">첫회보기</button></p>
-        
+        <p><button type="button" class="btn btn-secondary btn-block" onClick="location.href= 'http://localhost:8888/semo/episode.de?eNo=1'">첫회보기</button></p>
+        <% if(loginUser != null){ %>
         <ul class="clear_g list_append" style="display: flex;margin-left: 100px; width: 200px;">
           <li class="box_grade">
              <p class="star_rating">
@@ -288,18 +288,35 @@ star-input>.input.focus{outline:1px dotted #ddd;}
 				<a href="#"  class="on" id="star4";>★</a>
 		
 				<a href="#"  class="on" id="star5";>★</a>	
-
+				
+				<%if(loginUser != null){ %>
+				<input type="hidden" id="tttt" value="<%= loginUser.getMemberNo() %>">
+				<%}else{ %>
+				<input type="hidden" id="tttt" value="">
+				<%} %>
 			</p>
-        
 	      </li>
-	      
 	    </ul>
+	    <% }else{ %>
+	    <ul class="clear_g list_append" style="display: flex;margin-left: 100px; width: 200px;">
+          <li class="box_grade">
+             <p class="star_rating">
+
+			
+			</p>
+	      </li>
+	    </ul>
+	    <% } %>
 	    <script>
 	 $('.on').click(function(){
-    var star = $(this).attr("id");
-   
-    location.href="<%=contextPath%>/star.gr?star=" + star;
-});
+	    var star = $(this).attr("id");
+	    
+	    if($("#tttt").val() != ""){
+		    location.href="<%=contextPath%>/star.gr?star=" + star + "&wno=<%= w.getWorkNo() %>" +"&mno=" + $("#tttt").val();
+	    }
+	   
+	    
+	});
 	
 	 
 	</script>
@@ -328,14 +345,14 @@ star-input>.input.focus{outline:1px dotted #ddd;}
     <hr>
     <div class="sort_comm" style="float: right;">
      
-        <button class="btn btn-secondary btn-lg" type="button" onclick="episodelist1();">최신화부터</button>
+        <button class="btn btn-dark" type="button" onclick="episodelist1();">최신화부터</button>
     
-        <button class="btn btn-secondary btn-lg" type="button" onclick="episodelist2();">첫화부터</button>
+        <button class="btn btn-dark" type="button" onclick="episodelist2();">첫화부터</button>
       
 
     </div>
 		<h3>
-			<button id="noticeBtn">공지사항</button>
+			<button id="noticeBtn" class="btn btn-dark">공지사항</button>
 		</h3>
             
             <!-- 공지사항 모달 -->
@@ -366,7 +383,7 @@ star-input>.input.focus{outline:1px dotted #ddd;}
     </div>
 </h3>
     <hr>
-    <div class="row" style="margin-left: 45px; margin-right: 45px;">
+    <div class="row" style="margin-left: 80px; margin-right: 80px;">
    
     
     
