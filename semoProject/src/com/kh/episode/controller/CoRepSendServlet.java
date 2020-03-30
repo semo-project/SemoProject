@@ -1,7 +1,7 @@
 package com.kh.episode.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,21 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.kh.episode.model.service.EpisodeService;
-import com.kh.episode.model.vo.EpNotice;
 
 /**
- * Servlet implementation class EpNoticeListServlet
+ * Servlet implementation class CoRepSendServlet
  */
-@WebServlet("/notice.ep")
-public class EpNoticeListServlet extends HttpServlet {
+@WebServlet("/comRepSend.ep")
+public class CoRepSendServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EpNoticeListServlet() {
+    public CoRepSendServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,16 +31,16 @@ public class EpNoticeListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int wno = Integer.parseInt(request.getParameter("wno"));
-		//System.out.println(wno);
-	
-		ArrayList<EpNotice> list = new EpisodeService().selectWnList(wno);	
-		response.setContentType("application/json; charset=utf-8");
-		
-		System.out.println(list);
-		Gson gson = new Gson();
-		gson.toJson(list, response.getWriter());
-	}
+			int comRepNo = Integer.parseInt(request.getParameter("comReportNo"));
+			String comRepRadio = request.getParameter("comRepRadio");
+			String comRepContent = request.getParameter("comRepContent");
+			int memberNo = Integer.parseInt(request.getParameter("memberNo"));
+			
+			int result = new EpisodeService().coRepSend(comRepNo, comRepRadio, comRepContent, memberNo);
+			
+			PrintWriter out = response.getWriter();
+			out.print(result);
+		}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

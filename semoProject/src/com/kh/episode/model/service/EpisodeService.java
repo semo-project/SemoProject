@@ -4,7 +4,8 @@ import static com.kh.common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import com.kh.episode.model.vo.Comment;
+import com.kh.episode.model.vo.Commentep;
+import com.kh.episode.model.vo.Commentep;
 import com.kh.episode.model.vo.EpNotice;
 import com.kh.episode.model.vo.Episode;
 import com.kh.episode.model.vo.Reply;
@@ -234,7 +235,35 @@ public class EpisodeService {
 		Episode e = new EpisodeDao().test(conn, wNo);
 		return e;
 	}
+	/**
+	 * 댓글 신고창
+	 * @param comReportNo
+	 * @param commentWriter
+	 * @param commentContent
+	 * @return
+	 */
+	public Commentep coReportInfo(int comReportNo, String commentWriter, String commentContent) {
+		Connection conn = getConnection();
+		
+		Commentep c = new EpisodeDao().coReportInfo(conn, comReportNo, commentWriter, commentContent);
+		
+		close(conn);
+		
+		return c;
+	}
+	
+	//댓글 신고기능
+	public int coRepSend(int comRepNo, String comRepRadio, String comRepContent, int memberNo) {
+		Connection conn = getConnection();
+		
+		int result = new EpisodeDao().coRepSend(conn, comRepNo, comRepRadio, comRepContent, memberNo);
+		
+		close(conn);
+		
+		return result;
+	}
 
+	
 
 	
 } 
