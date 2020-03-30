@@ -31,10 +31,18 @@ public class Comment {
 		this.hateCnt = hateCnt;
 		this.status = status;
 	}
-
+	
+	//댓글 신고하기 위해 정보 가져오는 생성자
+	public Comment(String commentWriter, String commentContent) {
+		super();
+		this.commentWriter = commentWriter;
+		this.commentContent = commentContent;
+	}
+	
 	public int getCommentNo() {
 		return commentNo;
 	}
+
 
 	public void setCommentNo(int commentNo) {
 		this.commentNo = commentNo;

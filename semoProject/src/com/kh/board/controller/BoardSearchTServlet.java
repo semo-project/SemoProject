@@ -1,27 +1,23 @@
-package com.kh.member.controller;
+package com.kh.board.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.member.model.service.MemberService;
-
 /**
- * Servlet implementation class EnrollIdCheckServlet
+ * Servlet implementation class BoardSearchTServlet
  */
-@WebServlet("/enrollIdCheck.me")
-public class EnrollIdCheckServlet extends HttpServlet {
+@WebServlet("/boardSearchT.bo")
+public class BoardSearchTServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EnrollIdCheckServlet() {
+    public BoardSearchTServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,13 +26,7 @@ public class EnrollIdCheckServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String memberId = request.getParameter("memberId");
-		
-		int result = new MemberService().enIdCheck(memberId);
-		
-		PrintWriter out = response.getWriter();
-		out.print(result);
+		request.getRequestDispatcher("views/board/boardSearchList.jsp").forward(request, response);
 	}
 
 	/**

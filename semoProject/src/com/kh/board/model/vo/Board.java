@@ -89,6 +89,16 @@ public class Board {
 		this.boardWriteDate = boardWriteDate;
 	}
 	
+	
+
+	public Board(int boardNo, String boardTitle, String boardWriter, Date boardWriteDate) {
+		super();
+		this.boardNo = boardNo;
+		this.boardTitle = boardTitle;
+		this.boardWriter = boardWriter;
+		this.boardWriteDate = boardWriteDate;
+	}
+
 	public int getBoardNo() {
 		return boardNo;
 	}

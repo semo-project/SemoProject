@@ -273,12 +273,28 @@ public class MemberDao {
 	}
 	
 	public int enIdCheck(Connection conn, String memberId) {
+		int result = 0;
+		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		int result = 0;
-		
 		String sql = prop.getProperty("enrollIdCheck");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
 		
 		return result;
 	}

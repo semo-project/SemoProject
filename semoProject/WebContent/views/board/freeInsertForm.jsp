@@ -65,13 +65,13 @@
 	<!-- 사이드바 -->
 	<div class="sidebar">
 		<!-- Page Heading/Breadcrumbs -->
-	    <h1 class="mt-4 mb-3">
+	    <h1 class="mt-4 mb-3">그림게시판
 	      <!-- <small>Subheading</small> -->
 	    </h1>
 	
 	    <ol class="breadcrumb">
 	      <li class="breadcrumb-item">
-	        <a href="boardList.bo">세모게시판</a> > <a href="boardList.bo">웹툰 TalkTalk</a>
+	        <a href="freeList.bo">세모게시판</a> > <a href="freeList.bo">수다수다 유머방</a>
 	      </li>
 	    </ol>
 	
@@ -102,7 +102,7 @@
           </table>
 	</div>
 	
-	<form id="insertForm" action="<%=contextPath%>/insertWebTalk.bo" method="post">
+	<form id="insertForm" action="<%=contextPath%>/insertFree.bo" method="post">
 		<table align="center">
 			<tr>
 				<th>제목</th>
@@ -118,7 +118,7 @@
 		</table>
 		
 		<div class="btns" align="center">
-			<button type="button" onclick="location.href='boardList.bo'">취소</button>
+			<button type="button" onclick="location.href='freeList.bo'">취소</button>
 			<button type="submit">작성</button>
 		</div>
 		

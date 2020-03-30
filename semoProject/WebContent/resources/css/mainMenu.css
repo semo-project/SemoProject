@@ -101,7 +101,6 @@
     color: #333;
     font-size: 14px;
     font-weight: 500;
-    text-decoration: underline;
   }
   .login__links>a:nth-child(2) {
       float: right;
@@ -117,6 +116,7 @@
     font-size: 14px;
   }
   #member_join{
+  	text-decoration:none;
     margin-left: 4%;
   }
   .login_driver{

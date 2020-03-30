@@ -93,14 +93,6 @@
 		              <div class="loginArea">
 		                <input type="password" id="userPwd" placeholder="비밀번호">
 		              </div>
-		              <div class="loginArea">
-		                <label class="logCheck"> 
-		                  <input type="checkbox" name="remember_me" >
-		                  <i>
-		                                     로그인 상태 유지
-		                  </i>
-		                </label>
-		              </div>
 		              <div class="loginBtn">
 		                <button type="submit" class="lgBtn lgbtn-major lgBtn-wide lgBtn-mid">로그인</button>
 		              </div>
@@ -111,8 +103,6 @@
 		              <div class="login_driver">
 		                <span>또는</span>
 		              </div>
-		              <button type="button" class="account_btn account_btn-naver oauth-connect" data-service="naver">네이버로 로그인 / 가입</button>
-		              <button type="button" class="account_btn account_btn-kakao oauth-connect" data-service="kakao">카카오로 로그인 / 가입</button>
 		
 		              <p class="account_help">
 		                "

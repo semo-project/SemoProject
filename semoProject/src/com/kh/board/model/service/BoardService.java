@@ -210,6 +210,179 @@ public class BoardService {
 		
 		return list;
 	}
+	
+	public int boardReport(String reportRadio, String reportContent, int boardNo, int reporterNo, String boardWriter) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().boardReport(conn, reportRadio, reportContent, boardNo, reporterNo, boardWriter);
+		
+		close(conn);
+		
+		return result;
+		
+	}
+	
+	public Comment comReportInfo(int comReportNo, String commentWriter, String commentContent) {
+		Connection conn = getConnection();
+		
+		Comment c = new BoardDao().comReportInfo(conn, comReportNo, commentWriter, commentContent);
+		
+		close(conn);
+		
+		return c;
+	}
+	
+	//댓글 신고기능
+	public int comRepSend(int comRepNo, String comRepRadio, String comRepContent, int memberNo) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().comRepSend(conn, comRepNo, comRepRadio, comRepContent, memberNo);
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	// 게시판 검색기능
+	
+	public ArrayList<Board> boardSearch(String searchContent){
+		Connection conn = getConnection();
+		
+		ArrayList<Board> list = new BoardDao().boardSearch(conn, searchContent);
+		
+		close(conn);
+		
+		return list;
+	}
+	
+	public ArrayList<Board> boardWSearch(String searchContent){
+		Connection conn = getConnection();
+		
+		ArrayList<Board> list = new BoardDao().boardWSearch(conn, searchContent);
+		
+		close(conn);
+		
+		return list;
+	}
+	
+	public ArrayList<Board> boardCSearch(String searchContent){
+		Connection conn = getConnection();
+		
+		ArrayList<Board> list = new BoardDao().boardCSearch(conn, searchContent);
+		
+		close(conn);
+		
+		return list;
+	}
+	
+	public int insertfreeBoard(Board b) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().insertfreeBoard(conn, b);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	public Board freeDetail(int boardNo) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().freeCount(conn, boardNo);
+		
+		Board b = null;
+		if(result > 0) {
+			b = new BoardDao().freeDetail(conn, boardNo);
+			
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return b;
+	}
+	
+	// 수정하고싶은 수다수다 게시글 선택
+	public Board selectUpdateFree(int boardNo) {
+		Connection conn = getConnection();
+		
+		Board b = new BoardDao().freeDetail(conn, boardNo);
+		
+		close(conn);
+		
+		return b;
+	}
+	
+	public int updateFree(Board b) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().updateFree(conn, b);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int deleteFree(int boardNo) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().deleteFree(conn, boardNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	public ArrayList<Board> freeSearch(String searchContent){
+		Connection conn = getConnection();
+		
+		ArrayList<Board> list = new BoardDao().freeSearch(conn, searchContent);
+		
+		close(conn);
+		
+		return list;
+	}
+	
+	public ArrayList<Board> freeWSearch(String searchContent){
+		Connection conn = getConnection();
+		
+		ArrayList<Board> list = new BoardDao().freeWSearch(conn, searchContent);
+		
+		close(conn);
+		
+		return list;
+	}
+	
+	public ArrayList<Board> freeCSearch(String searchContent){
+		Connection conn = getConnection();
+		
+		ArrayList<Board> list = new BoardDao().freeCSearch(conn, searchContent);
+		
+		close(conn);
+		
+		return list;
+	}
+	
 	///////////////////////////////////////////////////////////////////
 	// KJY
 	public int countList(int userNo) {
