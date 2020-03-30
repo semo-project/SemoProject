@@ -9,21 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.kh.episode.model.service.EpisodeService;
-import com.kh.episode.model.vo.EpNotice;
+import com.kh.episode.model.vo.Episode;
+import com.kh.work.model.service.WorkService;
+import com.kh.work.model.vo.Work;
 
 /**
- * Servlet implementation class EpNoticeListServlet
+ * Servlet implementation class EpisodeAscServlet
  */
-@WebServlet("/notice.ep")
-public class EpNoticeListServlet extends HttpServlet {
+@WebServlet("/episo.as")
+public class EpisodeAscServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EpNoticeListServlet() {
+    public EpisodeAscServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,18 +32,26 @@ public class EpNoticeListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		int wno = Integer.parseInt(request.getParameter("wno"));
 		
 		System.out.println(wno);
-		ArrayList<EpNotice> list = new EpisodeService().selectWnList(wno);	
-		response.setContentType("application/json; charset=utf-8");
+		Work w = new WorkService().selectSerial(wno);
 		
-		System.out.println(list);
-		Gson gson = new Gson();
-		gson.toJson(list, response.getWriter());
+		ArrayList<Episode> list = new WorkService().episodeAsc(wno);
+		
+		if(w != null) {
+			request.setAttribute("w", w);
+			request.setAttribute("list", list);
+			
+			request.getRequestDispatcher("views/episode/episodeview.jsp").forward(request, response);
+			
+		}else {
+			request.setAttribute("msg", "웹툰 상세조회 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
+		
+		
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

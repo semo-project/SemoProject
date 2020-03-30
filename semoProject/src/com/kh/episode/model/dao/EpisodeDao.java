@@ -319,7 +319,7 @@ public class EpisodeDao {
 		Statement stmt = null;
 		int result = 0;
 		
-		System.out.println(no);
+		
 		String sql = "UPDATE TB_EPISODE SET APPROVAL_STATUS = 'Y', APPROVAL_DATE = SYSDATE WHERE EPISODE_NO IN (" + no + ")";
 		
 		try {
@@ -445,15 +445,15 @@ public class EpisodeDao {
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				EpNotice n = new EpNotice();
-				n.setNoticeNo(rset.getInt("noticeNo"));
-				n.setMemberNo(rset.getInt("memberNo"));
+				n.setNoticeNo(rset.getInt("notice_No"));
 				n.setTitle(rset.getString("title"));
 				n.setContent(rset.getString("content"));
-				n.setWriterDate(rset.getDate("writerDate"));
+				n.setWriterDate(rset.getDate("writer_Date"));
 			
 				
 				list.add(n);
 			}
+			System.out.println(list);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -464,5 +464,7 @@ public class EpisodeDao {
 		return list;
 		
 	}
+
+
 
 }

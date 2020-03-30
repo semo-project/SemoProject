@@ -33,14 +33,13 @@ public class EpisodeService {
 
 	
 	public Episode episodeDetail(int eno) {
-		
 		Connection conn = getConnection();
 		
 		Episode e = new EpisodeDao().episodeDetail(conn, eno);
 		
 		
 		close(conn);
-
+		
 		return e;
 	}
 	
@@ -242,4 +241,5 @@ public class EpisodeService {
 		
 		return e;
 	}
+	
 } 

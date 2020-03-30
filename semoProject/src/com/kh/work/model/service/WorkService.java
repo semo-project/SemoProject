@@ -485,4 +485,24 @@ public class WorkService {
 		
 		return w;
 	}
+
+	public ArrayList<Episode> episodeDesc(int wno) {
+		Connection conn = getConnection();
+		
+		ArrayList<Episode> list = new WorkDao().episodeDesc(conn,wno);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public ArrayList<Episode> episodeAsc(int wno) {
+		Connection conn = getConnection();
+		
+		ArrayList<Episode> list = new WorkDao().episodeAsc(conn,wno);
+		
+		close(conn);
+		
+		return list;
+	}
 }
