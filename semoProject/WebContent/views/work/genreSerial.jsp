@@ -4,7 +4,7 @@
 <%@page import="com.kh.work.model.vo.PageInfo" %>
 <%@page import="com.kh.work.model.vo.Work"%>    
 <%
-	String contextPath = request.getContextPath();
+	
 	ArrayList<Work> list = (ArrayList<Work>)request.getAttribute("list");
 %>
 <!DOCTYPE html>
@@ -62,73 +62,7 @@
 <body>
 
    <!-- Navigation -->
-<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
-  <div class="container">
-    <a class="navbar-brand" href="http://localhost:8888/semo/">세모웹툰</a>
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="http://localhost:8888/semo/">연재</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="services.html">세모게시판</a>
-        </li>
-        <li class="nav-item">
-            <input id="searchform" type="text" name="search" placeholder="웹툰명을 입력해주세요">
-            <input id="searchbtn" type="submit" value="검색">
-        </li>
-        
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="test2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            로그인
-          </a>
-          <div class="dropdown-menu dropdown-menu-center" aria-labelledby="test2"> 
-            <div class="loginArea" id="loginLogo" style="text-align: left;">로그인</div>
-            <div class="loginArea">
-              <input type="text" id="userId" placeholder="아이디">
-            </div>
-            <div class="loginArea">
-              <input type="password" id="userPwd" placeholder="비밀번호">
-            </div>
-            <div class="loginArea">
-              <label class="logCheck"> 
-                <input type="checkbox" name="remember_me" >
-                <i>
-                  로그인 상태 유지
-                </i>
-              </label>
-            </div>
-            <div class="loginBtn">
-              <button type="submit" class="lgBtn lgbtn-major lgBtn-wide lgBtn-mid" disabled>로그인</button>
-            </div>
-            <div class="login_links">
-              <a id="member_join" href="member_join.html">회원가입</a>
-              <a id="id_pw_find" href="id_pwd_find.html">아이디/비밀번호 찾기</a>
-            </div>
-            <div class="login_driver">
-              <span>또는</span>
-            </div>
-            <button type="button" class="account_btn account_btn-naver oauth-connect" data-service="naver">네이버로 로그인 / 가입</button>
-            <button type="button" class="account_btn account_btn-kakao oauth-connect" data-service="kakao">카카오로 로그인 / 가입</button>
- 
-            <p class="account_help">
-              "
-                  이용 중 도움이 필요하시면 ["
-              <a href="ko/help">고객지원</a>
-              "] 페이지로, 로그인에 문제가 있다면 "
-              <a href="semo:help@semo.com">semohelp@semo.com</a>
-              "으로 문의해 주세요.
-              "
-            </p>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </div>
- </nav>
+  <%@ include file="../common/menubar.jsp" %>
 
   <!-- Page Content -->
  
@@ -138,8 +72,7 @@
  <div class="lzTab-hor" role="tablist" data-ga-event-category="연재_UI_종류" style="display: inline-flex;">
         <p style="padding-right: 30px;"><button  type="button" class="btn btn-secondary btn-lg" onclick="week()">요일별</button></p>
         <p style="padding-right: 30px;"><button  type="button" class="btn btn-secondary btn-lg" onclick="genre()">장르별</button></p>
-        <p style="padding-right: 30px;"><button type="button" class="btn btn-secondary btn-lg" data-tab="3" role="tab" aria-controls="publish_category-3" data-go-on="click" data-ga-event-action="click_tab" data-ga-event-label="탭_작품별">작품별</button></p>
-        <p style="padding-right: 30px;"><button type="button" class="btn btn-secondary btn-lg" data-tab="4" role="tab" aria-controls="publish_category-4" data-go-on="click" data-ga-event-action="click_tab" data-ga-event-label="탭_작가별">작가별</button></p>
+       
       </div>
       <div class="lzTab" role="tablist" data-ga-event-category="연재_UI_장르">
      
