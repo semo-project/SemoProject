@@ -33,11 +33,7 @@ Example.Modal.prototype = {
  
     // Hash 변수정의
     getHashData : function(hash) {
-
-        if(typeof(hash.id) == "undefined") hash.id = "modal2"; // 개체 아이디
-
         if(typeof(hash.id) == "undefined") hash.id = "modal"; // 개체 아이디
-
         if(typeof(hash.is_slide) == "undefined") hash.is_slide = 0; // 슬라이딩 여부
  
         return hash;

@@ -171,7 +171,7 @@
 	  			}
 	  		});
   		}
-  		console.log(nickName);
+  		
   	}
   </script>
   

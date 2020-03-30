@@ -16,6 +16,7 @@
 	
 	// 신고 확인 후 메시지
 	String confirmMessage = (String)session.getAttribute("confirmMessage");
+	
 %>
 
 <!DOCTYPE html>
@@ -76,7 +77,8 @@
 	                                                <td data-toggle="modal" data-target="#reportModal" data-comment="<%=r.getCommentContent()%>" 
 																								   	   data-group="<%=r.getReportClassName()%>" 
 																								       data-content="<%=r.getReportContent()%>"
-																								       data-boardNo="<%=r.getWritingNo()%>"
+																								       data-board="<%=r.getWritingNo()%>"
+																								       data-groupclass="<%=r.getReportGroupNo() %>"
 														style="color:blue; cursor:pointer;">
 														<%=r.getMemberId() %>
 													</td>
@@ -224,7 +226,7 @@
                         </table>                        
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">댓글 원문 보러가기</button>
+                        <button type="button" class="btn btn-primary" id="goBoard">댓글 원문 보러가기</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">확인</button>                        
                         <!-- <button type="button" class="btn btn-primary" id="close_modal">다른 방식으로 모달 닫기</button> -->
                     </div>
@@ -247,8 +249,8 @@
 
         <script>
             $(function() {
-            	var boardNo = "";
-				var groupName = "";
+            	var boardNo;
+				var groupClass;
 				var msg = "<%=confirmMessage%>";
 				
             	// 모달
@@ -263,6 +265,8 @@
                 	modal.find(".board-content").text(content);
                 	
                 	// 게시글 원문 보러가기 위해
+                	boardNo = $(event.relatedTarget).data('board');
+                	groupClass = $(event.relatedTarget).data('groupclass');
                 });
             	
              	// 신고 확인 메시지
@@ -284,7 +288,15 @@
                 $("#goBoard").click(function() {
                 	// 게시글 댓글과 웹툰 댓글을 보여줘야 하는데, 그럼 해당 글을 보여줘야 돼
                 	
-                	//location.href = "<%=contextPath%>";
+                	// groupClass가 2면 게시글 댓글  / 3이면 웹툰 댓글
+                	// 게시글 댓글이면 게시글로 보내줘야 하고, 웹툰 댓글이면 웹툰으로 보내줘야 돼
+                	// console.log(boardNo);
+                	// console.log(groupClass);
+                	if(groupClass == 2) { // 게시글 댓글
+                    	location.href = "<%=contextPath%>/webdetail.bo?boardNo=" + boardNo;
+                	} else if(groupClass = 3) { // 웹툰 댓글
+                		location.href = "<%=contextPath%>/episode.de?eNo=" + boardNo;
+                	}
                 });
                 
 				// 신고 확인
