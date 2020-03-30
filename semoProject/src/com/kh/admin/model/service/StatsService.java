@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import com.kh.admin.model.dao.StatsDao;
 import com.kh.admin.model.vo.MemberStats;
+import com.kh.admin.model.vo.VisitStats;
+
 import static com.kh.common.JDBCTemplate.*;
 
 public class StatsService {
@@ -21,6 +23,16 @@ public class StatsService {
 		close(conn);
 		
 		return list;
+	}
+	
+	public ArrayList<VisitStats> getVisitStats() {
+		Connection conn = getConnection();
+		
+		ArrayList<VisitStats> list = new StatsDao().getVisitStats(conn);
+		
+		close(conn);
+		
+		return list; 
 	}
 
 }
