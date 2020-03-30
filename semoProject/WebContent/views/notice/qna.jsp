@@ -37,7 +37,7 @@
     <div class="col-lg-9 mb-4">
       <!---->
 
-      <form name="sentMessage" id="contactForm" novalidate method="post" action="<%=request.getContextPath()%>/list.qn">
+      <form name="sentMessage" id="contactForm" novalidate method="post" action="<%=request.getContextPath()%>/qnaList.qna">
         <input type="hidden" value="<%= loginUser.getMemberNo() %>" name = "membernumber">
         <div class="control-group form-group">
           <div class="controls">
@@ -52,21 +52,20 @@
                 <option>선택</option>
                 <option value="1">로그인/계정</option>
                 <option value="2">컨텐츠</option>
-                <option value="3">앱/뷰어</option>
-                <option value="4">기타</option>
+                <option value="3">기타</option>
             </select>
           </div>
         </div>
         <div class="control-group form-group">
           <div class="controls">
-            <label type ="text" name="title">제목(필수):</label>
-            <input type="content" class="form-control" id="content" required data-validation-required-message="Please enter your content address.">
+            <label>제목(필수):
+            <input type="text" name="title" class="form-control"></label>
           </div>
         </div>
         <div class="control-group form-group">
           <div class="controls">
-            <label type ="text" name="content">내용(필수):</label>
-            <textarea rows="10" cols="100" class="form-control" id="message" required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none"></textarea>
+            <label type ="text">내용(필수):
+            <textarea rows="10" cols="100" name="content" class="form-control" id="content" maxlength="999" style="resize:none"></textarea></label>
           </div>
         </div>
         <div id="success"></div>

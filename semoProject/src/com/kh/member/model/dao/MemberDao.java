@@ -64,6 +64,7 @@ public class MemberDao {
 									  rset.getDate("ENT_DATE"),
 									  rset.getString("ACCUSATION_FLAG"),
 									  rset.getInt("ACCUSATION_CNT"));
+				m.setApprovalFlag(rset.getString(("APPROVAL_FLAG")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -106,7 +107,6 @@ public class MemberDao {
 								 rset.getDate("ENT_DATE"),
 								 rset.getString("ACCUSATION_FLAG"),
 								 rset.getInt("ACCUSATION_CNT"));
-				mem.setApprovalFlag(rset.getString("APPROVAL_FLAG"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

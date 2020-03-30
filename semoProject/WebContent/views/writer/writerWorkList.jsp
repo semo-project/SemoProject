@@ -81,17 +81,21 @@
 		<% for(Work w : list) { %>
 		<input type="hidden" value="<%= w.getWriterNo() %>">
 		
-		<div class="col-md-7" src="<%=request.getContextPath()%>/resources/work_upfiles/<%= w.getThumbnailModify() %>">
-	  		<a href="#">
-	    	<img class="img-fluid rounded mb-3 mb-md-0">
-			</a>
+		<div class="col-md-7">
+			<br>
+	    	<img style="width: 498px; height:150px;" src="<%=request.getContextPath()%>/resources/work_upfiles/<%= w.getThumbnailModify() %>">	
+	    	<br>	
 		</div>
+		
 
+		
+		
 		<div class="col-md-5">
+		<br><br>
   			<h3><%=w.getWorkTitle() %></h3>
 			<p><%=w.getWorkSummary() %></p>
-			<a class="btn btn-primary divEpisode" onclick="episodeGo();">
-				<input type="hidden" <%-- value="<%=w.getWorkNo()%> --%> >
+			<a class="btn btn-primary divEpisode" >
+				<input type="hidden" value="<%=w.getWorkNo()%>">
 				전체 목록 보기
   				<span class="glyphicon glyphicon-chevron-right"></span>
 			</a>
@@ -102,7 +106,7 @@
 	<br>
 </div>
 <script>
-<%--    $(function() {
+   $(function() {
       $(".divEpisode").click(function() {
          var val = $(this).children().eq(0).val();
 
@@ -110,11 +114,7 @@
          location.href="<%=request.getContextPath() %>/list.ep?wNo=" + val;
          
       });
-   }); --%>
-    function episodeGo(){
-		location.href="<%=request.getContextPath()%>/list.ep"								
-	};
-  
+   });
    
    </script>
 
@@ -122,6 +122,7 @@
 <!-- M -->
 <form class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
  action="<%= request.getContextPath()%>/insert.wr" method="POST" enctype="Multipart/form-data">
+<input type="hidden" value="<%= loginUser.getMemberNo() %>" name = "writerNo">
   <div class="modal-dialog" role="document">
       <div class="modal-content">
           <div class="modal-header">
@@ -144,7 +145,7 @@
                   	<td>
                   		<div>작품 시작일 : 
                   		<input type="date" name="startday" value="2020-04-01"></div>
-                  		<div name ="requestday" <%=today%>> 작품등록신청일 : 
+                  		<div name ="requestday" value="<%=today%>">
                   		
                   		</div>
                   	</td>
@@ -179,15 +180,16 @@
                   </tr>
                   <tr>
                     <td>
-                      <div>작품요약: 
-                        <input type="text" name= "plot">
+                      <div>작품요약:<br>                   
+                        <textarea type="text" name="plot" cols="59" rows="5" style="resize:none;"> </textarea>
                       </div>
                     </td>
                   </tr>
                   <tr>
                     <td>
                       <div>줄거리:
-                        <input type="text" height="150px" name="summary">
+                        <!-- <input type="text" height="150px" name="summary"> -->
+                        <textarea type="text" name="summary" cols="59" rows="8" style="resize:none;"> </textarea>
                       </div>
                     </td>
                   </tr>
@@ -224,6 +226,15 @@
           $("#exampleModal").modal("show");
       });
   });
+
+
+<%--    function episodeGo(){
+		location.href="<%=request.getContextPath()%>/list.ep"								
+	};
+	   --%>
+	
+   
+
 
 </script>
 
@@ -263,3 +274,5 @@ function readURL(input) {
 </script>
 </body>
 </html>
+
+

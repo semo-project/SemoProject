@@ -50,9 +50,7 @@
                                 </div>
                             </td>
                             <td>
-                                <div class="member-Work-Approv">
-                                	<img src="<%=contextPath %>/resources/writerApprov_files/<%=w.getChangeName() %>">
-                                </div>
+                            	<img src="<%=contextPath %>/resources/author_request/<%=w.getChangeName() %>">
                             </td>
                         </tr>
                     </table>

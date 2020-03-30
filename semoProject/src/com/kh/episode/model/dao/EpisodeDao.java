@@ -364,7 +364,7 @@ public class EpisodeDao {
 	}
 	
 	//에피소드 전체조회
-	public ArrayList<Episode> selectEpisodeList(Connection conn) {
+	public ArrayList<Episode> selectEpisodeList(Connection conn,int wNo) {
 
 		ArrayList<Episode> list = new ArrayList<>();
 		
@@ -375,7 +375,7 @@ public class EpisodeDao {
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1,1);	
+			pstmt.setInt(1,wNo);	
 			rset=pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -495,6 +495,11 @@ public class EpisodeDao {
 		
 		return e;
 		}
+
+	public int starinsert(Connection conn, String star) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 
 

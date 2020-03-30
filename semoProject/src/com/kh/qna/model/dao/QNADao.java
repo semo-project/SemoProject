@@ -178,6 +178,32 @@ public class QNADao {
 		
 		return result;
 	}
+	
+	//insertqna
+	public int countinsert(Connection conn , QNA q) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertqna");
+		//qnaNo, qnaTitle, qnaContent
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, q.getQnaTitle());
+			pstmt.setString(2, q.getQnaContent());
+			pstmt.setInt(3, q.getQnaContentNo());
+			pstmt.setInt(4, q.getMemberNo());
+			
+			//INSERT INTO TB_QNA VALUES(SEQ_QNA.NEXTVAL,?,?,N,DEFAULT,NULL,?,SYSDATE,?)
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		
+		}
+		return result;
+	}
 
 }
 

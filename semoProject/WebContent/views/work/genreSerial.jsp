@@ -16,7 +16,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 
- 	<title>Modern Business - Start Bootstrap Template</title>
+ 	<title>세모웹툰</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 	<!-- Bootstrap core CSS -->
 	<link href="<%= request.getContextPath() %>/resources/css/bootstrap.min.css" rel="stylesheet">
@@ -76,13 +76,13 @@
       </div>
       <div class="lzTab" role="tablist" data-ga-event-category="연재_UI_장르">
      
-        <button type="button" class="btn btn-dark" onclick="genrelist(this.value)" value="5"  >액션</button>
-        <button type="button" class="btn btn-dark" onclick="genrelist(this.value)" value="3"  >판타지</button>
-        <button type="button" class="btn btn-dark" onclick="genrelist(this.value)" value="2"  >개그</button>
-        <button type="button" class="btn btn-dark" onclick="genrelist(this.value)" value="4"  >로맨스</button>
-        <button type="button" class="btn btn-dark" onclick="genrelist(this.value)" value="6"  >미스터리</button>
-        <button type="button" class="btn btn-dark" onclick="genrelist(this.value)" value="1"  >일상</button>
-        <button type="button" class="btn btn-dark" onclick="genrelist(this.value)" value="7"  >기타</button>
+        <button type="button" class="btn btn-info" onclick="genrelist(this.value)" value="5"  >액션</button>
+        <button type="button" class="btn btn-info" onclick="genrelist(this.value)" value="3"  >판타지</button>
+        <button type="button" class="btn btn-info" onclick="genrelist(this.value)" value="2"  >개그</button>
+        <button type="button" class="btn btn-info" onclick="genrelist(this.value)" value="4"  >로맨스</button>
+        <button type="button" class="btn btn-info" onclick="genrelist(this.value)" value="6"  >미스터리</button>
+        <button type="button" class="btn btn-info" onclick="genrelist(this.value)" value="1"  >일상</button>
+        <button type="button" class="btn btn-info" onclick="genrelist(this.value)" value="7"  >기타</button>
         
 
       </div>

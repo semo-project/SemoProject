@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.kh.member.model.vo.Member,java.util.ArrayList, com.kh.cookie.model.vo.Cookie, com.kh.board.model.vo.*" %>
+<%@ page import="java.util.ArrayList, com.kh.cookie.model.vo.Cookie, com.kh.board.model.vo.*" %>
 <% 
-	Member mem = (Member)request.getAttribute("mem");
 	ArrayList<Cookie> list = (ArrayList<Cookie>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	
@@ -50,7 +49,7 @@
 
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="index.html">메인</a>
+        <a href="<%= contextPath %>">메인</a>
       </li>
       <li class="breadcrumb-item active">마이페이지</li>
     </ol>
@@ -121,22 +120,22 @@
       <!-- 페이징바 영역 -->
 		<div class="pagingArea" align="center">
 			<!-- 맨 처음으로 (<<) -->
-			<button onclick="location.href='<%=contextPath%>/list.bo';"> &lt;&lt; </button>
+			<button class="btn btn-simple" onclick="location.href='<%=contextPath%>/cookieLog.me';"> &lt;&lt; </button>
 			
 			<!-- 이전페이지(<) -->
 			<%if(currentPage == 1){ %>
-			<button disabled> &lt; </button>
+			<button class="btn btn-simple" disabled> &lt; </button>
 			<%}else{ %>
-			<button onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%=currentPage-1%>';"> &lt; </button>
+			<button class="btn btn-simple" onclick="location.href='<%=contextPath%>/cookieLog.me?currentPage=<%=currentPage-1%>';"> &lt; </button>
 			<%} %>
 			
 			<!-- 페이지 목록 -->
 			<%for(int p=startPage; p<=endPage; p++){ %>
 				
 				<%if(currentPage == p){ %>
-				<button disabled> <%=p%> </button>
+				<button class="btn btn-simple" disabled> <%=p%> </button>
 				<%}else{ %>
-				<button onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%=p%>';"> <%= p %> </button>
+				<button class="btn btn-simple" onclick="location.href='<%=contextPath%>/cookieLog.me?currentPage=<%=p%>';"> <%= p %> </button>
 				<%} %>
 			
 				
@@ -144,14 +143,14 @@
 			
 			<!-- 다음페이지(>) -->
 			<%if(currentPage == maxPage){ %>
-			<button disabled> &gt; </button>
+			<button class="btn btn-simple" disabled> &gt; </button>
 			<%}else{ %>
-			<button onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%=currentPage+1%>';"> &gt; </button>
+			<button class="btn btn-simple" onclick="location.href='<%=contextPath%>/cookieLog.me?currentPage=<%=currentPage+1%>';"> &gt; </button>
 			<%} %>
 			
 			
 			<!-- 맨 마지막으로 (>>) -->
-			<button onclick="location.href='<%=contextPath%>/list.bo?currentPage=<%=maxPage%>'"> &gt;&gt; </button>
+			<button class="btn btn-simple" onclick="location.href='<%=contextPath%>/cookieLog.me?currentPage=<%=maxPage%>'"> &gt;&gt; </button>
 		</div>
       </div>
     </div>
