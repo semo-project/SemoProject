@@ -91,7 +91,6 @@ public class ReportDao {
 				r.setBoardTitle(rset.getString("board_title"));
 				r.setReportDate(rset.getDate("report_date"));
 				r.setReportContent(rset.getString("report_content"));
-				r.setBoardGroupName(rset.getString("group_name"));
 				
 				list.add(r);
 			}

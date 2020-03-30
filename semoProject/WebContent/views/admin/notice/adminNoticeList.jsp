@@ -7,11 +7,13 @@
 	Date date = new Date();
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	String today = sdf.format(date); // "2020-02-25"
+	
+	// 공지사항 삭제
+	String deleteMsg = (String)session.getAttribute("deleteMsg");
 %>   
     
 <!DOCTYPE html>
 <html>
-<head>
 <head>
 <meta charset="utf-8" />
 	<title>Admin Page</title>
@@ -33,15 +35,9 @@
                     <h1 class="mt-4">공지사항 관리</h1>
                     
                     <br>
-                    <div class="diyDiv mb-4">
-                        <label>수정이 불가하오니, 신중한 작성 부탁 드립니다.</label> 
-                        <!-- 빈공간이지만 점점 추가될 예정이라 -->
-                    </div>
                     
                     <div class="card mb-4">
                         <div class="card-header"><i class="fas fa-table mr-1"></i>공지사항 목록
-                            <button class="btn btn-primary" style="float:right;">검색</button>
-                            <input type="text" class="search" id="memberSearch" style="float: right;">
                         </div>
                         <div class="card-body">
 
@@ -49,7 +45,6 @@
                                 <table class="table table-bordered" id="memberTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th></th>
                                             <th>No</th>
                                             <th>Title</th>
                                             <th>Write Date</th>
@@ -65,10 +60,9 @@
 									<% }else{ %>
                                     
                                     	<% for(Notice n : list){ %>
-                                    	<tr>
-                                            <td><input type="checkbox"></td>
+                                    	<tr class="noticeTr">	
                                             <td><%= n.getNoticeNo() %></td>
-                                            <td style="color:blue; cursor:pointer;" onclick="test();" value="<%=n.getNoticeNo()%>"><%= n.getNoticeTitle() %></td>
+                                            <td style="color:blue; cursor:pointer;"><%= n.getNoticeTitle() %></td>
                                             <td><%= n.getNoticeDate() %></td>
                                         </tr>
                                         	<% } %>
@@ -82,7 +76,7 @@
 				                    &nbsp;
 				                    <!-- <button class="btn btn-dark" type="button" id="tr2">수정하기</button>
 				                    &nbsp; -->
-	                                <button class="btn btn-danger">삭제하기</button>
+	                                
                                 </div>
                             </div>
                             
@@ -126,14 +120,13 @@
                             <td>
                                 <label class="modal-title-font">공지사항 내용</label>
                                 <br>
-                                <textarea style="resize:none" class="diyDiv" cols="57" rows="10" name = "content"> 
-                                </textarea>
+                                <textarea style="resize:none" class="diyDiv" cols="57" rows="10" name = "content"></textarea>
                             </td>
                         </tr>
                     </table>                        
                 </div>
                 <div class="modal-footer">
-                    <button type="sumbit" class="btn btn-primary">공지사항 작성하기</button>
+                    <button type="sumbit" class="btn btn-primary">작성하기</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>                        
                 </div>
             </div>
@@ -194,16 +187,46 @@
 
 	<script>
 	    $(function() {
+	    	// 삭제 메시지
+			var msg = "<%=deleteMsg%>";
+    		
+    		if(msg != "null") {
+    			alert(msg);
+    			<% session.removeAttribute("deleteMsg");%>
+    			<% deleteMsg = null; %>
+    			msg = "null";
+    		}
+    		
+	    	// 이거 그 모달 ㅋㅋ
 	        $("#insertBtn").click(function() {
 	            $("#exampleModal").modal("show");
 	        });
 	        $("#tr2").click(function() {
 	            $("#exampleModal2").modal("show");
 	        });
+			
+	        // 디테일 보여주는 거
+	        $(".noticeTr").click(function() {
+	        	// 글 번호
+	        	var no = $(this).children().eq(0).text();
+	        	location.href = "<%=contextPath%>/adDetail.no?pageId=8&&no=" + no;
+	        });
 	        
-	        function test() {
-	        	alert("test");
-	        }
+	        // 삭제하기
+	        $("#delteBtn").click(function() {
+    			var accusArr = new Array();
+    			
+    			$('input:checkbox[name=accusCheck]:checked').each(function() {
+    				accusArr.push(this.value);
+    			});
+    			
+    			if(accusArr.length >= 1) {
+    				var accusNo = accusArr.join(", ");
+    				location.href = "<%=contextPath%>/blackAccus.me?pageId=3&&accusNo=" + accusNo;
+    			} else {
+    				alert("활동중지 할 회원을 선택해주세요.");
+    			}
+    		});
 	    });
 	</script>
 </body>

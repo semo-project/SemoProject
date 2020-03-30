@@ -61,11 +61,11 @@
 	                    	공지사항 관리
 	                </a>
 	                
-					<a href="<%=contextPath%>/aqna.no?pageId=8"
+					<a href="<%=contextPath%>/alist.qn?pageId=8"
 	                	class="nav-link
 	                	<%if("8".equals(request.getParameter("pageId"))) { %> sideNavSelected <%} %>">	              
 							<div class="sb-nav-link-icon"></div>
-							1:1문의 관리
+							1 : 1  문의 관리
 	                </a>
 					
 					<a href="<%=contextPath%>/acontent.no?pageId=9"

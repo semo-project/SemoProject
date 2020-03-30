@@ -34,6 +34,7 @@ public class adminNoticeListServlet extends HttpServlet {
 
 		//관리자 Notice
 		ArrayList<Notice> list = new NoticeService().selectList();
+		
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("/views/admin/notice/adminNoticeList.jsp").forward(request, response);
 		
