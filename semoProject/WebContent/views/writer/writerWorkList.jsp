@@ -90,8 +90,8 @@
 		<div class="col-md-5">
   			<h3><%=w.getWorkTitle() %></h3>
 			<p><%=w.getWorkSummary() %></p>
-			<a class="btn btn-primary divEpisode" onclick="episodeGo();">
-				<input type="hidden" <%-- value="<%=w.getWorkNo()%> --%> >
+			<a class="btn btn-primary divEpisode" >
+				<input type="hidden" value="<%=w.getWorkNo()%>">
 				전체 목록 보기
   				<span class="glyphicon glyphicon-chevron-right"></span>
 			</a>
@@ -102,7 +102,7 @@
 	<br>
 </div>
 <script>
-<%--    $(function() {
+   $(function() {
       $(".divEpisode").click(function() {
          var val = $(this).children().eq(0).val();
 
@@ -110,11 +110,7 @@
          location.href="<%=request.getContextPath() %>/list.ep?wNo=" + val;
          
       });
-   }); --%>
-    function episodeGo(){
-		location.href="<%=request.getContextPath()%>/list.ep"								
-	};
-  
+   });
    
    </script>
 
@@ -122,6 +118,7 @@
 <!-- M -->
 <form class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
  action="<%= request.getContextPath()%>/insert.wr" method="POST" enctype="Multipart/form-data">
+<input type="hidden" value="<%= loginUser.getMemberNo() %>" name = "writerNo">
   <div class="modal-dialog" role="document">
       <div class="modal-content">
           <div class="modal-header">
@@ -144,7 +141,7 @@
                   	<td>
                   		<div>작품 시작일 : 
                   		<input type="date" name="startday" value="2020-04-01"></div>
-                  		<div name ="requestday" <%=today%>> 작품등록신청일 : 
+                  		<div name ="requestday" value="<%=today%>">
                   		
                   		</div>
                   	</td>
@@ -225,6 +222,15 @@
       });
   });
 
+
+<%--    function episodeGo(){
+		location.href="<%=request.getContextPath()%>/list.ep"								
+	};
+	   --%>
+	
+   
+
+
 </script>
 
 </div>
@@ -263,3 +269,5 @@ function readURL(input) {
 </script>
 </body>
 </html>
+
+

@@ -64,37 +64,50 @@ public int insertWorkGenre(Connection conn, int[]genre) {
 			
 			return result;
 		}
-	//작품 insert 
-	public int insertWork(Connection conn, Work w) {
-		System.out.println("test");
-		int result = 0;
+//작품 insert 
+public int insertWork(Connection conn, Work w) {
+	
+	int result = 0;
+	
+	PreparedStatement pstmt = null;
+	String sql = prop.getProperty("insertWork");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+					
+//		w.setUpdateDay(updateDay1);
+//		w.setStartDay(startday);
+//		w.setWorkSummary(summary);
+//		w.setWorkPlot(plot);
+//		w.setThumbnailModify(file1);
+//		w.setWriterNo(writerNo);
+//		w.setWorkTitle(title);
+//		
+		pstmt.setString(1, w.getUpdateDay()); //업데이트 요일
+		pstmt.setDate(2, w.getStartDay());
+		pstmt.setString(3, w.getWorkSummary());	//
+		pstmt.setString(4, w.getWorkPlot());
+		pstmt.setString(5, w.getThumbnailModify());
+		pstmt.setInt(6, w.getWriterNo());
+		pstmt.setString(7, w.getWorkTitle());
 		
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertWork");
+		result = pstmt.executeUpdate();
 		
-		try {
-			pstmt = conn.prepareStatement(sql);
-						
-			pstmt.setString(1, w.getUpdateDay()); 
-			pstmt.setString(2, w.getWorkSummary());
-			pstmt.setString(3, w.getWorkPlot());
-			pstmt.setString(4, w.getThumbnailModify());
-			pstmt.setInt(5, w.getWriterNo());
-			pstmt.setString(6, w.getWorkTitle());
-			
-			result = pstmt.executeUpdate();
-			
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
+		//INSERT INTO TB_WORK VALUES(SEQ_WNO.NEXTVAL, ?,?, SYSDATE , NULL,?, ?, 'N', DEFAULT, DEFAULT,?, NULL, DEFAULT, ?, ?)
+												// MON	시작일				'SAMMA','PLOT'				'첨부파일수정명'		'작가넘버' '작품타이틀'
+		//완료후 그패이지 다시 가져오게
 		
 		
-		return result;
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} finally {
+		close(pstmt);
 	}
+	
+	
+	return result;
+}
 
 	//작품리스트조회
 	public ArrayList<Work> selectWorkList(Connection conn) {

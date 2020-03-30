@@ -89,7 +89,7 @@
 
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="boardList.bo">세모게시판</a> > <a href="boardList.bo">웹툰 TalkTalk</a>
+        <a href="freeList.bo">세모게시판</a> > <a href="freeList.bo">수다수다 유머방</a>
       </li>
     </ol>
 
@@ -111,12 +111,12 @@
           <table style="width: 600px;margoin-left: auto;margin-left: 25%;margin-top: -19%;">
               <tr style="border-bottom:1px solid rgb(163, 160, 160);">
                   <td>
-                      <h2>웹툰TalkTalk</h2>
+                      <h2>수다수다 유머방</h2>
                   </td>
               </tr>
               <tr style="border:1px solid rgb(163, 160, 160); margin-top: 5px;">
                   <td>
-                      <h6>웹툰에 대해 자유롭게 얘기해보아요!</h6>
+                      <h6>재미있는 유머들이 가득한 곳!</h6>
                   </td>
               </tr>
           </table>
@@ -155,15 +155,15 @@
           		</td>
           	</tr>
           	<tr>
-          		<th><button id="webBoardList" onclick="location.href='boardList.bo'">목록</button></th>
+          		<th><button id="freeBoardList" onclick="location.href='freeList.bo'">목록</button></th>
           	</tr>
           </table>
           
           <!-- 게시글 작성자일경우 수정,삭제 버튼 -->
           <div class="btns" align="right">
           	<% if(loginUser != null && loginUser.getMemberNickname().equals(b.getBoardWriter())) {%>
-          		<button onclick="location.href='<%=contextPath%>/updateForm.bo?boardNo=<%=b.getBoardNo()%>'">수정</button>
-				<button onclick="deleteWeb();">삭제</button>
+          		<button onclick="location.href='<%=contextPath%>/freeUpdateForm.bo?boardNo=<%=b.getBoardNo()%>'">수정</button>
+				<button onclick="deleteFree();">삭제</button>
 			<% }else if(loginUser != null && loginUser.getMemberNickname() != (b.getBoardWriter())){ %>
 				<button id="reportBtn">게시글 신고</button>
 				
@@ -280,9 +280,9 @@
 				</div>
 				
 	<script>
-      	function deleteWeb(){
+      	function deleteFree(){
       		if(confirm("정말로 삭제하시겠습니까?")){
-      			location.href="<%=contextPath%>/webDelete.bo?boardNo=<%=b.getBoardNo()%>";
+      			location.href="<%=contextPath%>/freeDelete.bo?boardNo=<%=b.getBoardNo()%>";
       		}
       	}
     </script>

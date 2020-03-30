@@ -8,23 +8,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.kh.board.model.service.BoardService;
-import com.kh.member.model.vo.Member;
-import com.kh.report.model.vo.Report;
+import com.kh.board.model.vo.Comment;
 
 /**
- * Servlet implementation class BoardReportServlet
+ * Servlet implementation class ComReportServlet
  */
-@WebServlet("/boardReport.bo")
-public class BoardReportServlet extends HttpServlet {
+@WebServlet("/comReport.bo")
+public class ComReportServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardReportServlet() {
+    public ComReportServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,20 +36,26 @@ public class BoardReportServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
-		int reporterNo = Integer.parseInt(request.getParameter("reporterNo"));
-		String boardWriter = request.getParameter("boardWriter");
 		
-		String reportRadio = request.getParameter("reportRadio");
-		String reportContent = request.getParameter("reportContent");
+		int comReportNo = Integer.parseInt(request.getParameter("comReportNo"));
+		String commentWriter = request.getParameter("commentWriter");
+		String commentContent = request.getParameter("commentContent");
 		
-		/*advertise.concat(",").concat(salacity).concat(",").concat(defamation).concat(",").concat(etc);*/
+		Comment c = new BoardService().comReportInfo(comReportNo, commentWriter, commentContent);
 		
-		int result = new BoardService().boardReport(reportRadio, reportContent, boardNo, reporterNo, boardWriter);
+		JSONObject jsonObj = new JSONObject();
 		
-		PrintWriter out = response.getWriter();
-		out.print(result);
-		
+		if(c != null) { // 조회된 경우
+			jsonObj.put("commentWriter", c.getCommentWriter()); 
+	        jsonObj.put("commentContent", c.getCommentContent());
+	      }else {
+	         jsonObj = null;
+	      }
+	      
+	      response.setContentType("applocation/json; charset=UTF-8");
+	      PrintWriter out = response.getWriter();
+	      // out.print(/* m.toString() */);
+	      out.print(jsonObj);
 	}
 
 	/**

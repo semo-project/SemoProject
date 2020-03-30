@@ -38,13 +38,13 @@
   <div class="container">
 
     <!-- Page Heading/Breadcrumbs -->
-    <h1 class="mt-4 mb-3">수다수다 유머방
+    <h1 class="mt-4 mb-3">
       <!-- <small>Subheading</small> -->
     </h1>
 
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="boardList.bo">세모게시판</a> > <a href="freeList.bo">수다수다 유머방</a>
+        <a href="freeList.bo">세모게시판</a> > <a href="freeList.bo">수다수다 유머방</a>
       </li>
     </ol>
 
@@ -55,7 +55,6 @@
         <div class="list-group">
           <a href="boardList.bo" class="list-group-item">웹툰 TalkTalk</a>
           <a href="freeList.bo" class="list-group-item">수다수다 유머방</a>
-          <a href="semoBoard.html" class="list-group-item">그림게시판</a>
         </div>
       </div>
     </div>
@@ -110,19 +109,19 @@
             	</tbody>
             </table>
             
-            <form class="searchFormArea" align="center" method="get" action="" onsubmit="return keyboard_check()">
+           <form class="searchFormArea" align="center" method="post" action="<%= request.getContextPath()%>/searchFreeT.bo">
             	<td>
-            		<select name="searchOption">
-            			<option value="제목">제목</option>
-            			<option value="작성자명">작성자명</option>
-            			<option value="내용">내용</option>
+            		<select id="searchOption2" name="searchOption2">
+            			<option value="boardTitle">제목</option>
+            			<option value="boardWriter">작성자명</option>
+            			<option value="boardContent">내용</option>
             		</select>
             	</td>
             	<td>
-            		<input type="text" name="inputArea">
+            		<input type="text" id="searchContent" name="searchContent">
             	</td>
             	<td>
-            		<input type="submit" name="searchBtn" value="검색">
+            		<button type="submit" id="searchBtn2">검색</button>
             	</td>
             </form>
             

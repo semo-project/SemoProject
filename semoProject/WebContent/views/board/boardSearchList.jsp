@@ -1,16 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList, com.kh.board.model.vo.*" %>
-<% 
+<%
 	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
-	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	Comment c = (Comment)request.getAttribute("c");
 	
-	int listCount = pi.getListCount();
-	int currentPage = pi.getCurrentPage();
-	int maxPage = pi.getMaxPage();
-	int startPage = pi.getStartPage();
-	int endPage = pi.getEndPage();
 %>
 <!DOCTYPE html>
 <html>
@@ -38,7 +31,7 @@
   <div class="container">
 
     <!-- Page Heading/Breadcrumbs -->
-    <h1 class="mt-4 mb-3">
+    <h1 class="mt-4 mb-3">웹툰 TalkTalk
       <!-- <small>Subheading</small> -->
     </h1>
 
@@ -85,7 +78,6 @@
 		            <tr>
 		              <th width="100px">글번호</th>
 		              <th width="300px">글제목</th>
-		              <th width="100px">조회수</th>
 		              <th width="150px">작성자</th>
 		              <th width="150px">작성일</th>
 		            </tr>
@@ -93,14 +85,13 @@
             	<tbody>
             		<% if(list.isEmpty()){ %>
             		<tr>
-            			<td colspan="5">조회된 게시물이 없습니다.</td>
+            			<td colspan="4">조회된 게시물이 없습니다.</td>
             		</tr>
             		<% }else{ %>
             			<% for(Board b : list){ %>
             			<tr>
             				<td><%= b.getBoardNo() %></td>
             				<td><%= b.getBoardTitle() %></td>
-            				<td><%= b.getBoardCnt() %></td>
             				<td><%= b.getBoardWriter() %></td>
             				<td><%= b.getBoardWriteDate() %></td>
             			</tr>
@@ -109,10 +100,7 @@
             	</tbody>
             </table>
             
-        	<% if(loginUser != null) { %>
-        		<button class="write_btn" onclick="location.href='<%=contextPath%>/insertForm.bo';">작성하기</button>
-        	<% } %>
-        	
+            
             <form class="searchFormArea" align="center" method="post" action="<%= request.getContextPath()%>/searchBoardT.bo">
             	<td>
             		<select id="searchOption1" name="searchOption1">
@@ -129,45 +117,12 @@
             	</td>
             </form>
             
-        	<!-- 페이징바 영역 -->
-		    <div class="pagingArea" align="center">
-		    	  <!-- 맨 처음 -->
-		    	  <button onclick="location.href='<%=contextPath%>/boardList.bo';"> &lt;&lt; </button>
-		    	  
-		    	  <!-- 이전page -->
-		    	  <%if(currentPage == 1){ %>
-		    	  		<button disable> &lt; </button>
-		    	  <%}else{ %>
-		    	  		<button onclick="location.href='<%=contextPath %>/boardList.bo?currentPage=<%=currentPage-1%>';"> &lt; </button>
-		    	  <% } %>
-		    	  
-		    	  <!-- 페이지목록 -->
-		    	  <%for(int p=startPage; p<=endPage; p++){ %>
-		    	  		<%if(currentPage == p){%>
-		    	  			<button disabled> <%=p %></button>
-		    	  		<%}else{ %>
-		    	  			<button onclick="location.href='<%=contextPath%>/boardList.bo?currentPage=<%=p %>';"> <%=p %></button>
-		    	  		<%} %>
-		    	  <%} %>
-		    	  
-		    	  <!-- 다음page -->
-		    	  <%if(currentPage == maxPage){ %>
-		    	  		<button disabled> &gt; </button>
-		    	  <%}else{ %>
-		    	  		<button onclick="location.href='<%=contextPath%>/boardList.bo?currentPage=<%=currentPage+1%>';"> &gt; </button>
-		    	  <%} %>
-		    	  
-		    	  <!-- 맨 마지막으로 -->
-		    	  <button onclick="location.href='<%=contextPath%>/boardList.bo?currentPage=<%=maxPage%>';"> &gt;&gt; </button>		
-		    </div>
-        	
           </div>
       </div>
       
     </div>
 </div>
 
-	
 <!-- /.container -->
 <!-- Bootstrap core JavaScript -->
   <script src="<%= request.getContextPath() %>/resources/js/jquery.min.js"></script>
@@ -181,7 +136,6 @@
 				
 				location.href="<%=contextPath%>/webdetail.bo?boardNo=" + boardNo;
 			});
-			
 		});
 	</script>
 	

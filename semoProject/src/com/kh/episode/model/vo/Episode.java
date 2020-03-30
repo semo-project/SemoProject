@@ -87,6 +87,22 @@ public class Episode {
 		this.workTitle = workTitle;
 		this.episodeTitle = episodeTitle;
 	}
+	
+	
+	
+
+	public Episode(int episodeNo, Date approvalDate, String workTitle, String episodeTitle) {
+			super();
+			this.episodeNo = episodeNo;
+			this.approvalDate = approvalDate;
+			this.workTitle = workTitle;
+			this.episodeTitle = episodeTitle;
+		}
+
+
+
+
+
 
 	public int getEpisodeNo() {
 		return episodeNo;

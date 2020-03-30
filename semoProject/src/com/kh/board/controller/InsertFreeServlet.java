@@ -1,8 +1,6 @@
 package com.kh.board.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,20 +9,20 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.kh.board.model.service.BoardService;
+import com.kh.board.model.vo.Board;
 import com.kh.member.model.vo.Member;
-import com.kh.report.model.vo.Report;
 
 /**
- * Servlet implementation class BoardReportServlet
+ * Servlet implementation class InsertFreeServlet
  */
-@WebServlet("/boardReport.bo")
-public class BoardReportServlet extends HttpServlet {
+@WebServlet("/insertFree.bo")
+public class InsertFreeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardReportServlet() {
+    public InsertFreeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,20 +31,27 @@ public class BoardReportServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
 		
-		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
-		int reporterNo = Integer.parseInt(request.getParameter("reporterNo"));
-		String boardWriter = request.getParameter("boardWriter");
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		String writer = request.getParameter("writer");
 		
-		String reportRadio = request.getParameter("reportRadio");
-		String reportContent = request.getParameter("reportContent");
+		Board b = new Board();
+		b.setBoardTitle(title);
+		b.setBoardContent(content);
+		b.setBoardWriter(writer);
 		
-		/*advertise.concat(",").concat(salacity).concat(",").concat(defamation).concat(",").concat(etc);*/
+		int result = new BoardService().insertfreeBoard(b);
+		request.setAttribute("loginUser", loginUser);
 		
-		int result = new BoardService().boardReport(reportRadio, reportContent, boardNo, reporterNo, boardWriter);
-		
-		PrintWriter out = response.getWriter();
-		out.print(result);
+		if(result > 0) {
+			response.sendRedirect("freeList.bo");
+		}else {
+			request.setAttribute("msg", "자유게시판 작성 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
 		
 	}
 

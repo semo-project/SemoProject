@@ -51,7 +51,7 @@
 	                            <tbody>
 	                            <% if(list.size() != 0) { %>
 	                            	<% for(QNA q : list) { %>
-	                                <tr class="qnaTr" > 
+	                                <tr class="qnaTr" style="<% if(q.getQnaAnswerState().equalsIgnoreCase("Y")) {%>background: #EAEAEA;<%}%>"> 
 	                                    <td><%=q.getQnaNo() %></td>
 	                                    <td><%=q.getMemberId() %></td>
 	                                    <td>
