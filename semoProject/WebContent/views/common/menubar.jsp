@@ -141,7 +141,7 @@
 					<div class="loginArea" id="loginLogo" style="text-align: left; margin-top:0px" >
 						<img class="userImg" src="<%=contextPath%>/resources/images/defaultIcon.png" width="25px" height="25px" margin-left="2px">
 						<%= loginUser.getMemberName() %>
-	              	 	<button class="btn btn-primary btn-sm" style="float:right; margin-right:5px;">로그아웃</button>
+	              	 	<button class="btn btn-primary btn-sm" onclick="location.href='logout.me'" style="float:right; margin-right:5px;">로그아웃</button>
 	              	 	<div class="dropdown-divider"></div>
 	              	</div>
 	              
@@ -153,7 +153,7 @@
 					<!-- 관리자가 아니라면 -->
 					<% } else { %>
 					<div class="myCoin">
-						보유 코인 : <%= loginUser.getMyCookieCount() %>개 <button>충전하기</button>
+						보유 코인 : <%= loginUser.getMyCookieCount() %>개 <button onclick="location.href='<%= contextPath %>/addCookie.me';">충전하기</button>
 					</div>
 					
 					<div class="myPageIn">

@@ -54,9 +54,23 @@ public class MemberService {
 		} else {
 			rollback(conn);
 		}
-		
+		close(conn);
 		return updateMem;
 		
+	}
+	
+	public int deleteMember(int userNo) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().deleteMember(conn, userNo);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
 	}
 	
 	public Member updatePwd(Member mem, String newPwd) {
