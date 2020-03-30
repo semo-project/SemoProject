@@ -217,29 +217,23 @@ public class EpisodeService {
 	}
 	
 	//에피소드 리스트 조회
-	public ArrayList<Episode> selectEpisodeList() {
+	public ArrayList<Episode> selectEpisodeList(int wNo) {
 
 		Connection conn=getConnection();
 		
-		ArrayList<Episode> list = new EpisodeDao().selectEpisodeList(conn);
+		ArrayList<Episode> list = new EpisodeDao().selectEpisodeList(conn, wNo);
 		
 		
 		close(conn);
 		return list;
 	}
 
-	//에피소드 상세 조회시 작품에 정보.
-	public Episode selectworkList(int wNo) {
+	public Episode test(int wNo) {
+		Connection conn=getConnection();
 		
-		Connection conn = getConnection();
-		
-		Episode e = new EpisodeDao().selectworkList(conn,wNo);
-		
-		
-		close(conn);
-			
-		
+		Episode e = new EpisodeDao().test(conn, wNo);
 		return e;
 	}
+
 	
 } 
