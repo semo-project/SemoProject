@@ -64,4 +64,16 @@ public class QNAService {
 		
 		return result;
 	}
+	
+	//insert qna
+	public int insertQna(QNA q) {
+		Connection conn = getConnection();
+		int result = new QNADao().countinsert(conn,q);	
+		
+	
+		close(conn);
+		
+		
+		return result;
+	}
 }

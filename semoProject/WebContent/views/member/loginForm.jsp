@@ -40,7 +40,7 @@
         <p class="account_help">
         "
             이용 중 도움이 필요하시면 ["
-        <a href="ko/help">고객지원</a>
+        <a href="<%=request.getContextPath() %>/list.no">고객지원</a>
         "] 페이지로, 로그인에 문제가 있다면 "
         <a href="semo:help@semo.com">semohelp@semo.com</a>
         "으로 문의해 주세요.
@@ -51,5 +51,11 @@
 <!-- Bootstrap core JavaScript -->
   <script src="<%= request.getContextPath() %>/resources/js/jquery.min.js"></script>
   <script src="<%= request.getContextPath() %>/resources/js/bootstrap.bundle.min.js"></script>
+ <script>
+ 	function noticego(){
+ 		
+ 	}
+ 
+ </script>
 </body>
 </html>

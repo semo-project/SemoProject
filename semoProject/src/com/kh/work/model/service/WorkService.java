@@ -33,10 +33,10 @@ public class WorkService {
 		
 	}
 	
-	public ArrayList<Work> selectWorkList() {
+	public ArrayList<Work> selectWorkList(int loginUser) {
 		Connection conn = getConnection();
 		
-		ArrayList<Work> list= new WorkDao().selectWorkList(conn);
+		ArrayList<Work> list= new WorkDao().selectWorkList(conn, loginUser);
 		
 		close(conn);
 		

@@ -15,61 +15,7 @@
 
 
 <!-- Navigation -->
-<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
-  <div class="container">
-    <a class="navbar-brand" href="index.html">Start Bootstrap</a>
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="about.html">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="services.html">Services</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="contact.html">Contact</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Portfolio
-          </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-            <a class="dropdown-item" href="portfolio-1-col.html">1 Column Portfolio</a>
-            <a class="dropdown-item" href="portfolio-2-col.html">2 Column Portfolio</a>
-            <a class="dropdown-item" href="portfolio-3-col.html">3 Column Portfolio</a>
-            <a class="dropdown-item" href="portfolio-4-col.html">4 Column Portfolio</a>
-            <a class="dropdown-item" href="portfolio-item.html">Single Portfolio Item</a>
-          </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Blog
-          </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
-            <a class="dropdown-item" href="blog-home-1.html">Blog Home 1</a>
-            <a class="dropdown-item" href="blog-home-2.html">Blog Home 2</a>
-            <a class="dropdown-item" href="blog-post.html">Blog Post</a>
-          </div>
-        </li>
-        <li class="nav-item active dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Other Pages
-          </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
-            <a class="dropdown-item" href="full-width.html">Full Width Page</a>
-            <a class="dropdown-item active" href="sidebar.html">Sidebar Page</a>
-            <a class="dropdown-item" href="faq.html">FAQ</a>
-            <a class="dropdown-item" href="404.html">404</a>
-            <a class="dropdown-item" href="pricing.html">Pricing Table</a>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+<%@ include file="../common/menubar.jsp" %>
 
 
 <!-- Page Content -->
@@ -114,7 +60,27 @@
 
        <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
          <div class="card-body">
-           변경방법은...
+          1. 정기결제를 해지하고 싶어요<br><br>
+
+		등록하신 정기결제는 [내 정보] 페이지의 [정기결제 관리] 메뉴에서 해지신청 하실 수 있습니다.<br>
+		
+		해지신청을 하실 경우 다음 결제 예정일부터 결제가 진행되지 않으며, 
+		해지가 완료되기 전 해지 신청의 철회 또한 동일한 메뉴에서 가능합니다.<br>
+		
+		- 결제일 당일 취소나 미사용 상품의 결제취소는 [결제/환불]경로로 문의해 주시면 확인 후 답변 드리겠습니다.<br>
+		
+		2. 정기결제 수단을 변경하고 싶어요<br><br>
+		
+		등록하신 결제수단은 레진코믹스 [내 정보] 페이지의 [정기결제 관리] 메뉴에서 변경하실 수 있습니다.<br>
+		
+		더 궁금하신 점이 있거나 도움이 필요하실 경우 하단의 [문의하기] 버튼을 눌러주세요.<br>
+		감사합니다.<br>
+		
+		
+		※ 1:1 상담신청을 위한 문의내용에 개인정보를 입력하시는 경우,
+		고객서비스 제공을 위한 개인정보 수집 이용에 동의한 것으로 간주되며, 해당 정보는 목적달성시까지 보관됩니다.<br>
+		단, 관련법령에서 별도의 보관기간을 정하는 경우 해당 시점까지 보관합니다.<br>
+		상담신청 시 불필요한 개인정보가 입력되지 않도록 주의를 부탁드립니다.<br>
          </div>
        </div>
      </div>
@@ -183,17 +149,7 @@
 
  </div>
 
-     <div class="paging">
-         <a href="#" class="bt first">처음 페이지</a>
-         <a href="#" class="bt prev">이전 페이지</a>
-         <a href="#" class="num on">1</a>
-         <a href="#" class="num">2</a>
-         <a href="#" class="num">3</a>
-         <a href="#" class="num">4</a>
-         <a href="#" class="num">5</a>
-         <a href="#" class="bt next">다음 페이지</a>
-         <a href="#" class="bt last">마지막 페이지</a>
-     </div>
+
  </div>
 
  </div>

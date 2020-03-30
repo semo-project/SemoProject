@@ -110,10 +110,10 @@ public int insertWork(Connection conn, Work w) {
 }
 
 	//작품리스트조회
-	public ArrayList<Work> selectWorkList(Connection conn) {
+	public ArrayList<Work> selectWorkList(Connection conn, int loginUser) {
 		
 		ArrayList<Work> list = new ArrayList<>();
-		
+		Work w = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -121,18 +121,16 @@ public int insertWork(Connection conn, Work w) {
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, 1);// 
+			pstmt.setInt(1, loginUser);		//  로그인한 작가 넘버 
 			rset = pstmt.executeQuery();
 			
 			
 			while(rset.next()) {
-				Work w = new Work();
-				w.setWorkTitle(rset.getString("WORK_TITLE"));	
-				w.setThumbnailModify(rset.getString("Thumbnail_Modify"));
-				w.setWorkSummary(rset.getString("WORK_SUMMARY"));
-				
-				list.add(w);
-
+				list.add(w = new Work(
+						rset.getString("WORK_SUMMARY"),
+						rset.getString("Thumbnail_Modify"),
+						rset.getString("WORK_TITLE")
+						));
 			}
 			
 		} catch (SQLException e) {

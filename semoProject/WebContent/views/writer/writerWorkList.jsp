@@ -81,13 +81,17 @@
 		<% for(Work w : list) { %>
 		<input type="hidden" value="<%= w.getWriterNo() %>">
 		
-		<div class="col-md-7" src="<%=request.getContextPath()%>/resources/work_upfiles/<%= w.getThumbnailModify() %>">
-	  		<a href="#">
-	    	<img class="img-fluid rounded mb-3 mb-md-0">
-			</a>
+		<div class="col-md-7">
+			<br>
+	    	<img style="width: 498px; height:150px;" src="<%=request.getContextPath()%>/resources/work_upfiles/<%= w.getThumbnailModify() %>">	
+	    	<br>	
 		</div>
+		
 
+		
+		
 		<div class="col-md-5">
+		<br><br>
   			<h3><%=w.getWorkTitle() %></h3>
 			<p><%=w.getWorkSummary() %></p>
 			<a class="btn btn-primary divEpisode" >
@@ -176,15 +180,16 @@
                   </tr>
                   <tr>
                     <td>
-                      <div>작품요약: 
-                        <input type="text" name= "plot">
+                      <div>작품요약:<br>                   
+                        <textarea type="text" name="plot" cols="59" rows="5" style="resize:none;"> </textarea>
                       </div>
                     </td>
                   </tr>
                   <tr>
                     <td>
                       <div>줄거리:
-                        <input type="text" height="150px" name="summary">
+                        <!-- <input type="text" height="150px" name="summary"> -->
+                        <textarea type="text" name="summary" cols="59" rows="8" style="resize:none;"> </textarea>
                       </div>
                     </td>
                   </tr>
