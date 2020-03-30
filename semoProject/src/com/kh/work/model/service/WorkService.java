@@ -505,4 +505,44 @@ public class WorkService {
 		
 		return list;
 	}
+
+	public int starinsert(Work w) {
+		Connection conn = getConnection();
+		
+		int result = new WorkDao().starinsert(conn, w);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+		
+	}
+	
+	/**
+	 * Admin - 작품 숨김처리 시 에피소드도 숨김처리 하도록
+	 * @param no
+	 * @param flag
+	 * @return
+	 */
+	public int secretEpisode(String no, int flag) {
+		Connection conn = getConnection();
+		
+		int result = new WorkDao().secretEpisode(conn, no, flag);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
 }
