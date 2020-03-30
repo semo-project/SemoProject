@@ -32,12 +32,11 @@ private Properties prop = new Properties();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int result = 0;
-		String sql = prop.getProperty("listCount");
+		String sql = prop.getProperty("countList");
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, userNo);
 			rset = pstmt.executeQuery();
-			
 			if(rset.next()) {
 				result = rset.getInt(1);
 			}

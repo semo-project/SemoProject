@@ -100,7 +100,7 @@
 
           
         </div>
-        <button align="center" id="modal">탈퇴하기</button>
+        <button align="center" id="modal" onclick="withdraw();" disabled>탈퇴하기</button>
         <div id="myModal" class="modal">
       
           <div class="modal-content">
@@ -115,26 +115,38 @@
     
   </div>
   <!-- /.container -->
-  <script>    
-    var modal = document.getElementById("myModal");
-    var btn = document.getElementById("modal");
-    var span = document.getElementsByClassName("close")[0];
-    btn.onclick = function() {
-      modal.style.display = "block";
-    };
+  <script>
+	  $(function(){
+	      $("input:checkbox").change(function(){
+	        console.log($(this).prop("checked"));
+	        if($(this).prop("checked")){
+	          $("#modal").removeAttr("disabled");
+	        } else {
+	          $("#modal").attr("disabled", "true");
+	        }
+	      });
+	    });
+  
+  	  function withdraw(){
 
-    span.onclick = function() {
-      // modal.style.display = "none";
-      location.href="index.html";
-    };
+			var modal = document.getElementById("myModal");
+				var btn = document.getElementById("modal");
+				var span = document.getElementsByClassName("close")[0];
+				var pwd = prompt("비밀번호를 입력해주세요");
+				if (pwd == "<%= mem.getMemberPwd() %>") {
+					var bool = confirm("정말로 탈퇴하시겠습니까?");
+					if (bool) {
+						location.href="<%= contextPath %>/delete.me";
+					} else {
+						alert("회원탈퇴를 취소했습니다.");
+					}
+					
+				} else {
+					alert("비밀번호가 일치하지 않습니다.");
+				}
 
-    window.onclick = function(event) {
-      if (event.target == modal){
-        // modal.style.display = "none";
-        location.href="index.html";
-      }
-    };
-  </script>
+			}
+		</script>
   <!-- Footer -->
   <footer class="py-5 bg-dark">
     <div class="container">

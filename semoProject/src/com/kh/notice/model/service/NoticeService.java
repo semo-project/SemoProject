@@ -45,8 +45,62 @@ public class NoticeService {
 		
 		return result;
 	}
-		
-
 	
+	/**
+	 * Admin - 공지사항 디테일 조회
+	 * @param no
+	 * @return
+	 */
+	public Notice getAdminNotice(int no) {
+		Connection conn = getConnection();
+		
+		Notice n = new NoticeDao().getAdminNotice(conn, no);
+		
+		close(conn);
+		
+		return n;
+	}
+	
+	/**
+	 * Admin - 공지사항 수정
+	 * @param n
+	 * @return
+	 */
+	public int adminUpdateNotice(Notice n) {
+		Connection conn = getConnection();
+		
+		int result = new NoticeDao().adminUpdateNotice(conn, n);
+		
+		if(result > 0 ) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	/**
+	 * Admin - 공지 삭제
+	 * @param no
+	 * @return
+	 */
+	public int adminDeleteNotice(int no) {
+		Connection conn = getConnection();
+		
+		int result = new NoticeDao().adminDeleteNotice(conn, no);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
 
 }

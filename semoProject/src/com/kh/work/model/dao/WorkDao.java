@@ -380,9 +380,7 @@ public int insertWorkGenre(Connection conn, int[]genre) {
 								  rset.getString("EPISODE_TITLE")));
 								 	
 			}
-			
-			
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

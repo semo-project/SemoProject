@@ -187,7 +187,7 @@
     		location.href = "<%=contextPath%>/accusation.me?pageId=3";
     	}
     	$(function() {
-    		var msg = "<%=accusMessage%>";
+			var msg = "<%=accusMessage%>";
     		
     		if(msg != "null") {
     			alert(msg);
