@@ -13,6 +13,7 @@
 <link href="<%= request.getContextPath()%>/resources/css/boardmain.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Gugi&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="<%= request.getContextPath()%>/resources/css/icono.min.css">
 <style>
 	#board_table2>tbody>tr:hover{
 		cursor:pointer;
@@ -23,6 +24,46 @@
 	}
 	.pagingArea{
 		margin-top:2%;
+	}
+	button{
+	  background:lightseagreen;
+	  color:#fff;
+	  border:none;
+	  position:relative;
+	  height:60px;
+	  font-size:1em;
+	  padding:0 2em;
+	  cursor:pointer;
+	  transition:800ms ease all;
+	  outline:none;
+	  height:30px;
+	}
+	button:hover{
+	  background:#fff;
+	  color:#1AAB8A;
+	}
+	button:before,button:after{
+	  content:'';
+	  position:absolute;
+	  top:0;
+	  right:0;
+	  height:2px;
+	  width:0;
+	  background: #1AAB8A;
+	  transition:400ms ease all;
+	}
+	button:after{
+	  right:inherit;
+	  top:inherit;
+	  left:0;
+	  bottom:0;
+	}
+	button:hover:before,button:hover:after{
+	  width:100%;
+	  transition:800ms ease all;
+	}
+	tr.space {
+  	  border-bottom: 10px solid #fff;
 	}
 </style>
 </head>
@@ -37,9 +78,9 @@
       <!-- <small>Subheading</small> -->
     </h1>
 
-    <ol class="breadcrumb">
+    <ol class="breadcrumb" style="background:lightseagreen">
       <li class="breadcrumb-item">
-        <a href="boardList.bo" style="font-family: 'Gugi'">세모게시판</a> > <a href="boardList.bo" style="font-family: 'Gugi'">웹툰 TalkTalk</a>
+        <a href="boardList.bo" style="font-family: 'Gugi'; color:white">세모게시판</a> > <a href="boardList.bo" style="font-family: 'Gugi'; color:white">웹툰 TalkTalk</a>
       </li>
     </ol>
 
@@ -66,18 +107,14 @@
               </tr>
               <tr style="border-bottom:1px solid rgb(163, 160, 160); margin-top: 5px;">
                   <td>
-                      <h6>웹툰에 대해 자유롭게 얘기해보아요!</h6>
+                      <h6><img style="width:25px; height:25px; border-radius:10px; margin-bottom:5px;" src="resources/images/webtalk.jpg">웹툰에 대해 자유롭게 얘기해보아요!</h6>
                   </td>
               </tr>
           </table>
          </div> 
          
           <div class="board_div2">
-            <table id="board_table2" style="margin-left:13.5%;">
-            <colgroup>
-              <col style="width: 30%;">
-              <col style="width: 15%;">
-            </colgroup>
+            <table id="board_table2" style="margin-left:22.7%; margin-top:1.5%;">
             	<thead>
 		            <tr>
 		              <th width="100px">글번호</th>
@@ -89,7 +126,7 @@
             	<tbody>
             		<% if(list.isEmpty()){ %>
             		<tr>
-            			<td colspan="4">조회된 게시물이 없습니다.</td>
+            			<td colspan="5">조회된 게시물이 없습니다.</td>
             		</tr>
             		<% }else{ %>
             			<% for(Board b : list){ %>
@@ -105,9 +142,9 @@
             </table>
             
             
-            <form class="searchFormArea" align="center" method="post" action="<%= request.getContextPath()%>/searchBoardT.bo">
+            <form class="searchFormArea" align="center" method="post" action="<%= request.getContextPath()%>/searchBoardT.bo" style="margin-top:5%">
             	<td>
-            		<select id="searchOption1" name="searchOption1">
+            		<select id="searchOption1" name="searchOption1" style="border:1px solid lightgray;">
             			<option value="boardTitle">제목</option>
             			<option value="boardWriter">작성자명</option>
             			<option value="boardContent">내용</option>
@@ -117,16 +154,14 @@
             		<input type="text" id="searchContent" name="searchContent">
             	</td>
             	<td>
-            		<button type="submit" id="searchBtn1">검색</button>
+            		<button type="submit" id="searchBtn1" style="height:30px;">검색</button>
             	</td>
             </form>
             
           </div>
       </div>
       
-    </div>
-</div>
-
+<br><br><br><br><br><br><br><br><br><br>
 <!-- Footer -->
   <footer class="py-5 bg-dark">
     <div class="container">

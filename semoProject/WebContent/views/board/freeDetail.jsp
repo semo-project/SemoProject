@@ -21,6 +21,7 @@
 <link href="<%= request.getContextPath()%>/resources/css/boardmain.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Gugi&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="<%= request.getContextPath()%>/resources/css/icono.min.css">
 <style>
 	.outer{
 		width:800px;
@@ -76,6 +77,17 @@
 		border:2px solid #E2E2E2;
 		z-Index:9999
 	}
+	#reportBtn{
+		border:0;
+		background: white;
+	}
+	#reportBtn:hover{
+		background:red;
+		color:white;
+	}
+	.icono-list{
+		background:skyblue;
+	}
 </style>
 </head>
 <body>
@@ -89,9 +101,9 @@
       <!-- <small>Subheading</small> -->
     </h1>
 
-    <ol class="breadcrumb">
+    <ol class="breadcrumb" style="background:lightseagreen">
       <li class="breadcrumb-item">
-        <a href="freeList.bo" style="font-family: 'Gugi'">세모게시판</a> > <a href="freeList.bo" style="font-family: 'Gugi'">수다수다 유머방</a>
+        <a href="freeList.bo" style="font-family: 'Gugi'; color:white">세모게시판</a> > <a href="freeList.bo" style="font-family: 'Gugi'; color:white">수다수다 유머방</a>
       </li>
     </ol>
 
@@ -111,14 +123,14 @@
       
       <div class="semoTalk" style="margin-top: 8%">
           <table style="width: 600px;margoin-left: auto;margin-left: 25%;margin-top: -19%;">
-              <tr style="border-bottom:1px solid rgb(163, 160, 160);">
+              <tr>
                   <td>
                       <h3 style="font-family: 'Gugi'">수다수다 유머방</h3>
                   </td>
               </tr>
               <tr style="border-bottom:1px solid rgb(163, 160, 160); margin-top: 5px;">
                   <td>
-                      <h6>재미있는 유머들이 가득한 곳!</h6>
+                      <h6><img style="width:25px; height:25px; border-radius:10px; margin-bottom:5px;" src="resources/images/aaaa.png">재미있는 유머들이 가득한 곳!</h6>
                   </td>
               </tr>
           </table>
@@ -127,45 +139,48 @@
       
 </div>
 		
-		<div class="outer" style="margin-left:30%; margin-top: -0.1%;">
+		<div class="outer" style="margin-left:31.5%; margin-top: -0.1%;">
           <table>
           	<tr>
-          		<th>No.<%=b.getBoardNo() %></th>
+          		<td>No.<%=b.getBoardNo() %></td>
+          		<td></td>
           		<th colspan="3" align="center"><%=b.getBoardTitle() %></th>
-          		<th></th>
-          		<th></th>
+          		<td><%=b.getBoardWriteDate() %></td>
           	</tr>
           	<tr>
           		<th></th>
           		<th></th>
-          		<th colspan="3"></th>
-          		<th><%=b.getBoardWriteDate() %></th>
+          		<th colspan="4"></th>
           	</tr>
           	<tr>
           		<th colspan="4"></th>
-          		<th>작성자 : </th>
+          		<td>작성자 : </td>
           		<th><%=b.getBoardWriter() %></th>
           	</tr>
           	<tr>
           		<th colspan="4"></th>
-         		<th>조회수 : </th>
+         		<td>조회수 : </td>
           		<th><%=b.getBoardCnt() %></th>          		          	
           	</tr>
           	<tr>
-          		<td colspan="5">
-          			<p><%=b.getBoardContent() %></p>
-          		</td>
+          		<td colspan="4"></td>
+          		<td></td>
           	</tr>
           	<tr>
-          		<th><button id="freeBoardList" onclick="location.href='freeList.bo'">목록</button></th>
+          		<td colspan="5">
+          			<p style="padding-top:20px; height:400px"><%=b.getBoardContent() %></p>
+          		<button class="icono-document" id="freeBoardList" onclick="location.href='freeList.bo'">목록</button>
+          		<td>
           	</tr>
           </table>
-          
+        </div> 
+        
+        
           <!-- 게시글 작성자일경우 수정,삭제 버튼 -->
-          <div class="btns" align="right">
+          <div class="btns" align="right" style="width: 1085px; padding-bottom: 30px;">
           	<% if(loginUser != null && loginUser.getMemberNickname().equals(b.getBoardWriter())) {%>
-          		<button onclick="location.href='<%=contextPath%>/freeUpdateForm.bo?boardNo=<%=b.getBoardNo()%>'">수정</button>
-				<button onclick="deleteFree();">삭제</button>
+          		<button class="icono-dropper" style="margin-right:2%" onclick="location.href='<%=contextPath%>/freeUpdateForm.bo?boardNo=<%=b.getBoardNo()%>'">수정</button>
+				<button class="icono-trash" onclick="deleteFree();">삭제</button>
 			<% }else if(loginUser != null && loginUser.getMemberNickname() != (b.getBoardWriter())){ %>
 				<button id="reportBtn">게시글 신고</button>
 				
@@ -350,24 +365,24 @@
 	</script>
       
 		<!-- 댓글 작성 폼 -->
-		<div class="commentArea">
+		<div class="commentArea" style="width: 1550px;">
 			<!-- 댓글 작성 table -->
 			<table border="0" align="center">
 				<tr>
-					<th>댓글</th>
+					<th></th>
 					<% if(loginUser != null){ %>
-						<td><textarea id="commentContent" rows="3" cols="60" style="resize:none"></textarea></td>
-						<td><button class="btn btn-warning" id="addComment">댓글 작성</button>
+						<td><textarea id="commentContent" rows="3" cols="60" style="resize:none; width:550px;"></textarea></td>
+						<td><button class="btn btn-warning" id="addComment">댓글</button>
 					<%}else{ %>
-						<td><textarea readonly rows="3" cols="60" style="resize:none"></textarea></td>
-						<td><button class="btn btn-warning" disabled>댓글 작성</button>
+						<td><textarea readonly rows="3" cols="60" style="resize:none; width:550px;"></textarea></td>
+						<td><button class="btn btn-warning" disabled>댓글</button>
 					<% } %>
 				</tr>
 			</table>
 			
 			<!-- 댓글 리스트 area -->
-			<div id="commentListArea">
-				<table id="commentList" border="0" align="center" style="margin-top:10px;">
+			<div id="commentListArea" style="width:1600px;">
+				<table id="commentList" border="0" align="center" style="width:640px;">
 					 
 				</table>
 			</div>
@@ -560,7 +575,8 @@
 				myModal2.hide();
 			});
 		</script> 
-		
+<br><br><br><br><br>	
+	
 		<!-- Footer -->
   <footer class="py-5 bg-dark">
     <div class="container">
@@ -569,6 +585,7 @@
     <!-- /.container -->
   </footer> 
 <!-- /.container -->
+
 <!-- Bootstrap core JavaScript -->
   <script src="<%= request.getContextPath() %>/resources/js/jquery.min.js"></script>
   <script src="<%= request.getContextPath() %>/resources/js/bootstrap.bundle.min.js"></script>

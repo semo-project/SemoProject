@@ -4,6 +4,7 @@ import static com.kh.common.JDBCTemplate.*;
 
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import com.kh.board.model.dao.BoardDao;

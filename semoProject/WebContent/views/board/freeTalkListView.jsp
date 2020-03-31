@@ -20,10 +20,11 @@
 <link href="<%= request.getContextPath()%>/resources/css/boardmain.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Gugi&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="<%= request.getContextPath()%>/resources/css/icono.min.css">
 <style>
 	#board_table2>tbody>tr:hover{
 		cursor:pointer;
-		text-align:center;
+		color:lightgray;
 	}
 	.searchFormArea{
 		margin-top:3%;
@@ -31,59 +32,45 @@
 	.pagingArea{
 		margin-top:2%;
 	}
-	.outer{
-		width:800px;
-		height:500px;
-		background:white;
-		color:black;
-		margin-left:15%;
-		margin-top:50px;
+	button{
+	  background:lightseagreen;
+	  color:#fff;
+	  border:none;
+	  position:relative;
+	  height:60px;
+	  font-size:1em;
+	  padding:0 2em;
+	  cursor:pointer;
+	  transition:800ms ease all;
+	  outline:none;
+	  height:30px;
 	}
-	.outer>table, .outer>table tr>*{
-		border:1px solid black;
+	button:hover{
+	  background:#fff;
+	  color:#1AAB8A;
 	}
-	.outer>table{
-		width:600px;
-		height:300px;
+	button:before,button:after{
+	  content:'';
+	  position:absolute;
+	  top:0;
+	  right:0;
+	  height:2px;
+	  width:0;
+	  background: #1AAB8A;
+	  transition:400ms ease all;
 	}
-	.outer>table p{
-		height:230px;
+	button:after{
+	  right:inherit;
+	  top:inherit;
+	  left:0;
+	  bottom:0;
 	}
-	
-	.replyArea{
-		background:white;
-		color:black;
-		margin:auto;
-		width:800px;
+	button:hover:before,button:hover:after{
+	  width:100%;
+	  transition:800ms ease all;
 	}
-	#boardReport{
-		pointer:cursor;
-	}
-	#comUpBtn{
-		background:red;
-	}
-	commentArea>table tr{
-		margin-top:5px;
-	}
-	#modal {
-		display:none;
-		background-color:#FFFFFF;
-		position:absolute;
-		top:500px;
-		left:200px;
-		padding:10px;
-		border:2px solid #E2E2E2;
-		z-Index:9999
-	}
-	#modal2 {
-		display:none;
-		background-color:#FFFFFF;
-		position:absolute;
-		top:500px;
-		left:200px;
-		padding:10px;
-		border:2px solid #E2E2E2;
-		z-Index:9999
+	tr.space {
+  	  border-bottom: 10px solid #fff;
 	}
 </style>
 </head>
@@ -98,9 +85,9 @@
       <!-- <small>Subheading</small> -->
     </h1>
 
-    <ol class="breadcrumb">
+    <ol class="breadcrumb" style="background:lightseagreen">
       <li class="breadcrumb-item">
-        <a href="freeList.bo" style="font-family: 'Gugi'">세모게시판</a> > <a href="freeList.bo" style="font-family: 'Gugi'">수다수다 유머방</a>
+        <a id="btn11" href="freeList.bo" style="font-family: 'Gugi'; color:white">세모게시판</a> > <a id="btn11" href="freeList.bo" style="font-family: 'Gugi'; color:white">수다수다 유머방</a>
       </li>
     </ol>
 
@@ -127,17 +114,14 @@
               </tr>
               <tr style="border-bottom:1px solid rgb(163, 160, 160); margin-top: 5px;">
                   <td>
-                      <h6>재미있는 유머들이 가득한 곳!</h6>
+                      <h6><img style="width:25px; height:25px; border-radius:10px; margin-bottom:5px;" src="resources/images/aaaa.png">재미있는 유머들이 가득한 곳!</h6>
                   </td>
               </tr>
           </table>
          </div>
           <div class="board_div2">
             <table id="board_table2" style="margin-left:22.7%; margin-top:1.5%;">
-            <!-- <colgroup>
-              <col style="width: 30%;">
-              <col style="width: 15%;">
-            </colgroup> -->
+          
             	<thead>
 		            <tr>
 		              <th width="90px">글번호</th>
@@ -154,6 +138,7 @@
             		</tr>
             		<% }else{ %>
             			<% for(Board b : list){ %>
+            			<tr class="space"></tr>
             			<tr>
             				<td><%= b.getBoardNo() %></td>
             				<td><%= b.getBoardTitle() %></td>
@@ -166,9 +151,14 @@
             	</tbody>
             </table>
             
-           <form class="searchFormArea" align="center" method="post" action="<%= request.getContextPath()%>/searchFreeT.bo">
+            <% if(loginUser != null) { %>
+        		<button class="write_btn" onclick="location.href='<%=contextPath%>/freeInForm.bo';" style="margin-left: 50%; margin-top:3%">작성</button>
+        	<% } %>
+        	
+           <form class="searchFormArea" align="center" method="post" action="<%= request.getContextPath()%>/searchFreeT.bo" 
+           			style="margin-top:5%">
             	<td>
-            		<select id="searchOption2" name="searchOption2">
+            		<select id="searchOption2" name="searchOption2" style="border:1px solid lightgray;">
             			<option value="boardTitle">제목</option>
             			<option value="boardWriter">작성자명</option>
             			<option value="boardContent">내용</option>
@@ -181,41 +171,42 @@
             		<button type="submit" id="searchBtn2">검색</button>
             	</td>
             </form>
-            
-        	<% if(loginUser != null) { %>
-        		<button class="write_btn" onclick="location.href='<%=contextPath%>/freeInForm.bo';">작성하기</button>
-        	<% } %>
-        	
+           
         	<!-- 페이징바 영역 -->
 		    <div class="pagingArea" align="center">
 		    	  <!-- 맨 처음 -->
-		    	  <button onclick="location.href='<%=contextPath%>/freeList.bo';"> &lt;&lt; </button>
+		    	  <button onclick="location.href='<%=contextPath%>/freeList.bo';" style="width: 41.6644px;padding-left: 0px;
+    					  padding-right: 3px;padding-bottom: 2px;"> &lt;&lt; </button>
 		    	  
 		    	  <!-- 이전page -->
 		    	  <%if(currentPage == 1){ %>
-		    	  		<button disable> &lt; </button>
+		    	  		<button style="width: 41.6644px;padding-left: 0px;padding-right: 3px;padding-bottom: 2px;" disable> &lt; </button>
 		    	  <%}else{ %>
-		    	  		<button onclick="location.href='<%=contextPath %>/freeList.bo?currentPage=<%=currentPage-1%>';"> &lt; </button>
+		    	  		<button onclick="location.href='<%=contextPath %>/freeList.bo?currentPage=<%=currentPage-1%>';" style="width: 41.6644px;padding-left: 0px;
+      							padding-right: 3px;padding-bottom: 2px;"> &lt; </button>
 		    	  <% } %>
 		    	  
 		    	  <!-- 페이지목록 -->
 		    	  <%for(int p=startPage; p<=endPage; p++){ %>
 		    	  		<%if(currentPage == p){%>
-		    	  			<button disabled> <%=p %></button>
+		    	  			<button style="width: 41.6644px;padding-left: 0px;padding-right: 3px;padding-bottom: 2px;" disabled> <%=p %></button>
 		    	  		<%}else{ %>
-		    	  			<button onclick="location.href='<%=contextPath%>/freeList.bo?currentPage=<%=p %>';"> <%=p %></button>
+		    	  			<button onclick="location.href='<%=contextPath%>/freeList.bo?currentPage=<%=p %>';" style="width: 41.6644px;
+     								 padding-left: 0px;padding-right: 3px;padding-bottom: 2px;"> <%=p %></button>
 		    	  		<%} %>
 		    	  <%} %>
 		    	  
 		    	  <!-- 다음page -->
 		    	  <%if(currentPage == maxPage){ %>
-		    	  		<button disabled> &gt; </button>
+		    	  		<button style="width: 41.6644px;padding-left: 0px;padding-right: 3px;padding-bottom: 2px;" disabled> &gt; </button>
 		    	  <%}else{ %>
-		    	  		<button onclick="location.href='<%=contextPath%>/freeList.bo?currentPage=<%=currentPage+1%>';"> &gt; </button>
+		    	  		<button onclick="location.href='<%=contextPath%>/freeList.bo?currentPage=<%=currentPage+1%>';" style="width: 41.6644px;
+   								padding-left: 0px;padding-right: 3px;padding-bottom: 2px;"> &gt; </button>
 		    	  <%} %>
 		    	  
 		    	  <!-- 맨 마지막으로 -->
-		    	  <button onclick="location.href='<%=contextPath%>/freeList.bo?currentPage=<%=maxPage%>';"> &gt;&gt; </button>		
+		    	  <button onclick="location.href='<%=contextPath%>/freeList.bo?currentPage=<%=maxPage%>';" style="width: 41.6644px;
+     					  padding-left: 0px;padding-right: 3px;padding-bottom: 2px;"> &gt;&gt; </button>		
 		    </div>
         	
           </div>
@@ -223,7 +214,7 @@
       
     </div>
 </div>
-
+<br><br><br><br><br>
 <!-- Footer -->
   <footer class="py-5 bg-dark">
     <div class="container">
