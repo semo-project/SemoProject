@@ -49,6 +49,17 @@ public class Work {
 		this.workTitle = workTitle;
 	}
 
+	
+	//mondayList
+		super();
+		this.workNo = workNo;
+		this.updateDay = updateDay;
+		this.approvalDate = approvalDate;
+		this.serialCnt = serialCnt;
+		this.writerNo = writerNo;
+		this.workTitle = workTitle;
+		this.thumbnailModify = thumbnailModify;
+	}
 	public Work(int workNo, String updateDay, Date startDay, Date requestDate, Date approvalDate, String workSummary,
 			String workPlot, String approvalStatus, int serialCnt, int bookmarkCnt, String thumbnailModify,
 			String thumbnailOriginal, String secretFlag, int writerNo, String workTitle, int genreNo,
@@ -74,25 +85,18 @@ public class Work {
 	}
 	
 	// selectList
-	public Work(int workNo, String workTitle, int serialCnt, Date approvalDate, int writerNo) {
+	public Work(int workNo, String workTitle, int writerNo, int serialCnt, Date approvalDate ,String thumbnailModify) {
 		super();
 		this.workNo = workNo;
-		this.approvalDate = approvalDate;
-		this.serialCnt = serialCnt;
-		this.writerNo = writerNo;
 		this.workTitle = workTitle;
+		this.writerNo = writerNo;
+		this.serialCnt = serialCnt;
+		this.approvalDate = approvalDate;
+		this.thumbnailModify = thumbnailModify;
 	}
 	
-	//mondayList
-	public Work(int workNo, String updateDay, Date approvalDate, int serialCnt, int writerNo, String workTitle) {
-		super();
-		this.workNo = workNo;
-		this.updateDay = updateDay;
-		this.approvalDate = approvalDate;
-		this.serialCnt = serialCnt;
-		this.writerNo = writerNo;
-		this.workTitle = workTitle;
-	}
+	
+	
 
 	//selectGenreList
 	public Work(int workNo, String workTitle, int writerNo, int serialCnt, Date approvalDate) {
