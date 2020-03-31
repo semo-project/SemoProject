@@ -49,6 +49,24 @@ public class Episode {
 		this.workNo = workNo;
 	}
 	
+	public Episode(int episodeNo, Date approvalDate, int viewsCnt, String workTitle, String episodeTitle, String episodeModify) {
+		super();
+		this.episodeNo = episodeNo;
+		this.approvalDate = approvalDate;
+		this.viewsCnt = viewsCnt;
+		this.workTitle = workTitle;
+		this.episodeTitle = episodeTitle;
+		this.episodeModify = episodeModify;
+	}
+	
+	public Episode(int episodeNo, String workTitle, String episodeTitle , String episodeModify) {
+		super();
+		this.episodeNo = episodeNo;
+		this.workTitle = workTitle;
+		this.episodeTitle = episodeTitle;
+		this.episodeModify = episodeModify;
+	}
+	
 	public Episode(int episodeNo, Date approvalDate, int viewsCnt, String workTitle, String episodeTitle) {
 		super();
 		this.episodeNo = episodeNo;
@@ -57,14 +75,7 @@ public class Episode {
 		this.workTitle = workTitle;
 		this.episodeTitle = episodeTitle;
 	}
-	
-	public Episode(int episodeNo, String workTitle, String episodeTitle) {
-		super();
-		this.episodeNo = episodeNo;
-		this.workTitle = workTitle;
-		this.episodeTitle = episodeTitle;
-	}
-	
+
 	public Episode(int episodeNo, Date registDate, Date approvalDate, String approvalStatus, int viewsCnt,
 			Date modificationDate, int starGrade, int likeCnt, int serialCnt, String writerComment, String secretFlag,
 			int workNo, int fileNo, String episodeModify, int fileLevel, String workTitle, String episodeTitle) {

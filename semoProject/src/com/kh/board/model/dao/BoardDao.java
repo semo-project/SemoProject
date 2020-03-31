@@ -503,7 +503,7 @@ public class BoardDao {
 			pstmt.setInt(4, memberNo);
 			
 			result = pstmt.executeUpdate();
-			System.out.println(result);
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -819,5 +819,6 @@ public class BoardDao {
 		
 		return list;
 	}
+	
 }
 
