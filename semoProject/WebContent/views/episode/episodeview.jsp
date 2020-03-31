@@ -265,7 +265,7 @@ star-input>.input.focus{outline:1px dotted #ddd;}
     <div class="row">
 
       <div class="col-md-8">
-        <img class="img-fluid" src="<%= contextPath %>/resources/images/<%= w.getThumbnailModify() %>" alt="">
+        <img class="img-fluid" src="<%= contextPath %>/resources/work_upfiles/<%= w.getThumbnailModify() %>" alt="">
       </div>
       
       
