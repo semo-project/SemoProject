@@ -1179,7 +1179,8 @@ public class WorkDao {
 								  rset.getDate("APPROVAL_DATE"),
 								  rset.getInt("VIEWS_CNT"),
 								  rset.getString("WORK_TITLE"),
-								  rset.getString("EPISODE_TITLE")));
+								  rset.getString("EPISODE_TITLE"),
+								  rset.getString("EPISODE_MODIFY")));
 								 	
 			}
 			
@@ -1218,7 +1219,8 @@ public class WorkDao {
 								  rset.getDate("APPROVAL_DATE"),
 								  rset.getInt("VIEWS_CNT"),
 								  rset.getString("WORK_TITLE"),
-								  rset.getString("EPISODE_TITLE")));
+								  rset.getString("EPISODE_TITLE"),
+								  rset.getString("EPISODE_MODIFY")));
 								 	
 			}
 			
