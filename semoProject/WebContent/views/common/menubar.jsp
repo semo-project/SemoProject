@@ -66,7 +66,7 @@
 			<ul class="navbar-nav ml-auto" style="margin-right: 20px;">
         	
           	<li class="nav-item">
-              	<input id="searchform" type="search" name="search" placeholder=" Search work..." class="container-1" style="border-radius: 0.25rem; height:100%; margin:0">
+              	<input id="searchform" type="search" name="search" placeholder="웹툰명을 입력해주세요." class="container-1" style="border-radius: 0.25rem; height:100%; margin:0">
               	<input id="searchbtn" type="submit" class="btn" value="검색" style="height:100%">
           	</li>
           
@@ -102,13 +102,12 @@
 		              </div>
 		
 		              <p class="account_help">
-		                "
+		               
 		                    이용 중 도움이 필요하시면 ["
 		                <a href="<%=request.getContextPath() %>/list.no">고객지원</a>
-		                "] 페이지로, 로그인에 문제가 있다면 "
-		                <a href="semo:help@semo.com">semohelp@semo.com</a>
-		                "으로 문의해 주세요.
-		                "
+		                "] 페이지로
+		              로 문의해 주세요.
+		                
 		              </p>
 		            </div>
 		          </li>

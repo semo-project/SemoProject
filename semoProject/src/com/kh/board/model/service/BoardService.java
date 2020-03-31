@@ -384,6 +384,7 @@ public class BoardService {
 		return list;
 	}
 	
+	
 	///////////////////////////////////////////////////////////////////
 	// KJY
 	public int countList(int userNo) {

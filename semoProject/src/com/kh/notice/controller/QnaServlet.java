@@ -28,6 +28,8 @@ public class QnaServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		request.getRequestDispatcher("views/notice/qna.jsp").forward(request, response);
+		
+		
 	}
 
 	/**

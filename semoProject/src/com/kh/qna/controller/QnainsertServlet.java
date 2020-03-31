@@ -57,18 +57,29 @@ public class QnainsertServlet extends HttpServlet {
 		QNA q = new QNA(qnaTitle, qnaContent, qnaContentNo, userno);
 		
 		int result = new QNAService().insertQna(q);
-		
 		if(result > 0) {
-			request.getRequestDispatcher("views/notice/qna.jsp").forward(request, response); 
-			response.setContentType("text/html; charset=utf-8");
+			String message = " 1:1 문의 작성 성공!";
+			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			out.println("<script>alert('1:1 문의 작성 완료. '); location href='list.qn';</script>");
+			out.println("<script>");
+			out.println("alert('" + message + "');");
+			out.println("history.back(-1);");
+			out.println("</script>");
 			
-		}else {
+		} else {
+			String message = " 1:1 문의 작성 실패!";
+			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			out.println("<script>alert('문의작성 실패 '); location href='list.qn';</script>");
+			out.println("<script>");
+			out.println("alert('" + message + "');");
+			out.println("history.back(-1);");
+			out.println("</script>");
 		}
+		
 
+		
+		
+		
 
 	}
 

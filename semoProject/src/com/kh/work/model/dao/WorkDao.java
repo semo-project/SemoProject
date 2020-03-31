@@ -387,7 +387,6 @@ public class WorkDao {
 			rset = pstmt.executeQuery();		
 			
 			
-			
 			while(rset.next()) {
 				list.add(new Episode(rset.getInt("EPISODE_NO"),
 								  rset.getDate("APPROVAL_DATE"),
