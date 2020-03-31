@@ -53,11 +53,11 @@
     <!-- Page Heading/Breadcrumbs -->
     <h1 class="mt-4 mb-3">마이페이지</h1>
 
-    <ol class="breadcrumb">
+    <ol style="background:lightseagreen;" class="breadcrumb">
       <li class="breadcrumb-item">
-	    <a href="<%= contextPath %>">메인</a>
+	    <a href="<%= contextPath %>" style="color:white;">메인</a>
       </li>
-      <li class="breadcrumb-item active">마이페이지</li>
+      <li class="breadcrumb-item active" style="color:white;">마이페이지</li>
     </ol>
 
     <!-- Content Row -->
@@ -70,6 +70,9 @@
       <div class="col-lg-9 mb-4">
         <h2 align="center">내 게시글 보기</h2>
         <hr>
+            <% if(list.isEmpty()) { %>
+              <h1 align="center">조회된 리스트가 없습니다.</h1>
+            <% } else { %>
         <table class="listArea" border="1" align="center">
           <thead>
             <tr>
@@ -80,11 +83,6 @@
             </tr>
           </thead>
           <tbody>
-            <% if(list.isEmpty()) { %>
-              <tr>
-                <td colspan="4"><h1 align="center">조회된 리스트가 없습니다.</h1></td>
-              </tr>
-            <% } else { %>
               <% for(Board b : list) { %>
                 <tr>
                   <td><%= b.getListNo() %></td>
@@ -143,9 +141,9 @@
 			<%for(int p=startPage; p<=endPage; p++){ %>
 				
 				<%if(currentPage == p){ %>
-				<button disabled> <%=p%> </button>
+				<button class="btn btn-simple" disabled> <%=p%> </button>
 				<%}else{ %>
-				<button onclick="location.href='<%=contextPath%>/myBoard.me?currentPage=<%=p%>';"> <%= p %> </button>
+				<button class="btn btn-simple" onclick="location.href='<%=contextPath%>/myBoard.me?currentPage=<%=p%>';"> <%= p %> </button>
 				<%} %>
 			
 				

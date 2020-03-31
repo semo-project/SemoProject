@@ -31,11 +31,11 @@
     <!-- Page Heading/Breadcrumbs -->
     <h1 class="mt-4 mb-3">마이페이지</h1>
 
-    <ol class="breadcrumb">
+    <ol style="background:lightseagreen;" class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="<%= contextPath %>">메인</a>
+	    <a href="<%= contextPath %>" style="color:white;">메인</a>
       </li>
-      <li class="breadcrumb-item active">마이페이지</li>
+      <li class="breadcrumb-item active" style="color:white;">마이페이지</li>
     </ol>
 
     <!-- Content Row -->
