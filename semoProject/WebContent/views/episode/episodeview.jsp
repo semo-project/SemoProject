@@ -645,6 +645,9 @@ star-input>.input.focus{outline:1px dotted #ddd;}
 	 }
 	</script>
 	
+	<script src="<%= request.getContextPath() %>/resources/js/jquery.min.js"></script>
+  <script src="<%= request.getContextPath() %>/resources/js/bootstrap.bundle.min.js"></script>
+	
 	
 </body>
 

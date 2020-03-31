@@ -26,9 +26,9 @@
   <!-- Page Heading/Breadcrumbs -->
   <h1 class="mt-4 mb-3">공지사항 </h1>
 
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item">
-      <a href="Notice_공지사항.html">공지시항/고객지원</a>
+  <ol class="breadcrumb" style="background:lightseagreen">
+    <li class="breadcrumb-item" style="font-family: 'Gugi'; color:white">
+      <a href="#">공지시항/고객지원</a>
     </li>
   </ol>
 
@@ -53,7 +53,7 @@
 				  <h5 class="mb-0">
 				  <div>
 					<div>
-				      	<a class="collapsed" data-toggle="collapse" data-target="#collapse<%=idx %>" aria-expanded="false" aria-controls="collapseTwo">
+				      	<a class="collapsed" data-toggle="collapse" data-target="#collapse<%=idx %>" aria-expanded="false" aria-controls="collapseTwo" style="cursor:pointer">
 				      		<%= n.getNoticeTitle() %>
 				     	</a>
 				     	
@@ -84,6 +84,9 @@
 </div>
 <!-- /.container -->
 </div>
+
+
+<br><br><br><br><br><br>
 <!-- Footer -->
 <footer class="py-5 bg-dark">
   <div class="container">
