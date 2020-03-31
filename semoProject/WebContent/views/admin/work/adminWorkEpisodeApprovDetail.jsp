@@ -31,7 +31,7 @@
                         </ol>
 
                         <div>
-                            <img src="assets/img/좀딸.PNG" alt="">
+                            <img src="<%=contextPath %>/resources/episode_upfiles/<%=ep.getEpisodeModify() %>" alt="">
                         </div>
 
                     </div>
@@ -43,7 +43,7 @@
         
         <script>
         	function goEpisodeApprov() {
-        		location.href = "<%=contextPath%>/episodeApprov.wo?pageId=5";
+        		location.href = "<%=contextPath%>/episodeApprov.ep?pageId=5";
         	}
         </script>
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>

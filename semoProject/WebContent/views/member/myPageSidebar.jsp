@@ -23,7 +23,6 @@
       	  <% } else if(loginUser.getApprovalFlag().equals("N")) { %>
     	  <% } else { %>
       		<a href="list.wr" class="list-group-item">내 작품 관리</a>
-         	<a href="#" class="list-group-item">수익 관리</a>
       	  <% } %>
 	</div>
 </body>

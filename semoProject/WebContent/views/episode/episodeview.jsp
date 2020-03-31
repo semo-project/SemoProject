@@ -6,6 +6,10 @@
 	ArrayList<Episode> list = (ArrayList<Episode>)request.getAttribute("list");
 	Work w = (Work)request.getAttribute("w");
 	EpNotice en = (EpNotice)request.getAttribute("en");
+	
+	for(Episode e : list) {
+		System.out.println(e);
+	}
 %>
  
 <!DOCTYPE html>
@@ -334,7 +338,7 @@ star-input>.input.focus{outline:1px dotted #ddd;}
     </ul>
    
 	
-    <p>줄거리:<%= w.getWorkSummary() %></p>
+    <p><%= w.getWorkSummary() %></p>
     
       </div>
 
@@ -396,10 +400,10 @@ star-input>.input.focus{outline:1px dotted #ddd;}
       		<div class="col-md-3 col-sm-6 mb-4 divEpisode">
       				<input type="hidden" class="eNo" id="eNo" value="<%=e.getEpisodeNo()%>">
         		<a href="#">
-          			<img class="img-fluid" src="http://placehold.it/500x300" alt="">
+          			<img class="img-fluid" style="width:500px; height:200px;" src="<%=contextPath %>/resources/episode_upfiles/<%=e.getEpisodeModify() %>" alt="">
         		</a>
         				<p>											
-							<font size="5";fack="궁서체"><%= e.getWorkTitle() %></font>	 <%= e.getEpisodeTitle() %> >> <%=e.getEpisodeNo()%>화 <br>
+							<font size="5" fack="궁서체"><%= e.getWorkTitle() %></font><%= e.getEpisodeTitle() %><br>
 							<%= e.getApprovalDate() %> <br>
 							조회수 : <%= e.getViewsCnt() %>
 							

@@ -13,15 +13,15 @@
    <div class="col-lg-3 mb-4">
    
      <div class="list-group">
-       <a class="list-group-item" onclick="noticeGo();">
+       <a class="list-group-item" onclick="noticeGo();" style="cursor:pointer">
        	공지사항
        	</a>
        
-       <a class="list-group-item" onclick="contextGo();">
+       <a class="list-group-item" onclick="contextGo();"style="cursor:pointer">
       	 자주 묻는 질문
        </a>
        
-       <a class="list-group-item" onclick="qnaGo();">
+       <a class="list-group-item" onclick="qnaGo();" style="cursor:pointer">
        1:1 문의
        </a>
        
