@@ -13,6 +13,7 @@
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Gugi&display=swap" rel="stylesheet">
 <style>
+	
 	button{
 	  background:lightseagreen;
 	  color:#fff;
@@ -109,8 +110,10 @@
     		
     		if(!chk.test(newPwd.val())){
     			$("#newPwdspace").html("비밀번호 양식에 맞지 않습니다.");
+    			$("#newPwdspace").css("color", "red");
     		}else{
     			$("#newPwdspace").html("적합한 비밀번호입니다.");
+    			$("#newPwdspace").css("color", "limegreen");
     		}
     		
     	}
@@ -122,8 +125,10 @@
     		
     		if(newPwdCheck.val() != newPwd.val()){
     			$("#pwdChkspace").html("비밀번호가 일치하지 않습니다.");
+    			$("#pwdChkspace").css("color", "red");
     		}else{
     			$("#pwdChkspace").html("비밀번호가 일치합니다.");
+    			$("#pwdChkspace").css("color", "limegreen");
     		}
     	}
 
