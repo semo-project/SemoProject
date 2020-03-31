@@ -66,7 +66,7 @@
 			<ul class="navbar-nav ml-auto" style="margin-right: 20px;">
         	
           	<li class="nav-item">
-              	<input id="searchform" type="search" name="search" placeholder=" Search work..." class="container-1" style="border-radius: 0.25rem; height:100%; margin:0">
+              	<input id="searchform" type="search" name="search" placeholder="웹툰명을 입력해주세요." class="container-1" style="border-radius: 0.25rem; height:100%; margin:0">
               	<input id="searchbtn" type="submit" class="btn" value="검색" style="height:100%">
           	</li>
           
