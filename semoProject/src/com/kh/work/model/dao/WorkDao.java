@@ -188,7 +188,8 @@ public class WorkDao {
 								  rset.getString("work_title"),
 								  rset.getInt("writer_no"),
 								  rset.getInt("serial_cnt"),
-								  rset.getDate("approval_date")));
+								  rset.getDate("approval_date"),
+								  rset.getString("THUMBNAIL_MODIFY")));
 			}
 			
 		} catch (SQLException e) {
@@ -224,7 +225,8 @@ public class WorkDao {
 								  rset.getDate("approval_date"),
 								  rset.getInt("serial_cnt"),
 								  rset.getInt("writer_no"),
-								  rset.getString("work_title")));	
+								  rset.getString("work_title"),
+								  rset.getString("THUMBNAIL_MODIFY")));	
 			}
 			
 		} catch (SQLException e) {
