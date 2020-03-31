@@ -53,11 +53,11 @@
     <!-- Page Heading/Breadcrumbs -->
     <h1 class="mt-4 mb-3">마이페이지</h1>
 
-    <ol class="breadcrumb">
+    <ol style="background:lightseagreen;" class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="<%= contextPath %>">메인</a>
+	    <a href="<%= contextPath %>" style="color:white;">메인</a>
       </li>
-      <li class="breadcrumb-item active">마이페이지</li>
+      <li class="breadcrumb-item active" style="color:white;">마이페이지</li>
     </ol>
 
     <!-- Content Row -->
@@ -70,21 +70,19 @@
       <div class="col-lg-9 mb-4">
         <h2 align="center">웹툰 결제 내역</h2>
         <hr>
-        <table class="listArea" border="1" align="center">
-          <thead>
-            <tr>
-              <th id="cNum">순번</th>
-              <th id="date">날짜</th>
-              <th id="title">제목</th>
-              <th id="used">소모쿠키</th>
-            </tr>
-          </thead>
-          <tbody>
             <% if(list.isEmpty()) { %>
-              <tr>
-                <td colspan="4"><h1 align="center">조회된 리스트가 없습니다.</h1></td>
-              </tr>
+              <h1 align="center">조회된 리스트가 없습니다.</h1>
             <% } else { %>
+	        <table class="listArea" border="1" align="center">
+	          <thead>
+	            <tr>
+	              <th id="cNum">순번</th>
+	              <th id="date">날짜</th>
+	              <th id="title">제목</th>
+	              <th id="used">소모쿠키</th>
+	            </tr>
+	          </thead>
+	          <tbody>
               <% for(Payment p : list) { %>
               <tr>
                 <td><%= p.getListNo() %></td>
