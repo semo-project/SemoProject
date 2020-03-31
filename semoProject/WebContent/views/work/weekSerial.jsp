@@ -109,7 +109,7 @@
        					<div class="card h-100">
 							<input type="hidden" class="wNo" id="wNo" value="<%=w.getWorkNo()%>">
 							<div class="card h-100">
-          						<a href="#"><img class="card-img-top" src="<%= contextPath %>/resources/images/<%= w.getThumbnailModify() %>" alt=""></a>
+          						<a href="#"><img class="card-img-top" src="<%= contextPath %>/resources/work_upfiles/<%= w.getThumbnailModify() %>" alt=""></a>
           					<div class="card-body">
 								<h4>
 									<a href="#"><%= w.getWorkTitle() %></a>
