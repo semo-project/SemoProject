@@ -56,7 +56,7 @@
                     <div class="container-fluid">
                         <h1 class="mt-4">Semo Webtoon</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Today : </li>
+                            <li class="breadcrumb-item active">Today : <%=session.getAttribute("todayCount") %> / All : <%=session.getAttribute("totalCount") %></li>
                         </ol>
                         <div class="row">
                             <div class="col-xl-3 col-md-6">

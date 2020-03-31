@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.kh.member.model.vo.Member" %>
-<% Member mem = (Member)request.getAttribute("mem"); %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,7 +43,7 @@
 
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="index.html">메인</a>
+        <a href="<%= contextPath %>">메인</a>
       </li>
       <li class="breadcrumb-item active">마이페이지</li>
     </ol>
@@ -82,16 +80,16 @@
           <tr>
             <td colspan="3" rowspan="7" width="300" height="300" align="center"><img src="<%=contextPath%>/resources/images/defaultIcon.png" alt="프로필사진"></td>
             <th>이름</th>
-            <td><%= mem.getMemberName() %></td>
+            <td><%= loginUser.getMemberName() %></td>
           </tr>
           <tr>
             <th>아이디</th>
-            <td><%= mem.getMemberId() %></td>
+            <td><%= loginUser.getMemberId() %></td>
           </tr>
           <tr>
             <th>성별</th>
             <td>
-            	<% if (mem.getGender().equals("M")) { %>
+            	<% if (loginUser.getGender().equals("M")) { %>
             	남자
             	<% } else { %>
             	여자
@@ -100,22 +98,22 @@
           </tr>
           <tr>
             <th>전화번호</th>
-            <td><%= mem.getPhone() %></td>
+            <td><%= loginUser.getPhone() %></td>
           </tr>
           <tr>
             <th>이메일</th>
-            <td><%= mem.getEmail() %></td>
+            <td><%= loginUser.getEmail() %></td>
           </tr>
           <tr>
             <th>주소</th>
-            <td><%= mem.getMemberAddress() %></td>
+            <td><%= loginUser.getMemberAddress() %></td>
           </tr>
           <tr>
             <th>작가 신청 상태</th>
             <td>
-            	<% if (mem.getApprovalFlag().equals("null")) { %>
+            	<% if (loginUser.getApprovalFlag().equals("null")) { %>
             	미신청
-            	<% } else if (mem.getApprovalFlag().equals("N")) { %>
+            	<% } else if (loginUser.getApprovalFlag().equals("N")) { %>
             	대기
             	<% } else { %>
             	승인

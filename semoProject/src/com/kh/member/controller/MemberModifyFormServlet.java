@@ -32,14 +32,6 @@ public class MemberModifyFormServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HttpSession session = request.getSession();
-		Member loginUser = (Member)session.getAttribute("loginUser");
-		String userId = loginUser.getMemberId();
-		Member mem = new MemberService().selectMember(userId);
-		if(mem.getApprovalFlag() == null) {
-			mem.setApprovalFlag("null");
-		}
-		request.setAttribute("mem", mem);
 		
 		request.getRequestDispatcher("views/member/myPageModify.jsp").forward(request, response);
 		

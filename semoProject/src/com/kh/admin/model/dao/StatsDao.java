@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.admin.model.vo.MemberStats;
+import com.kh.admin.model.vo.VisitStats;
 import com.kh.board.model.dao.BoardDao;
 
 import static com.kh.common.JDBCTemplate.*;
@@ -54,6 +55,33 @@ private Properties prop = new Properties();
 				m.setCount(rset.getInt(3));
 				
 				list.add(m);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return list;
+	}
+	
+	public ArrayList<VisitStats> getVisitStats(Connection conn) {
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<VisitStats> list = new ArrayList<>();
+		
+		String sql = prop.getProperty("getVisitStats");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sql);
+			
+			while(rset.next()) {
+				VisitStats v = new VisitStats(rset.getString(2), rset.getInt(1));
+				list.add(v);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

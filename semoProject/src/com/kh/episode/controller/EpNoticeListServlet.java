@@ -34,8 +34,8 @@ public class EpNoticeListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int wno = Integer.parseInt(request.getParameter("wno"));
-		
-		System.out.println(wno);
+		//System.out.println(wno);
+	
 		ArrayList<EpNotice> list = new EpisodeService().selectWnList(wno);	
 		response.setContentType("application/json; charset=utf-8");
 		

@@ -14,7 +14,8 @@ import java.util.Properties;
 
 import com.kh.common.PageInfo;
 
-import com.kh.episode.model.vo.Comment;
+import com.kh.episode.model.vo.Commentep;
+import com.kh.episode.model.vo.Commentep;
 import com.kh.episode.model.vo.EpNotice;
 
 import com.kh.episode.model.vo.Episode;
@@ -436,7 +437,9 @@ public class EpisodeDao {
 		ArrayList<EpNotice> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectWnList");
+		
+		String sql = "SELECT NOTICE_NO, TITLE, CONTENT, WRITE_DATE FROM TB_WRITER_NOTICE N JOIN TB_WORK W ON (N.MEMBER_NO = W.WRITER_NO) WHERE W.WORK_NO = ?";
+		
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -448,12 +451,12 @@ public class EpisodeDao {
 				n.setNoticeNo(rset.getInt("notice_No"));
 				n.setTitle(rset.getString("title"));
 				n.setContent(rset.getString("content"));
-				n.setWriterDate(rset.getDate("writer_Date"));
+				n.setWriterDate(rset.getDate("write_Date"));
 			
 				
 				list.add(n);
 			}
-			System.out.println(list);
+			//System.out.println(list);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -500,7 +503,59 @@ public class EpisodeDao {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	//댓글 신고
+	public Commentep coReportInfo(Connection conn, int comReportNo, String commentWriter, String commentContent) {
+		Commentep c = new Commentep();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("coRepSelect");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, comReportNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				c = new Commentep(rset.getString("member_nickname"),
+								rset.getString("comment_content"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return c;
+	}
+	//댓글신고기능
+	public int coRepSend(Connection conn, int comRepNo, String comRepRadio, String comRepContent, int memberNo) {
+		int result = 0;
 
+		PreparedStatement pstmt = null;
 
+		String sql = prop.getProperty("comentReport");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, comRepRadio);
+			pstmt.setString(2, comRepContent);
+			pstmt.setInt(3, comRepNo);
+			pstmt.setInt(4, memberNo);
+			
+			result = pstmt.executeUpdate();
+			System.out.println(result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
 
 }
