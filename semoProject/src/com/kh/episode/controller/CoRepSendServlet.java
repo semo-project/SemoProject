@@ -1,32 +1,27 @@
-package com.kh.work.controller;
+package com.kh.episode.controller;
 
 import java.io.IOException;
-
-import java.util.ArrayList;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.kh.member.model.service.MemberService;
-import com.kh.member.model.vo.Member;
-import com.kh.work.model.service.WorkService;
-import com.kh.work.model.vo.Work;
+import com.kh.episode.model.service.EpisodeService;
 
 /**
- * Servlet implementation class WriterWorkListServlet
+ * Servlet implementation class CoRepSendServlet
  */
-@WebServlet("/list.wr")  
-public class WorkListServlet extends HttpServlet {
+@WebServlet("/comRepSend.ep")
+public class CoRepSendServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WorkListServlet() {
+    public CoRepSendServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,20 +31,16 @@ public class WorkListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HttpSession session = request.getSession();
-		Member loginUser = (Member)session.getAttribute("loginUser");
-		int userNo = loginUser.getMemberNo();
-		
-		
-		ArrayList<Work> list = new WorkService().selectWorkList(userNo);
-		
-		
-		request.setAttribute("list", list);
-		
-	
-		request.getRequestDispatcher("views/writer/writerWorkList.jsp").forward(request, response);
-	
-	}
+			int comRepNo = Integer.parseInt(request.getParameter("comReportNo"));
+			String comRepRadio = request.getParameter("comRepRadio");
+			String comRepContent = request.getParameter("comRepContent");
+			int memberNo = Integer.parseInt(request.getParameter("memberNo"));
+			
+			int result = new EpisodeService().coRepSend(comRepNo, comRepRadio, comRepContent, memberNo);
+			
+			PrintWriter out = response.getWriter();
+			out.print(result);
+		}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
