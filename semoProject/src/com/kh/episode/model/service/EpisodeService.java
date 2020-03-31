@@ -38,7 +38,6 @@ public class EpisodeService {
 		
 		Episode e = new EpisodeDao().episodeDetail(conn, eno);
 		
-		
 		close(conn);
 		
 		return e;

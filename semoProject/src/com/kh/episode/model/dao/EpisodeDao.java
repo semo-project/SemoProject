@@ -356,6 +356,7 @@ public class EpisodeDao {
 				
 				ep.setEpisodeTitle(rset.getString("episode_title"));
 				ep.setWorkTitle(rset.getString("work_title"));
+				ep.setEpisodeModify(rset.getString("episode_modify"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
