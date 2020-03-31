@@ -228,11 +228,11 @@
       margin-left: 42%;
       margin-top: 2%;
   }
-  #pwdF-btn, #lgF-btn{
+/*   #pwdF-btn, #lgF-btn{
       background: yellowgreen;
       color: white;
       border: 0px;
-  }
+  } */
   #lgF-btn{
       margin-left: 5%;
   }

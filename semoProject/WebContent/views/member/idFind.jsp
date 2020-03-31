@@ -12,6 +12,48 @@
 <link href="<%= request.getContextPath()%>/resources/css/idfind.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Gugi&display=swap" rel="stylesheet">
+<style>
+	button{
+	  background:lightseagreen;
+	  color:#fff;
+	  border:none;
+	  position:relative;
+	  height:60px;
+	  font-size:1em;
+	  padding:0 2em;
+	  cursor:pointer;
+	  transition:800ms ease all;
+	  outline:none;
+	  height:30px;
+	}
+	button:hover{
+	  background:#fff;
+	  color:#1AAB8A;
+	}
+	button:before,button:after{
+	  content:'';
+	  position:absolute;
+	  top:0;
+	  right:0;
+	  height:2px;
+	  width:0;
+	  background: #1AAB8A;
+	  transition:400ms ease all;
+	}
+	button:after{
+	  right:inherit;
+	  top:inherit;
+	  left:0;
+	  bottom:0;
+	}
+	button:hover:before,button:hover:after{
+	  width:100%;
+	  transition:800ms ease all;
+	}
+	tr.space {
+  	  border-bottom: 10px solid #fff;
+	}
+</style>
 </head>
 <body>
 
@@ -32,9 +74,8 @@
 	      </table>
 	  </div>
 	
-	  <div class="pwdFind-btn">
+	  <div class="pwdFind-btn" style="margin-left:45%;">
 	  <button type="button" id="pwdF-btn" name="pwdF-btn"><a href="views/member/idpwdFind.jsp">비밀번호 찾기</a></button>
-	  <button type="button" id="lgF-btn" name="lgF-btn"><a href="views/member/loginForm.jsp">로그인</a></button>
 	</div>
 	
 <br><br><br><br><br><br><br><br>
