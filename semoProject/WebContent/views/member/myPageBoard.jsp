@@ -37,7 +37,9 @@
     #count{width: 80px;}
     .listArea>tbody>tr:hover{
       cursor: pointer;
-      background: skyblue;
+    }
+    a{
+    text-decoration:none;
     }
   </style>
 </head>
@@ -87,7 +89,7 @@
                 <tr>
                   <td><%= b.getListNo() %></td>
                   <td><%= b.getBoardWriteDate() %></td>
-                  <td><%= b.getBoardTitle() %></td>
+                  <td><a href="<%= contextPath %>/webdetail.bo?boardNo=<%= b.getBoardNo() %>"><%= b.getBoardTitle() %></a></td>
                   <td><%= b.getBoardCnt() %></td>
                 </tr>
               <% } %>
