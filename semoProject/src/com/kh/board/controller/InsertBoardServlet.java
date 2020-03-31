@@ -1,6 +1,7 @@
 package com.kh.board.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -47,7 +48,8 @@ public class InsertBoardServlet extends HttpServlet {
 		int result = new BoardService().insertBoard(b);
 		request.setAttribute("loginUser", loginUser);
 		
-		if(result > 0) {
+		
+		if(result > 0) {		
 			response.sendRedirect("boardList.bo");
 		}else {
 			request.setAttribute("msg", "웹톡게시판 작성 실패");

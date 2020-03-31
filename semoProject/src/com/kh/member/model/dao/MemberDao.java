@@ -216,8 +216,6 @@ public class MemberDao {
 		
 		String sql = prop.getProperty("idFind");
 		
-		System.out.println(userName + " " + email);
-		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userName);

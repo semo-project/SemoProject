@@ -24,9 +24,9 @@
 	      <!-- <small>Subheading</small> -->
 	    </h1>
 	
-	    <ol class="breadcrumb">
+	    <ol class="breadcrumb" style="background:lightseagreen">
 	      <li class="breadcrumb-item">
-	        <a href="boardList.bo" style="font-family: 'Gugi'">세모게시판</a> > <a href="boardList.bo" style="font-family: 'Gugi'">웹툰 TalkTalk</a>
+	        <a href="boardList.bo" style="font-family: 'Gugi'; color:white;">세모게시판</a> > <a href="boardList.bo" style="font-family: 'Gugi'; color:white">웹툰 TalkTalk</a>
 	      </li>
 	    </ol>
 	
@@ -46,14 +46,14 @@
 	      
 	      <div class="semoTalk" style="margin-top: 8%">
 	          <table style="width: 600px;margoin-left: auto;margin-left: 25%;margin-top: -19%;">
-	              <tr style="border-bottom:1px solid rgb(163, 160, 160);">
+	              <tr>
 	                  <td>
 	                      <h3 style="font-family: 'Gugi'">웹툰TalkTalk</h3>
 	                  </td>
 	              </tr>
 	              <tr style="border-bottom:1px solid rgb(163, 160, 160); margin-top: 5px;">
 	                  <td>
-	                      <h6>웹툰에 대해 자유롭게 얘기해보아요!</h6>
+	                      <h6><img style="width:25px; height:25px; border-radius:10px; margin-bottom:5px;" src="resources/images/webtalk.jpg">웹툰에 대해 자유롭게 얘기해보아요!</h6>
 	                  </td>
 	              </tr>
 	          </table>
@@ -64,24 +64,28 @@
 			<input type="hidden" name="boardNo" value=<%=b.getBoardNo() %>>
 			<table align="center">
 				<tr>
-					<th>제목</th>
-					<td><input type="text" name="title" value="<%= b.getBoardTitle() %>"></td>
+					<th>제목&nbsp;:&nbsp;&nbsp;&nbsp;</th>
+					<td><input type="text" name="title" value="<%= b.getBoardTitle() %>" style="width:500px"></td>
 				</tr>
 				<tr>
-					<th></th>
+					<th><input type="hidden"></th>
+					<td><input type="text" style="border:0px; height:1px;"></td>
+				</tr>
+				<tr>
+					<th>내용 : </th>
 					<td>
-						<textarea rows="15" name="content" style="resize:none;"><%=b.getBoardContent()%></textarea>
+						<textarea rows="18" name="content" style="resize:none; width:500px"><%=b.getBoardContent()%></textarea>
 					</td>
 				</tr>
 			</table>
 			
 			<div class="btns" align="center">
-				<button type="submit" onclick="webUpdate();">수정하기</button>
+				<button class="btn btn10 btn-warning" style="margin-left: 3%;margin-top: 2%;" type="submit" onclick="webUpdate();">수정하기</button>
 			</div>
 		</form>
 			
 	</div>
-
+<br><br><br><br>
 <!-- Footer -->
   <footer class="py-5 bg-dark">
     <div class="container">
