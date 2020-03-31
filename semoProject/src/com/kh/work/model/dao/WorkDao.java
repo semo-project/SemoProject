@@ -171,13 +171,15 @@ public class WorkDao {
 		return listCount;
 		
 	}
+	
+	//selectListlist=SELECT WORK_NO, WORK_TITLE, WRITER_NO, SERIAL_CNT, APPROVAL_DATE FROM TB_WORK WHERE SECRET_FLAG = 'N'
 	public ArrayList<Work> selectList(Connection conn){
 		ArrayList<Work> list = new ArrayList<>();
 		
 		Statement stmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("selectList");
+		String sql = prop.getProperty("selectListlist");
 		
 		try {
 			stmt = conn.createStatement();
