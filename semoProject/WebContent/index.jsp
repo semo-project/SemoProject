@@ -6,7 +6,6 @@
     
 <%
    	 ArrayList<Work> list = new WorkService().selectList();
-	ArrayList<Work> lis = new WorkService().selectGenreList();
 %>
 <!DOCTYPE html>
 <html lang="en">
