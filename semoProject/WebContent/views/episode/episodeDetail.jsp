@@ -193,7 +193,7 @@
           
         </div>
         <!-- Preview Image -->
-        <img class="img-fluid rounded" src="http://placehold.it/900x300" alt="" 
+        <img class="img-fluid rounded" src="<%= contextPath %>/resources/images/<%= e.getEpisodeModify() %>" alt="" 
         style="width: 100%;
         padding-right: 120px;
         padding-left: 120px;
