@@ -570,6 +570,33 @@ star-input>.input.focus{outline:1px dotted #ddd;}
      
       // 모달 창 여는 버튼에 이벤트 걸기
       $("#noticeBtn").click(function() {
+          
+          
+          $.ajax({
+				url:"notice.ep",
+				data:{wno:wno},
+				type:"get",
+				success:function(list){
+					console.log(list); // 객체 배열의 형태
+					
+					var value = "";
+					//for(var i=0; i<list.length; i++){
+					for(var i in list){
+						value += '<tr>' + 
+									'<td width="50px">' + list[i].noticeNo + '</td>' +    
+									'<td width="100px">' + list[i].title + '</td>' +
+									'<td width="200px">' + list[i].content+ '</td>' +
+									'<td width="100px">' + list[i].writerDate + '</td>' +
+								 '</tr>';
+					}
+					
+					$("#noticeList").html(value);
+					
+				},error:function(){
+					console.log("댓글 리스트 조회 ajax 통신 실패!!");
+				}
+			});
+          
           myModal3.show(); // 모달창 보여주기
       });
      
@@ -587,6 +614,7 @@ star-input>.input.focus{outline:1px dotted #ddd;}
         <!-- 공지사항 창 -->
         <script>
         // 이 게시글에 딸려있는 댓글 리스트 조회하는 ajax
+        /*
         $("#noticeBtn").click(function(){
 			var wno = <%= w.getWorkNo()%>;
 			   
@@ -619,6 +647,7 @@ star-input>.input.focus{outline:1px dotted #ddd;}
 			});
 		}
 	});
+        */
 	</script>
 	<%-- 
 	<script>

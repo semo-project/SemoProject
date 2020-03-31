@@ -6,6 +6,7 @@
     
 <%
    	 ArrayList<Work> list = new WorkService().selectList();
+
 %>
 <!DOCTYPE html>
 <html lang="en">
