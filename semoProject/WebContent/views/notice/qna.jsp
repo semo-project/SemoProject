@@ -20,11 +20,10 @@
   <!-- Page Heading/Breadcrumbs -->
   <h1 class="mt-4 mb-3">1:1 문의 </h1>
 
-  <ol class="breadcrumb">
+  <ol class="breadcrumb" style="background:lightseagreen">
     <li class="breadcrumb-item">
-      <a href="index.html">공지사항/고객지원</a>
+      <a href="#" style="font-family: 'Gugi'; color:white">공지사항/고객지원</a>
     </li>
-    <li class="breadcrumb-item active">공지사항/고객지원</li>
   </ol>
 
   <!-- Content Row -->

@@ -43,11 +43,11 @@
 
   
 
-  <ol class="breadcrumb">
+  <ol class="breadcrumb" style="background:lightseagreen">
     <li class="breadcrumb-item">
-      <a href="index.html">내 작품관리</a>
+      <a href="index.html" style="font-family: 'Gugi'; color:white">내 작품관리</a>
     </li>
-    <li class="breadcrumb-item active">작품 리스트</li>
+    <li class="breadcrumb-item active"style="font-family: 'Gugi'; color:white">작품 리스트</li>
   </ol>
   
   

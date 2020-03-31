@@ -76,7 +76,7 @@
   <!-- Page Content -->
   <div class="container">
 
-    <h1 class="my-4">요일별 웹툰</h1>
+    <h1 class="my-4">전체 웹툰</h1>
 
     <!-- Marketing Icons Section -->
      <div class="row">
@@ -91,7 +91,7 @@
        					<div class="card h-100">
 							<input type="hidden" class="wNo" id="wNo" value="<%=w.getWorkNo()%>">
 							<div class="card h-100">
-          						<a href="#"><img class="card-img-top" src="<%= contextPath %>/resources/images/<%= w.getThumbnailModify() %>" alt=""></a>
+          						<a href="#"><img class="card-img-top" src="<%= contextPath %>/resources/work_upfiles/<%= w.getThumbnailModify() %>" alt=""></a>
           					<div class="card-body">
 								<h4>
 									<a href="#"><%= w.getWorkTitle() %></a>
@@ -109,51 +109,6 @@
 				<% } %>
       
         </div>
-    <!-- /.row -->
-	<hr>
-    <!-- Portfolio Section -->
-    <h2>장르별 웹툰</h2>
-
-    <div class="row">
-      
-    </div>
-    <!-- /.row -->
-
-    <!-- Features Section -->
-   <div class="row">
-       
-        	<% if(list.isEmpty()){ %>
-        	<div>
- 					<div><p>조회된 리스트가 없습니다.</p></div>       	
-        	</div>
-        	<% }else{ %>
-					<% for(Work w : lis){ %>
-					<div class="col-lg-4 col-sm-6 portfolio-item divWork" >
-       					<div class="card h-100">
-							<input type="hidden" class="wNo" id="wNo" value="<%=w.getWorkNo()%>">
-							<div class="card h-100">
-          						<a href="#"><img class="card-img-top" src="<%= contextPath %>/resources/images/<%= w.getThumbnailModify() %>" alt=""></a>
-          					<div class="card-body">
-								<h4>
-									<a href="#"><%= w.getWorkTitle() %></a>
-								</h4>
-							<p>											
-							<%= w.getApprovalDate() %><br>
-							조회수 : <%= w.getSerialCnt() %>
-							
-							</p>
-							</div>
-				 		</div>
-     		 		</div>
-     			</div>
-						<% } %>
-				<% } %>
-      
-        </div>
-    <!-- /.row -->
-
-    <hr>
-
    
 
   </div>

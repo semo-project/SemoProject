@@ -5,8 +5,46 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Gugi&display=swap" rel="stylesheet">
 <style>
-	
+	button{
+	  background:lightseagreen;
+	  color:#fff;
+	  border:none;
+	  position:relative;
+	  height:60px;
+	  font-size:1em;
+	  padding:0 2em;
+	  cursor:pointer;
+	  transition:800ms ease all;
+	  outline:none;
+	  height:30px;
+	}
+	button:hover{
+	  background:#fff;
+	  color:#1AAB8A;
+	}
+	button:before,button:after{
+	  content:'';
+	  position:absolute;
+	  top:0;
+	  right:0;
+	  height:2px;
+	  width:0;
+	  background: #1AAB8A;
+	  transition:400ms ease all;
+	}
+	button:after{
+	  right:inherit;
+	  top:inherit;
+	  left:0;
+	  bottom:0;
+	}
+	button:hover:before,button:hover:after{
+	  width:100%;
+	  transition:800ms ease all;
+	}
 </style>
 </head>
 <body>
@@ -15,9 +53,9 @@
 
   <div class="semoMember">
   	<br>
-  	<h1 align="center">세모웹툰</h1>
-  
-  	<form id="enrollForm" method="post" action="<%=request.getContextPath()%>/insertMember.me">
+  	<h1 align="center" style="margin-top: 7%; padding-bottom: 30px; font-family: 'Gugi';">세모웹툰</h1>
+  	
+  	<form id="enrollForm" method="post" action="<%=request.getContextPath()%>/insertMember.me" style="margin-left: 31%;">
   		<table>
   			<tr>
   				<td width="200px">아이디 : </td>
@@ -56,7 +94,7 @@
   			</tr>
   			<tr>
   				<td>나이 : </td>
-  				<td><input type="number" name="age"></td>
+  				<td><input type="number" name="age" width="70px"></td>
   				<td></td>
   			</tr>
   			<tr>
@@ -74,8 +112,8 @@
   		</table>
   		<br>
   		
-  		<div class="memberJoinBtn" align="center">
-  			<button type="submit" id="joinBtn">회원가입</button>
+  		<div class="memberJoinBtn" align="center" style="width:578px;">
+  			<button type="submit" id="joinBtn" style="margin-top:2%;">회원가입</button>
   		</div>
   	</form>
   </div>
@@ -97,9 +135,11 @@
 	  				
 	  				if(result == 1){
 	  					$("#idValidation").html("이미 가입된 회원이거나 탈퇴한 회원입니다.");
+	  					$("#idValidation").css("color","red");
 	  					memberId.focus();
 	  				}else{
-	  					$("#idValidation").html("사용 가능한 아이디입니다.");
+		  				$("#idValidation").html("사용 가능한 아이디입니다.");
+		  				$("#idValidation").css("color","limegreen");	  						
 	  				}
 	  			},
 	  			error:function(){
@@ -118,17 +158,19 @@
   		if(!chk.test($("#memberPwd").val())){
   			// 정규표현식과 일치하지 않을 경우
 	  		$("#pwdValidation").html("비밀번호 양식에 맞지 않습니다.");  				
-  			
+	  		$("#pwdValidation").css("color","red");
   		}else{
   			var userPwd = $("#memberPwd").val();
   			var position = userPwd.search($("#memberId").val());
   			
   			if(position != -1){
 	  			// 정규표현식과 일치하지만 아이디와 동일한 값이 있을 경우
-	  			$("#pwdValidation").html("비밀번호 양식에 맞지 않습니다.");  				
+	  			$("#pwdValidation").html("비밀번호 양식에 맞지 않습니다."); 
+	  			$("#pwdValidation").css("color","red");
   			}else{
   				// 정규표현식과 일치하고 아이디와 동일한 값이 없을 경우
 	  			$("#pwdValidation").html("적합한 비밀번호입니다.");	
+	  			$("#pwdValidation").css("color","limegreen");
   			}
   			
   		}
@@ -137,10 +179,11 @@
   	function valiCheck(){
   		if($("#memberPwd").val() != $("#pwdCheck").val()) {       
   			$("#pwdCheckVali").html("동일한 비밀번호를 입력해주세요.");
+  			$("#pwdCheckVali").css("color", "red");
   			$("#pwdCheck").focus();
         }else{
         	$("#pwdCheckVali").html("비밀번호가 일치합니다.");
-        	
+        	$("#pwdCheckVali").css("color", "limegreen");
         }
   		
   	}
@@ -160,10 +203,12 @@
 	  			success:function(result){
 	  				
 	  				if(result == 1){
-	  					$("#nickNameChk").html("이미 존재하는 닉네임입니다.");
+	  					$("#nickNameChk").text("이미 존재하는 닉네임입니다.");
+	  					$("#nickNameChk").css("color", "red");
 	  					nickName.focus();
 	  				}else{
 	  					$("#nickNameChk").html("사용 가능한닉네임입니다.");
+	  					$("#nickNameChk").css("color", "limegreen");
 	  				}
 	  			},
 	  			error:function(){
@@ -174,7 +219,7 @@
   		
   	}
   </script>
-  
+<br><br>
 <!-- Footer -->
   <footer class="py-5 bg-dark">
     <div class="container">
