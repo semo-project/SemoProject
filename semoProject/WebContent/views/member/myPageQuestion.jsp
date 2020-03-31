@@ -117,6 +117,7 @@
           <tbody>
           	  <% for(QNA q : list) { %>
           	  <% String state = ""; %>
+          	  <% int num = q.getListNo(); %>
           	    <% if(q.getQnaAnswerState().equals("N")) { %>
           	      <% state = "접수"; %>
           	    <% } else { %>
@@ -128,7 +129,7 @@
           	      <td><%= q.getQnaTitle() %></td>
           	      <td><%= state %></td>
           	    </tr>
-          	    <div id="myModal" class="modal">
+          	    <div id="myModal<%= num %>" class="modal">
 		          <div class="modal-content" style="display:block;">
 		          <h2 style="text-align:center;">문의 내용</h2>
 		          <p readonly><%= q.getQnaContent() %></p>
@@ -180,7 +181,7 @@
           </tbody>
         </table>
         <script>
-        var modal = document.getElementById("myModal");
+        var modal = document.getElementById("myModal2");
         var span = document.getElementById("close");
         $(".listArea>tbody>tr").click(function() {
           modal.style.display = "block";
