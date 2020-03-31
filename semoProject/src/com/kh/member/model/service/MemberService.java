@@ -47,10 +47,9 @@ public class MemberService {
 		int result = new MemberDao().updateMember(conn, mem);
 		
 		Member updateMem = null;
-		
 		if(result > 0) {
 			commit(conn);
-			updateMem = new MemberDao().selectMember(conn, mem.getMemberId());
+			updateMem = new MemberDao().loginMember(conn, mem.getMemberId(), mem.getMemberPwd());
 		} else {
 			rollback(conn);
 		}
@@ -79,7 +78,7 @@ public class MemberService {
 		int result = new MemberDao().updatePwd(conn, mem.getMemberId(), newPwd);
 		if(result > 0) {
 			commit(conn);
-			mem = selectMember(mem.getMemberId());
+			mem = loginMember(mem.getMemberId(), newPwd);
 			if(mem.getApprovalFlag() == null) {
 				mem.setApprovalFlag("null");
 			}

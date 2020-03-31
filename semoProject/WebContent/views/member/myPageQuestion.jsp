@@ -46,6 +46,31 @@
       margin-top: 5px;
       display: none;
      }
+     .modal{
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgb(0, 0, 0);
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+    .modal-content{
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 50%;
+      max-width: fit-content;
+    }
+    #close:hover, #close:focus{
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
   </style>
 </head>
 
@@ -103,6 +128,18 @@
           	      <td><%= q.getQnaTitle() %></td>
           	      <td><%= state %></td>
           	    </tr>
+          	    <div id="myModal" class="modal">
+		          <div class="modal-content" style="display:block;">
+		          <h2 style="text-align:center;">문의 내용</h2>
+		          <p value="<%= q.getQnaContent() %>" readonly></p>
+		          <% if(q.getQnaAnswerContent() != null) { %>
+		          <hr>
+		          <h2 style="text-align:center;">답변 내용</h2>
+		          <p value="<%= q.getQnaAnswerContent() %>" readonly></p>
+		          <% } %>
+			      <button type="button" id="close" class="btn btn-simple">닫기</button>
+		          </div>
+		        </div>
           	  <% } %>
           	<% } %>
             <!-- <div>

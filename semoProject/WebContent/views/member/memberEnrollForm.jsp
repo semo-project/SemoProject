@@ -84,12 +84,12 @@
   			</tr>
   			<tr>
   				<td>주소 : </td>
-  				<td><input type="text" name="memberAddress"></td>
+  				<td><input type="text" name="memberAddress" placeholder="구까지 입력"></td>
   				<td></td>
   			</tr>
   			<tr>
   				<td>전화번호 : </td>
-  				<td><input type="text" name="phone" placeholder="-포함하여 입력해주세요">
+  				<td><input type="text" name="phone" placeholder="-포함하여 입력">
   				<td></td>
   			</tr>
   			<tr>

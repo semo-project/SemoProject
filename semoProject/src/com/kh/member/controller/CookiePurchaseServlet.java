@@ -1,12 +1,15 @@
 package com.kh.member.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.cookie.model.service.CookieService;
 import com.kh.member.model.service.MemberService;
@@ -46,9 +49,12 @@ public class CookiePurchaseServlet extends HttpServlet {
 			Member mem = new MemberService().loginMember(loginUser.getMemberId(), loginUser.getMemberPwd());
 			request.setAttribute("loginUser", mem);
 			request.getRequestDispatcher("views/member/myPageMain.jsp").forward(request, response);
-		} else {
-			
+			HttpSession session = request.getSession();
+			session.removeAttribute("loginUser");
+			request.setAttribute("loginUser", mem);
+			session.setAttribute("loginUser", mem);
 		}
+		
 		
 	}
 

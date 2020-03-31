@@ -17,32 +17,32 @@
   		
   		<!-- 아이디 찾기 폼 -->
   		<form id="idfindForm" method="post" action="<%= request.getContextPath()%>/idfind.me">
-	  		<div class="idFind">
+	  		<div class="idFind" style="font-family:'Gugi'; font-size:1.7em;">
 		        아이디 찾기<hr align= "left" style="border: solid 0.3px darkgray; margin-top: -0.05px; width: 45%;">
 		    </div>
 		    <div class="idFind-userName">
-		        이름 <input type="text" id="userName" name="userName" placeholder="이름을 입력하세요.">
+		        이름 :<input type="text" id="userName" name="userName" placeholder="이름을 입력하세요." style="width: 22%;">
 		    </div>
-		    <div class="idFind-Email">
-		        이메일 <input type="email" id="email" name="email" placeholder="이메일을 입력하세요."><button id="email-veri">이메일 인증</button>
+		    <div class="idFind-Email" style="margin-top:10px;">
+		        이메일 :<input type="email" id="email" name="email" placeholder="이메일을 입력하세요." style="margin-left: 33px; width: 22%;">
 		    </div>
-		    <div class="idFind-btn">
+		    <div class="idFind-btn" style="margin-left:59%">
 		        <button type="submit" id="idF-btn" name="idF-btn">아이디 찾기</button>
 		    </div>
   		</form>
   		
   		<!-- 비밀번호 찾기폼 -->
   		<form id="pwdfindForm" method="post" action="<%= request.getContextPath()%>/idcheck.me">
-		    <div class="pwdFind">
+		    <div class="pwdFind" style="font-family:'Gugi'; font-size:1.7em;">
 		        비밀번호 찾기<hr align= "left" style="border: solid 0.6px darkgray; margin-top: -0.05px; width: 45%;">
 		    </div>
 		    <div class="pwdFind-userId">
-		        아이디 <input type="text" id="userFid" name="userFid" placeholder="아이디를 입력하세요.">
+		        아이디 :<input type="text" id="userFid" name="userFid" placeholder="아이디를 입력하세요." style="width: 22%;">
 		    </div>
-		    <div class="pwdFind-Email">
-		        이메일 <input type="email" id="email" name="email" placeholder="이메일을 입력하세요.">
+		    <div class="pwdFind-Email" style="margin-top:10px;">
+		        이메일 :<input type="email" id="email" name="email" placeholder="이메일을 입력하세요." style="margin-left: 33px; width: 22%;">
 		    </div>
-		    <div class="pwdFind-btn">
+		    <div class="pwdFind-btn" style="margin-left:59%">
 		        <button type="submit" id="pwdF-btn" name="pwdF-btn">아이디 확인</button>
 		    </div>		
   		</form>

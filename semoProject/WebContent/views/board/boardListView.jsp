@@ -73,8 +73,6 @@
   	  border-bottom: 10px solid #fff;
 	}
 </style>
-<script src="https://code.jquery.com/jquery-2.2.2.js"></script>
-<script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
 </head>
 <body>
 
