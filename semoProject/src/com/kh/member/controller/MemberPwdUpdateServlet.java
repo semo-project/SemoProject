@@ -39,9 +39,9 @@ public class MemberPwdUpdateServlet extends HttpServlet {
 		String newPwd = request.getParameter("newPwd");
 		Member mem = new MemberService().updatePwd(loginUser, newPwd);
 		response.setContentType("text/html; charset=UTF-8");
-		if(mem.getApprovalFlag() == null) { // 돌아온 객체의 작가승인여부 컬럼이 null일 경우 (session에서 뽑아온값은 다 null임 --> 실패)
+		if(mem.getMemberPwd() == newPwd) { // 돌아온 객체의 작가승인여부 컬럼이 null일 경우 (session에서 뽑아온값은 다 null임 --> 실패)
 			mem = new MemberService().selectMember(loginUser.getMemberId());
-			request.setAttribute("mem", mem);
+			request.setAttribute("loginUser", mem);
 			String message = "비밀번호 변경에 실패했습니다!!";
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
