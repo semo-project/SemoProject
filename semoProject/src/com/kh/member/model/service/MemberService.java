@@ -381,4 +381,18 @@ public class MemberService {
 		
 		return result;
 	}
+	
+	/**
+	 * Admin - 활동중지 된 회원인지 확인
+	 * @return
+	 */
+	public Member checkAccusMember(String userId) {
+		Connection conn = getConnection();
+		
+		Member mem = new MemberDao().checkAccusMember(conn, userId);
+		
+		close(conn);
+		
+		return mem;
+	}
 }

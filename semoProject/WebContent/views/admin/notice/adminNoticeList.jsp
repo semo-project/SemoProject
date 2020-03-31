@@ -77,11 +77,8 @@
                                 </table>
 								
 								<div style="float: right;" >
-									<button class="btn btn-dark" type="button" id="insertBtn">작성하기</button>
+									<button class="btn btn-dark" data-toggle="modal" data-target="#exampleModal" type="button" id="insertBtn">작성하기</button>
 				                    &nbsp;
-				                    <!-- <button class="btn btn-dark" type="button" id="tr2">수정하기</button>
-				                    &nbsp; -->
-	                                
                                 </div>
                             </div>
                             
@@ -138,51 +135,6 @@
         </div>
     </form>
 
-    <!-- Modal 2-->
-    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
-    	 action=<%=contextPath %>/ainsert.no" method="post">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">공지사항 세부 내용</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <table class="table">
-                        <tr>
-                            <td>
-                                <label class="modal-title-font">공지사항 제목</label>
-                                <br>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="modal-title-font">공지사항 내용</label>
-                                <br>
-                                <div class="diyDiv" style="height: 150px;">
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label> 공지사항 수정 내용 </label>
-                                <br>
-                                <div style="height:250px;">
-                                </div>
-                            </td>
-                        </tr>
-                    </table>                        
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn1">공지사항 수정하기</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">확인</button>                        
-                </div>
-            </div>
-        </div>
-    </div>
-
 	<script>
 	    $(function() {
 	    	// 삭제 메시지
@@ -196,13 +148,8 @@
     		}
     		
 	    	// 이거 그 모달 ㅋㅋ
-	        $("#insertBtn").click(function() {
-	            $("#exampleModal").modal("show");
-	        });
-	        $("#tr2").click(function() {
-	            $("#exampleModal2").modal("show");
-	        });
-			
+	        
+	    	
 	        // 디테일 보여주는 거
 	        $(".noticeTr").click(function() {
 	        	// 글 번호

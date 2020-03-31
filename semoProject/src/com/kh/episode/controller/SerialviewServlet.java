@@ -40,7 +40,7 @@ public class SerialviewServlet extends HttpServlet {
 		if(w != null) {
 			request.setAttribute("w", w);
 			request.setAttribute("list", list);
-			
+			System.out.println(list);
 			request.getRequestDispatcher("views/episode/episodeview.jsp").forward(request, response);
 			
 		}else {
