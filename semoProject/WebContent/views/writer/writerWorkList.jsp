@@ -83,7 +83,7 @@
 		
 		<div class="col-md-7">
 			<br>
-	    	<img style="width: 498px; height:150px;" src="<%=request.getContextPath()%>/resources/work_upfiles/<%= w.getThumbnailModify() %>">	
+	    	<img style="width: 450px;height: 200px;border-top-width: 19px;" src="<%=request.getContextPath()%>/resources/work_upfiles/<%= w.getThumbnailModify() %>">	
 	    	<br>	
 		</div>
 		
@@ -197,7 +197,7 @@
                   <tr>
                     <td>
                       <div>이미지: 
-                        <div style="height: 150px;">
+                        <div style="width: 450px;height: 200px;border-top-width: 19px;">
                         	<input type='file' id="imgInput" name = "file1">
                         	<img id="image_section" style="height: 150px;">
 

@@ -60,7 +60,9 @@ public class QnainsertServlet extends HttpServlet {
 		
 		if(result > 0) {
 			request.getRequestDispatcher("views/notice/qna.jsp").forward(request, response); 
-			
+			response.setContentType("text/html; charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('1:1 문의 작성 완료. '); location href='list.qn';</script>");
 			
 		}else {
 			PrintWriter out = response.getWriter();
