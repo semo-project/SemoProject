@@ -51,7 +51,7 @@
             
             <h5 class="mb-0">
               
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">정기 결제(월월충전) 해지와 결제 수단 변경방법
+              <a data-toggle="collapOne" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">정기 결제(월월충전) 해지와 결제 수단 변경방법
               </a>
             </h5>
           </div>
@@ -89,7 +89,7 @@
               </a>
             </h5>
           </div>
-          <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div id="collapsTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
             <div class="card-body">
               이벤트 및 제휴사를 통해 받은 레진코믹스 코인/보너스코인 쿠폰은 아래 경로에서 등록하실 수 있습니다. <br>
               <br>
@@ -114,7 +114,7 @@
           </div>
         </div>
         <div class="card">
-          <div class="card-header" role="tab" id="headingTwo">
+          <div class="card-header" role="tab" id="headingThree">
             <h5 class="mb-0">
               <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">보너스 코인은 어떻게 사용하나요?
               </a>
@@ -177,7 +177,7 @@ $("#headingThree").on("click",function(){
     $("#collapseThree").toggle(100);
 })
 $("#headingTwo").on("click",function(){
-    $("#collapsed").toggle(100);
+    $("#collapsTwo").toggle(100);
 })
 $("#headingOne").on("click",function(){
     $("#collapseOne").toggle(100);
