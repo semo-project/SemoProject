@@ -152,7 +152,7 @@
             </table>
             
             <% if(loginUser != null) { %>
-        		<button class="write_btn" onclick="location.href='<%=contextPath%>/freeInForm.bo';" style="margin-left: 50%; margin-top:3%">작성</button>
+        		<button onclick="location.href='<%=contextPath%>/freeInForm.bo';" style="margin-left: 50%; margin-top:3%">작성</button>
         	<% } %>
         	
            <form class="searchFormArea" align="center" method="post" action="<%= request.getContextPath()%>/searchFreeT.bo" 
