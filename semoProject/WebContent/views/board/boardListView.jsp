@@ -20,10 +20,11 @@
 <link href="<%= request.getContextPath()%>/resources/css/boardmain.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Gugi&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="<%= request.getContextPath()%>/resources/css/icono.min.css">
 <style>
 	#board_table2>tbody>tr:hover{
 		cursor:pointer;
-		text-align:center;
+		color:lightgray;
 	}
 	.searchFormArea{
 		margin-top:3%;
@@ -31,8 +32,49 @@
 	.pagingArea{
 		margin-top:2%;
 	}
-	
+	button{
+	  background:lightseagreen;
+	  color:#fff;
+	  border:none;
+	  position:relative;
+	  height:60px;
+	  font-size:1em;
+	  padding:0 2em;
+	  cursor:pointer;
+	  transition:800ms ease all;
+	  outline:none;
+	  height:30px;
+	}
+	button:hover{
+	  background:#fff;
+	  color:#1AAB8A;
+	}
+	button:before,button:after{
+	  content:'';
+	  position:absolute;
+	  top:0;
+	  right:0;
+	  height:2px;
+	  width:0;
+	  background: #1AAB8A;
+	  transition:400ms ease all;
+	}
+	button:after{
+	  right:inherit;
+	  top:inherit;
+	  left:0;
+	  bottom:0;
+	}
+	button:hover:before,button:hover:after{
+	  width:100%;
+	  transition:800ms ease all;
+	}
+	tr.space {
+  	  border-bottom: 10px solid #fff;
+	}
 </style>
+<script src="https://code.jquery.com/jquery-2.2.2.js"></script>
+<script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
 </head>
 <body>
 
@@ -45,9 +87,9 @@
       <!-- <small>Subheading</small> -->
     </h1>
 
-    <ol class="breadcrumb">
+    <ol class="breadcrumb" style="background:lightseagreen">
       <li class="breadcrumb-item">
-        <a href="boardList.bo" style="font-family: 'Gugi'">세모게시판</a> > <a href="boardList.bo" style="font-family: 'Gugi'">웹툰 TalkTalk</a>
+        <a id="btn11" href="boardList.bo" style="font-family: 'Gugi'; color:white">세모게시판</a> > <a href="boardList.bo" id="btn11"  style="font-family: 'Gugi'; color:white">웹툰 TalkTalk</a>
       </li>
     </ol>
 
@@ -74,17 +116,13 @@
               </tr>
               <tr style="border-bottom:1px solid rgb(163, 160, 160); margin-top: 5px;">
                   <td>
-                      <h6>웹툰에 대해 자유롭게 얘기해보아요!</h6>
+                      <h6><img style="width:25px; height:25px; border-radius:10px; margin-bottom:5px;" src="resources/images/webtalk.jpg">웹툰에 대해 자유롭게 얘기하는 공간</h6>
                   </td>
               </tr>
           </table>
          </div> 
           <div class="board_div2">
             <table id="board_table2" style="margin-left:22.7%; margin-top:1.5%;">
-            <!-- <colgroup>
-              <col style="width: 30%;">
-              <col style="width: 15%;"> -->
-            </colgroup>
             	<thead>
 		            <tr>
 		              <th width="90px">글번호</th>
@@ -101,6 +139,7 @@
             		</tr>
             		<% }else{ %>
             			<% for(Board b : list){ %>
+            			<tr class="space"></tr>
             			<tr>
             				<td><%= b.getBoardNo() %></td>
             				<td><%= b.getBoardTitle() %></td>
@@ -114,13 +153,13 @@
             </table>
             
         	<% if(loginUser != null) { %>
-        		<button class="write_btn" onclick="location.href='<%=contextPath%>/insertForm.bo';">작성하기</button>
+        		<button onclick="location.href='<%=contextPath%>/insertForm.bo';" style="margin-left: 50%; margin-top:3%">작성</button>
         	<% } %>
         	
             <form class="searchFormArea" align="center" method="post" action="<%= request.getContextPath()%>/searchBoardT.bo"
-            		style="margin-top:10%">
+            		style="margin-top:5%">
             	<td>
-            		<select id="searchOption1" name="searchOption1">
+            		<select id="searchOption1" name="searchOption1" style="border:1px solid lightgray;">
             			<option value="boardTitle">제목</option>
             			<option value="boardWriter">작성자명</option>
             			<option value="boardContent">내용</option>
@@ -130,50 +169,58 @@
             		<input type="text" id="searchContent" name="searchContent">
             	</td>
             	<td>
-            		<button type="submit" id="searchBtn1">검색</button>
+            		<button type="submit" id="searchBtn1" style="height:30px;">검색</button>
             	</td>
             </form>
             
         	<!-- 페이징바 영역 -->
 		    <div class="pagingArea" align="center">
 		    	  <!-- 맨 처음 -->
-		    	  <button class="pageBtn1 page1st" onclick="location.href='<%=contextPath%>/boardList.bo';"> &lt;&lt; </button>
+		    	  <button class="pageBtn1 page1st" onclick="location.href='<%=contextPath%>/boardList.bo';" style="width: 41.6644px;
+      					  padding-left: 0px;padding-right: 3px;padding-bottom: 2px;"> &lt;&lt; </button>
 		    	  
 		    	  <!-- 이전page -->
 		    	  <%if(currentPage == 1){ %>
-		    	  		<button class="pageBtn1 page2nd" disable> &lt; </button>
+		    	  		<button class="pageBtn1 page2nd" disable style="width: 41.6644px;padding-left: 0px;
+      							padding-right: 3px;padding-bottom: 2px;"> &lt; </button>
 		    	  <%}else{ %>
-		    	  		<button class="pageBtn1 page2nd" onclick="location.href='<%=contextPath %>/boardList.bo?currentPage=<%=currentPage-1%>';"> &lt; </button>
+		    	  		<button class="pageBtn1 page2nd" onclick="location.href='<%=contextPath %>/boardList.bo?currentPage=<%=currentPage-1%>';" style="width: 41.6644px;
+ 								padding-left: 0px;padding-right: 3px;padding-bottom: 2px;"> &lt; </button>
 		    	  <% } %>
 		    	  
 		    	  <!-- 페이지목록 -->
 		    	  <%for(int p=startPage; p<=endPage; p++){ %>
 		    	  		<%if(currentPage == p){%>
-		    	  			<button class="pageBtn1" disabled> <%=p %></button>
+		    	  			<button class="pageBtn1" disabled style="width: 41.6644px;padding-left: 0px;
+      								padding-right: 3px;padding-bottom: 2px;"> <%=p %></button>
 		    	  		<%}else{ %>
-		    	  			<button class="pageBtn1" onclick="location.href='<%=contextPath%>/boardList.bo?currentPage=<%=p %>';"> <%=p %></button>
+		    	  			<button class="pageBtn1" onclick="location.href='<%=contextPath%>/boardList.bo?currentPage=<%=p %>';"style="width: 41.6644px;
+									padding-left: 0px;padding-right: 3px;padding-bottom: 2px;"> <%=p %></button>
 		    	  		<%} %>
 		    	  <%} %>
 		    	  
 		    	  <!-- 다음page -->
 		    	  <%if(currentPage == maxPage){ %>
-		    	  		<button class="pageBtn1 page2nd" disabled> &gt; </button>
+		    	  		<button class="pageBtn1 page2nd" disabled style="width: 41.6644px;padding-left: 0px;
+								padding-right: 3px;padding-bottom: 2px;"> &gt; </button>
 		    	  <%}else{ %>
-		    	  		<button class="pageBtn1 page2nd" onclick="location.href='<%=contextPath%>/boardList.bo?currentPage=<%=currentPage+1%>';"> &gt; </button>
+		    	  		<button class="pageBtn1 page2nd" onclick="location.href='<%=contextPath%>/boardList.bo?currentPage=<%=currentPage+1%>';" style="width: 41.6644px;
+      							padding-left: 0px;padding-right: 3px;padding-bottom: 2px;"> &gt; </button>
 		    	  <%} %>
 		    	  
 		    	  <!-- 맨 마지막으로 -->
-		    	  <button class="pageBtn1 page1st" onclick="location.href='<%=contextPath%>/boardList.bo?currentPage=<%=maxPage%>';"> &gt;&gt; </button>		
+		    	  <button class="pageBtn1 page1st" onclick="location.href='<%=contextPath%>/boardList.bo?currentPage=<%=maxPage%>';" style="width: 41.6644px;
+      					  padding-left: 0px;padding-right: 3px;padding-bottom: 2px;"> &gt;&gt; </button>		
 		    </div>
         	
           </div>
       </div>
 
-
+<br><br><br><br><br>
 <!-- Footer -->
   <footer class="py-5 bg-dark">
     <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+      <p class="m-0 text-center text-white">Copyright &copy; Semo-Webtoon 2020</p>
     </div>
     <!-- /.container -->
   </footer>	
@@ -195,7 +242,5 @@
 		});
 	</script>
 	
-	
-
 </body>
 </html>

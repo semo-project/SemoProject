@@ -43,8 +43,8 @@ public class MyPageAuthorServlet extends HttpServlet {
 			int maxSize = 1024 * 1024 * 10;
 			
 			String resources = request.getSession().getServletContext().getRealPath("/resources");
-			String savePath = resources + "/author_request/";
-			// String savePath = resources + "\\author_request\\";
+//			String savePath = resources + "/author_request/";
+			 String savePath = resources + "\\author_request\\";
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			String content = multiRequest.getParameter("introduce");
 			int writer = Integer.parseInt(multiRequest.getParameter("writer"));

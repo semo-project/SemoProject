@@ -98,7 +98,7 @@ public class Board {
 		this.boardWriter = boardWriter;
 		this.boardWriteDate = boardWriteDate;
 	}
-
+	
 	public int getBoardNo() {
 		return boardNo;
 	}
