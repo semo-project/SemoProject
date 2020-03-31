@@ -38,8 +38,6 @@ public class adminStatsVisitServlet extends HttpServlet {
 		
 		// 이전의 12개의 월을 조회하고 싶다면....?
 		
-		// 2019년 03월
-		// 2020년 03월
 		ArrayList<VisitStats> list = new StatsService().getVisitStats();
 		
 		// 만약에 제대로 받아왔으면 넘겨주고
