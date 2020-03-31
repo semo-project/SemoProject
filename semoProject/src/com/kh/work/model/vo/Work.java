@@ -51,6 +51,8 @@ public class Work {
 
 	
 	//mondayList
+	public Work(int workNo, String updateDay, Date approvalDate, int serialCnt, int writerNo,
+			String workTitle, String thumbnailModify) {
 		super();
 		this.workNo = workNo;
 		this.updateDay = updateDay;
