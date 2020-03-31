@@ -131,11 +131,11 @@
           	    <div id="myModal" class="modal">
 		          <div class="modal-content" style="display:block;">
 		          <h2 style="text-align:center;">문의 내용</h2>
-		          <p value="<%= q.getQnaContent() %>" readonly></p>
-		          <% if(q.getQnaAnswerContent() != null) { %>
+		          <p readonly><%= q.getQnaContent() %></p>
+		          <% if(state == "답변") { %>
 		          <hr>
 		          <h2 style="text-align:center;">답변 내용</h2>
-		          <p value="<%= q.getQnaAnswerContent() %>" readonly></p>
+		          <p readonly><%= q.getQnaAnswerContent() %></p>
 		          <% } %>
 			      <button type="button" id="close" class="btn btn-simple">닫기</button>
 		          </div>
@@ -179,6 +179,23 @@
             </tr> -->
           </tbody>
         </table>
+        <script>
+        var modal = document.getElementById("myModal");
+        var span = document.getElementById("close");
+        $(".listArea>tbody>tr").click(function() {
+          modal.style.display = "block";
+        });
+
+        span.onclick = function() {
+          modal.style.display = "none";
+        };
+
+        window.onclick = function(event) {
+          if (event.target == modal){
+            modal.style.display = "none";
+          }
+        };
+        </script>
         <br><br>
         <!-- 페이징바 영역 -->
 		<div class="pagingArea" align="center">
