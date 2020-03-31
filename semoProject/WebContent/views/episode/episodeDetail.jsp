@@ -161,7 +161,7 @@
 	<%@ include file="../common/menubar.jsp" %>
 
 	<!-- Page Content -->
-	<div class="menubar">
+<!--  	<div class="menubar">
 
 		<ol class="breadcrumb">
 			<h1><a href="index.html" id="semoServiceLogo">logo</a></h1>
@@ -179,7 +179,7 @@
 				    <a href="/" class="btn_comm btn_close">작품홈으로</a>
 				</li>
 			</ul>
-	</div>
+	</div>-->
 	    
 
     <div class="row"  id="semoweb" style="margin-left: auto;

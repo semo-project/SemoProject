@@ -1284,4 +1284,38 @@ public class WorkDao {
 		
 		return result;
 	}
+
+	public ArrayList<Work> workSearch(Connection conn, String searchContent) {
+		ArrayList<Work> list = new ArrayList<>();
+		
+		PreparedStatement stmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("workSearch");
+		
+		try {
+			
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, searchContent);
+			rset = stmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Work(rset.getInt("WORK_NO"),
+								  rset.getString("UPDATE_DAY"),
+								  rset.getDate("APPROVAL_DATE"),
+								  rset.getInt("SERIAL_CNT"),
+							      rset.getString("THUMBNAIL_MODIFY"),
+								  rset.getInt("WRITER_NO"),
+								  rset.getString("WORK_TITLE")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return list;
+		
+	}
 }

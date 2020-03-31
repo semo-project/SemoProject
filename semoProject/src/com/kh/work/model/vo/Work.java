@@ -42,6 +42,18 @@ public class Work {
 
 
 
+	
+	public Work(int workNo, String updateDay, Date approvalDate, int serialCnt, String thumbnailModify, int writerNo,
+			String workTitle) {
+		super();
+		this.workNo = workNo;
+		this.updateDay = updateDay;
+		this.approvalDate = approvalDate;
+		this.serialCnt = serialCnt;
+		this.thumbnailModify = thumbnailModify;
+		this.writerNo = writerNo;
+		this.workTitle = workTitle;
+	}
 	public Work(String workSummary, String thumbnailModify, String workTitle) {
 		super();
 		this.workSummary = workSummary;
