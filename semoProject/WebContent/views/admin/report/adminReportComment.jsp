@@ -292,9 +292,9 @@
                 	// 게시글 댓글이면 게시글로 보내줘야 하고, 웹툰 댓글이면 웹툰으로 보내줘야 돼
                 	// console.log(boardNo);
                 	// console.log(groupClass);
-                	if(groupClass == 2) { // 게시글 댓글
+                	if(groupClass == 1) { // 게시글 댓글
                     	location.href = "<%=contextPath%>/webdetail.bo?boardNo=" + boardNo;
-                	} else if(groupClass = 3) { // 웹툰 댓글
+                	} else if(groupClass = 2) { // 웹툰 댓글
                 		location.href = "<%=contextPath%>/episode.de?eNo=" + boardNo;
                 	}
                 });
