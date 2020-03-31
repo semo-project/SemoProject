@@ -334,7 +334,7 @@ star-input>.input.focus{outline:1px dotted #ddd;}
     </ul>
    
 	
-    <p>줄거리:<%= w.getWorkSummary() %></p>
+    <p><%= w.getWorkSummary() %></p>
     
       </div>
 

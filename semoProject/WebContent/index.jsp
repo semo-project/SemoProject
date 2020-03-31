@@ -172,6 +172,15 @@
   <!-- Bootstrap core JavaScript -->
   <script src="<%= request.getContextPath() %>/resources/js/jquery.min.js"></script>
   <script src="<%= request.getContextPath() %>/resources/js/bootstrap.bundle.min.js"></script>
+	<script>
+	$(function() {
+		$(".divWork").click(function() {
+			var val = $(this).children().children().eq(0).val();
+			location.href="<%=contextPath%>/view.se?wno=" + val;
+		});
+	});
+	
+	</script>
 
 </body>
 
