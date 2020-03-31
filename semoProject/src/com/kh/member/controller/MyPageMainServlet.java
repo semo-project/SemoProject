@@ -37,7 +37,6 @@ public class MyPageMainServlet extends HttpServlet {
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		
 		String userId = loginUser.getMemberId();
-		System.out.println(userId);
 		Member mem = new MemberService().selectMember(userId);
 		
 		if(mem != null) {

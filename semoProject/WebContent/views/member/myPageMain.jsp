@@ -134,6 +134,8 @@
   <footer class="py-5 bg-dark">
     <div class="container">
       <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+      <br>
+      <p class="m-0 text-center text-white"><a class="m-0 text-center text-white" href="<%=request.getContextPath() %>/list.no" >고객지원/공지사항</a></p>  
     </div>
     <!-- /.container -->
   </footer>
