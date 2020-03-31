@@ -44,6 +44,7 @@
         <div class="list-group">
           <a href="boardList.bo" class="list-group-item">웹툰 TalkTalk</a>
           <a href="freeList.bo" class="list-group-item">수다수다 유머방</a>
+     
         </div>
       </div>
     </div>
@@ -74,7 +75,7 @@
 				<td><input type="text" name="title" id="title" style="width:500px" placeholder="제목을 입력해주세요."></td>
 			</tr>
 			<tr>
-				<th><input type="hidden"></th>
+				<th></th>
 				<td><input type="text" style="border:0px; height:1px;"></td>
 			</tr>
 			<tr>
@@ -91,10 +92,8 @@
 			<button class="btn btn10 btn-warning" type="button" onclick="location.href='boardList.bo'" style="margin-left: 3%;
     					   margin-top: 2%;">취소</button>
 		</div>
-		
 	</form>
-		
-		<script>
+			<script>
 			function insertBo(){
 				alert("게시물 작성을 완료했습니다.");
 				location.href="<%=contextPath%>/insertWebTalk.bo?boardNo" + val;
