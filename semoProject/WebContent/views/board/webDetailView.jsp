@@ -398,7 +398,7 @@
       
       	$(function(){
       		selectCommentList();
-      		setInterval(selectCommentList(), 2000);
+      		setInterval(selectCommentList, 2000);
       		
       		$("#addComment").click(function(){
 	      		var content = $("#commentContent").val();

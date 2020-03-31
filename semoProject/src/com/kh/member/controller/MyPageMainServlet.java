@@ -41,7 +41,6 @@ public class MyPageMainServlet extends HttpServlet {
 		Member mem = new MemberService().selectMember(userId);
 		
 		if(mem != null) {
-			request.setAttribute("loginUser", loginUser);
 			RequestDispatcher view = request.getRequestDispatcher("views/member/myPageMain.jsp");
 			view.forward(request, response);
 		} else {

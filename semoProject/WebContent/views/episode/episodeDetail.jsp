@@ -3,6 +3,7 @@
     <%@page import="com.kh.episode.model.vo.Episode"%>
 <%
 	Episode e = (Episode)request.getAttribute("e");    
+
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -168,7 +169,7 @@
 			<dl class="list_info">
 				<h5 class="txt_title"><a href="만화창.html" class="link_title">&nbsp;&nbsp;&nbsp;&nbsp;<%= e.getWorkTitle() %></a></h5>
 				<dt class="screen_out">회차</dt>
-				<p class="txt_episode"><span class="ico_comm ico_arrow">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= e.getEpisodeTitle() %> >></span><%=e.getEpisodeNo()%>화</p>
+				<p class="txt_episode"><span class="ico_comm ico_arrow">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= e.getEpisodeTitle() %></span></p>
 			</dl>
 			<ul class="list_control">
 				<li>
@@ -193,13 +194,12 @@
           
         </div>
         <!-- Preview Image -->
-        <img class="img-fluid rounded" src="<%= contextPath %>/resources/images/<%= e.getEpisodeModify() %>" alt="" 
+        <img class="img-fluid rounded" src="<%= contextPath %>/resources/episode_upfiles/<%= e.getEpisodeModify() %>" alt="" 
         style="width: 100%;
         padding-right: 120px;
         padding-left: 120px;
         margin-right: auto;
         margin-left: auto;">
-
         <br><br><br>
         <hr>
         <nav id="viewer-footer" class="viewer_footer viewer__footer--active">

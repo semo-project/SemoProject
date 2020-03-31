@@ -66,7 +66,11 @@
 			<ul class="navbar-nav ml-auto" style="margin-right: 20px;">
         	<form method="POST" action="search.all">
           	<li class="nav-item">
+
               	<input  type="search" id="searchContent" name="searchContent" placeholder=" Search work만..." class="container-1" style="border-radius: 0.25rem; height:100%; margin:0">
+
+              
+
               	<input id="searchbtn" type="submit" class="btn" value="검색" style="height:100%">
           	</li>
         	</form>

@@ -101,13 +101,14 @@ public class Member {
 	}
 	
 	// KJY 
-	public Member(String memberId, String memberNickname, String memberAddress, String phone, String email) {
+	public Member(String memberId, String memberNickname, String memberAddress, String phone, String email, String memberPwd) {
 		super();
 		this.memberId = memberId;
 		this.memberNickname = memberNickname;
 		this.memberAddress = memberAddress;
 		this.phone = phone;
 		this.email = email;
+		this.memberPwd = memberPwd;
 	}
 	
 	// KJH

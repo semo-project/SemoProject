@@ -56,29 +56,22 @@
   <div class="row">
     
     <!-- Sidebar Column -->
-    <div class="col-lg-3 mb-4">
-      <div class="list-group">
-        <a href="Notice_공지사항.html" class="list-group-item">내 정보 수정</a>
-        <a href="Notice_자주 묻는 질문.html" class="list-group-item">쿠기 충전</a>
-        <a href="Notice_11문의.html" class="list-group-item">쿠키 충전 내역</a>
-        <a href="#" class="list-group-item">즐겨찾기한 웹툰</a>
-        <a href="#" class="list-group-item">좋아요 웬툰</a>
-        <a href="#" class="list-group-item">문의글 확인</a>
-        <a href="#" class="list-group-item">웹툰 결제 내역</a>
-        <a href="#" class="list-group-item">내 게시글 보기</a>
-        <a href="#" class="list-group-item">내 작품관리</a>
-        <a href="#" class="list-group-item">수익 관리</a>
+      <div class="col-lg-3 mb-4">
+        <%@ include file="../member/myPageSidebar.jsp" %>
       </div>
-    </div>
-
 
 
 
  <!-- 작품리스트 -->
 <div class="col-lg-9 mb-4">
+         <% if(list.isEmpty()) { %>
+         	<br>
+          	<h1 align="center"> 등록된 작품이 없습니다.</h1>
+         	<% } else { %>
 	<div class="row">
+	
   
-		<% for(Work w : list) { %>
+			<% for(Work w : list) { %>
 		<input type="hidden" value="<%= w.getWriterNo() %>">
 		
 		<div class="col-md-7">
@@ -94,13 +87,12 @@
 		<br><br>
   			<h3><%=w.getWorkTitle() %></h3>
 			<p><%=w.getWorkSummary() %></p>
-			<a class="btn btn-primary divEpisode" >
-				<input type="hidden" value="<%=w.getWorkNo()%>">
-				전체 목록 보기
-  				<span class="glyphicon glyphicon-chevron-right"></span>
+
+
 			</a>
   		</div>
 		<% } %>
+	<% } %>
 	</div>    
 	
 	<br>

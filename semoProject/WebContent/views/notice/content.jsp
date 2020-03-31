@@ -26,7 +26,7 @@
 
  <ol class="breadcrumb" style="background:lightseagreen">
    <li class="breadcrumb-item">
-     <a href="#" color:white>자주 묻는 질문</a>
+     <a href="#" style="font-family: 'Gugi'; color:white">자주 묻는 질문</a>
    </li>
  </ol>
 

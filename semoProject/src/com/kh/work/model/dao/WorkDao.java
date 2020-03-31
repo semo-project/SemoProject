@@ -171,7 +171,7 @@ public class WorkDao {
 		return listCount;
 		
 	}
-	public ArrayList<Work> selectList(Connection conn){
+	public ArrayList<Work> selectList(Connection conn){ // 용의자1
 		ArrayList<Work> list = new ArrayList<>();
 		
 		Statement stmt = null;
@@ -385,7 +385,6 @@ public class WorkDao {
 			pstmt.setInt(1, wno);
 			
 			rset = pstmt.executeQuery();		
-			
 			
 			
 			while(rset.next()) {
