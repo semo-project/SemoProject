@@ -83,8 +83,8 @@ public class EpisodeDao {
 			if(rset.next()) {
 				e = new Episode(rset.getInt("EPISODE_NO"),
 								rset.getString("WORK_TITLE"),
-								rset.getString("EPISODE_TITLE"));
-							
+								rset.getString("EPISODE_TITLE"),
+								rset.getString("EPISODE_MODIFY"));
 			}		
 			
 		} catch (SQLException ex) {

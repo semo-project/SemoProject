@@ -109,7 +109,7 @@
        					<div class="card h-100">
 							<input type="hidden" class="wNo" id="wNo" value="<%=w.getWorkNo()%>">
 							<div class="card h-100">
-          						<a href="#"><img class="card-img-top" src="<%= contextPath %>/resources/images/<%= w.getThumbnailModify() %>" alt=""></a>
+          						<a href="#"><img class="card-img-top" src="<%= contextPath %>/resources/work_upfiles/<%= w.getThumbnailModify() %>" alt=""></a>
           					<div class="card-body">
 								<h4>
 									<a href="#"><%= w.getWorkTitle() %></a>
@@ -140,9 +140,6 @@
     <!-- /.container -->
   </footer>
 
-  <!-- Bootstrap core JavaScript -->
-   <script src="<%= request.getContextPath() %>/resources/js/jquery.min.js"></script>
-  <script src="<%= request.getContextPath() %>/resources/js/bootstrap.bundle.min.js"></script>
  <!-- button java Script-->
  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
@@ -178,7 +175,11 @@
 	});
 	
 	</script>
-	
+  <!-- Bootstrap core JavaScript -->
+  <script src="<%= request.getContextPath() %>/resources/js/jquery.min.js"></script>
+  <script src="<%= request.getContextPath() %>/resources/js/bootstrap.bundle.min.js"></script>
+  <script src="<%= request.getContextPath() %>/resources/js/jquery.min.js"></script>
+  <script src="<%= request.getContextPath() %>/resources/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

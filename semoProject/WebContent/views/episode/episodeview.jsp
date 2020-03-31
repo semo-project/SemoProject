@@ -265,7 +265,7 @@ star-input>.input.focus{outline:1px dotted #ddd;}
     <div class="row">
 
       <div class="col-md-8">
-        <img class="img-fluid" src="http://placehold.it/750x500" alt="">
+        <img class="img-fluid" src="<%= contextPath %>/resources/work_upfiles/<%= w.getThumbnailModify() %>" alt="">
       </div>
       
       
@@ -644,6 +644,9 @@ star-input>.input.focus{outline:1px dotted #ddd;}
 		 
 	 }
 	</script>
+	
+	<script src="<%= request.getContextPath() %>/resources/js/jquery.min.js"></script>
+  <script src="<%= request.getContextPath() %>/resources/js/bootstrap.bundle.min.js"></script>
 	
 	
 </body>
