@@ -46,6 +46,31 @@
       margin-top: 5px;
       display: none;
      }
+     .modal{
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgb(0, 0, 0);
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+    .modal-content{
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 50%;
+      max-width: fit-content;
+    }
+    #close:hover, #close:focus{
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
   </style>
 </head>
 
@@ -103,6 +128,18 @@
           	      <td><%= q.getQnaTitle() %></td>
           	      <td><%= state %></td>
           	    </tr>
+          	    <div id="myModal" class="modal">
+		          <div class="modal-content" style="display:block;">
+		          <h2 style="text-align:center;">문의 내용</h2>
+		          <p readonly><%= q.getQnaContent() %></p>
+		          <% if(state == "답변") { %>
+		          <hr>
+		          <h2 style="text-align:center;">답변 내용</h2>
+		          <p readonly><%= q.getQnaAnswerContent() %></p>
+		          <% } %>
+			      <button type="button" id="close" class="btn btn-simple">닫기</button>
+		          </div>
+		        </div>
           	  <% } %>
           	<% } %>
             <!-- <div>
@@ -142,6 +179,23 @@
             </tr> -->
           </tbody>
         </table>
+        <script>
+        var modal = document.getElementById("myModal");
+        var span = document.getElementById("close");
+        $(".listArea>tbody>tr").click(function() {
+          modal.style.display = "block";
+        });
+
+        span.onclick = function() {
+          modal.style.display = "none";
+        };
+
+        window.onclick = function(event) {
+          if (event.target == modal){
+            modal.style.display = "none";
+          }
+        };
+        </script>
         <br><br>
         <!-- 페이징바 영역 -->
 		<div class="pagingArea" align="center">

@@ -6,6 +6,8 @@ import static com.kh.common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.kh.board.model.dao.BoardDao;
+import com.kh.board.model.vo.Board;
 import com.kh.common.PageInfo;
 import com.kh.episode.model.vo.Episode;
 import com.kh.work.model.dao.WorkDao;
@@ -543,6 +545,16 @@ public class WorkService {
 		close(conn);
 		
 		return result;
+	}
+
+	public ArrayList<Work> workSearch(String searchContent) {
+		Connection conn = getConnection();
+		
+		ArrayList<Work> list = new WorkDao().workSearch(conn, searchContent);
+		
+		close(conn);
+		
+		return list;
 	}
 
 }

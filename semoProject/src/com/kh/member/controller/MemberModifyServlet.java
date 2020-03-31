@@ -3,6 +3,7 @@ package com.kh.member.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,6 +35,8 @@ public class MemberModifyServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
 		
 		String userId = request.getParameter("userId");
 		String nickname = request.getParameter("nickname");
@@ -41,22 +44,24 @@ public class MemberModifyServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String address = request.getParameter("address");
 		
-		Member updateMem = new MemberService().updateMember(new Member(userId, nickname, address, phone, email));
+		Member updateMem = new MemberService().updateMember(new Member(userId, nickname, address, phone, email, loginUser.getMemberPwd()));
 		response.setContentType("text/html; charset=UTF-8");
 		
 		if(updateMem != null) {
-			
-			HttpSession session = request.getSession();
-			session.setAttribute("loginUser", updateMem);
+			session.removeAttribute("loginUser");
+			request.setAttribute("loginUser", updateMem);
 			String message = "회원정보 수정에 성공했습니다.";
 			PrintWriter out = response.getWriter();
 			out.print("<script>");
 			out.print("window.alert('" + message + "');");
 			out.print("</script>");
-			response.sendRedirect(request.getContextPath() + "/myPage.me"); 
+			session.setAttribute("loginUser", updateMem);
+			RequestDispatcher view = request.getRequestDispatcher("index.jsp");
+			view.forward(request, response);
 		} else {
 			String message = "회원정보 수정에 실패했습니다!!";
 			PrintWriter out = response.getWriter();
+			request.setAttribute("loginUser", loginUser);
 			out.println("<script>");
 			out.println("alert('" + message + "');");
 			out.println("history.back(-1);");
