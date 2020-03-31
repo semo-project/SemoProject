@@ -111,7 +111,6 @@ public class MyPageQuestionServlet extends HttpServlet {
 		// 구해진 페이지 정보들 PageInfo 객체 담기
 		PageInfo pi = new PageInfo(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
 		
-		// 현재 페이지에 보여질 게시글 리스트 조회하기
 		ArrayList<QNA> list = new QNAService().selectList(pi, loginUser.getMemberNo());
 		Member mem = new MemberService().selectMember(loginUser.getMemberId());
 		response.setCharacterEncoding("UTF-8");

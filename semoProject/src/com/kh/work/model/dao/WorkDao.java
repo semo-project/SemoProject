@@ -171,13 +171,15 @@ public class WorkDao {
 		return listCount;
 		
 	}
-	public ArrayList<Work> selectList(Connection conn){ // 용의자1
+
+	public ArrayList<Work> selectList(Connection conn){
+
 		ArrayList<Work> list = new ArrayList<>();
 		
 		Statement stmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("selectList");
+		String sql = prop.getProperty("selectListlist");
 		
 		try {
 			stmt = conn.createStatement();
