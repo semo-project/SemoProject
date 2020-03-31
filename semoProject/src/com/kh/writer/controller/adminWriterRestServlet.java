@@ -37,7 +37,7 @@ public class adminWriterRestServlet extends HttpServlet {
 		if(result > 0) {
 			HttpSession session = request.getSession();
 			session.setAttribute("restMessage", "해제 되었습니다.");
-			response.sendRedirect("list.wr?pageId=2");
+			response.sendRedirect("adminList.wr?pageId=2");
 		} else {
 			request.setAttribute("msg", "해제 실패");
 			request.getRequestDispatcher("views/common/adminErrorPage.jsp").forward(request, response);			
