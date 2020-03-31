@@ -188,7 +188,8 @@ public class WorkDao {
 								  rset.getString("work_title"),
 								  rset.getInt("writer_no"),
 								  rset.getInt("serial_cnt"),
-								  rset.getDate("approval_date")));
+								  rset.getDate("approval_date"),
+								  rset.getString("THUMBNAIL_MODIFY")));
 			}
 			
 		} catch (SQLException e) {
@@ -224,7 +225,8 @@ public class WorkDao {
 								  rset.getDate("approval_date"),
 								  rset.getInt("serial_cnt"),
 								  rset.getInt("writer_no"),
-								  rset.getString("work_title")));	
+								  rset.getString("work_title"),
+								  rset.getString("THUMBNAIL_MODIFY")));	
 			}
 			
 		} catch (SQLException e) {
@@ -253,7 +255,8 @@ public class WorkDao {
 						  		  rset.getString("work_title"),
 						  		  rset.getInt("writer_no"),
 						  		  rset.getInt("serial_cnt"),
-						  		  rset.getDate("approval_date")));	
+						  		  rset.getDate("approval_date"),
+						  		  rset.getString("THUMBNAIL_MODIFY")));	
 			}
 			
 		} catch (SQLException e) {
@@ -317,7 +320,8 @@ public class WorkDao {
 								  rset.getString("work_Title"),
 								  rset.getInt("writer_No"),
 								  rset.getInt("serial_Cnt"),
-								  rset.getDate("approval_Date")));	
+								  rset.getDate("approval_Date"),
+								  rset.getString("THUMBNAIL_MODIFY")));	
 			}
 			
 		} catch (SQLException e) {
@@ -351,7 +355,8 @@ public class WorkDao {
 							  rset.getString("WORK_SUMMARY"),
 							  rset.getInt("WRITER_NO"),
 							  rset.getString("WORK_TITLE"),
-							  rset.getString("GENRE_NAME"));
+							  rset.getString("GENRE_NAME"),
+							  rset.getString("THUMBNAIL_MODIFY"));
 							
 			}		
 			
@@ -388,7 +393,8 @@ public class WorkDao {
 								  rset.getDate("APPROVAL_DATE"),
 								  rset.getInt("VIEWS_CNT"),
 								  rset.getString("WORK_TITLE"),
-								  rset.getString("EPISODE_TITLE")));
+								  rset.getString("EPISODE_TITLE"),
+								  rset.getString("EPISODE_MODIFY")));
 								 	
 			}
 

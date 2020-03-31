@@ -31,7 +31,7 @@ public class EpisodeDetailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int eNo = Integer.parseInt(request.getParameter("eNo"));
-		System.out.println(eNo);
+		
 		Episode e = new EpisodeService().episodeDetail(eNo);
 		
 		

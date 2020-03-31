@@ -112,7 +112,7 @@ public class Work {
 	//selectSerial
 	
 	
-	public Work(int workNo, Date approvalDate, String workSummary, int writerNo, String workTitle, String genreName) {
+	public Work(int workNo, Date approvalDate, String workSummary, int writerNo, String workTitle, String genreName ,String thumbnailModify) {
 		super();
 		this.workNo = workNo;
 		this.approvalDate = approvalDate;
@@ -120,6 +120,7 @@ public class Work {
 		this.writerNo = writerNo;
 		this.workTitle = workTitle;
 		this.genreName = genreName;
+		this.thumbnailModify = thumbnailModify;
 	}
 	
 	//PJH
