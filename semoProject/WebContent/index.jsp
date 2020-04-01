@@ -6,11 +6,13 @@
     
 <%
    	 ArrayList<Work> list = new WorkService().selectList();
-	ArrayList<Work> lis = new WorkService().selectGenreList();
+
+	//활중 된 아이디가 로그인을 시도했을 때 생성하는 메시지 받아오기
+	String accusMsg = (String)session.getAttribute("accusMsg");
+
 %>
 <!DOCTYPE html>
 <html lang="en">
-<!-- asdfqwreqferqgqwe -->
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -133,6 +135,17 @@
 			var val = $(this).children().children().eq(0).val();
 			location.href="<%=contextPath%>/view.se?wno=" + val;
 		});
+		
+		// 활중 메시지 받아오기
+		var msg = "<%=accusMsg%>";
+		
+		// 만약 활중메시지가 null이 아니면 알람창으로 띄우고 세션에 있는 거 지워주고 메시지도 null로
+		if(msg != "null") {
+			alert(msg);
+			<% session.removeAttribute("accusMsg");%>
+			<% accusMsg = null; %>
+			msg = "null";
+		}
 	});
 	
 	</script>

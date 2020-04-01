@@ -1,3 +1,4 @@
+<%@page import="com.kh.admin.model.vo.VisitStats"%>
 <%@page import="com.kh.admin.model.vo.MemberStats"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -6,7 +7,7 @@
 
 	// 그냥 남여 모두 10대 ~ 60대까지 빠짐없이 데이터가 있다고 생각하자..
 	
-	ArrayList<MemberStats> list = (ArrayList<MemberStats>)request.getAttribute("list");
+	ArrayList<MemberStats> listMember = (ArrayList<MemberStats>)request.getAttribute("listMember");
 	
 	// 카운트 String으로 합치기 위한 StringBuilder
 	StringBuilder female = new StringBuilder();
@@ -16,7 +17,7 @@
 	StringBuilder age = new StringBuilder();
 	
 	// 카운트 수 String으로 묶어주기
-	for(MemberStats ms : list) {
+	for(MemberStats ms : listMember) {
 		// 여자면 female에 얹어주기
 		if(ms.getGender().equals("F")) {
 			female.append(", " + ms.getCount());
@@ -31,6 +32,24 @@
 	String femaleCount = female.substring(2);
 	String maleCount = male.substring(2);
 	String ageList = age.substring(2);
+	
+	////////////////////////////////////////////////////////////////////////////////////////////
+	
+	ArrayList<VisitStats> listVisit = (ArrayList<VisitStats>)request.getAttribute("listVisit");
+
+	StringBuilder count = new StringBuilder();
+	StringBuilder date = new StringBuilder();
+	
+	// ex. 2020.03.31의 데이터면 2019/04 ~ 2020/03
+	// VisitStats [date=2020/03, count=99]
+	for(VisitStats v : listVisit) {
+		date.append(", \"" + v.getDate() + "\"");
+		count.append(", " + v.getCount());
+	}
+	
+	// 앞에 ', '가 붙어서 제거하기
+	String countNo = count.substring(2);
+	String dateStr = date.substring(2);
 	
 	
 %>
@@ -121,7 +140,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="resources/js/chart-area.js"></script>
+        <!-- <script src="resources/js/chart-area.js"></script>-->
         
         <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
@@ -182,6 +201,61 @@
 			  }
 			});
 		</script>
+		<script>
+	        Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+	        Chart.defaults.global.defaultFontColor = '#292b2c';
+	
+	        // Area Chart Example
+	        var ctx = document.getElementById("myAreaChart");
+	        var myLineChart = new Chart(ctx, {
+	          type: 'line',
+	          data: {
+	            labels: [<%=dateStr%>],
+	            datasets: [{
+	              label: "누적 방문 수",
+	              lineTension: 0.3,
+	              backgroundColor: "rgba(2,117,216,0.2)",
+	              borderColor: "rgba(2,117,216,1)",
+	              pointRadius: 5,
+	              pointBackgroundColor: "rgba(2,117,216,1)",
+	              pointBorderColor: "rgba(255,255,255,0.8)",
+	              pointHoverRadius: 5,
+	              pointHoverBackgroundColor: "rgba(2,117,216,1)",
+	              pointHitRadius: 50,
+	              pointBorderWidth: 2,
+	              data: [<%=countNo%>],
+	            }],
+	          },
+	          options: {
+	            scales: {
+	              xAxes: [{
+	                time: {
+	                  unit: 'month'
+	                },
+	                gridLines: {
+	                  display: false
+	                },
+	                ticks: {
+	                  maxTicksLimit: 12
+	                }
+	              }],
+	              yAxes: [{
+	                ticks: {
+	                  min: 0,
+	                  max: 200,
+	                  maxTicksLimit: 5
+	                },
+	                gridLines: {
+	                  color: "rgba(0, 0, 0, .125)",
+	                }
+	              }],
+	            },
+	            legend: {
+	              display: false
+	            }
+	          }
+	        });
+        </script>
     </body>
 </html>
     

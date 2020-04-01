@@ -40,6 +40,21 @@ public class LoginServlet extends HttpServlet {
 		
 		Member loginUser = new MemberService().loginMember(userId, userPwd);
 		
+		//------------------------------------------------------------ lsh
+		// 아이디를 잘못 입력한 게 아니고 로그인이 맞게 된 상태에서 
+		// 해당 아이디가 활중된 회원의 아이디라면 로그인 진행하지 않게 하기
+		Member checkMem = new MemberService().checkAccusMember(userId);
+		
+		// 만약 입력한 아이디가 현재 활동중지라면 (dao에서 해당 아이디에 해당하는 정보에 활동중지 y가 되어있는 객체가 반환된다면)
+		if(checkMem != null) {
+			HttpSession session = request.getSession();
+			session.setAttribute("accusMsg", "해당 아이디는 활동중지 되어 로그인이 불가합니다.");
+			response.sendRedirect(request.getContextPath());
+			return;
+		} 
+		
+		//------------------------------------------------------------
+			
 		if(loginUser != null) {
 			if(loginUser.getApprovalFlag() == null) {
 				loginUser.setApprovalFlag("null");

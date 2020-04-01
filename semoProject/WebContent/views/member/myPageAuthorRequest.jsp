@@ -74,7 +74,7 @@
                   </select>
                 </td>
                 <td>
-                  <input id="bNum" name="bNum" type="text" placeholder="계좌번호('-' 포함해서 입력)" style="width:200px;">
+                  <input id="bNum" name="bNum" type="text" placeholder="계좌번호('-' 제외하고 입력)" style="width:200px;">
                 </td>
               </tr>
             </table>

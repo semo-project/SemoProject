@@ -59,9 +59,10 @@
 		
 		<div class="welcomeBtn" align="center" style="margin-top:3%; margin-left:20px;">
 			<button type="button" onclick="location.href ='<%=request.getContextPath()%>'">메인으로</button>
-			<button type="button" onclick="location.href ='#'" style="margin-left:3%;">만화 보러가기</button>
+			<button type="button" onclick="location.href ='<%=request.getContextPath()%>/list.week'" style="margin-left:3%;">만화 보러가기</button>
 		</div>
 	</div>
-	<script></script>
+	<script>
+	</script>
 </body>
 </html>

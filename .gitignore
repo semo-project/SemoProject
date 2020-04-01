@@ -72,7 +72,5 @@ semoProject/WebContent/WEB-INF/jspwork/org/apache/jsp/views/admin/common/adminIn
 semoProject/WebContent/WEB-INF/jspwork/org/apache/jsp/views/admin/common/adminIndex_jsp.class
 semoProject/WebContent/WEB-INF/jspwork/org/apache/jsp/index_jsp.java
 semoProject/WebContent/WEB-INF/jspwork/org/apache/jsp/index_jsp.class
-semoProject/src/sql/work/work-query.properties
-semoProject/src/com/kh/work/model/dao/WorkDao.java
 semoProject/src/sql/driver/driver.properties
-semoProject/src/sql/work/work-query.properties
+

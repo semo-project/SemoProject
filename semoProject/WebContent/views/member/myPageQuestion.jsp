@@ -37,40 +37,20 @@
     #status{width: 80px;}
     .listArea>tbody>tr:hover{
       cursor: pointer;
-      background: skyblue;
     }
-    p.content{
-      border: 1px solid lightgray;
-      width: 300px;
-      height: 100px;
-      margin-top: 5px;
-      display: none;
+     tr.detail {
+       display:none;
+       width:100%;
      }
-     .modal{
-      display: none;
-      position: fixed;
-      z-index: 1;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgb(0, 0, 0);
-      background-color: rgba(0, 0, 0, 0.4);
-    }
-    .modal-content{
-      background-color: #fefefe;
-      margin: 15% auto;
-      padding: 20px;
-      border: 1px solid #888;
-      width: 50%;
-      max-width: fit-content;
-    }
-    #close:hover, #close:focus{
-      color: black;
-      text-decoration: none;
-      cursor: pointer;
-    }
+     tr.detail div {
+       display:none;
+     }
+     .showmore:hover {
+       cursor:pointer;
+     }
+     .table>tr>th{
+       width:223px;
+     }
   </style>
 </head>
 
@@ -117,6 +97,7 @@
           <tbody>
           	  <% for(QNA q : list) { %>
           	  <% String state = ""; %>
+          	  <% int num = q.getListNo(); %>
           	    <% if(q.getQnaAnswerState().equals("N")) { %>
           	      <% state = "접수"; %>
           	    <% } else { %>
@@ -128,57 +109,43 @@
           	      <td><%= q.getQnaTitle() %></td>
           	      <td><%= state %></td>
           	    </tr>
-          	    <div id="myModal" class="modal">
-		          <div class="modal-content" style="display:block;">
-		          <h2 style="text-align:center;">문의 내용</h2>
-		          <p value="<%= q.getQnaContent() %>" readonly></p>
-		          <% if(q.getQnaAnswerContent() != null) { %>
-		          <hr>
-		          <h2 style="text-align:center;">답변 내용</h2>
-		          <p value="<%= q.getQnaAnswerContent() %>" readonly></p>
-		          <% } %>
-			      <button type="button" id="close" class="btn btn-simple">닫기</button>
-		          </div>
-		        </div>
+          	    <tr class="detail">
+          	      <td colspan="4">
+          	        <div>
+          	          <table class="table">
+          	            <tr>
+          	              <th style="width:223px;">문의 내용</th>
+          	              <td><%= q.getQnaContent() %></td>
+          	            </tr>
+          	            <% if(state == "답변") { %>
+          	              <tr>
+          	                <th style="width:223px;">답변 내용</th>
+          	                <td><%= q.getQnaAnswerContent() %></td>
+          	              </tr>
+          	            <% } %>
+          	          </table>
+          	        </div>
           	  <% } %>
           	<% } %>
-            <!-- <div>
-              <tr>
-                <td>5</td>
-                <td>2020-02-10</td>
-                <td>아무거나 5화</td>
-                <td>접수</td>
-              </tr>
-            </div>
-            <div>
-              <tr>
-                <td>4</td>
-                <td>2020-02-05</td>
-                <td>아무거나 4화</td>
-                <td>답변</td>
-              </tr>
-            </div>
-            <p class="content">testtesttest</p>
-            <tr>
-              <td>3</td>
-              <td>2020-01-01</td>
-              <td>아무거나 3화</td>
-              <td>답변</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>2019-12-31</td>
-              <td>아무거나 2화</td>
-              <td>답변</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>2019-12-23</td>
-              <td>아무거나 1화</td>
-              <td>답변</td>
-            </tr> -->
           </tbody>
         </table>
+        <script>
+          $(function(){
+        	  $("tr").each(function(index){
+        		 if(index != 0){
+        			 $(this).click(function(e){
+        				e.preventDefault();
+        				var targetrow = $(this).closest('tr').next('.detail');
+        				targetrow.show().find('div').slideToggle('slow', function(){
+        					if( !$(this).is(':visible')){
+        						targetrow.hide();
+        					}
+        				});
+        			 });
+        		 } 
+        	  });
+          });
+        </script>
         <br><br>
         <!-- 페이징바 영역 -->
 		<div class="pagingArea" align="center">
@@ -218,23 +185,6 @@
       </div>
     </div>
     <!-- /.row -->
-
-    <script>
-      jQuery.fn.prepareTableRowForSliding = function() {
-        $tr = this;
-        $tr.children('td').wrapInner('<div style="display: none;" />');
-        return $tr;
-      };
-
-      jQuery.fn.slideFadeTableRow = function(speed, easing, callback) {
-        $tr = this;
-        if ($tr.is(':hidden')) {
-        $tr.show().find('td > div').animate({opacity: 'toggle', height: 'toggle'}, speed, easing, callback);
-        }  
-    
-        return $tr;
-      };
-    </script>
 
   </div>
   <!-- /.container -->

@@ -171,15 +171,17 @@ public class WorkDao {
 		return listCount;
 		
 	}
-	
-	//selectListlist=SELECT WORK_NO, WORK_TITLE, WRITER_NO, SERIAL_CNT, APPROVAL_DATE FROM TB_WORK WHERE SECRET_FLAG = 'N'
+
 	public ArrayList<Work> selectList(Connection conn){
+
 		ArrayList<Work> list = new ArrayList<>();
 		
 		Statement stmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("selectList");
+
+		String sql = prop.getProperty("selectListList");
+
 		
 		try {
 			stmt = conn.createStatement();
@@ -1163,7 +1165,7 @@ public class WorkDao {
 		PreparedStatement  pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = "SELECT EPISODE_NO, E.APPROVAL_DATE, VIEWS_CNT, WORK_TITLE, EPISODE_TITLE FROM TB_WORK W JOIN TB_EPISODE E USING(WORK_NO) WHERE WORK_NO = ? ORDER BY EPISODE_NO DESC";
+		String sql = "SELECT EPISODE_NO, E.APPROVAL_DATE, VIEWS_CNT, WORK_TITLE, EPISODE_TITLE, EPISODE_MODIFY FROM TB_WORK W JOIN TB_EPISODE E USING(WORK_NO) WHERE WORK_NO = ? ORDER BY EPISODE_NO DESC";
 		System.out.println(sql);
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -1179,7 +1181,8 @@ public class WorkDao {
 								  rset.getDate("APPROVAL_DATE"),
 								  rset.getInt("VIEWS_CNT"),
 								  rset.getString("WORK_TITLE"),
-								  rset.getString("EPISODE_TITLE")));
+								  rset.getString("EPISODE_TITLE"),
+								  rset.getString("EPISODE_MODIFY")));
 								 	
 			}
 			
@@ -1202,7 +1205,7 @@ public class WorkDao {
 		PreparedStatement  pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = "SELECT EPISODE_NO, E.APPROVAL_DATE, VIEWS_CNT, WORK_TITLE, EPISODE_TITLE FROM TB_WORK W JOIN TB_EPISODE E USING(WORK_NO) WHERE WORK_NO = ? ORDER BY EPISODE_NO ASC";
+		String sql = "SELECT EPISODE_NO, E.APPROVAL_DATE, VIEWS_CNT, WORK_TITLE, EPISODE_TITLE, EPISODE_MODIFY FROM TB_WORK W JOIN TB_EPISODE E USING(WORK_NO) WHERE WORK_NO = ? ORDER BY EPISODE_NO ASC";
 		System.out.println(sql);
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -1218,7 +1221,8 @@ public class WorkDao {
 								  rset.getDate("APPROVAL_DATE"),
 								  rset.getInt("VIEWS_CNT"),
 								  rset.getString("WORK_TITLE"),
-								  rset.getString("EPISODE_TITLE")));
+								  rset.getString("EPISODE_TITLE"),
+								  rset.getString("EPISODE_MODIFY")));
 								 	
 			}
 			
@@ -1284,5 +1288,39 @@ public class WorkDao {
 		}
 		
 		return result;
+	}
+
+	public ArrayList<Work> workSearch(Connection conn, String searchContent) {
+		ArrayList<Work> list = new ArrayList<>();
+		
+		PreparedStatement stmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("workSearch");
+		
+		try {
+			
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, searchContent);
+			rset = stmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Work(rset.getInt("WORK_NO"),
+								  rset.getString("UPDATE_DAY"),
+								  rset.getDate("APPROVAL_DATE"),
+								  rset.getInt("SERIAL_CNT"),
+							      rset.getString("THUMBNAIL_MODIFY"),
+								  rset.getInt("WRITER_NO"),
+								  rset.getString("WORK_TITLE")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return list;
+		
 	}
 }

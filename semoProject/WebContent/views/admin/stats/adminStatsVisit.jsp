@@ -4,6 +4,20 @@
     pageEncoding="UTF-8"%>
 <%
 	ArrayList<VisitStats> list = (ArrayList<VisitStats>)request.getAttribute("list");
+
+	StringBuilder count = new StringBuilder();
+	StringBuilder date = new StringBuilder();
+	
+	// ex. 2020.03.31의 데이터면 2019/04 ~ 2020/03
+	// VisitStats [date=2020/03, count=99]
+	for(VisitStats v : list) {
+		date.append(", \"" + v.getDate() + "\"");
+		count.append(", " + v.getCount());
+	}
+	
+	// 앞에 ', '가 붙어서 제거하기
+	String countNo = count.substring(2);
+	String dateStr = date.substring(2);
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,7 +78,7 @@
 	        var myLineChart = new Chart(ctx, {
 	          type: 'line',
 	          data: {
-	            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+	            labels: [<%=dateStr%>],
 	            datasets: [{
 	              label: "누적 방문 수",
 	              lineTension: 0.3,
@@ -77,7 +91,7 @@
 	              pointHoverBackgroundColor: "rgba(2,117,216,1)",
 	              pointHitRadius: 50,
 	              pointBorderWidth: 2,
-	              data: [10000, 30162, 26263, 0,0,0,0,0,0,0,0,0],
+	              data: [<%=countNo%>],
 	            }],
 	          },
 	          options: {
@@ -96,7 +110,7 @@
 	              yAxes: [{
 	                ticks: {
 	                  min: 0,
-	                  max: 40000,
+	                  max: 200,
 	                  maxTicksLimit: 5
 	                },
 	                gridLines: {

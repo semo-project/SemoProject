@@ -430,7 +430,7 @@ NAVER 내의 개별 서비스 이용, 이벤트 응모 및 경품 신청 과정�
         
         <div class="login_links2">
             <a id="member_join2">확인</a>
-            <a id="cancel" href="index.html">취소</a>
+            <a id="cancel" href="<%=contextPath%>">취소</a>
           </div>
     </form>
 </div>
