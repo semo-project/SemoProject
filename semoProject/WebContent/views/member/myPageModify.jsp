@@ -170,7 +170,7 @@
           	</tr>
           	<tr>
           	  <td>변경할 비밀번호 : </td>
-          	  <td><input type="password" style="width:220px;" name="newPwd" placeholder="영어, 특수문자 포함 10자 이상" min="10"></td>
+          	  <td><input type="password" style="width:220px;" name="newPwd" min="8"></td>
           	</tr>
           	<tr>
           	  <td>비밀번호 확인 : </td>

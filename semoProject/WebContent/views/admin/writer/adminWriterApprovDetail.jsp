@@ -3,6 +3,7 @@
 <%@ page import="com.kh.writer.model.vo.Writer" %>
 <%
 	Writer w = (Writer)request.getAttribute("w");
+
 %>
 <!DOCTYPE html>
 <html lang="en">

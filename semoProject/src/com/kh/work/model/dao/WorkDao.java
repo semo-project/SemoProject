@@ -1163,7 +1163,7 @@ public class WorkDao {
 		PreparedStatement  pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = "SELECT EPISODE_NO, E.APPROVAL_DATE, VIEWS_CNT, WORK_TITLE, EPISODE_TITLE FROM TB_WORK W JOIN TB_EPISODE E USING(WORK_NO) WHERE WORK_NO = ? ORDER BY EPISODE_NO DESC";
+		String sql = "SELECT EPISODE_NO, E.APPROVAL_DATE, VIEWS_CNT, WORK_TITLE, EPISODE_TITLE, EPISODE_MODIFY FROM TB_WORK W JOIN TB_EPISODE E USING(WORK_NO) WHERE WORK_NO = ? ORDER BY EPISODE_NO DESC";
 		System.out.println(sql);
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -1203,7 +1203,7 @@ public class WorkDao {
 		PreparedStatement  pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = "SELECT EPISODE_NO, E.APPROVAL_DATE, VIEWS_CNT, WORK_TITLE, EPISODE_TITLE FROM TB_WORK W JOIN TB_EPISODE E USING(WORK_NO) WHERE WORK_NO = ? ORDER BY EPISODE_NO ASC";
+		String sql = "SELECT EPISODE_NO, E.APPROVAL_DATE, VIEWS_CNT, WORK_TITLE, EPISODE_TITLE, EPISODE_MODIFY FROM TB_WORK W JOIN TB_EPISODE E USING(WORK_NO) WHERE WORK_NO = ? ORDER BY EPISODE_NO ASC";
 		System.out.println(sql);
 		try {
 			pstmt = conn.prepareStatement(sql);
