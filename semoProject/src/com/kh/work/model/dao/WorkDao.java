@@ -179,7 +179,7 @@ public class WorkDao {
 		Statement stmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("selectListlist");
+		String sql = prop.getProperty("selectList");
 		
 		try {
 			stmt = conn.createStatement();
