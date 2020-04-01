@@ -47,8 +47,6 @@ public class CookiePurchaseServlet extends HttpServlet {
 		
 		if(result > 0) {
 			Member mem = new MemberService().loginMember(loginUser.getMemberId(), loginUser.getMemberPwd());
-			request.setAttribute("loginUser", mem);
-			request.getRequestDispatcher("views/member/myPageMain.jsp").forward(request, response);
 			HttpSession session = request.getSession();
 			session.removeAttribute("loginUser");
 			request.setAttribute("loginUser", mem);
